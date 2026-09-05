@@ -1,13 +1,16 @@
+//
+//  TypedAnswerLiveTests.swift
+//  AnkiProtoBridgeTests
+//
+//  Created by Vladimir Gusev on 26.07.2026.
+//
+
 import Foundation
 import Testing
 import AnkiKit
 @testable import AnkiProtoBridge
 @testable import AnkiBackend
 
-/// Live end-to-end check of the typed-answer mechanic against the real Rust
-/// backend: a fresh collection's stock "Basic (type in the answer)" notetype
-/// renders the `[[type:Back]]` placeholder ReviewSession keys off, and
-/// CompareAnswer produces the diff markup substituted into the back HTML.
 @Suite struct TypedAnswerLiveTests {
     @Test func basicTypeInAnswer_rendersPlaceholder_and_diffsTypedAnswer() throws {
         let dir = FileManager.default.temporaryDirectory
@@ -39,8 +42,6 @@ import AnkiKit
         let card = try #require(queued.cards.first?.card)
         let rendered = try backend.invoke(.renderExistingCard(cardId: card.id))
 
-        // Front carries the placeholder ReviewSession swaps for <input id=typeans>;
-        // back carries the same token where the CompareAnswer diff is substituted.
         #expect(rendered.frontHTML.contains("[[type:Back]]"))
         #expect(rendered.backHTML.contains("[[type:Back]]"))
 

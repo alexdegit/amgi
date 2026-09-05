@@ -1,22 +1,19 @@
+//
+//  RoundTripTests.swift
+//  AnkiProtoBridgeTests
+//
+//  Created by Vladimir Gusev on 13.05.2026.
+//
+
 import Testing
 import AnkiKit
 @testable import AnkiProtoBridge
 @testable import AnkiBackend
 import AnkiProto
 
-/// Tests that exercise the *symmetric* mirror↔proto round-trip:
-///   mirror → toProto() → init(_:) → mirror
-/// Catches drift the first time a field is added on one side but not
-/// the other. Each test calls out which fields are intentionally
-/// asymmetric (e.g. `csum` lives in the SQLite layer, not the wire
-/// format) so failures point at the real bug not the documented
-/// asymmetry.
 @Suite struct RoundTripTests {
     // MARK: - NoteRecord
 
-    /// The proto wire format carries (id, notetype, fields, tags) only.
-    /// `guid`, `mod`, `usn`, `sfld`, `csum`, `flags`, `data` are
-    /// recomputed or owned by the backend — not preserved on round-trip.
     @Test func NoteRecord_roundTrips_id_notetype_fields_tags() {
         let original = NoteRecord(
             id: NoteID(101),
@@ -61,9 +58,6 @@ import AnkiProto
 
     // MARK: - DeckConfig
 
-    /// `id`, `name`, `mtimeSecs`, `usn` round-trip directly. The nested
-    /// `config` enum bundle is exercised separately in
-    /// DeckConfigConversionsTests.
     @Test func DeckConfig_roundTrips_identity_fields() {
         let original = DeckConfig(
             id: DeckConfigID(99),
@@ -81,10 +75,6 @@ import AnkiProto
 
     // MARK: - Notetype
 
-    /// Full identity round-trip — Notetype's wire format carries every
-    /// mirrored field (config, fields, templates included). If this
-    /// breaks, a proto field was added without updating either
-    /// init(_:) or toProto().
     @Test func Notetype_roundTrips_identity_and_top_level_fields() {
         let original = makeNotetype()
         let roundTripped = Notetype(original.toProto())

@@ -1,4 +1,10 @@
-// AmgiApp/Sources/Widgets/AmgiWidgetBundle.swift
+//
+//  AmgiWidgetBundle.swift
+//  AmgiWidget
+//
+//  Created by Vladimir Gusev on 07.04.2026.
+//
+
 import WidgetKit
 import SwiftUI
 import WidgetFeature
