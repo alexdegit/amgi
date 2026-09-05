@@ -1,3 +1,10 @@
+//
+//  StatsDashboardContentStateTests.swift
+//  StatsFeatureTests
+//
+//  Created by Vladimir Gusev on 10.08.2026.
+//
+
 import AnkiClients
 import AnkiKit
 import Dependencies

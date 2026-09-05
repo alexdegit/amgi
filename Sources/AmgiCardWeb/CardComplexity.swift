@@ -1,3 +1,10 @@
+//
+//  CardComplexity.swift
+//  AmgiCardWeb
+//
+//  Created by Vladimir Gusev on 20.07.2026.
+//
+
 import Foundation
 
 /// Decides whether a rendered card is simple enough for the native SwiftUI

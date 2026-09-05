@@ -1,3 +1,10 @@
+//
+//  IdentifiersTests.swift
+//  AnkiKitTests
+//
+//  Created by Vladimir Gusev on 07.05.2026.
+//
+
 import Testing
 import Foundation
 @testable import AnkiKit

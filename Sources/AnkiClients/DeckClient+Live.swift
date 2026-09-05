@@ -1,3 +1,10 @@
+//
+//  DeckClient+Live.swift
+//  AnkiClients
+//
+//  Created by Vladimir Gusev on 27.03.2026.
+//
+
 import AnkiBackend
 import AnkiKit
 import AnkiServices

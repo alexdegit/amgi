@@ -1,3 +1,10 @@
+//
+//  Request.swift
+//  AnkiBackend
+//
+//  Created by Vladimir Gusev on 07.05.2026.
+//
+
 package import Foundation
 
 /// Typed RPC envelope. `AnkiProtoBridge` constructs these via factory

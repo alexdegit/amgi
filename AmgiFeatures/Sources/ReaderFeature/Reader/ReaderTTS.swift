@@ -1,3 +1,10 @@
+//
+//  ReaderTTS.swift
+//  ReaderFeature
+//
+//  Created by Vladimir Gusev on 05.05.2026.
+//
+
 import AVFoundation
 import Foundation
 

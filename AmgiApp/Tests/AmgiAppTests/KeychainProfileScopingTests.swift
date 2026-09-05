@@ -1,3 +1,10 @@
+//
+//  KeychainProfileScopingTests.swift
+//  AmgiAppTests
+//
+//  Created by Vladimir Gusev on 29.07.2026.
+//
+
 import Foundation
 import Testing
 import AnkiSync

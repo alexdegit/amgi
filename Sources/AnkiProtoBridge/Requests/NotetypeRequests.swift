@@ -1,3 +1,10 @@
+//
+//  NotetypeRequests.swift
+//  AnkiProtoBridge
+//
+//  Created by Vladimir Gusev on 08.05.2026.
+//
+
 import Foundation
 public import AnkiBackend
 public import AnkiKit

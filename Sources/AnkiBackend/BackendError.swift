@@ -1,3 +1,10 @@
+//
+//  BackendError.swift
+//  AnkiBackend
+//
+//  Created by Vladimir Gusev on 27.03.2026.
+//
+
 import AnkiProto
 public import Foundation
 import SwiftProtobuf

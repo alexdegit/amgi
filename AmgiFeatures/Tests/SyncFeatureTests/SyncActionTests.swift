@@ -1,3 +1,10 @@
+//
+//  SyncActionTests.swift
+//  SyncFeatureTests
+//
+//  Created by Vladimir Gusev on 29.08.2026.
+//
+
 import Testing
 import SwiftUI
 @testable import SyncFeature

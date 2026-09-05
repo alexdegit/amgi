@@ -1,3 +1,10 @@
+//
+//  StatsTypes.swift
+//  AnkiKit
+//
+//  Created by Vladimir Gusev on 27.03.2026.
+//
+
 public struct TodayStats: Sendable, Equatable {
     public var reviewed: Int
     public var timeSpentMs: Int

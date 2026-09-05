@@ -1,3 +1,10 @@
+//
+//  MediaClient.swift
+//  AnkiClients
+//
+//  Created by Vladimir Gusev on 27.03.2026.
+//
+
 public import AnkiKit
 public import Foundation
 public import Dependencies

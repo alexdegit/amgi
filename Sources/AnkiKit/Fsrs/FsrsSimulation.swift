@@ -1,3 +1,10 @@
+//
+//  FsrsSimulation.swift
+//  AnkiKit
+//
+//  Created by Vladimir Gusev on 07.05.2026.
+//
+
 /// Inputs for the FSRS simulator (review + workload modes share the
 /// same wire request type). Surfaces only the fields that consumers
 /// in `DeckConfigView` actually populate — `reviewOrder` and

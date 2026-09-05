@@ -1,3 +1,10 @@
+//
+//  ImageOcclusionDestination.swift
+//  BrowseFeature
+//
+//  Created by Vladimir Gusev on 15.08.2026.
+//
+
 import SwiftUI
 import CasePaths
 

@@ -1,3 +1,10 @@
+//
+//  ImportExportRequests.swift
+//  AnkiProtoBridge
+//
+//  Created by Vladimir Gusev on 12.05.2026.
+//
+
 import Foundation
 public import AnkiBackend
 public import AnkiKit

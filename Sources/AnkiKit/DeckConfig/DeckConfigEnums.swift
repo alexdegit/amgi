@@ -1,3 +1,10 @@
+//
+//  DeckConfigEnums.swift
+//  AnkiKit
+//
+//  Created by Vladimir Gusev on 08.05.2026.
+//
+
 // Mirror enums for `Anki_DeckConfig_DeckConfig.Config.*`. Cases match
 // the proto names so migration is mechanical; raw integer values match
 // the wire format so the bridge can convert with a 1:1 switch.

@@ -1,3 +1,10 @@
+//
+//  ImageOcclusionClient+Live.swift
+//  AnkiClients
+//
+//  Created by Vladimir Gusev on 28.04.2026.
+//
+
 import AnkiBackend
 import AnkiKit
 import AnkiProtoBridge

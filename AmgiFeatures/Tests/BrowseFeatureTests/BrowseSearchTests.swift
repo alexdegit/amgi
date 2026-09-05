@@ -1,3 +1,10 @@
+//
+//  BrowseSearchTests.swift
+//  BrowseFeatureTests
+//
+//  Created by Vladimir Gusev on 15.08.2026.
+//
+
 import AnkiClients
 import AnkiKit
 import AnkiServices

@@ -1,3 +1,10 @@
+//
+//  NoteRecord.swift
+//  AnkiKit
+//
+//  Created by Vladimir Gusev on 27.03.2026.
+//
+
 public struct NoteRecord: Sendable, Hashable, Identifiable {
     public let id: NoteID
     public var guid: String

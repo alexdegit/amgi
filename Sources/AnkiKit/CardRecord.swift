@@ -1,3 +1,10 @@
+//
+//  CardRecord.swift
+//  AnkiKit
+//
+//  Created by Vladimir Gusev on 27.03.2026.
+//
+
 import Foundation
 
 public struct CardRecord: Sendable {

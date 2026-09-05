@@ -1,3 +1,10 @@
+//
+//  CollectionChanges+Proto.swift
+//  AnkiProtoBridge
+//
+//  Created by Vladimir Gusev on 05.07.2026.
+//
+
 package import AnkiKit
 package import AnkiProto
 

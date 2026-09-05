@@ -1,3 +1,10 @@
+//
+//  TemplateEditorDestination.swift
+//  TemplatesFeature
+//
+//  Created by Vladimir Gusev on 18.08.2026.
+//
+
 import Foundation
 import CasePaths
 

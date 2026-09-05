@@ -1,3 +1,10 @@
+//
+//  StatsFixtures.swift
+//  AnkiKit
+//
+//  Created by Vladimir Gusev on 22.06.2026.
+//
+
 #if DEBUG && canImport(SwiftUI)
 import Foundation
 

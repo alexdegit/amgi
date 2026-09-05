@@ -1,3 +1,10 @@
+//
+//  Scheduler+Proto.swift
+//  AnkiProtoBridge
+//
+//  Created by Vladimir Gusev on 12.05.2026.
+//
+
 package import AnkiKit
 package import AnkiProto
 import Foundation

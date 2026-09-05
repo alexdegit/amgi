@@ -1,3 +1,10 @@
+//
+//  CardRenderingService.swift
+//  AnkiServices
+//
+//  Created by Vladimir Gusev on 01.04.2026.
+//
+
 import AnkiBackend
 import AnkiProtoBridge
 public import AnkiKit

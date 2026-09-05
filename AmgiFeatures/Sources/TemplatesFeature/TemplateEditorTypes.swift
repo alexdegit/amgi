@@ -1,3 +1,10 @@
+//
+//  TemplateEditorTypes.swift
+//  TemplatesFeature
+//
+//  Created by Vladimir Gusev on 14.05.2026.
+//
+
 import AnkiKit
 
 /// Sheet payload identifying which notetype/template the editor should open.

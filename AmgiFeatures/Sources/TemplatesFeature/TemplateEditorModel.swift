@@ -1,3 +1,10 @@
+//
+//  TemplateEditorModel.swift
+//  TemplatesFeature
+//
+//  Created by Vladimir Gusev on 27.06.2026.
+//
+
 import AnkiClients
 import AnkiKit
 import Dependencies

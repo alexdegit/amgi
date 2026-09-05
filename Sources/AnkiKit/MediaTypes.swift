@@ -1,3 +1,10 @@
+//
+//  MediaTypes.swift
+//  AnkiKit
+//
+//  Created by Vladimir Gusev on 13.05.2026.
+//
+
 /// Snapshot of orphan vs. missing media files surfaced by Anki's
 /// media-check pass.
 public struct MediaCheckResult: Sendable, Equatable {

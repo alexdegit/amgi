@@ -1,3 +1,10 @@
+//
+//  DeckConfigContext.swift
+//  AnkiKit
+//
+//  Created by Vladimir Gusev on 08.05.2026.
+//
+
 /// Mirror for `Anki_DeckConfig_DeckConfigsForUpdate`. Carries the
 /// preset list, the current deck's metadata, the defaults, and the
 /// per-collection FSRS toggles that DeckConfigView surfaces.

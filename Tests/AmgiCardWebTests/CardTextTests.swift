@@ -1,3 +1,10 @@
+//
+//  CardTextTests.swift
+//  AmgiCardWebTests
+//
+//  Created by Vladimir Gusev on 20.08.2026.
+//
+
 import Testing
 @testable import AmgiCardWeb
 

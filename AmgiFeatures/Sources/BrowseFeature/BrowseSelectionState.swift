@@ -1,3 +1,10 @@
+//
+//  BrowseSelectionState.swift
+//  BrowseFeature
+//
+//  Created by Vladimir Gusev on 02.05.2026.
+//
+
 import Foundation
 import AnkiKit
 

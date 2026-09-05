@@ -1,3 +1,10 @@
+//
+//  BrowseSelectionTests.swift
+//  BrowseFeatureTests
+//
+//  Created by Vladimir Gusev on 02.05.2026.
+//
+
 import AnkiKit
 import Testing
 @testable import BrowseFeature

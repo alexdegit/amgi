@@ -1,3 +1,10 @@
+//
+//  DeckConfig.swift
+//  AnkiKit
+//
+//  Created by Vladimir Gusev on 08.05.2026.
+//
+
 public import Foundation
 
 /// Mirror for `Anki_DeckConfig_DeckConfig`. The wire wrapper carries

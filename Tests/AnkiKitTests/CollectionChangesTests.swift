@@ -1,3 +1,10 @@
+//
+//  CollectionChangesTests.swift
+//  AnkiKitTests
+//
+//  Created by Vladimir Gusev on 05.07.2026.
+//
+
 import Testing
 @testable import AnkiKit
 

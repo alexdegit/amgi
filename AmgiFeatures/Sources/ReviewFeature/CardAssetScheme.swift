@@ -1,3 +1,10 @@
+//
+//  CardAssetScheme.swift
+//  ReviewFeature
+//
+//  Created by Vladimir Gusev on 16.04.2026.
+//
+
 import Foundation
 import WebKit
 import AmgiCardWeb

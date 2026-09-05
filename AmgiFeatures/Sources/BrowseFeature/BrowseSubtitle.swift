@@ -1,3 +1,10 @@
+//
+//  BrowseSubtitle.swift
+//  BrowseFeature
+//
+//  Created by Vladimir Gusev on 03.05.2026.
+//
+
 import Foundation
 
 func composeNoteSubtitle(notetypeName: String?, tags: String) -> String? {

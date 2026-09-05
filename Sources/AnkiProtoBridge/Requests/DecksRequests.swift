@@ -1,3 +1,10 @@
+//
+//  DecksRequests.swift
+//  AnkiProtoBridge
+//
+//  Created by Vladimir Gusev on 07.05.2026.
+//
+
 public import Foundation
 public import AnkiBackend
 public import AnkiKit

@@ -1,3 +1,10 @@
+//
+//  NativeCardAudioPlayer.swift
+//  ReviewFeature
+//
+//  Created by Vladimir Gusev on 20.07.2026.
+//
+
 import AVFoundation
 import Foundation
 import Observation

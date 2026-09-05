@@ -1,3 +1,10 @@
+//
+//  SyncEndpoint.swift
+//  AnkiSync
+//
+//  Created by Vladimir Gusev on 20.08.2026.
+//
+
 public import Foundation
 
 /// Normalization for the user-configured sync server URL.

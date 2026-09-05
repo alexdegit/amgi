@@ -1,3 +1,10 @@
+//
+//  DeckClient+Preview.swift
+//  AnkiClients
+//
+//  Created by Vladimir Gusev on 13.05.2026.
+//
+
 #if DEBUG
 import AnkiKit
 import Dependencies

@@ -1,3 +1,10 @@
+//
+//  DeckSearch.swift
+//  AnkiKit
+//
+//  Created by Vladimir Gusev on 20.08.2026.
+//
+
 import Foundation
 
 /// Anki search-query construction.

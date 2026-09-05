@@ -1,3 +1,10 @@
+//
+//  Notetype.swift
+//  AnkiKit
+//
+//  Created by Vladimir Gusev on 08.05.2026.
+//
+
 public import Foundation
 
 /// Mirror for `Anki_Notetypes_Notetype`. Carries identity + bookkeeping

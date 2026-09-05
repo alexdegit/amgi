@@ -1,3 +1,10 @@
+//
+//  DeckTypes.swift
+//  AnkiKit
+//
+//  Created by Vladimir Gusev on 27.03.2026.
+//
+
 package import Foundation
 
 /// Server-prepared blank deck returned by `Request.newDeck`. Carries

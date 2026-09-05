@@ -1,3 +1,10 @@
+//
+//  BrowseSortingTests.swift
+//  BrowseFeatureTests
+//
+//  Created by Vladimir Gusev on 08.08.2026.
+//
+
 import AnkiClients
 import AnkiKit
 import Dependencies

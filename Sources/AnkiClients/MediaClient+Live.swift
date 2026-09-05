@@ -1,3 +1,10 @@
+//
+//  MediaClient+Live.swift
+//  AnkiClients
+//
+//  Created by Vladimir Gusev on 29.04.2026.
+//
+
 import AnkiBackend
 import AnkiKit
 import AnkiProtoBridge

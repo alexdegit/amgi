@@ -1,3 +1,10 @@
+//
+//  DeckConfigConversionsTests.swift
+//  AnkiProtoBridgeTests
+//
+//  Created by Vladimir Gusev on 08.05.2026.
+//
+
 import Testing
 import AnkiKit
 @testable import AnkiProtoBridge

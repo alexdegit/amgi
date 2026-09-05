@@ -1,3 +1,10 @@
+//
+//  DeckConfigModel+Parsing.swift
+//  DecksFeature
+//
+//  Created by Vladimir Gusev on 20.08.2026.
+//
+
 import AnkiClients
 import AnkiKit
 import Dependencies

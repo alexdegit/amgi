@@ -1,3 +1,10 @@
+//
+//  ImageOcclusionClient.swift
+//  AnkiClients
+//
+//  Created by Vladimir Gusev on 28.04.2026.
+//
+
 public import AnkiKit
 public import Dependencies
 import DependenciesMacros

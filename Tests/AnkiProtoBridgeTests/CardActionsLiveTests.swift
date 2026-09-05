@@ -1,3 +1,10 @@
+//
+//  CardActionsLiveTests.swift
+//  AnkiProtoBridgeTests
+//
+//  Created by Vladimir Gusev on 31.08.2026.
+//
+
 import Foundation
 import Testing
 import AnkiKit

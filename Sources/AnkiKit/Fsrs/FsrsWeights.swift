@@ -1,3 +1,10 @@
+//
+//  FsrsWeights.swift
+//  AnkiKit
+//
+//  Created by Vladimir Gusev on 07.05.2026.
+//
+
 /// Wrapper for an FSRS parameter vector. Exists as its own type so call
 /// sites have something to name beyond `[Float]` — the values are
 /// otherwise opaque numerics whose interpretation is the FSRS engine's.

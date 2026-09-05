@@ -1,3 +1,10 @@
+//
+//  EmptyCardsModel.swift
+//  SettingsFeature
+//
+//  Created by Vladimir Gusev on 18.08.2026.
+//
+
 import AnkiKit
 import AnkiClients
 import AnkiServices

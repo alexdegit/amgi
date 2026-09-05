@@ -1,3 +1,10 @@
+//
+//  KeychainHelper.swift
+//  AnkiSync
+//
+//  Created by Vladimir Gusev on 27.03.2026.
+//
+
 public import Foundation
 import AnkiKit
 import Security

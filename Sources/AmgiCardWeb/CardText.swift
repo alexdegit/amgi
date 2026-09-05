@@ -1,3 +1,10 @@
+//
+//  CardText.swift
+//  AmgiCardWeb
+//
+//  Created by Vladimir Gusev on 20.08.2026.
+//
+
 import Foundation
 
 /// Shared parsing for Anki's card wire format.

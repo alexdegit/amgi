@@ -1,3 +1,10 @@
+//
+//  CardWebViewConfig.swift
+//  ReviewFeature
+//
+//  Created by Vladimir Gusev on 01.05.2026.
+//
+
 import Foundation
 
 enum CardWebViewReplayMode: String, Sendable {

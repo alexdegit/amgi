@@ -1,3 +1,10 @@
+//
+//  DeckTemplateListModel.swift
+//  TemplatesFeature
+//
+//  Created by Vladimir Gusev on 23.06.2026.
+//
+
 import AnkiClients
 import AnkiKit
 import Dependencies

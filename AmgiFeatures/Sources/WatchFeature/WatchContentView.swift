@@ -1,3 +1,10 @@
+//
+//  WatchContentView.swift
+//  WatchFeature
+//
+//  Created by Leaf Eriksen on 17.07.2026.
+//
+
 import AnkiKit
 public import SwiftUI
 

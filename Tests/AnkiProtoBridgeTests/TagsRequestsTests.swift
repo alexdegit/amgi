@@ -1,3 +1,10 @@
+//
+//  TagsRequestsTests.swift
+//  AnkiProtoBridgeTests
+//
+//  Created by Vladimir Gusev on 13.05.2026.
+//
+
 import Testing
 import AnkiKit
 @testable import AnkiProtoBridge

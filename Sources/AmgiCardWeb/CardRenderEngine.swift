@@ -1,3 +1,10 @@
+//
+//  CardRenderEngine.swift
+//  AmgiCardWeb
+//
+//  Created by Vladimir Gusev on 20.07.2026.
+//
+
 /// User-selectable rendering engine for review cards (R11).
 /// `auto` defers to `CardComplexity`; the other two force an engine,
 /// though cards that *require* the WebView (typed answer, cloze, MathJax,

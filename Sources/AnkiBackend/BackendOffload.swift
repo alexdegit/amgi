@@ -1,3 +1,10 @@
+//
+//  BackendOffload.swift
+//  AnkiBackend
+//
+//  Created by Vladimir Gusev on 20.08.2026.
+//
+
 /// Hops a synchronous Engine call off the caller's actor.
 ///
 /// `AnkiClients` live values — and the handful of feature models that call an

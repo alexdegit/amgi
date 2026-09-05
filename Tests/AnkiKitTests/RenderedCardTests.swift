@@ -1,3 +1,10 @@
+//
+//  RenderedCardTests.swift
+//  AnkiKitTests
+//
+//  Created by Vladimir Gusev on 01.05.2026.
+//
+
 import Testing
 import AnkiKit
 

@@ -1,3 +1,10 @@
+//
+//  EmptyCardsReport.swift
+//  AnkiKit
+//
+//  Created by Vladimir Gusev on 13.05.2026.
+//
+
 /// Per-note empty-card cluster surfaced by `Collection.get_empty_cards`.
 /// `willDeleteNote` is true when removing the listed cards would leave
 /// the note with no cards at all.

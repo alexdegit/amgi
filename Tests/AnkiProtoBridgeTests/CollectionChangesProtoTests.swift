@@ -1,3 +1,10 @@
+//
+//  CollectionChangesProtoTests.swift
+//  AnkiProtoBridgeTests
+//
+//  Created by Vladimir Gusev on 05.07.2026.
+//
+
 import Testing
 import AnkiKit
 @testable import AnkiProtoBridge

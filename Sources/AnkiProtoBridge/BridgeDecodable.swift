@@ -1,3 +1,10 @@
+//
+//  BridgeDecodable.swift
+//  AnkiProtoBridge
+//
+//  Created by Vladimir Gusev on 13.05.2026.
+//
+
 package import AnkiBackend
 package import Foundation
 package import SwiftProtobuf

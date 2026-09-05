@@ -1,3 +1,10 @@
+//
+//  Time.swift
+//  AnkiKit
+//
+//  Created by Vladimir Gusev on 13.05.2026.
+//
+
 public import Foundation
 
 public extension Date {

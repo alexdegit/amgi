@@ -1,3 +1,10 @@
+//
+//  FsrsOptimize.swift
+//  AnkiKit
+//
+//  Created by Vladimir Gusev on 07.05.2026.
+//
+
 public import Foundation
 
 /// Inputs for `Request.computeFsrsParams`. Mirrors the wire-level

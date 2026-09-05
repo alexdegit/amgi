@@ -1,3 +1,10 @@
+//
+//  Identifiers.swift
+//  AnkiKit
+//
+//  Created by Vladimir Gusev on 07.05.2026.
+//
+
 import Foundation
 
 /// Phantom-typed identifier wrapping the backend's `Int64` ID space.

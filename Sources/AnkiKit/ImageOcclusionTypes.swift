@@ -1,3 +1,10 @@
+//
+//  ImageOcclusionTypes.swift
+//  AnkiKit
+//
+//  Created by Vladimir Gusev on 13.05.2026.
+//
+
 public import Foundation
 
 /// Full payload for an image-occlusion note, surfaced by the

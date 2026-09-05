@@ -1,3 +1,10 @@
+//
+//  BrowseSubtitleTests.swift
+//  BrowseFeatureTests
+//
+//  Created by Vladimir Gusev on 03.05.2026.
+//
+
 import Testing
 @testable import BrowseFeature
 

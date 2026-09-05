@@ -1,3 +1,10 @@
+//
+//  CollectionChanges.swift
+//  AnkiKit
+//
+//  Created by Vladimir Gusev on 05.07.2026.
+//
+
 /// Which Collection facets a mutation touched. Decoded from the Engine's
 /// `OpChanges` response by AnkiProtoBridge and consumed by the app's
 /// CollectionStore to invalidate cached reads.

@@ -1,3 +1,10 @@
+//
+//  SchedulerTypes.swift
+//  AnkiKit
+//
+//  Created by Vladimir Gusev on 01.04.2026.
+//
+
 package import Foundation
 
 /// Opaque wrapper for a serialized proto SchedulingState. App code holds these

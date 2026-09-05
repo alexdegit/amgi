@@ -1,3 +1,10 @@
+//
+//  ImageOcclusionWorkspaceModelTests.swift
+//  BrowseFeatureTests
+//
+//  Created by Vladimir Gusev on 15.08.2026.
+//
+
 import Testing
 import SwiftUI
 import UIKit

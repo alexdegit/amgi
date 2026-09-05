@@ -1,3 +1,10 @@
+//
+//  Graphs+Proto.swift
+//  AnkiProtoBridge
+//
+//  Created by Vladimir Gusev on 08.05.2026.
+//
+
 package import AnkiKit
 package import AnkiProto
 
