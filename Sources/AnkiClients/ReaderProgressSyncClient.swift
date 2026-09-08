@@ -1,4 +1,11 @@
-public import AmgiReader
+//
+//  ReaderProgressSyncClient.swift
+//  AnkiClients
+//
+//  Created by Vladimir Gusev on 05.05.2026.
+//
+
+public import Reader
 public import Dependencies
 import DependenciesMacros
 
@@ -7,8 +14,8 @@ import DependenciesMacros
 /// into the Anki collection config so the same progress reaches other
 /// devices via Anki sync.
 ///
-/// Lives in `AnkiClients` rather than `AmgiReader` because the bridge
-/// to Anki's `setConfigJSONValue` is an Anki concern. `AmgiReader` itself
+/// Lives in `AnkiClients` rather than `Reader` because the bridge
+/// to Anki's `setConfigJSONValue` is an Anki concern. `Reader` itself
 /// stays Anki-free.
 @DependencyClient
 public struct ReaderProgressSyncClient: Sendable {

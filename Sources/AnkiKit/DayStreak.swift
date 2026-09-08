@@ -1,8 +1,15 @@
+//
+//  DayStreak.swift
+//  AnkiKit
+//
+//  Created by Vladimir Gusev on 20.08.2026.
+//
+
 /// Consecutive-day review-streak counting.
 ///
 /// One algorithm, in the lowest module every caller can see. It previously
-/// existed three times — `AmgiAppCore.StreakCalculator`, the widget's use of
-/// it, and `AmgiCharts.HeatmapChartOptimized.currentStreak` — with different
+/// existed three times — `AppCore.StreakCalculator`, the widget's use of
+/// it, and `StatsCharts.HeatmapChartOptimized.currentStreak` — with different
 /// edge-case handling, so the same user could see different streak numbers on
 /// the Library card and the Stats dashboard.
 ///

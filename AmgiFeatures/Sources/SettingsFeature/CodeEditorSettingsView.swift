@@ -1,6 +1,13 @@
+//
+//  CodeEditorSettingsView.swift
+//  SettingsFeature
+//
+//  Created by Vladimir Gusev on 14.05.2026.
+//
+
 import SwiftUI
-import AmgiAppCore
-import AmgiTheme
+import AppCore
+import Theme
 import Sharing
 
 /// Font + family preferences for the HTML/CSS source editor used inside

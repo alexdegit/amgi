@@ -1,5 +1,12 @@
+//
+//  DeckCountsView.swift
+//  WatchFeature
+//
+//  Created by Vladimir Gusev on 27.03.2026.
+//
+
 import SwiftUI
-import AmgiTheme
+import Theme
 import AnkiKit
 
 struct DeckCountsView: View {

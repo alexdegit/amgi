@@ -1,7 +1,14 @@
+//
+//  AppearanceSettingsView.swift
+//  SettingsFeature
+//
+//  Created by Vladimir Gusev on 28.04.2026.
+//
+
 import SwiftUI
-import AmgiAppCore
-import AmgiTheme
-import AmgiUI
+import AppCore
+import Theme
+import UI
 import Sharing
 
 struct AppearanceSettingsView: View {

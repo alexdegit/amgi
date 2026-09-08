@@ -1,5 +1,12 @@
-import AmgiReader
-import AmgiTheme
+//
+//  AllBooksSection.swift
+//  ReaderFeature
+//
+//  Created by Vladimir Gusev on 17.05.2026.
+//
+
+import Reader
+import Theme
 import SwiftUI
 
 struct AllBooksSection: View {

@@ -61,15 +61,15 @@
     {
       "target" : {
         "containerPath" : "container:../AmgiFeatures",
-        "identifier" : "AmgiAppCoreTests",
-        "name" : "AmgiAppCoreTests"
+        "identifier" : "AppCoreTests",
+        "name" : "AppCoreTests"
       }
     },
     {
       "target" : {
         "containerPath" : "container:../AmgiFeatures",
-        "identifier" : "AmgiAppSharedTests",
-        "name" : "AmgiAppSharedTests"
+        "identifier" : "AppSharedTests",
+        "name" : "AppSharedTests"
       }
     },
     {
@@ -96,15 +96,15 @@
     {
       "target" : {
         "containerPath" : "container:../AmgiUI",
-        "identifier" : "AmgiThemeTests",
-        "name" : "AmgiThemeTests"
+        "identifier" : "ThemeTests",
+        "name" : "ThemeTests"
       }
     },
     {
       "target" : {
         "containerPath" : "container:../AmgiUI",
-        "identifier" : "AmgiUITests",
-        "name" : "AmgiUITests"
+        "identifier" : "UITests",
+        "name" : "UITests"
       }
     }
   ],

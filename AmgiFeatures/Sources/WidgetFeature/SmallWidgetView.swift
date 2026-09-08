@@ -1,9 +1,15 @@
-// AmgiFeatures/Sources/WidgetFeature/SmallWidgetView.swift
+//
+//  SmallWidgetView.swift
+//  WidgetFeature
+//
+//  Created by Vladimir Gusev on 07.04.2026.
+//
+
 import Foundation
 import SwiftUI
 import WidgetKit
-import AmgiTheme
-import AmgiAppCore
+import Theme
+import AppCore
 
 struct SmallWidgetView: View {
     @Environment(\.palette) private var palette
@@ -11,43 +17,21 @@ struct SmallWidgetView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            // Streak row
-            HStack(spacing: 4) {
-                Text("🔥")
-                    .font(.system(size: 17))
-                Text("\(snapshot.streak)")
-                    .font(.system(size: 15, weight: .bold))
-                    .foregroundStyle(palette.warning)
-                Text("day streak")
-                    .font(.system(size: 11))
-                    .foregroundStyle(palette.textTertiary)
-            }
+            StreakLabel(days: snapshot.streak)
 
             Spacer()
 
-            // Hero due count
-            VStack(alignment: .leading, spacing: 2) {
-                Text("\(snapshot.totalDue)")
-                    .font(.system(size: 54, weight: .bold, design: .default))
-                    .foregroundStyle(palette.textPrimary)
-                    .minimumScaleFactor(0.6)
-                    .lineLimit(1)
-                    .kerning(-2)
-                Text("cards due")
-                    .font(.system(size: 12))
-                    .foregroundStyle(palette.textSecondary)
-            }
+            DueHero(totalDue: snapshot.totalDue)
 
             Spacer()
 
-            // Deck name
             Text(snapshot.deckName)
-                .font(.system(size: 11))
+                .amgiFont(.micro)
                 .foregroundStyle(palette.textTertiary)
                 .lineLimit(1)
                 .truncationMode(.tail)
         }
-        .padding(15)
+        .padding(AmgiSpacing.lg)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
         .widgetURL(URL(string: "amgi://review?deckId=\(snapshot.deckId)"))
     }
@@ -69,8 +53,8 @@ struct SmallWidgetView: View {
 // rounded background faked. Palette falls back to the `\.palette` default
 // rather than ThemeManager's live theme.
 #Preview {
-    SmallWidgetView(snapshot: .placeholder)
-        .frame(width: 170, height: 170)
-        .background(.fill.tertiary, in: .rect(cornerRadius: 24))
+    WidgetPreviewFrame(width: 170, height: 170) {
+        SmallWidgetView(snapshot: .placeholder)
+    }
 }
 #endif

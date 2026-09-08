@@ -1,13 +1,13 @@
+//
+//  ReaderFontOption.swift
+//  AppCore
+//
+//  Created by Vladimir Gusev on 05.05.2026.
+//
+
 import Foundation
 
-/// Font family the chapter reader injects via CSS. Korean-first list: the
-/// system Korean face (Apple SD Gothic Neo) is always present on iOS;
-/// Sarasa Mono K, Nanum Myeongjo, and Nanum Gothic are common community
-/// fonts that may be installed by the user — we list them here and rely on
-/// the CSS fallback chain to substitute when they're absent.
-///
-/// The raw value is what gets persisted in `ReaderPreferences.Keys.selectedFont`.
-package enum ReaderFontOption: String, CaseIterable, Identifiable, Sendable {
+public enum ReaderFontOption: String, CaseIterable, Identifiable, Sendable {
     case system
     case appleSDGothicNeo = "Apple SD Gothic Neo"
     case appleGothic = "AppleGothic"
@@ -17,11 +17,11 @@ package enum ReaderFontOption: String, CaseIterable, Identifiable, Sendable {
     case hiraginoMincho = "Hiragino Mincho ProN"
     case hiraginoKakuGothic = "Hiragino Kaku Gothic ProN"
 
-    package static let defaultValue = ReaderFontOption.system.rawValue
+    public static let defaultValue = ReaderFontOption.system.rawValue
 
-    package var id: String { rawValue }
+    public var id: String { rawValue }
 
-    package var title: String {
+    public var title: String {
         switch self {
         case .system: return "System"
         case .appleSDGothicNeo: return "Apple SD Gothic Neo"
@@ -34,10 +34,7 @@ package enum ReaderFontOption: String, CaseIterable, Identifiable, Sendable {
         }
     }
 
-    /// CSS `font-family` value. Each option drops to a Korean-aware
-    /// fallback so that a missing custom font still renders Hangul
-    /// correctly rather than tofu.
-    var cssFontFamily: String {
+    public var cssFontFamily: String {
         let koreanFallback = "\"Apple SD Gothic Neo\", \"AppleGothic\""
         switch self {
         case .system:
@@ -55,7 +52,7 @@ package enum ReaderFontOption: String, CaseIterable, Identifiable, Sendable {
         }
     }
 
-    static func resolved(_ rawValue: String) -> ReaderFontOption {
+    public static func resolved(_ rawValue: String) -> ReaderFontOption {
         ReaderFontOption(rawValue: rawValue) ?? .system
     }
 }

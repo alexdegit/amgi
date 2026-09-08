@@ -1,4 +1,11 @@
-import AmgiTheme
+//
+//  ReaderConfigurationView.swift
+//  ReaderFeature
+//
+//  Created by Vladimir Gusev on 05.05.2026.
+//
+
+import Theme
 import AnkiClients
 import AnkiKit
 import Dependencies

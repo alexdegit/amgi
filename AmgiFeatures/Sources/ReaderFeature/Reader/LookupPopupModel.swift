@@ -1,5 +1,12 @@
-import AmgiReader
-import AmgiReaderDictionary
+//
+//  LookupPopupModel.swift
+//  ReaderFeature
+//
+//  Created by Vladimir Gusev on 23.06.2026.
+//
+
+import Reader
+import ReaderDictionary
 import Dependencies
 import Foundation
 

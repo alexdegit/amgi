@@ -1,4 +1,11 @@
-import AmgiReader
+//
+//  ReaderProgressSyncClient+Live.swift
+//  AnkiClients
+//
+//  Created by Vladimir Gusev on 05.05.2026.
+//
+
+import Reader
 import AnkiBackend
 public import Dependencies
 import DependenciesMacros

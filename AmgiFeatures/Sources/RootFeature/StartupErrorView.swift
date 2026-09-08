@@ -1,6 +1,13 @@
-import AmgiAppCore
-import AmgiTheme
-import AmgiUI
+//
+//  StartupErrorView.swift
+//  RootFeature
+//
+//  Created by Vladimir Gusev on 29.08.2026.
+//
+
+import AppCore
+import Theme
+import UI
 import AnkiSync
 import Foundation
 import SwiftUI

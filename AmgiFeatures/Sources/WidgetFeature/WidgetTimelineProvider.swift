@@ -1,7 +1,13 @@
-// AmgiFeatures/Sources/WidgetFeature/WidgetTimelineProvider.swift
+//
+//  WidgetTimelineProvider.swift
+//  WidgetFeature
+//
+//  Created by Vladimir Gusev on 07.04.2026.
+//
+
 import WidgetKit
 import Foundation
-import AmgiAppCore
+import AppCore
 
 struct WidgetEntry: TimelineEntry {
     var date: Date

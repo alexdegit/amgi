@@ -1,5 +1,12 @@
-import AmgiReader
-import AmgiAppCore
+//
+//  ReaderConfiguration.swift
+//  ReaderFeature
+//
+//  Created by Vladimir Gusev on 05.05.2026.
+//
+
+import Reader
+import AppCore
 import Foundation
 import Sharing
 

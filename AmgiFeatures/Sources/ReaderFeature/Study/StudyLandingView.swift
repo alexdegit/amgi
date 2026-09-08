@@ -1,7 +1,14 @@
+//
+//  StudyLandingView.swift
+//  ReaderFeature
+//
+//  Created by Vladimir Gusev on 15.05.2026.
+//
+
 package import SwiftUI
-import AmgiAppShared
-import AmgiUI
-import AmgiReader
+import AppShared
+import UI
+import Reader
 package import AnkiKit
 import Dependencies
 

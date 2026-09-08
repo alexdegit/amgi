@@ -1,5 +1,12 @@
+//
+//  AboutView.swift
+//  SettingsFeature
+//
+//  Created by Vladimir Gusev on 28.04.2026.
+//
+
 import SwiftUI
-import AmgiTheme
+import Theme
 
 struct AboutView: View {
     private var appVersion: String {

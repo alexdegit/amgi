@@ -1,5 +1,12 @@
+//
+//  SyncFlow.swift
+//  SyncFeature
+//
+//  Created by Vladimir Gusev on 29.08.2026.
+//
+
 package import SwiftUI
-import AmgiAppShared
+import AppShared
 import Dependencies
 
 /// The whole sync flow behind one modifier: the trigger (published as
@@ -38,7 +45,7 @@ private struct SyncFlowModifier: ViewModifier {
                 toast.handle(newState)
                 if case .success = newState { store.invalidateAll() }
             }
-            .syncToastOverlay(toast.toast)
+            .syncToastOverlay(toast.toast, onDismiss: { toast.dismiss() })
     }
 }
 

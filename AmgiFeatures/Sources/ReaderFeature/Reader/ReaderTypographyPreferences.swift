@@ -1,3 +1,11 @@
+//
+//  ReaderTypographyPreferences.swift
+//  ReaderFeature
+//
+//  Created by Vladimir Gusev on 16.05.2026.
+//
+
+import AppShared
 import Foundation
 import SwiftUI
 

@@ -1,5 +1,12 @@
-import AmgiReader
-import AmgiTheme
+//
+//  ChapterListView.swift
+//  ReaderFeature
+//
+//  Created by Vladimir Gusev on 05.05.2026.
+//
+
+import Reader
+import Theme
 import SwiftUI
 
 struct ChapterListView: View {

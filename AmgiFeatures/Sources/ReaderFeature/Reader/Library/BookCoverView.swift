@@ -1,5 +1,12 @@
-import AmgiTheme
-import AmgiUI
+//
+//  BookCoverView.swift
+//  ReaderFeature
+//
+//  Created by Vladimir Gusev on 17.05.2026.
+//
+
+import Theme
+import UI
 import SwiftUI
 
 struct BookCoverView: View {

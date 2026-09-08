@@ -1,3 +1,10 @@
+//
+//  ProfileScope.swift
+//  AnkiKit
+//
+//  Created by Vladimir Gusev on 20.08.2026.
+//
+
 import Foundation
 
 /// The single anchor every per-profile scope in the app keys off.
@@ -10,8 +17,8 @@ import Foundation
 /// exists to guard against.
 ///
 /// Lives in `AnkiKit` because that is the lowest module both `AnkiSync`
-/// (KeychainHelper) and `AmgiAppCore` (AccountStore, ReviewPreferences)
-/// already depend on. `AmgiReaderDictionary` is the one holdout — its
+/// (KeychainHelper) and `AppCore` (AccountStore, ReviewPreferences)
+/// already depend on. `ReaderDictionary` is the one holdout — its
 /// package has no edge to AnkiBridge — so it carries a local copy that
 /// points back here.
 public enum ProfileScope: Sendable {

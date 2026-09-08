@@ -1,5 +1,12 @@
-public import AmgiReader
-import AmgiReaderEPUB
+//
+//  EPUBLibraryClient.swift
+//  AnkiClients
+//
+//  Created by Vladimir Gusev on 16.05.2026.
+//
+
+public import Reader
+import ReaderEPUB
 public import Dependencies
 public import Foundation
 import DependenciesMacros

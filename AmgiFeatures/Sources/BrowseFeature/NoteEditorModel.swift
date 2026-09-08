@@ -1,5 +1,12 @@
+//
+//  NoteEditorModel.swift
+//  BrowseFeature
+//
+//  Created by Vladimir Gusev on 22.06.2026.
+//
+
 import OSLog
-import AmgiAppCore
+import AppCore
 import AnkiBackend
 import AnkiKit
 import AnkiClients

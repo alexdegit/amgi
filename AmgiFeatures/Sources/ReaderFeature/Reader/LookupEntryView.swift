@@ -1,5 +1,12 @@
-import AmgiReader
-import AmgiTheme
+//
+//  LookupEntryView.swift
+//  ReaderFeature
+//
+//  Created by Vladimir Gusev on 13.06.2026.
+//
+
+import Reader
+import Theme
 import SwiftUI
 
 /// Font sizes + layout toggles shared by every dictionary-entry view in

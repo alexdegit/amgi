@@ -1,10 +1,17 @@
+//
+//  CardRenderingSettingsView.swift
+//  SettingsFeature
+//
+//  Created by Vladimir Gusev on 20.07.2026.
+//
+
 import SwiftUI
 import AmgiCardWeb
-import AmgiTheme
-import AmgiAppCore
+import Theme
+import AppCore
 import Sharing
-import AmgiReviewCore
-// MemberImportVisibility: CardRenderEngine is AmgiReviewCore's, but its
+import ReviewCore
+// MemberImportVisibility: CardRenderEngine is ReviewCore's, but its
 // `displayName`/`summary` display helpers are ReviewFeature extensions.
 import ReviewFeature
 

@@ -1,5 +1,12 @@
-import AmgiAppShared
-import AmgiUI
+//
+//  DeckListLoadPerformanceTests.swift
+//  DecksFeatureTests
+//
+//  Created by Vladimir Gusev on 02.09.2026.
+//
+
+import AppShared
+import UI
 import AnkiClients
 import AnkiKit
 import Dependencies

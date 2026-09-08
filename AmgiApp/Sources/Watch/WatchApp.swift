@@ -1,10 +1,17 @@
+//
+//  WatchApp.swift
+//  AmgiWatchApp
+//
+//  Created by Leaf Eriksen on 17.07.2026.
+//
+
 import AnkiBackend
 import AnkiSync
 import Dependencies
 import Foundation
 import Sharing
 import SwiftUI
-import AmgiTheme
+import Theme
 import WatchFeature
 
 @main

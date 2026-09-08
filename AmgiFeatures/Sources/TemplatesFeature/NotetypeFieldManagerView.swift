@@ -1,5 +1,12 @@
+//
+//  NotetypeFieldManagerView.swift
+//  TemplatesFeature
+//
+//  Created by Vladimir Gusev on 14.05.2026.
+//
+
 import SwiftUI
-import AmgiTheme
+import Theme
 import AnkiKit
 
 /// Placeholder view for the notetype field manager.

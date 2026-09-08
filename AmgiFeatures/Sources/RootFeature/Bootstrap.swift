@@ -1,5 +1,12 @@
-import AmgiAppCore
-import AmgiReader
+//
+//  Bootstrap.swift
+//  RootFeature
+//
+//  Created by Vladimir Gusev on 29.08.2026.
+//
+
+import AppCore
+import Reader
 import AnkiBackend
 import AnkiClients
 import Dependencies
@@ -45,7 +52,7 @@ public enum AmgiRoot {
                 $0.syncCoordinator = SyncCoordinator()
                 // Wire the Anki-backed concrete realization of the dictionary
                 // engine's abstract config store. Keeps the engine package
-                // (AmgiReaderDictionary) free of Anki imports.
+                // (ReaderDictionary) free of Anki imports.
                 $0.dictionaryConfigStore = AnkiBackedDictionaryConfigStore.makeStore()
             }
         } catch {

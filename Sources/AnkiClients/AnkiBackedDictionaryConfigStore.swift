@@ -1,10 +1,17 @@
-public import AmgiReader
+//
+//  AnkiBackedDictionaryConfigStore.swift
+//  AnkiClients
+//
+//  Created by Vladimir Gusev on 05.05.2026.
+//
+
+public import Reader
 import AnkiBackend
 import Dependencies
 import Foundation
 
 /// Concrete `DictionaryConfigStore` realization backed by the Anki
-/// collection config. `AmgiReader` defines the abstract contract; this is
+/// collection config. `Reader` defines the abstract contract; this is
 /// the Anki-bridged realization, so it lives here alongside
 /// `ReaderBookClient` rather than in the app target — the app's only job is
 /// to install it at the composition root.

@@ -1,4 +1,11 @@
-import AmgiTheme
+//
+//  FlipContainer.swift
+//  ReviewFeature
+//
+//  Created by Vladimir Gusev on 20.07.2026.
+//
+
+import Theme
 import SwiftUI
 
 /// Answer reveal for the native card surface (R12).

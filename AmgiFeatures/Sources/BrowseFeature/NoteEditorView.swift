@@ -1,6 +1,13 @@
+//
+//  NoteEditorView.swift
+//  BrowseFeature
+//
+//  Created by Vladimir Gusev on 27.03.2026.
+//
+
 package import SwiftUI
 package import AnkiKit
-import AmgiTheme
+import Theme
 
 /// Edit Note container: owns the toolbar and the transient "Saved" toast, and
 /// drives a `NoteEditorModel` for the notetype lookup + note write. The form
@@ -10,6 +17,7 @@ package struct NoteEditorView: View {
     let onSave: () -> Void
 
     @State private var showSavedConfirmation = false
+    @State private var savedToastTask: Task<Void, Never>?
 
     package init(note: NoteRecord, onSave: @escaping () -> Void) {
         _model = State(initialValue: NoteEditorModel(note: note))
@@ -23,7 +31,7 @@ package struct NoteEditorView: View {
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Save") {
-                        Task {
+                        savedToastTask = Task {
                             if await model.save() {
                                 withAnimation(AmgiMotion.momentum) { showSavedConfirmation = true }
                                 try? await Task.sleep(for: .seconds(1.5))
@@ -49,12 +57,16 @@ package struct NoteEditorView: View {
         if showSavedConfirmation {
             VStack {
                 Spacer()
-                Text("Saved")
-                    .amgiFont(.bodyEmphasis)
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 8)
-                    .amgiMaterial(.light, in: Capsule())
-                    .padding(.bottom, 32)
+                Button { savedToastTask?.cancel() } label: {
+                    Text("Saved")
+                        .amgiFont(.bodyEmphasis)
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 8)
+                        .amgiMaterial(.light, in: Capsule())
+                }
+                .buttonStyle(.pressScale)
+                .accessibilityHint("Dismisses this message")
+                .padding(.bottom, 32)
             }
             .transition(AmgiMotion.slide(from: .bottom))
         }

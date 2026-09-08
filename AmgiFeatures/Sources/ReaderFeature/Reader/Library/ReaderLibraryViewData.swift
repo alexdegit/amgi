@@ -1,5 +1,12 @@
-import AmgiReader
-import AmgiUI
+//
+//  ReaderLibraryViewData.swift
+//  ReaderFeature
+//
+//  Created by Vladimir Gusev on 17.05.2026.
+//
+
+import Reader
+import UI
 import Foundation
 
 struct ReaderLibraryViewData: Equatable {

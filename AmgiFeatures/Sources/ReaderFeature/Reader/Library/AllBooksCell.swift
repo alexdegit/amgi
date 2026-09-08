@@ -1,4 +1,11 @@
-import AmgiTheme
+//
+//  AllBooksCell.swift
+//  ReaderFeature
+//
+//  Created by Vladimir Gusev on 17.05.2026.
+//
+
+import Theme
 import SwiftUI
 
 struct AllBooksCell: View {

@@ -1,7 +1,13 @@
-// AmgiFeatures/Sources/WidgetFeature/AmgiWidget.swift
+//
+//  AmgiWidget.swift
+//  WidgetFeature
+//
+//  Created by Vladimir Gusev on 07.04.2026.
+//
+
 import WidgetKit
 public import SwiftUI
-import AmgiTheme
+import Theme
 
 public struct AmgiWidget: Widget {
     let kind = "AmgiWidget"
@@ -15,7 +21,6 @@ public struct AmgiWidget: Widget {
             provider: WidgetTimelineProvider()
         ) { entry in
             AmgiWidgetEntryView(entry: entry)
-                .containerBackground(.fill.tertiary, for: .widget)
         }
         .configurationDisplayName("Amgi")
         .description("See your cards due today.")
@@ -29,6 +34,7 @@ struct AmgiWidgetEntryView: View {
     let entry: WidgetEntry
 
     var body: some View {
+        let palette = ThemeManager.shared.palette(for: colorScheme)
         Group {
             switch family {
             case .systemSmall:
@@ -41,6 +47,7 @@ struct AmgiWidgetEntryView: View {
                 SmallWidgetView(snapshot: entry.snapshot)
             }
         }
-        .environment(\.palette, ThemeManager.shared.palette(for: colorScheme))
+        .containerBackground(palette.surface, for: .widget)
+        .environment(\.palette, palette)
     }
 }

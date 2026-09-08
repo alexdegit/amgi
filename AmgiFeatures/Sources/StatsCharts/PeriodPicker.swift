@@ -1,3 +1,10 @@
+//
+//  PeriodPicker.swift
+//  StatsCharts
+//
+//  Created by Vladimir Gusev on 30.03.2026.
+//
+
 import SwiftUI
 
 public enum StatsPeriod: String, CaseIterable, Sendable {

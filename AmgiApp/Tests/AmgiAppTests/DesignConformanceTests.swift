@@ -1,3 +1,10 @@
+//
+//  DesignConformanceTests.swift
+//  AmgiAppTests
+//
+//  Created by Vladimir Gusev on 16.07.2026.
+//
+
 import Testing
 import Foundation
 
@@ -27,11 +34,11 @@ struct DesignConformanceTests {
             "Same — template CSS parsing.",
         "ReviewFeature/CardHTMLBuilder.swift":
             "Same — template CSS parsing. Split out of CardWebView.swift.",
-        "ReaderFeature/Reader/ReaderThemeColor.swift":
+        "AppShared/ReaderThemeColor.swift":
             "Reader's own sepia/dark/light reading themes, deliberately independent of the app palette.",
         "ReaderFeature/Reader/ReaderTypographyPreferences.swift":
             "Reader content typography — user-controlled, not app chrome.",
-        "ReaderFeature/Reader/ReaderFontOption.swift":
+        "AppCore/ReaderFontOption.swift":
             "Reader content font list.",
         "ReaderFeature/Reader/EPUBChapterPageController.swift":
             "UIColor.color(fromHex:) parses the reading theme's hex background for the WKWebView " +
@@ -39,7 +46,7 @@ struct DesignConformanceTests {
             "ReaderThemeColor.swift. No SwiftUI/palette-facing chrome lives in this file.",
         "ReaderFeature/Reader/ChapterReaderView.swift":
             "Radius literals with no AmgiRadius equivalent; changing them would be a layout change (R29 is no-layout).",
-        "AmgiCharts/HeatmapChartOptimized.swift":
+        "StatsCharts/HeatmapChartOptimized.swift":
             "Radius literals with no AmgiRadius equivalent; changing them would be a layout change " +
             "(R29 is no-layout). The heatmap cell's cornerRadius: 2 (grid squares + legend swatches) " +
             "is not a card and must stay 2, not round to AmgiRadius.control (10).",
@@ -71,15 +78,8 @@ struct DesignConformanceTests {
             "Radius literals with no AmgiRadius equivalent; changing them would be a layout change (R29 is no-layout).",
         "SettingsFeature/CodeEditorSettingsView.swift":
             "Radius literals with no AmgiRadius equivalent; changing them would be a layout change (R29 is no-layout).",
-        "ReviewFeature/ReviewView.swift":
-            "64pt success glyph in the session-finished empty state. A fixed-size SF Symbol, " +
-            "not text — it has no AmgiFont role because it isn't type, and scaling it with " +
-            "Dynamic Type would only push the message below it off-screen.",
         "TemplatesFeature/TemplateEditorView.swift":
             "Radius literals with no AmgiRadius equivalent; changing them would be a layout change (R29 is no-layout).",
-        "WidgetFeature/LargeWidgetView.swift": widgetExemptReason,
-        "WidgetFeature/MediumWidgetView.swift": widgetExemptReason,
-        "WidgetFeature/SmallWidgetView.swift": widgetExemptReason,
         "Watch/WatchApp.swift": watchExemptReason,
         "WatchFeature/WatchContentView.swift": watchExemptReason,
         "WatchFeature/WatchDeckDetailView.swift": watchExemptReason,
@@ -92,19 +92,8 @@ struct DesignConformanceTests {
     /// watchOS target (PR #14): the palette/ThemeManager pipeline is iOS-scoped;
     /// the watch app ships its own compact HIG styling inline.
     /// Palette adoption on watchOS is a design decision, not a conformance sweep.
-    /// Separate process (WidgetFeature depends on AmgiAppCore + AmgiTheme
-    /// only). Renders in the system's context and cannot observe
-    /// ThemeManager at render time, so palette adoption is a design
-    /// decision, not a conformance sweep. The family views additionally
-    /// fake the rounded widget background in their `#Preview`s with a raw
-    /// radius, because no WidgetKit preview API survives in a package
-    /// target — see CLAUDE.md.
-    private static let widgetExemptReason =
-        "Separate process rendering in the system's context; previews fake widget chrome with a raw radius."
-
     private static let watchExemptReason =
         "watchOS target — palette/ThemeManager is iOS-scoped; watch styles inline."
-
     private static let bannedPatterns: [(name: String, regex: String)] = [
         ("Color.accentColor", #"Color\.accentColor|\.accentColor\b"#),
         ("system semantic color", #"Color\(\.(system|secondarySystem|tertiarySystem)"#),
@@ -127,6 +116,13 @@ struct DesignConformanceTests {
         ("raw corner radius", #"cornerRadius:\s*\d"#),
         ("shadow", #"\.shadow\("#),
         ("raw system font style", #"\.font\(\s*\.(largeTitle|title|title2|title3|headline|subheadline|body|callout|footnote|caption|caption2)\b"#),
+        // A literal point size on a `Text` opts it out of Dynamic Type.
+        // `amgiFont(size:weight:relativeTo:)` takes the same numbers and
+        // scales them. Scoped to `Text(...)` directly followed by the font
+        // line: an `Image(systemName:)` glyph inside a fixed tile is *meant*
+        // to stay put, and a `@ScaledMetric` variable or user-set reader size
+        // isn't a digit literal, so neither matches.
+        ("fixed-size Text (use amgiFont(size:))", #"Text\([^\n]*\n\s*\.font\(\s*\.system\(size:\s*\d"#),
         // Motion is a design token like colour and radius. A curve spelled at
         // a call site can't be interrupted, doesn't inherit velocity, and —
         // the reason this is a *test* and not a style note — silently ignores
@@ -154,8 +150,8 @@ struct DesignConformanceTests {
 
     /// Roots the scanner walks. Paths in `pendingSweep` / `permanentlyExempt`
     /// are relative to whichever root contains the file, so a file that moves
-    /// from AmgiApp/Sources/Stats to AmgiFeatures/Sources/AmgiCharts changes
-    /// key from "Stats/X.swift" to "AmgiCharts/X.swift".
+    /// from AmgiApp/Sources/Stats to AmgiFeatures/Sources/StatsCharts changes
+    /// key from "Stats/X.swift" to "StatsCharts/X.swift".
     private static let sourceRoots: [URL] = {
         let repo = URL(fileURLWithPath: #filePath)
             .deletingLastPathComponent()   // AmgiAppTests

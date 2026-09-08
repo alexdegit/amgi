@@ -1,6 +1,13 @@
+//
+//  SyncToast.swift
+//  SyncFeature
+//
+//  Created by Vladimir Gusev on 04.05.2026.
+//
+
 import SwiftUI
-import AmgiTheme
-import AmgiUI
+import Theme
+import UI
 import AnkiKit
 
 struct SyncToast: View {

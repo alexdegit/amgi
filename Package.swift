@@ -152,8 +152,8 @@ let package = Package(
                 "AnkiBackend",
                 "AnkiServices",
                 "AnkiSync",
-                .product(name: "AmgiReader", package: "AmgiReader"),
-                .product(name: "AmgiReaderEPUB", package: "AmgiReader"),
+                .product(name: "Reader", package: "AmgiReader"),
+                .product(name: "ReaderEPUB", package: "AmgiReader"),
                 .product(name: "Dependencies", package: "swift-dependencies"),
                 .product(name: "DependenciesMacros", package: "swift-dependencies"),
                 .product(name: "Logging", package: "swift-log"),
@@ -191,7 +191,7 @@ let package = Package(
             dependencies: [
                 "AnkiClients",
                 "AnkiKit",
-                .product(name: "AmgiReader", package: "AmgiReader"),
+                .product(name: "Reader", package: "AmgiReader"),
             ],
             swiftSettings: sharedSwiftSettings
         ),

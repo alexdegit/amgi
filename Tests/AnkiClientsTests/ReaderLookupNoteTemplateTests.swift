@@ -1,4 +1,11 @@
-import AmgiReader
+//
+//  ReaderLookupNoteTemplateTests.swift
+//  AnkiClientsTests
+//
+//  Created by Vladimir Gusev on 05.05.2026.
+//
+
+import Reader
 import AnkiClients
 import AnkiKit
 import Testing

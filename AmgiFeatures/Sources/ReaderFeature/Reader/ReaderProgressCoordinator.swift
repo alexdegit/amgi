@@ -1,6 +1,13 @@
-import AmgiAppCore
+//
+//  ReaderProgressCoordinator.swift
+//  ReaderFeature
+//
+//  Created by Vladimir Gusev on 05.05.2026.
+//
+
+import AppCore
 import OSLog
-import AmgiReader
+import Reader
 import AnkiClients
 import Dependencies
 import Foundation

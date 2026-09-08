@@ -1,5 +1,12 @@
-import AmgiTheme
-import AmgiUI
+//
+//  ReaderCoverImage.swift
+//  ReaderFeature
+//
+//  Created by Vladimir Gusev on 05.05.2026.
+//
+
+import Theme
+import UI
 import AnkiClients
 import Dependencies
 import Foundation
@@ -46,7 +53,7 @@ struct ReaderCoverImage<Placeholder: View>: View {
             content
             if isEPUB {
                 Text("EPUB")
-                    .font(.system(size: 9, weight: .heavy))
+                    .amgiFont(size: 9, weight: .heavy, relativeTo: .caption2)
                     .padding(.horizontal, 5)
                     .padding(.vertical, 2)
                     .amgiMaterial(.light, in: Capsule())

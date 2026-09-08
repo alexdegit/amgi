@@ -1,8 +1,14 @@
-// AmgiFeatures/Sources/WidgetFeature/WidgetConfiguration.swift
+//
+//  WidgetConfiguration.swift
+//  WidgetFeature
+//
+//  Created by Vladimir Gusev on 07.04.2026.
+//
+
 import AppIntents
 import WidgetKit
 import Foundation
-import AmgiAppCore
+import AppCore
 
 struct DeckEntity: AppEntity {
     var id: String        // String(deckId) — Int64 doesn't conform to EntityIdentifier

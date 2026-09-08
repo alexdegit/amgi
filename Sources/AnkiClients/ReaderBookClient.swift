@@ -1,4 +1,11 @@
-public import AmgiReader
+//
+//  ReaderBookClient.swift
+//  AnkiClients
+//
+//  Created by Vladimir Gusev on 05.05.2026.
+//
+
+public import Reader
 public import Dependencies
 import DependenciesMacros
 

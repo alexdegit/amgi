@@ -1,6 +1,13 @@
-import AmgiReader
-import AmgiTheme
-import AmgiAppCore
+//
+//  ChapterWebView.swift
+//  ReaderFeature
+//
+//  Created by Vladimir Gusev on 20.08.2026.
+//
+
+import Reader
+import Theme
+import AppCore
 import Sharing
 import SwiftUI
 import WebKit

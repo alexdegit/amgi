@@ -1,6 +1,13 @@
-import AmgiReader
-import AmgiTheme
-import AmgiUI
+//
+//  ReaderBookDetailView.swift
+//  ReaderFeature
+//
+//  Created by Vladimir Gusev on 16.05.2026.
+//
+
+import Reader
+import Theme
+import UI
 import Foundation
 import SwiftUI
 

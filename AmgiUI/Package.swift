@@ -38,28 +38,28 @@ let package = Package(
     // root package's watchOS floor.
     platforms: [.iOS(.v18), .macOS(.v15), .watchOS(.v11)],
     products: [
-        .library(name: "AmgiTheme", targets: ["AmgiTheme"]),
-        .library(name: "AmgiUI", targets: ["AmgiUI"]),
+        .library(name: "Theme", targets: ["Theme"]),
+        .library(name: "UI", targets: ["UI"]),
     ],
     targets: [
         .target(
-            name: "AmgiTheme",
+            name: "Theme",
             resources: [.process("Resources")],
             swiftSettings: sharedSwiftSettings
         ),
         .testTarget(
-            name: "AmgiThemeTests",
-            dependencies: ["AmgiTheme"],
+            name: "ThemeTests",
+            dependencies: ["Theme"],
             swiftSettings: sharedSwiftSettings
         ),
         .target(
-            name: "AmgiUI",
-            dependencies: ["AmgiTheme"],
+            name: "UI",
+            dependencies: ["Theme"],
             swiftSettings: sharedSwiftSettings
         ),
         .testTarget(
-            name: "AmgiUITests",
-            dependencies: ["AmgiUI"],
+            name: "UITests",
+            dependencies: ["UI"],
             swiftSettings: sharedSwiftSettings
         ),
     ],

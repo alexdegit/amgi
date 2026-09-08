@@ -1,6 +1,13 @@
+//
+//  StatsChartTooltip.swift
+//  StatsCharts
+//
+//  Created by Vladimir Gusev on 28.04.2026.
+//
+
 import SwiftUI
-import AmgiTheme
-import AmgiUI
+import Theme
+import UI
 
 struct StatsChartTooltip: View {
     let title: String
@@ -29,10 +36,6 @@ struct StatsChartTooltip: View {
         .padding(.vertical, AmgiSpacing.xs)
         .background(palette.surfaceElevated)
         .overlay {
-            // Under `.ring` elevation, `amgiChromeShadow` below already draws the
-            // single hairline ring (in `palette.separator`) — adding this border
-            // too would double it up. Only draw it under `.shadow` elevation,
-            // where `amgiChromeShadow` draws a drop shadow instead of a ring.
             if palette.elevation != .ring {
                 RoundedRectangle(cornerRadius: AmgiRadius.inset)
                     .stroke(palette.border.opacity(0.3), lineWidth: 1)

@@ -1,4 +1,11 @@
-import AmgiReader
+//
+//  LookupResultList.swift
+//  ReaderFeature
+//
+//  Created by Vladimir Gusev on 13.06.2026.
+//
+
+import Reader
 import SwiftUI
 
 /// The plain list of dictionary entries shared by the root lookup popup and

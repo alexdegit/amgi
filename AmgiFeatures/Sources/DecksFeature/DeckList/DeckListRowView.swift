@@ -1,14 +1,21 @@
 //
+//  DeckListRowView.swift
+//  DecksFeature
+//
+//  Created by Vladimir Gusev on 14.05.2026.
+//
+
+//
 // Domain row aggregation consumed by `DeckListView`. The actual row +
-// list views live in AmgiUI so previews don't link the Anki backend;
+// list views live in UI so previews don't link the Anki backend;
 // this file owns only the AnkiKit-typed record and the mapper to
-// AmgiUI's neutral `DeckRowViewData`.
-import AmgiUI
+// UI's neutral `DeckRowViewData`.
+import UI
 import AnkiKit
 
 /// Flat row record. Built by the container from a top-level
 /// `DeckTreeNode` (children are flattened to a count) and mapped to
-/// `DeckRowViewData` before reaching AmgiUI.
+/// `DeckRowViewData` before reaching UI.
 struct DeckListRow: Identifiable, Equatable, Hashable {
     let id: DeckID
     let name: String           // last segment, e.g. "한국어"
