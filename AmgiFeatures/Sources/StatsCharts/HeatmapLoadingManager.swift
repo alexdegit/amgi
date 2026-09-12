@@ -1,3 +1,10 @@
+//
+//  HeatmapLoadingManager.swift
+//  StatsCharts
+//
+//  Created by Vladimir Gusev on 29.04.2026.
+//
+
 import Foundation
 import os
 import SwiftUI
@@ -27,7 +34,7 @@ actor HeatmapLoadingManager: Sendable {
 
     /// Load or reload all data from response
     public func loadAllData(_ reviews: ReviewCountsAndTimes) {
-        var data: [Int: ReviewCount] = [:]
+        var data = [Int: ReviewCount](minimumCapacity: reviews.count.count)
         for (dayOffset, rev) in reviews.count {
             let total = Int(rev.learn + rev.relearn + rev.young + rev.mature + rev.filtered)
             if total > 0 {

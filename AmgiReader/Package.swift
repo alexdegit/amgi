@@ -61,26 +61,26 @@ let interopSwiftSettings: [SwiftSetting] = [
 
 let package = Package(
     name: "AmgiReader",
-    // iOS 18 / macOS 15 because AmgiReaderDictionary pulls in hoshidicts,
+    // iOS 18 / macOS 15 because ReaderDictionary pulls in hoshidicts,
     // which itself requires macOS 15. The base AmgiReader target is
     // pure-Swift and would happily run on lower minimums, but SPM
     // platform requirements are per-package, not per-target.
     platforms: [.iOS(.v18), .macOS(.v15)],
     products: [
-        .library(name: "AmgiReader", targets: ["AmgiReader"]),
-        .library(name: "AmgiReaderDictionary", targets: ["AmgiReaderDictionary"]),
-        .library(name: "AmgiReaderEPUB", targets: ["AmgiReaderEPUB"]),
+        .library(name: "Reader", targets: ["Reader"]),
+        .library(name: "ReaderDictionary", targets: ["ReaderDictionary"]),
+        .library(name: "ReaderEPUB", targets: ["ReaderEPUB"]),
     ],
     dependencies: [
         // Vendored MIT-licensed EPUB parser. Path-relative so the package
         // resolves without network access. Kept off the base AmgiReader
-        // target — only AmgiReaderEPUB depends on it, which keeps the
+        // target — only ReaderEPUB depends on it, which keeps the
         // pure-Swift module zip/XML-free.
         .package(path: "../Libraries/EPUBKit"),
         // hoshidicts: Yomitan-compatible offline dictionary engine.
         // Pin matches DreamAfar's verified revision so we get the same
         // ABI / generated bindings. C++ interop ships in this dependency,
-        // so its consumer (AmgiReaderDictionary below) needs Cxx mode.
+        // so its consumer (ReaderDictionary below) needs Cxx mode.
         .package(
             url: "https://github.com/Manhhao/hoshidicts.git",
             revision: "e70589d33b6b346663278383b422e41f1ed05f3c"
@@ -94,21 +94,27 @@ let package = Package(
         // to source them today (Anki notes). Anki-bridged loaders live in
         // the AnkiBridge package and import this one for the types.
         .target(
-            name: "AmgiReader",
+            name: "Reader",
             dependencies: [
                 .product(name: "Dependencies", package: "swift-dependencies"),
                 .product(name: "DependenciesMacros", package: "swift-dependencies"),
             ],
+            resources: [.copy("Resources/LookupExtraction.js")],
+            swiftSettings: sharedSwiftSettings
+        ),
+        .testTarget(
+            name: "ReaderTests",
+            dependencies: ["Reader"],
             swiftSettings: sharedSwiftSettings
         ),
         // Cxx-mode wrapper around hoshidicts. Isolated from the type
         // module so importing AmgiReader (the common case) stays
         // Cxx-free. App code that wants dictionary lookup imports
-        // AmgiReaderDictionary explicitly.
+        // ReaderDictionary explicitly.
         .target(
-            name: "AmgiReaderDictionary",
+            name: "ReaderDictionary",
             dependencies: [
-                "AmgiReader",
+                "Reader",
                 .product(name: "CHoshiDicts", package: "hoshidicts"),
                 .product(name: "Dependencies", package: "swift-dependencies"),
                 .product(name: "DependenciesMacros", package: "swift-dependencies"),
@@ -119,13 +125,13 @@ let package = Package(
         ),
         // EPUB-source adapter. Sits between AmgiReader's pure domain
         // types and the vendored EPUBKit parser. No EPUBKit types ever
-        // appear in AmgiReaderEPUB's public API — callers see only
+        // appear in ReaderEPUB's public API — callers see only
         // ReaderBook / ReaderChapter values and the ParsedEPUBBook
         // wrapper defined locally here.
         .target(
-            name: "AmgiReaderEPUB",
+            name: "ReaderEPUB",
             dependencies: [
-                "AmgiReader",
+                "Reader",
                 .product(name: "EPUBKit", package: "EPUBKit"),
             ],
             swiftSettings: sharedSwiftSettings

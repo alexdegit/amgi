@@ -1,29 +1,31 @@
+//
+//  WatchReviewView.swift
+//  WatchFeature
+//
+//  Created by Leaf Eriksen on 17.07.2026.
+//
+
 import AVFoundation
 import AnkiBackend
 import AnkiKit
 import Dependencies
 import AmgiCardWeb
 import SwiftUI
-import AmgiReviewCore
+import ReviewCore
 
 struct WatchReviewView: View {
     let deckId: DeckID
-    let onDismiss: () -> Void
+    let onFinish: () -> Void
+    @Environment(\.dismiss) private var dismiss
     @State private var session: ReviewSession
     @State private var audioPlayer = AVQueuePlayer()
-    /// Computed once per card side instead of in `body`. Stripping runs
-    /// several whole-document regex passes, and body was re-evaluating it on
-    /// every state change — including isAudioPlaying flips — on the slowest
-    /// CPU in the project.
-    @State private var strippedText: String = ""
 
     private var currentHTML: String {
         session.showAnswer ? session.backHTML : session.frontHTML
     }
-    @Environment(\.dismiss) private var dismiss
-    init(deckId: DeckID, onDismiss: @escaping () -> Void) {
+    init(deckId: DeckID, onFinish: @escaping () -> Void) {
         self.deckId = deckId
-        self.onDismiss = onDismiss
+        self.onFinish = onFinish
         self._session = State(initialValue: ReviewSession(deckId: deckId))
     }
     var body: some View {
@@ -33,17 +35,12 @@ struct WatchReviewView: View {
             } else {
                 VStack(spacing: 0) {
                     ScrollView {
-                        Text(strippedText)
-                            .font(.title3)
-                            .multilineTextAlignment(.center)
-                    }
-                    .task(id: currentHTML) {
-                        strippedText = CardText.plainText(currentHTML)
+                        CardTextView(html: currentHTML)
                     }
                     if session.showAnswer {
                         HStack(spacing: 0) {
-                            ratingButton(.again, color: .red)
-                            ratingButton(.good, color: .green)
+                            ratingButton(.again, label: "Again", color: .red)
+                            ratingButton(.good, label: "Good", color: .green)
                         }
                     } else {
                         reviewButton("Show Answer", color: .blue) { session.revealAnswer() }
@@ -54,10 +51,8 @@ struct WatchReviewView: View {
         }
         .background(Color.black)
         ._statusBarHidden()
-        .toolbarVisibility(.hidden, for: .navigationBar)
-        .ignoresSafeArea(edges: .top)
-        .onTapGesture { playAudio(from: session.showAnswer ? session.backHTML : session.frontHTML) }
-        .onTapGesture(count: 2) { dismiss() }
+        .onTapGesture { playAudio(from: currentHTML) }
+        .accessibilityAction(named: "Replay Audio") { playAudio(from: currentHTML) }
         .task {
             do {
                 try AVAudioSession.sharedInstance().setCategory(
@@ -87,19 +82,30 @@ struct WatchReviewView: View {
             Text("Finished!").font(.headline)
             Text("\(session.sessionStats.reviewed) cards").font(.caption).foregroundStyle(.secondary)
             Spacer()
-            Button("Done") { onDismiss() }.buttonStyle(.borderedProminent)
+            Button("Done") {
+                dismiss()
+                onFinish()
+            }
+            .buttonStyle(.borderedProminent)
         }.padding()
     }
     private func reviewButton(_ title: String, color: Color, font: Font = .headline, action: @escaping () -> Void) -> some View {
         Button(action: action) {
-            Text(title).font(font).frame(maxWidth: .infinity)
+            Text(title)
+                .font(font)
+                .frame(maxWidth: .infinity)
+                .padding(12)
         }
-        .padding(10).buttonStyle(.plain).frame(maxWidth: .infinity).background(color)
+        .buttonStyle(.plain)
+        .background(color)
     }
-    private func ratingButton(_ rating: Rating, color: Color) -> some View {
-        reviewButton(session.nextIntervals[rating] ?? "", color: color, font: .caption) {
+    private func ratingButton(_ rating: Rating, label: LocalizedStringKey, color: Color) -> some View {
+        let interval = session.nextIntervals[rating] ?? ""
+        return reviewButton(interval, color: color, font: .caption) {
             session.answer(rating: rating)
         }
+        .accessibilityLabel(label)
+        .accessibilityValue(interval)
     }
     private func playAudio(from html: String) {
         @Dependency(\.ankiBackend) var backend
@@ -110,5 +116,15 @@ struct WatchReviewView: View {
         audioPlayer.removeAllItems()
         items.forEach { if audioPlayer.canInsert($0, after: nil) { audioPlayer.insert($0, after: nil) } }
         audioPlayer.play()
+    }
+}
+
+private struct CardTextView: View {
+    let html: String
+
+    var body: some View {
+        Text(CardText.plainText(html))
+            .font(.title3)
+            .multilineTextAlignment(.center)
     }
 }

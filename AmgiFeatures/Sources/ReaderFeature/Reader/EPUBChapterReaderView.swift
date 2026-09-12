@@ -1,7 +1,15 @@
-import AmgiReader
-import AmgiTheme
-import AmgiUI
-import AmgiAppCore
+//
+//  EPUBChapterReaderView.swift
+//  ReaderFeature
+//
+//  Created by Vladimir Gusev on 16.05.2026.
+//
+
+import Reader
+import Theme
+import UI
+import AppCore
+import AppShared
 import Sharing
 import SwiftUI
 
@@ -31,6 +39,7 @@ struct EPUBChapterReaderView: View {
     @State private var progressFraction: Double = 0
     @State private var pendingRestoreFraction: Double?
     @State private var lookupRequest: LookupRequest?
+    @State private var lookupHighlight = LookupHighlight()
     @State private var didRequestInitialRestore = false
     @State private var chromeVisible: Bool = true
     @State private var endOfBookToastVisible: Bool = false
@@ -45,6 +54,8 @@ struct EPUBChapterReaderView: View {
     private var verticalLayout: Bool = false
     @Shared(.appStorage(ReaderPreferences.Keys.horizontalPadding))
     private var horizontalPadding: Double = 22
+    @Shared(.appStorage(ReaderPreferences.Keys.dictionaryScanLength))
+    private var dictionaryScanLength: Int = 16
 
     // Typography sheet preferences. These supersede the legacy per-book
     // colour pickers — once the user picks a theme it drives fg/bg
@@ -94,7 +105,8 @@ struct EPUBChapterReaderView: View {
             fontFamilyCSS: typoFontFamily.cssStack,
             pageMarginPx: typoPageMargin.pixels,
             textAlign: typoJustify ? "justify" : "left",
-            tokenUnderlineCSS: theme.tokenUnderlineHex
+            tokenUnderlineCSS: theme.tokenUnderlineHex,
+            scanLength: dictionaryScanLength
         )
     }
 
@@ -115,12 +127,14 @@ struct EPUBChapterReaderView: View {
         .sheet(isPresented: $typographySheetVisible) {
             ReaderTypographySettingsView()
         }
-        .sheet(item: $lookupRequest) { request in
+        .sheet(item: $lookupRequest, onDismiss: { lookupHighlight.clear() }) { request in
             LookupPopupView(
                 initialQuery: request.token,
                 languageHint: book.language,
                 extraTags: sourceTags(),
+                sentence: request.sentence,
                 onAddedNote: { handleCardAdded() },
+                onMatched: { lookupHighlight.show(matched: $0) },
                 onDismiss: { lookupRequest = nil }
             )
             .presentationDetents([.fraction(0.45), .large])
@@ -151,6 +165,7 @@ struct EPUBChapterReaderView: View {
                 styleTokens: styleTokens,
                 pendingRestoreFraction: pendingRestoreFraction,
                 pagingEnabled: lookupRequest == nil,
+                lookupHighlight: lookupHighlight,
                 onPageInfo: { idx, count in
                     pageIndex = idx
                     pageCount = max(count, 1)
@@ -219,6 +234,8 @@ struct EPUBChapterReaderView: View {
             Text(pagesLeftText)
                 .amgiFont(.captionBold)
                 .foregroundStyle(palette.textSecondary)
+                .contentTransition(.numericText())
+                .animation(AmgiMotion.quick, value: pageIndex)
                 .padding(.horizontal, 14)
                 .padding(.vertical, 6)
                 .amgiMaterial(.regular, in: Capsule())
@@ -234,6 +251,8 @@ struct EPUBChapterReaderView: View {
         Text("\(pageIndex + 1) of \(pageCount)")
             .amgiFont(.caption, .monospacedDigits)
             .foregroundStyle(palette.textSecondary)
+            .contentTransition(.numericText())
+            .animation(AmgiMotion.quick, value: pageIndex)
             .padding(.horizontal, 12)
             .padding(.vertical, 4)
             .amgiMaterial(.regular, in: Capsule())

@@ -1,4 +1,12 @@
-import AmgiReader
+//
+//  EPUBPageViewControllerHost.swift
+//  ReaderFeature
+//
+//  Created by Vladimir Gusev on 16.05.2026.
+//
+
+import AppShared
+import Reader
 import SwiftUI
 import UIKit
 
@@ -24,6 +32,7 @@ struct EPUBPageViewControllerHost: UIViewControllerRepresentable {
     /// Suppresses the page controller's dataSource so dictionary sheets
     /// can absorb horizontal gestures (UX spec edge case).
     let pagingEnabled: Bool
+    let lookupHighlight: LookupHighlight
 
     let onPageInfo: (Int, Int) -> Void
     let onProgress: (Double, Int) -> Void
@@ -58,6 +67,11 @@ struct EPUBPageViewControllerHost: UIViewControllerRepresentable {
     func updateUIViewController(_ uiViewController: UIPageViewController, context: Context) {
         context.coordinator.host = self
         context.coordinator.applyStyleTokensToVisibleChapters(in: uiViewController)
+        if context.coordinator.lastHighlightGeneration != lookupHighlight.generation {
+            context.coordinator.lastHighlightGeneration = lookupHighlight.generation
+            (uiViewController.viewControllers?.first as? EPUBChapterPageController)?
+                .highlightMatched(utf16Length: lookupHighlight.utf16Length)
+        }
         // If the host's chapterIndex Binding diverged from what the page
         // controller currently shows (programmatic jump), re-seed.
         if let current = uiViewController.viewControllers?.first as? EPUBChapterPageController,
@@ -77,6 +91,7 @@ struct EPUBPageViewControllerHost: UIViewControllerRepresentable {
                              UIPageViewControllerDelegate, EPUBChapterPageControllerDelegate {
         var host: EPUBPageViewControllerHost
         var didInstallInitial = false
+        var lastHighlightGeneration = 0
 
         init(host: EPUBPageViewControllerHost) {
             self.host = host

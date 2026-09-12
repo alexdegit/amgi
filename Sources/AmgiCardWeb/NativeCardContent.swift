@@ -1,3 +1,10 @@
+//
+//  NativeCardContent.swift
+//  AmgiCardWeb
+//
+//  Created by Vladimir Gusev on 20.07.2026.
+//
+
 public import Foundation
 
 /// Structured content for the native card renderer (R11): the rendered HTML
@@ -164,6 +171,7 @@ private extension NSRegularExpression {
     func replacing(in string: String, transform: (String) -> String) -> String {
         let ns = string as NSString
         var result = ""
+        result.reserveCapacity(ns.length)
         var cursor = 0
         for match in matches(in: string, range: NSRange(location: 0, length: ns.length)) {
             result += ns.substring(with: NSRange(location: cursor, length: match.range.location - cursor))

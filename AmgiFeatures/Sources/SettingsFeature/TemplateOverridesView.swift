@@ -1,12 +1,19 @@
+//
+//  TemplateOverridesView.swift
+//  SettingsFeature
+//
+//  Created by Vladimir Gusev on 20.07.2026.
+//
+
 import SwiftUI
 import AmgiCardWeb
-import AmgiTheme
-import AmgiAppCore
+import Theme
+import AppCore
 import AnkiClients
 import AnkiKit
 import Dependencies
 import Sharing
-import AmgiReviewCore
+import ReviewCore
 // MemberImportVisibility: CardRenderEngine.displayName is a ReviewFeature extension.
 import ReviewFeature
 
@@ -79,7 +86,7 @@ struct TemplateOverridesView: View {
     }
 
     private func resolveNames() async {
-        var resolved: [String: String] = [:]
+        var resolved = [String: String](minimumCapacity: entries.count)
         var notetypes: [Int64: Notetype?] = [:]
         for entry in entries {
             let parts = entry.key.split(separator: ":")

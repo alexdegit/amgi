@@ -1,7 +1,15 @@
-import AmgiTheme
-import AmgiAppCore
+//
+//  EPUBChapterPageController.swift
+//  ReaderFeature
+//
+//  Created by Vladimir Gusev on 16.05.2026.
+//
+
+import Theme
+import AppCore
 import OSLog
 import Foundation
+import Reader
 import UIKit
 import WebKit
 
@@ -33,6 +41,7 @@ struct EPUBReaderStyleTokens: Equatable {
     var pageMarginPx: Int = 24
     var textAlign: String = "justify"
     var tokenUnderlineCSS: String = "rgba(120, 120, 120, 0.55)"
+    var scanLength: Int = 16
 }
 
 /// Callbacks emitted by a chapter page back up to the host coordinator.
@@ -98,6 +107,11 @@ final class EPUBChapterPageController: UIViewController {
             )
             userContent.addUserScript(cssScript)
         }
+        userContent.addUserScript(WKUserScript(
+            source: LookupExtractionScript.source,
+            injectionTime: .atDocumentEnd,
+            forMainFrameOnly: true
+        ))
         if let js = Self.bundledJS() {
             let jsScript = WKUserScript(
                 source: js,
@@ -278,6 +292,7 @@ final class EPUBChapterPageController: UIViewController {
           r.style.setProperty('--reader-font-family', '\(escapedFontFamily)');
           r.style.setProperty('--reader-text-align', '\(styleTokens.textAlign)');
           r.style.setProperty('--reader-tok-underline', '\(styleTokens.tokenUnderlineCSS)');
+          window.__amgiLookupScanLength = \(styleTokens.scanLength);
           if (typeof window.__amgiRelayout === 'function') { window.__amgiRelayout(); }
         })();
         """
@@ -285,6 +300,13 @@ final class EPUBChapterPageController: UIViewController {
             if let error { Log.reader.error("relayout script failed: \(error)") }
         }
         applyHostBackgroundColor()
+    }
+
+    func highlightMatched(utf16Length: Int) {
+        let call = utf16Length > 0 ? "highlightMatched(\(utf16Length))" : "clearHighlight()"
+        webView.evaluateJavaScript("window.amgiLookup && window.amgiLookup.\(call);") { _, error in
+            if let error { Log.reader.error("lookup highlight script failed: \(error)") }
+        }
     }
 
     fileprivate func consumePendingRestore() {

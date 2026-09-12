@@ -1,4 +1,11 @@
-import AmgiAppCore
+//
+//  BrowseModel.swift
+//  BrowseFeature
+//
+//  Created by Vladimir Gusev on 22.06.2026.
+//
+
+import AppCore
 import AnkiClients
 import AnkiBackend
 import AnkiKit
@@ -281,6 +288,8 @@ final class BrowseModel {
 
     private func collectCardIDs(for noteIDs: Set<NoteID>) async -> [CardID] {
         var result: [CardID] = []
+        result.reserveCapacity(noteIDs.count)
+        let cardClient = cardClient
         for nid in noteIDs {
             if let cards = try? await cardClient.fetchByNote(nid) {
                 result.append(contentsOf: cards.map(\.id))

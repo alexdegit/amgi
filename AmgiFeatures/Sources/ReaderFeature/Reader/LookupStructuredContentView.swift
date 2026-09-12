@@ -1,8 +1,16 @@
-import AmgiAppCore
-import AmgiReader
-import AmgiReaderDictionary
+//
+//  LookupStructuredContentView.swift
+//  ReaderFeature
+//
+//  Created by Vladimir Gusev on 05.05.2026.
+//
+
+import AppCore
+import Reader
+import ReaderDictionary
 import Dependencies
 import OSLog
+import Sharing
 import SwiftUI
 import WebKit
 
@@ -19,12 +27,15 @@ struct LookupStructuredContentView: UIViewRepresentable {
     let onLookupRequested: ((String) -> Void)?
 
     @Dependency(\.dictionaryLookupClient) var dictionaryLookupClient
+    @Shared(.appStorage(ReaderPreferences.Keys.dictionaryScanLength))
+    private var scanLength: Int = 16
 
     func makeCoordinator() -> Coordinator {
         Coordinator(
             dictionary: dictionary,
             glossaries: glossaries,
             dictionaryStyle: dictionaryStyle,
+            scanLength: scanLength,
             onLookupRequested: onLookupRequested,
             loadMediaData: { dict, mediaPath in
                 try await dictionaryLookupClient.mediaFile(dict, mediaPath)
@@ -55,7 +66,8 @@ struct LookupStructuredContentView: UIViewRepresentable {
         context.coordinator.update(
             dictionary: dictionary,
             glossaries: glossaries,
-            dictionaryStyle: dictionaryStyle
+            dictionaryStyle: dictionaryStyle,
+            scanLength: scanLength
         )
     }
 
@@ -74,6 +86,7 @@ struct LookupStructuredContentView: UIViewRepresentable {
         private var dictionary: String
         private var glossaries: [DictionaryLookupGlossary]
         private var dictionaryStyle: String
+        private var scanLength: Int
         private let onLookupRequested: ((String) -> Void)?
         private let loadMediaData: @Sendable (String, String) async throws -> Data
         /// In-flight `image://` scheme tasks, keyed by task identity, so they
@@ -84,36 +97,42 @@ struct LookupStructuredContentView: UIViewRepresentable {
             dictionary: String,
             glossaries: [DictionaryLookupGlossary],
             dictionaryStyle: String,
+            scanLength: Int,
             onLookupRequested: ((String) -> Void)?,
             loadMediaData: @escaping @Sendable (String, String) async throws -> Data
         ) {
             self.dictionary = dictionary
             self.glossaries = glossaries
             self.dictionaryStyle = dictionaryStyle
+            self.scanLength = scanLength
             self.onLookupRequested = onLookupRequested
             self.loadMediaData = loadMediaData
             super.init()
             html = Self.makeHTML(
                 dictionary: dictionary,
                 glossaries: glossaries,
-                dictionaryStyle: dictionaryStyle
+                dictionaryStyle: dictionaryStyle,
+                scanLength: scanLength
             )
         }
 
         func update(
             dictionary: String,
             glossaries: [DictionaryLookupGlossary],
-            dictionaryStyle: String
+            dictionaryStyle: String,
+            scanLength: Int
         ) {
             let next = Self.makeHTML(
                 dictionary: dictionary,
                 glossaries: glossaries,
-                dictionaryStyle: dictionaryStyle
+                dictionaryStyle: dictionaryStyle,
+                scanLength: scanLength
             )
             guard next != html else { return }
             self.dictionary = dictionary
             self.glossaries = glossaries
             self.dictionaryStyle = dictionaryStyle
+            self.scanLength = scanLength
             html = next
             // Reloading abandons any asset request the old page started.
             cancelAllSchemeTasks()
@@ -248,7 +267,8 @@ private extension LookupStructuredContentView.Coordinator {
     static func makeHTML(
         dictionary: String,
         glossaries: [DictionaryLookupGlossary],
-        dictionaryStyle: String
+        dictionaryStyle: String,
+        scanLength: Int
     ) -> String {
         let dictionaryData = (try? JSONEncoder().encode(glossaries))
             .flatMap { String(data: $0, encoding: .utf8) } ?? "[]"
@@ -283,6 +303,7 @@ private extension LookupStructuredContentView.Coordinator {
             const glossaryItems = \(dictionaryData);
             window.dictionaryStyles = { [dictName]: `\(escapedStyle)` };
             window.compactGlossaries = false;
+            window.lookupScanLength = \(max(1, scanLength));
 
             const contentRoot = document.getElementById('content');
             const dictStyle = window.dictionaryStyles?.[dictName] ?? '';

@@ -1,3 +1,10 @@
+//
+//  ReaderLookupStructuredContentResources.generated.swift
+//  ReaderFeature
+//
+//  Created by Vladimir Gusev on 05.05.2026.
+//
+
 import Foundation
 
 enum ReaderLookupStructuredContentResources {
@@ -323,12 +330,9 @@ function textNodeLookupPayloadAt(x, y, scanLength = 16) {
     }
 
     const text = node.textContent || '';
-    let start = Math.min(range.startOffset, text.length);
+    const start = Math.min(range.startOffset, text.length);
     let end = start;
     const delimiters = ' \t\n\r。、！？…‥「」『』（）()【】〈〉《》〔〕｛｝{}［］[]・：；:;，,.─';
-    while (start > 0 && !delimiters.includes(text[start - 1]) && end - start < scanLength) {
-        start -= 1;
-    }
     while (end < text.length && !delimiters.includes(text[end]) && end - start < scanLength) {
         end += 1;
     }
@@ -1692,17 +1696,18 @@ window.renderPopup = function() {
             return;
         }
         const glossaryRoot = target.closest('.glossary-content');
-        const selected = window.hoshiSelection?.selectText(e.clientX, e.clientY, 16);
+        const scanLength = window.lookupScanLength || 16;
+        const selected = window.hoshiSelection?.selectText(e.clientX, e.clientY, scanLength);
         if (selected?.text) {
             postLookupText(selected.text, selected.sentence || '');
             return;
         }
-        const elementPayload = elementTextLookupPayloadAt(glossaryRoot, e.clientX, e.clientY, 16);
+        const elementPayload = elementTextLookupPayloadAt(glossaryRoot, e.clientX, e.clientY, scanLength);
         if (elementPayload) {
             postLookupText(elementPayload.text, elementPayload.sentence || '');
             return;
         }
-        const payload = textNodeLookupPayloadAt(e.clientX, e.clientY, 16);
+        const payload = textNodeLookupPayloadAt(e.clientX, e.clientY, scanLength);
         if (payload) {
             postLookupText(payload.text, payload.sentence || '');
             return;

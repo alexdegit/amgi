@@ -1,4 +1,11 @@
-import AmgiReader
+//
+//  ReaderBookDetailModel.swift
+//  ReaderFeature
+//
+//  Created by Vladimir Gusev on 27.06.2026.
+//
+
+import Reader
 import AnkiClients
 import Dependencies
 import Foundation
@@ -30,8 +37,9 @@ final class ReaderBookDetailModel {
             coverURL = await epubLibraryClient.coverURL(book.id)
         }
 
-        var counts: [Int64: Int] = [:]
+        var counts = [Int64: Int](minimumCapacity: book.chapters.count)
         let bookID = book.id
+        let readerCardCountClient = readerCardCountClient
         for (index, chapter) in book.chapters.enumerated() {
             let tag = "amgi::book::\(bookID)::ch::\(index)"
             let count = (try? await readerCardCountClient.cardsAdded(tag)) ?? 0
@@ -47,7 +55,7 @@ final class ReaderBookDetailModel {
     static func pageRanges(
         for chapters: [ReaderChapter]
     ) -> [Int64: ClosedRange<Int>] {
-        var out: [Int64: ClosedRange<Int>] = [:]
+        var out = [Int64: ClosedRange<Int>](minimumCapacity: chapters.count)
         var running = 0
         for chapter in chapters {
             guard let pages = chapter.pageCount, pages > 0 else { continue }

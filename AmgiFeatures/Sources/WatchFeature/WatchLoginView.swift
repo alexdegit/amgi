@@ -1,3 +1,10 @@
+//
+//  WatchLoginView.swift
+//  WatchFeature
+//
+//  Created by Leaf Eriksen on 17.07.2026.
+//
+
 import AnkiClients
 import AnkiKit
 import AnkiSync
@@ -8,6 +15,7 @@ public import SwiftUI
 private let logger = Logger(subsystem: "com.amgiapp.AmgiApp", category: "WatchLogin")
 
 public struct WatchLoginView: View {
+    @Dependency(\.syncClient) private var syncClient
     @State private var username = ""
     @State private var password = ""
     @State private var endpoint = ""
@@ -32,9 +40,7 @@ public struct WatchLoginView: View {
     }
     public var body: some View {
         ScrollView {
-            VStack {
-                loginFieldsView
-            }
+            loginFieldsView
         }
         .onAppear {
             // Prefill endpoint from keychain if available
@@ -84,7 +90,6 @@ public struct WatchLoginView: View {
         do {
             _ = try await SyncClient.login(username: username, password: password)
             // Initial sync to get the collection
-            @Dependency(\.syncClient) var syncClient
             _ = try await syncClient.sync()
             submission = .idle
             onLoginSuccess()

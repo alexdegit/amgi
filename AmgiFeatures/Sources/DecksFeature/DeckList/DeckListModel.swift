@@ -1,7 +1,14 @@
+//
+//  DeckListModel.swift
+//  DecksFeature
+//
+//  Created by Vladimir Gusev on 13.06.2026.
+//
+
 import OSLog
-import AmgiUI
-import AmgiAppCore
-import AmgiAppShared
+import UI
+import AppCore
+import AppShared
 import AnkiClients
 import AnkiKit
 import Dependencies
@@ -103,7 +110,7 @@ final class DeckListModel {
     static func buildHeatmap(
         reviews: [Int: ReviewCountsAndTimes.Reviews]
     ) -> HeatmapCardData {
-        var counts: [Int: Int] = [:]
+        var counts = [Int: Int](minimumCapacity: min(reviews.count, 365))
         var maxCount = 1
         for (offset, rev) in reviews where offset >= -364 && offset <= 0 {
             let total = rev.learn + rev.relearn + rev.young + rev.mature + rev.filtered

@@ -1,4 +1,11 @@
-import AmgiReader
+//
+//  ReaderLibraryModel.swift
+//  ReaderFeature
+//
+//  Created by Vladimir Gusev on 22.06.2026.
+//
+
+import Reader
 import AnkiClients
 import Dependencies
 import Foundation
@@ -73,7 +80,7 @@ final class ReaderLibraryModel {
             if case .epub = book.source { return book.id }
             return nil
         }
-        var resolved: [String: URL] = [:]
+        var resolved = [String: URL](minimumCapacity: epubIDs.count)
         let client = epubLibraryClient
         await withTaskGroup(of: (String, URL?).self) { group in
             for id in epubIDs {
@@ -89,7 +96,7 @@ final class ReaderLibraryModel {
         if Task.isCancelled { return }
         epubCoverURLs = resolved
 
-        var progressSnapshot: [String: ReaderSavedProgress] = [:]
+        var progressSnapshot = [String: ReaderSavedProgress](minimumCapacity: merged.count)
         for book in merged {
             if let saved = await progress.resolved(bookID: book.id) {
                 progressSnapshot[book.id] = saved
@@ -128,6 +135,7 @@ final class ReaderLibraryModel {
 
     func importEPUBs(_ urls: [URL], searchText: String, sortMode: BookshelfSortMode) async {
         var succeeded = 0
+        let epubLibraryClient = epubLibraryClient
         for url in urls {
             do {
                 _ = try await epubLibraryClient.importEPUB(url)

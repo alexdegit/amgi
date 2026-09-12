@@ -1,8 +1,15 @@
+//
+//  StudyLandingModel.swift
+//  ReaderFeature
+//
+//  Created by Vladimir Gusev on 15.05.2026.
+//
+
 import OSLog
-import AmgiAppCore
-import AmgiAppShared
-import AmgiReader
-import AmgiUI
+import AppCore
+import AppShared
+import Reader
+import UI
 import AnkiClients
 import AnkiKit
 import Dependencies
@@ -100,7 +107,7 @@ final class StudyLandingModel {
             return []
         }
 
-        var lastRead: [String: Date] = [:]
+        var lastRead = [String: Date](minimumCapacity: books.count)
         for book in books {
             lastRead[book.id] = await progressCoordinator.resolved(bookID: book.id)?.updatedAt
         }

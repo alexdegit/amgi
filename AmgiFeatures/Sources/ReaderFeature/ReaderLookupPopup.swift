@@ -1,4 +1,11 @@
-import AmgiAppShared
+//
+//  ReaderLookupPopup.swift
+//  ReaderFeature
+//
+//  Created by Vladimir Gusev on 29.08.2026.
+//
+
+import AppShared
 package import SwiftUI
 
 /// The concrete `LookupPopupProviding` the app root injects.
@@ -12,7 +19,15 @@ package import SwiftUI
 package struct ReaderLookupPopup: LookupPopupProviding {
     package init() {}
 
-    package func popup(query: String, onDismiss: @escaping () -> Void) -> AnyView {
-        AnyView(LookupPopupView(initialQuery: query, onDismiss: onDismiss))
+    package func popup(query: String, onMatched: @escaping (String) -> Void, onDismiss: @escaping () -> Void) -> AnyView {
+        AnyView(LookupPopupView(initialQuery: query, onMatched: onMatched, onDismiss: onDismiss))
+    }
+}
+
+package struct ReaderDictionarySettings: DictionarySettingsProviding {
+    package init() {}
+
+    package func settings() -> AnyView {
+        AnyView(ReaderDictionarySettingsView())
     }
 }

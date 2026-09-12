@@ -1,3 +1,10 @@
+//
+//  BatchTagModel.swift
+//  BrowseFeature
+//
+//  Created by Vladimir Gusev on 26.06.2026.
+//
+
 import AnkiClients
 import AnkiKit
 import Dependencies
@@ -24,6 +31,7 @@ final class BatchTagModel {
     func apply(noteIDs: Set<NoteID>, tags: Set<String>) async {
         isApplying = true
         let ids = Array(noteIDs)
+        let tagClient = tagClient
         for tag in tags {
             try? await tagClient.addTagToNotes(tag, ids)
         }
