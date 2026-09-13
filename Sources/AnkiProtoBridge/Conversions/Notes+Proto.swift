@@ -1,3 +1,10 @@
+//
+//  Notes+Proto.swift
+//  AnkiProtoBridge
+//
+//  Created by Vladimir Gusev on 13.05.2026.
+//
+
 package import AnkiKit
 package import AnkiProto
 
@@ -33,6 +40,7 @@ package extension Anki_Notes_Note {
     init(_ record: NoteRecord) {
         self.init()
         self.id = record.id.rawValue
+        self.guid = record.guid
         self.notetypeID = record.mid.rawValue
         self.fields = record.flds
             .split(separator: noteFieldSeparator, omittingEmptySubsequences: false)

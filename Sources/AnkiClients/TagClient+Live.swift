@@ -1,3 +1,10 @@
+//
+//  TagClient+Live.swift
+//  AnkiClients
+//
+//  Created by Vladimir Gusev on 28.04.2026.
+//
+
 import AnkiBackend
 import AnkiKit
 import AnkiProtoBridge
@@ -83,6 +90,16 @@ extension TagClient: DependencyKey {
                     logger.info("Tag renamed: '\(oldName)' → '\(newName)'")
                 } catch {
                     logger.error("renameTag failed: \(error)")
+                    throw error
+                }
+            },
+            clearUnusedTags: {
+                do {
+                    let removed = try await backend.invoke(.clearUnusedTags)
+                    logger.info("Cleared \(removed) unused tags")
+                    return removed
+                } catch {
+                    logger.error("clearUnusedTags failed: \(error)")
                     throw error
                 }
             }

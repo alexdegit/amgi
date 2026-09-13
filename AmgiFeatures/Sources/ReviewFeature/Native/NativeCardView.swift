@@ -1,6 +1,13 @@
+//
+//  NativeCardView.swift
+//  ReviewFeature
+//
+//  Created by Vladimir Gusev on 20.07.2026.
+//
+
 import SwiftUI
-import AmgiUI
-import AmgiTheme
+import UI
+import Theme
 import AmgiCardWeb
 
 /// Native SwiftUI renderer for allowlist-simple cards (R11). Renders the
@@ -14,6 +21,10 @@ struct NativeCardView: View {
     let mediaFolder: URL?
 
     @Environment(\.palette) private var palette
+
+    @ScaledMetric(relativeTo: .largeTitle) private var headwordFront: CGFloat = 48
+    @ScaledMetric(relativeTo: .title) private var headwordBack: CGFloat = 34
+    @ScaledMetric(relativeTo: .body) private var bodySize: CGFloat = 20
 
     var body: some View {
         ScrollView {
@@ -51,7 +62,7 @@ struct NativeCardView: View {
             // block two structural identities.
             Text(attributed)
                 .font(.system(
-                    size: isFirst ? (isAnswerSide ? 34 : 48) : 20,
+                    size: isFirst ? (isAnswerSide ? headwordBack : headwordFront) : bodySize,
                     weight: isFirst ? .semibold : .regular,
                     design: .serif
                 ))

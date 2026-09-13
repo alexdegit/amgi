@@ -1,3 +1,10 @@
+//
+//  NotesRequests.swift
+//  AnkiProtoBridge
+//
+//  Created by Vladimir Gusev on 13.05.2026.
+//
+
 import Foundation
 public import AnkiBackend
 public import AnkiKit
@@ -60,7 +67,8 @@ extension Request where Response == NewNoteTemplate {
                 let note = try Anki_Notes_Note(serializedBytes: bytes)
                 return NewNoteTemplate(
                     notetypeId: notetypeId,
-                    fields: Array(repeating: "", count: note.fields.count)
+                    fields: Array(repeating: "", count: note.fields.count),
+                    guid: note.guid
                 )
             }
         )
@@ -82,6 +90,7 @@ extension Request where Response == Void {
                 note.notetypeID = template.notetypeId.rawValue
                 note.fields = template.fields
                 note.tags = template.tags
+                note.guid = template.guid
 
                 var proto = Anki_Notes_AddNoteRequest()
                 proto.note = note

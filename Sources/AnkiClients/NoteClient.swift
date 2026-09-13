@@ -1,3 +1,10 @@
+//
+//  NoteClient.swift
+//  AnkiClients
+//
+//  Created by Vladimir Gusev on 27.03.2026.
+//
+
 public import AnkiKit
 public import Dependencies
 import DependenciesMacros
@@ -17,6 +24,7 @@ public struct NoteClient: Sendable {
     public var searchAll: @Sendable (_ query: String, _ limit: Int?) async throws -> [NoteRecord]
     public var save: @Sendable (_ note: NoteRecord) async throws -> Void
     public var delete: @Sendable (_ noteId: NoteID) async throws -> Void
+    public var findDuplicates: @Sendable () async throws -> [DuplicateGroup]
 }
 
 extension NoteClient: TestDependencyKey {

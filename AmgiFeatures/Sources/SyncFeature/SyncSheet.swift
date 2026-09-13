@@ -1,7 +1,14 @@
-import AmgiUI
+//
+//  SyncSheet.swift
+//  SyncFeature
+//
+//  Created by Vladimir Gusev on 27.03.2026.
+//
+
+import UI
 import SwiftUI
-import AmgiTheme
-import AmgiAppCore
+import Theme
+import AppCore
 import AnkiKit
 import AnkiClients
 import AnkiSync
@@ -17,8 +24,29 @@ enum SyncSheetState {
     case syncing(String)
     case success(SyncSummary)
     case error(String)
-    case needsFullSync
+    case needsFullSync(SyncFullSyncRequirement)
     case noServer
+
+    init(_ state: SyncCoordinator.SyncState) {
+        switch state {
+        case .idle:
+            self = .idle
+        case .syncing(let message):
+            self = .syncing(message)
+        case .syncingMedia(let message):
+            // Same wording as the toast — the two used to disagree, the sheet
+            // showing a flat "Syncing media…" while the toast counted files.
+            self = .syncing(message)
+        case .success(let summary):
+            self = .success(summary)
+        case .error(let message):
+            self = .error(message)
+        case .needsFullSync(let requirement):
+            self = .needsFullSync(requirement)
+        case .noServer:
+            self = .noServer
+        }
+    }
 }
 
 /// Container: owns the sync dependencies, the in-flight `syncState`, and the
@@ -73,6 +101,12 @@ struct SyncSheet: View {
                 Task { await startSync() }
             }
         }
+        .onChange(of: coordinator.state, initial: true) { _, state in
+            syncState = SyncSheetState(state)
+        }
+        .onChange(of: coordinator.requiresLogin, initial: true) { _, needsLogin in
+            if needsLogin { showLogin = true }
+        }
         .task { await startSync() }
     }
 
@@ -99,21 +133,7 @@ private extension SyncSheet {
             return
         }
 
-        syncState = .syncing("Syncing...")
-
-        do {
-            let summary = try await syncClient.sync()
-            syncState = .syncing("Syncing media...")
-            try? await syncClient.syncMedia()
-            syncState = .success(summary)
-        } catch let syncError as SyncError where syncError == .authFailed {
-            showLogin = true
-            syncState = .idle
-        } catch let syncError as SyncError where syncError == .fullSyncRequired {
-            syncState = .needsFullSync
-        } catch {
-            syncState = .error(error.localizedDescription)
-        }
+        await coordinator.startSync()
     }
 
     func logout() {
@@ -124,15 +144,7 @@ private extension SyncSheet {
     }
 
     func fullSync(_ direction: SyncDirection) async {
-        syncState = .syncing(
-            direction == .download ? "Downloading collection..." : "Uploading collection..."
-        )
-        do {
-            try await syncClient.fullSync(direction)
-            syncState = .success(SyncSummary())
-        } catch {
-            syncState = .error(error.localizedDescription)
-        }
+        await coordinator.confirmFullSync(direction: direction)
     }
 
     func mergeFullSync() async {

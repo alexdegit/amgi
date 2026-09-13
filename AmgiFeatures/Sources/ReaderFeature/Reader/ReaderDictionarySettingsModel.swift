@@ -1,5 +1,12 @@
-import AmgiReader
-import AmgiReaderDictionary
+//
+//  ReaderDictionarySettingsModel.swift
+//  ReaderFeature
+//
+//  Created by Vladimir Gusev on 23.06.2026.
+//
+
+import Reader
+import ReaderDictionary
 import Dependencies
 import Foundation
 import SwiftUI  // Array.move(fromOffsets:toOffset:)
@@ -17,6 +24,10 @@ final class ReaderDictionarySettingsModel {
     var actionError: String?
 
     @ObservationIgnored @Dependency(\.dictionaryLookupClient) private var dictionary
+
+    var lacksFrequencyDictionary: Bool {
+        !libraryState.frequencyDictionaries.contains(where: \.isEnabled)
+    }
 
     var dictionaries: [AppDictionaryInfo] {
         switch selectedKind {

@@ -1,3 +1,10 @@
+//
+//  NoteClient+Live.swift
+//  AnkiClients
+//
+//  Created by Vladimir Gusev on 27.03.2026.
+//
+
 import AnkiBackend
 import AnkiKit
 import AnkiServices
@@ -60,6 +67,9 @@ extension NoteClient: DependencyKey {
             },
             delete: { noteId in
                 try await backendOffload { try notes.deleteNote(noteId) }
+            },
+            findDuplicates: {
+                try await backendOffload { try notes.findDuplicates() }
             }
         )
     }()

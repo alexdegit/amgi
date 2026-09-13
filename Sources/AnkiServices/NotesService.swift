@@ -1,3 +1,10 @@
+//
+//  NotesService.swift
+//  AnkiServices
+//
+//  Created by Vladimir Gusev on 01.04.2026.
+//
+
 import AnkiBackend
 import AnkiProtoBridge
 public import AnkiKit
@@ -12,6 +19,7 @@ public struct NotesService: Sendable {
     public var deleteNote: @Sendable (_ noteId: NoteID) throws -> Void
     public var newNote: @Sendable (_ notetypeId: NotetypeID) throws -> NewNoteTemplate
     public var addNote: @Sendable (_ template: NewNoteTemplate, _ deckId: DeckID) throws -> Void
+    public var findDuplicates: @Sendable () throws -> [DuplicateGroup]
 }
 
 extension NotesService: DependencyKey {
@@ -35,6 +43,9 @@ extension NotesService: DependencyKey {
             },
             addNote: { template, deckId in
                 try backend.invoke(.addNote(template: template, deckId: deckId))
+            },
+            findDuplicates: {
+                try backend.invoke(.findDuplicates)
             }
         )
     }()

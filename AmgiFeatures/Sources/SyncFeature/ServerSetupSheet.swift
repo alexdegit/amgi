@@ -1,7 +1,14 @@
-import AmgiUI
+//
+//  ServerSetupSheet.swift
+//  SyncFeature
+//
+//  Created by Vladimir Gusev on 20.08.2026.
+//
+
+import UI
 import SwiftUI
-import AmgiTheme
-import AmgiAppCore
+import Theme
+import AppCore
 import AnkiKit
 import AnkiClients
 import AnkiSync
@@ -121,7 +128,7 @@ extension ServerSetupSheet {
 
 #Preview("Full sync required") {
     SyncSheetContent(
-        state: .needsFullSync,
+        state: .needsFullSync(.diverged),
         endpoint: "https://sync.example.com",
         username: "vlad",
         syncMode: .custom,

@@ -1,3 +1,10 @@
+//
+//  SchedulerRequests.swift
+//  AnkiProtoBridge
+//
+//  Created by Vladimir Gusev on 07.05.2026.
+//
+
 import Foundation
 public import AnkiBackend
 public import AnkiKit
@@ -7,24 +14,6 @@ import SwiftProtobuf
 // MARK: - answerCard (simple — no scheduling state)
 
 extension Request where Response == Void {
-    /// Submits an answer without round-tripping scheduling state. The
-    /// Rust backend computes the next state from current card data.
-    public static func answerCard(cardId: CardID, rating: Rating, timeSpentMs: UInt32) -> Self {
-        Self(
-            serviceId: ServiceID.scheduler,
-            methodId: SchedulerMethod.answerCard,
-            encode: {
-                var proto = Anki_Scheduler_CardAnswer()
-                proto.cardID = cardId.rawValue
-                proto.rating = protoRating(rating)
-                proto.answeredAtMillis = Date().ankiMillis
-                proto.millisecondsTaken = timeSpentMs
-                return try proto.serializedData()
-            },
-            decode: { _ in () }
-        )
-    }
-
     /// Submits an answer with pre-computed scheduling states fetched
     /// alongside the queue (via `getQueuedCards`). Token bytes are
     /// passed through opaque — the bridge handles encode/decode.
@@ -143,6 +132,20 @@ extension Request where Response == Void {
             decode: { _ in () }
         )
     }
+
+    public static func setDueDate(cardIds: [CardID], days: String) -> Self {
+        Self(
+            serviceId: ServiceID.scheduler,
+            methodId: SchedulerMethod.setDueDate,
+            encode: {
+                var proto = Anki_Scheduler_SetDueDateRequest()
+                proto.cardIds = cardIds.map(\.rawValue)
+                proto.days = days
+                return try proto.serializedData()
+            },
+            decode: { _ in () }
+        )
+    }
 }
 
 // MARK: - rebuildFilteredDeck
@@ -185,6 +188,7 @@ extension Request where Response == QueuedCardsResult {
             decode: { bytes in
                 let resp = try Anki_Scheduler_QueuedCards(serializedBytes: bytes)
                 var cards: [QueuedReviewCard] = []
+                cards.reserveCapacity(resp.cards.count)
                 for queued in resp.cards {
                     guard queued.hasCard else { continue }
                     let states = ReviewSchedulingStates(

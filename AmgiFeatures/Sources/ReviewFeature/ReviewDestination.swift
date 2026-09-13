@@ -1,7 +1,14 @@
+//
+//  ReviewDestination.swift
+//  ReviewFeature
+//
+//  Created by Vladimir Gusev on 18.08.2026.
+//
+
 import Foundation
 import CasePaths
 import AnkiKit
-import AmgiReviewCore
+import ReviewCore
 
 /// Single source of truth for every modal axis on the review screen: the note
 /// editor, the template editor, and the dictionary lookup popup.
@@ -20,4 +27,14 @@ enum ReviewDestination {
     case editNote(NoteRecord)
     case editTemplate(ReviewSession.TemplateTarget)
     case lookup(String)
+}
+
+extension Optional where Wrapped == ReviewDestination {
+    var lookupText: String? {
+        get {
+            guard case .lookup(let text) = self else { return nil }
+            return text
+        }
+        set { self = newValue.map(ReviewDestination.lookup) }
+    }
 }

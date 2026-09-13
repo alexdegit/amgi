@@ -1,3 +1,10 @@
+//
+//  SyncCoordinatorTypes.swift
+//  SyncFeature
+//
+//  Created by Vladimir Gusev on 02.05.2026.
+//
+
 import Foundation
 
 struct SyncLogEntry: Identifiable, Sendable, Equatable {
@@ -21,9 +28,20 @@ struct SyncLogEntry: Identifiable, Sendable, Equatable {
 }
 
 struct SyncFullSyncRequirement: Sendable, Equatable {
-    /// Brief explanation of why a full sync is required (e.g. "Schema mismatch", "Local collection empty").
     let reason: String
 
     /// True when the local collection appears empty — UI may default to download.
     let localIsEmpty: Bool
+}
+
+extension SyncFullSyncRequirement {
+    static let diverged = SyncFullSyncRequirement(
+        reason: "Your local and server collections have diverged. Choose how to reconcile them \u{2014} Merge is the safest option.",
+        localIsEmpty: false
+    )
+
+    static let serverEmpty = SyncFullSyncRequirement(
+        reason: "The server's collection is empty. Merge or \u{201C}Replace server\u{201D} keeps your cards; \u{201C}Replace local\u{201D} would erase them.",
+        localIsEmpty: false
+    )
 }

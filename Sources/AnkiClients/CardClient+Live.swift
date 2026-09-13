@@ -1,3 +1,10 @@
+//
+//  CardClient+Live.swift
+//  AnkiClients
+//
+//  Created by Vladimir Gusev on 27.03.2026.
+//
+
 import AnkiBackend
 import AnkiKit
 import AnkiProtoBridge
@@ -51,9 +58,6 @@ extension CardClient: DependencyKey {
                 }
                 return cards
             },
-            answer: { cardId, rating, timeSpent in
-                try await backendOffload { try scheduler.answerCard(cardId, rating, timeSpent) }
-            },
             suspend: { cardId in
                 try await backend.invoke(.suspendCards(cardIds: [cardId]))
             },
@@ -65,6 +69,9 @@ extension CardClient: DependencyKey {
             },
             resetToNew: { cardId in
                 try await backend.invoke(.scheduleCardsAsNew(cardIds: [cardId], log: true))
+            },
+            setDueDate: { cardId, days in
+                try await backend.invoke(.setDueDate(cardIds: [cardId], days: days))
             },
             undoLast: {
                 try await backend.invoke(.undoLastAction)

@@ -1,3 +1,10 @@
+//
+//  TagsRequests.swift
+//  AnkiProtoBridge
+//
+//  Created by Vladimir Gusev on 13.05.2026.
+//
+
 import Foundation
 public import AnkiBackend
 public import AnkiKit
@@ -35,6 +42,18 @@ private func flattenTagTree(_ node: Anki_Tags_TagTreeNode, parentPath: String, i
 }
 
 // MARK: - tag CRUD (Void)
+
+extension Request where Response == Int {
+    public static var clearUnusedTags: Self {
+        .empty(
+            serviceId: ServiceID.tags,
+            methodId: TagsMethod.clearUnusedTags,
+            decode: { data in
+                Int(try Anki_Collection_OpChangesWithCount(serializedBytes: data).count)
+            }
+        )
+    }
+}
 
 extension Request where Response == Void {
     /// Creates or updates a tag's collapsed state. Used as a side-effect

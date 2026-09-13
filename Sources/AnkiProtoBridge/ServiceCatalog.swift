@@ -1,10 +1,16 @@
+//
+//  ServiceCatalog.swift
+//  AnkiProtoBridge
+//
+//  Created by Vladimir Gusev on 07.05.2026.
+//
+
 import Foundation
 
 /// Typed wrappers for backend service/method dispatch. Internal to
 /// AnkiProtoBridge — service code never sees raw `UInt32` constants.
 enum ServiceID {
     static let sync: UInt32 = 1
-    static let collectionOps: UInt32 = 2
     static let collection: UInt32 = 3
     static let cards: UInt32 = 5
     static let decks: UInt32 = 7
@@ -20,13 +26,18 @@ enum ServiceID {
     static let media: UInt32 = 41
     static let stats: UInt32 = 43
     static let tags: UInt32 = 45
+
+    static let aux: UInt32 = 200
 }
 
-/// BackendCollectionService (2) — undo/redo and integrity helpers.
+enum AuxMethod {
+    static let findDuplicates: UInt32 = 0
+}
+
 enum CollectionOpsMethod {
-    static let checkDatabase: UInt32 = 0
-    static let getUndoStatus: UInt32 = 1
-    static let undo: UInt32 = 2
+    static let checkDatabase: UInt32 = 6
+    static let getUndoStatus: UInt32 = 7
+    static let undo: UInt32 = 8
 }
 
 /// BackendCardsService (5).
@@ -60,6 +71,7 @@ enum SchedulerMethod {
     static let emptyFilteredDeck: UInt32 = 15
     static let rebuildFilteredDeck: UInt32 = 16
     static let scheduleCardsAsNew: UInt32 = 17
+    static let setDueDate: UInt32 = 19
     static let computeFsrsParams: UInt32 = 30
     static let simulateFsrsReview: UInt32 = 33
     static let simulateFsrsWorkload: UInt32 = 34
@@ -108,10 +120,9 @@ enum SearchMethod {
     static let searchNotes: UInt32 = 2
 }
 
-/// BackendSyncService (1). syncMedia=0, syncLogin=3, syncStatus=4,
-/// syncCollection=5, fullUploadOrDownload=6.
 enum SyncMethod {
-    static let syncMedia: UInt32 = 0
+    static let abortMediaSync: UInt32 = 1
+    static let mediaSyncStatus: UInt32 = 2
     static let syncLogin: UInt32 = 3
     static let syncStatus: UInt32 = 4
     static let syncCollection: UInt32 = 5

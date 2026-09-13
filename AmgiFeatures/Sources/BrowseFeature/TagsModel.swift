@@ -1,3 +1,10 @@
+//
+//  TagsModel.swift
+//  BrowseFeature
+//
+//  Created by Vladimir Gusev on 27.06.2026.
+//
+
 import AnkiClients
 import AnkiKit
 import Dependencies
@@ -18,6 +25,7 @@ final class TagsModel {
     var errorMessage: String?
     var isApplying = false
     var isDeleting = false
+    var lastCleanupCount: Int?
 
     @ObservationIgnored @Dependency(\.tagClient) private var tagClient
 
@@ -77,6 +85,17 @@ final class TagsModel {
             await loadTags()
         } catch {
             errorMessage = "Failed to delete tag: \(error.localizedDescription)"
+        }
+    }
+
+    func clearUnusedTags() async {
+        isDeleting = true
+        defer { isDeleting = false }
+        do {
+            lastCleanupCount = try await tagClient.clearUnusedTags()
+            await loadTags()
+        } catch {
+            errorMessage = "Failed to clear unused tags: \(error.localizedDescription)"
         }
     }
 

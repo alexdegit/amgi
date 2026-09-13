@@ -1,3 +1,10 @@
+//
+//  SyncTypes.swift
+//  AnkiKit
+//
+//  Created by Vladimir Gusev on 27.03.2026.
+//
+
 public import Foundation
 
 public enum SyncDirection: Sendable {
@@ -20,6 +27,7 @@ public struct SyncError: Error, LocalizedError, Sendable, Equatable {
 
     public static let authFailed = SyncError(message: "Authentication failed")
     public static let fullSyncRequired = SyncError(message: "Full sync required")
+    public static let fullUploadRequired = SyncError(message: "Full upload required")
 }
 
 public struct SyncSummary: Sendable, Equatable {
@@ -36,6 +44,28 @@ public struct SyncSummary: Sendable, Equatable {
         self.cardsPulled = cardsPulled
         self.notesPushed = notesPushed
         self.notesPulled = notesPulled
+    }
+}
+
+public struct MediaSyncProgress: Sendable, Equatable {
+    public let checked: String
+    public let added: String
+    public let removed: String
+
+    public init(checked: String, added: String, removed: String) {
+        self.checked = checked
+        self.added = added
+        self.removed = removed
+    }
+}
+
+public struct MediaSyncStatus: Sendable, Equatable {
+    public let active: Bool
+    public let progress: MediaSyncProgress?
+
+    public init(active: Bool, progress: MediaSyncProgress?) {
+        self.active = active
+        self.progress = progress
     }
 }
 

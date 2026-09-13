@@ -1,7 +1,14 @@
-import AmgiReader
-import AmgiReaderDictionary
-import AmgiTheme
-import AmgiAppCore
+//
+//  ReaderDictionarySettingsView.swift
+//  ReaderFeature
+//
+//  Created by Vladimir Gusev on 05.05.2026.
+//
+
+import Reader
+import ReaderDictionary
+import Theme
+import AppCore
 import Dependencies
 import Sharing
 package import SwiftUI
@@ -36,6 +43,12 @@ package struct ReaderDictionarySettingsView: View {
     @Environment(\.palette) private var palette
 
     private static let zipType = UTType(filenameExtension: "zip") ?? .data
+
+    private var libraryFooter: String {
+        let base = "Import Yomitan-format dictionary ZIP archives. Reordering and update-on-version-change land when the lookup engine is fully wired."
+        guard model.lacksFrequencyDictionary else { return base }
+        return base + " Add a frequency dictionary to sort common words first."
+    }
 
     package var body: some View {
         Form {
@@ -112,7 +125,7 @@ package struct ReaderDictionarySettingsView: View {
             } header: {
                 Text("Library")
             } footer: {
-                Text("Import Yomitan-format dictionary ZIP archives. Reordering and update-on-version-change land when the lookup engine is fully wired.")
+                Text(libraryFooter)
             }
 
             if model.isBusy {

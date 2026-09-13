@@ -1,3 +1,10 @@
+//
+//  SchedulerRequestsTests.swift
+//  AnkiProtoBridgeTests
+//
+//  Created by Vladimir Gusev on 07.05.2026.
+//
+
 import Testing
 import Foundation
 import AnkiKit
@@ -7,34 +14,6 @@ import AnkiProto
 private import SwiftProtobuf
 
 @Suite struct SchedulerRequestsTests {
-    // MARK: - answerCard (simple)
-
-    @Test func answerCard_dispatches_to_scheduler_answer() {
-        let envelope: Request<Void> = .answerCard(cardId: CardID(42), rating: .good, timeSpentMs: 1500)
-        #expect(envelope.serviceId == ServiceID.scheduler)
-        #expect(envelope.methodId == SchedulerMethod.answerCard)
-    }
-
-    @Test func answerCard_encodes_cardId_rating_and_time() throws {
-        let envelope: Request<Void> = .answerCard(cardId: CardID(42), rating: .easy, timeSpentMs: 2500)
-        let proto = try Anki_Scheduler_CardAnswer(serializedBytes: envelope.body)
-        #expect(proto.cardID == 42)
-        #expect(proto.rating == .easy)
-        #expect(proto.millisecondsTaken == 2500)
-        #expect(proto.answeredAtMillis > 0)
-    }
-
-    @Test func answerCard_rating_mapping_covers_all_cases() throws {
-        let cases: [(Rating, Anki_Scheduler_CardAnswer.Rating)] = [
-            (.again, .again), (.hard, .hard), (.good, .good), (.easy, .easy),
-        ]
-        for (rating, expected) in cases {
-            let envelope: Request<Void> = .answerCard(cardId: CardID(1), rating: rating, timeSpentMs: 0)
-            let proto = try Anki_Scheduler_CardAnswer(serializedBytes: envelope.body)
-            #expect(proto.rating == expected, "rating \(rating) should map to proto \(expected)")
-        }
-    }
-
     // MARK: - answerReviewCard (with states)
 
     @Test func answerReviewCard_encodes_currentState_and_picks_newState_by_rating() throws {
@@ -107,9 +86,6 @@ private import SwiftProtobuf
         #expect(proto.reviewDelta == 0)
     }
 
-    /// Guards the method-ID arithmetic: BackendSchedulerService's three
-    /// RPCs are dispatched first, so every SchedulerService index is
-    /// offset by 3 (ExtendLimits is #6 in the .proto → 9 on the wire).
     @Test func extendLimits_uses_the_offset_scheduler_method_id() {
         #expect(SchedulerMethod.extendLimits == 9)
     }
@@ -132,6 +108,18 @@ private import SwiftProtobuf
         let proto = try Anki_Scheduler_ScheduleCardsAsNewRequest(serializedBytes: envelope.body)
         #expect(proto.cardIds == [1, 2, 3])
         #expect(proto.log)
+    }
+
+    // MARK: - setDueDate
+
+    @Test func setDueDate_dispatches_and_encodes_ids_and_spec() throws {
+        let envelope: Request<Void> = .setDueDate(cardIds: [CardID(4), CardID(5)], days: "3-7!")
+        #expect(envelope.serviceId == ServiceID.scheduler)
+        #expect(envelope.methodId == 19)
+        #expect(envelope.methodId == SchedulerMethod.setDueDate)
+        let proto = try Anki_Scheduler_SetDueDateRequest(serializedBytes: envelope.body)
+        #expect(proto.cardIds == [4, 5])
+        #expect(proto.days == "3-7!")
     }
 
     // MARK: - getQueuedCards
