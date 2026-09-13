@@ -1,4 +1,11 @@
-import AmgiTheme
+//
+//  SyncToastController.swift
+//  SyncFeature
+//
+//  Created by Vladimir Gusev on 13.06.2026.
+//
+
+import Theme
 import SwiftUI
 
 /// Owns the bottom sync-toast state machine that used to live inline in
@@ -27,6 +34,9 @@ final class SyncToastController {
         case .syncing(let message):
             cancelDismiss()
             toast = .progress(message.isEmpty ? "Syncing\u{2026}" : message)
+        case .syncingMedia(let message):
+            cancelDismiss()
+            toast = .progress(message)
         case .success(let summary):
             toast = .success(SyncToast.summaryMessage(for: summary))
             cancelDismiss()
@@ -38,6 +48,11 @@ final class SyncToastController {
             cancelDismiss()
             toast = nil
         }
+    }
+
+    func dismiss() {
+        cancelDismiss()
+        toast = nil
     }
 
     /// Whether a state should pull up the sync sheet for the user.
@@ -61,11 +76,15 @@ extension View {
     /// Pins the sync toast to the bottom edge with the standard transition
     /// and animation. Lifted out of `RootView`'s body so the host keeps
     /// a flat modifier chain.
-    func syncToastOverlay(_ kind: SyncToast.Kind?) -> some View {
+    func syncToastOverlay(_ kind: SyncToast.Kind?, onDismiss: @escaping () -> Void) -> some View {
         overlay(alignment: .bottom) {
             if let kind {
-                SyncToast(kind: kind)
-                    .transition(AmgiMotion.slide(from: .bottom))
+                Button(action: onDismiss) {
+                    SyncToast(kind: kind)
+                }
+                .buttonStyle(.pressScale)
+                .accessibilityHint("Dismisses this message")
+                .transition(AmgiMotion.slide(from: .bottom))
             }
         }
         // Sync finishes without the user watching for it, so the outcome is

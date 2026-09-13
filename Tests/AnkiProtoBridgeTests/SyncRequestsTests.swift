@@ -1,3 +1,10 @@
+//
+//  SyncRequestsTests.swift
+//  AnkiProtoBridgeTests
+//
+//  Created by Vladimir Gusev on 13.05.2026.
+//
+
 import Testing
 import AnkiKit
 @testable import AnkiProtoBridge
@@ -43,11 +50,6 @@ private import SwiftProtobuf
         resp.required = .UNRECOGNIZED(99)
         let bytes = try resp.serializedData()
         let envelope: Request<SyncCollectionResult> = .syncCollection(auth: auth, syncMedia: false)
-        // Wire format may collapse unrecognized back to the proto's
-        // default (.noChanges) on round-trip; either way the bridge
-        // mapper must not throw. The original assertion checked a
-        // non-optional value against nil — always-true; replaced with
-        // a real exhaustive case check.
         let result = try envelope.decode(bytes)
         switch result.required {
         case .noChanges, .normalSync, .fullSync, .fullDownload, .fullUpload, .unrecognized:
@@ -90,15 +92,38 @@ private import SwiftProtobuf
         #expect(proto.serverUsn == 7)
     }
 
-    // MARK: - syncMedia
+    // MARK: - media sync
 
-    @Test func syncMedia_dispatches_and_encodes_auth() throws {
-        let envelope: Request<Void> = .syncMedia(auth: auth)
-        #expect(envelope.serviceId == ServiceID.sync)
-        #expect(envelope.methodId == SyncMethod.syncMedia)
-        let proto = try Anki_Sync_SyncAuth(serializedBytes: envelope.body)
-        #expect(proto.hkey == "abc123")
-        #expect(proto.endpoint == "https://sync.example.com")
+    @Test func mediaSyncStatus_dispatches_and_decodes_progress() throws {
+        var proto = Anki_Sync_MediaSyncStatusResponse()
+        proto.active = true
+        // The engine sends localized display lines, not numbers.
+        proto.progress.checked = "Checked: 12"
+        proto.progress.added = "Added: 7\u{2191} 0\u{2193}"
+        proto.progress.removed = "Removed: 2\u{2191} 0\u{2193}"
+
+        let request: Request<MediaSyncStatus> = .mediaSyncStatus
+        #expect(request.serviceId == ServiceID.sync)
+        #expect(request.methodId == SyncMethod.mediaSyncStatus)
+        #expect(try request.body.isEmpty)
+        #expect(
+            try request.decode(proto.serializedData())
+                == MediaSyncStatus(
+                    active: true,
+                    progress: MediaSyncProgress(
+                        checked: "Checked: 12",
+                        added: "Added: 7\u{2191} 0\u{2193}",
+                        removed: "Removed: 2\u{2191} 0\u{2193}"
+                    )
+                )
+        )
+    }
+
+    @Test func abortMediaSync_dispatches_with_empty_body() throws {
+        let request: Request<Void> = .abortMediaSync
+        #expect(request.serviceId == ServiceID.sync)
+        #expect(request.methodId == SyncMethod.abortMediaSync)
+        #expect(try request.body.isEmpty)
     }
 
     // MARK: - syncLogin
