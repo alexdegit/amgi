@@ -1,4 +1,11 @@
-import AmgiAppCore
+//
+//  MaintenanceModel.swift
+//  SettingsFeature
+//
+//  Created by Vladimir Gusev on 26.06.2026.
+//
+
+import AppCore
 import AnkiBackend
 import AnkiServices
 import AnkiSync
@@ -27,8 +34,10 @@ final class MaintenanceModel {
             // blocking calls the engine has; running it on the main actor
             // froze Settings outright and risked a watchdog kill.
             let service = collectionService
-            try await backendOffload { try service.checkDatabase() }
-            statusMessage = "Database check passed"
+            let problems = try await backendOffload { try service.checkDatabase() }
+            statusMessage = problems.isEmpty
+                ? "Database check passed"
+                : "Database check completed:\n" + problems.joined(separator: "\n")
         } catch {
             statusMessage = "Database check error: \(error.localizedDescription)"
         }

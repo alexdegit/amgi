@@ -1,8 +1,29 @@
+//
+//  CollectionOpsRequests.swift
+//  AnkiProtoBridge
+//
+//  Created by Vladimir Gusev on 13.05.2026.
+//
+
 import Foundation
 public import AnkiBackend
 import AnkiKit
 import AnkiProto
 import SwiftProtobuf
+
+// MARK: - checkDatabase
+
+extension Request where Response == [String] {
+    public static var checkDatabase: Self {
+        .empty(
+            serviceId: ServiceID.collection,
+            methodId: CollectionOpsMethod.checkDatabase,
+            decode: { bytes in
+                try Anki_Collection_CheckDatabaseResponse(serializedBytes: bytes).problems
+            }
+        )
+    }
+}
 
 // MARK: - undo / hasUndoableAction
 
@@ -12,7 +33,7 @@ extension Request where Response == Void {
     /// service-level code is free to swallow).
     public static var undoLastAction: Self {
         .empty(
-            serviceId: ServiceID.collectionOps,
+            serviceId: ServiceID.collection,
             methodId: CollectionOpsMethod.undo,
             decode: { _ in () }
         )
@@ -24,7 +45,7 @@ extension Request where Response == Bool {
     /// something to undo. Surfaces `!UndoStatus.undo.isEmpty`.
     public static var hasUndoableAction: Self {
         .empty(
-            serviceId: ServiceID.collectionOps,
+            serviceId: ServiceID.collection,
             methodId: CollectionOpsMethod.getUndoStatus,
             decode: { bytes in
                 let proto = try Anki_Collection_UndoStatus(serializedBytes: bytes)
