@@ -1,30 +1,135 @@
+//
+//  SyncCoordinatorTests.swift
+//  SyncFeatureTests
+//
+//  Created by Vladimir Gusev on 02.05.2026.
+//
+
 import Testing
 import Foundation
 import Dependencies
 import Sharing
 import AnkiKit
 import AnkiClients
+import AppCore
 @testable import SyncFeature
 
-@Suite("SyncCoordinator state machine")
+@Suite("SyncCoordinator state machine", .serialized)
 struct SyncCoordinatorTests {
 
+    init() {
+        UserDefaults.standard.removeObject(
+            forKey: SyncPreferences.Keys.needsFullSyncForCurrentUser()
+        )
+        UserDefaults.standard.removeObject(
+            forKey: SyncPreferences.Keys.lastCollectionSyncedAtForCurrentUser()
+        )
+    }
+
     @Test @MainActor
-    func startSyncSuccessTransitions() async throws {
+    func startSyncWaitsForMediaCompletion() async throws {
         let summary = SyncSummary(cardsPushed: 5, cardsPulled: 3)
+        let statuses = MediaStatusQueue([
+            MediaSyncStatus(
+                active: true,
+                progress: MediaSyncProgress(
+                    checked: "Checked: 12",
+                    added: "Added: 7\u{2191} 0\u{2193}",
+                    removed: "Removed: 0\u{2191} 0\u{2193}"
+                )
+            ),
+            MediaSyncStatus(active: false, progress: nil),
+        ])
         try await withDependencies {
             $0.appStorageKeyFormatWarningEnabled = false
             $0.syncClient.sync = { summary }
+            $0.syncClient.mediaSyncStatus = { await statuses.next() }
         } operation: {
-            let coordinator = SyncCoordinator()
+            let coordinator = SyncCoordinator(mediaPollInterval: .milliseconds(20))
             await coordinator.startSync()
-            try await Task.sleep(for: .milliseconds(100))
+            try await Task.sleep(for: .milliseconds(10))
+            #expect(coordinator.state == .syncingMedia("Checked: 12 \u{00B7} Added: 7\u{2191} 0\u{2193}"))
+            try await Task.sleep(for: .milliseconds(60))
             guard case .success(let resultSummary) = coordinator.state else {
                 Issue.record("expected .success, got \(coordinator.state)")
                 return
             }
             #expect(resultSummary == summary)
             #expect(coordinator.lastSuccessfulSync != nil)
+        }
+    }
+
+    @Test @MainActor
+    func mediaSyncErrorSurfacesButKeepsTheCollectionSyncRecord() async throws {
+        try await withDependencies {
+            $0.appStorageKeyFormatWarningEnabled = false
+            $0.syncClient.sync = { SyncSummary() }
+            $0.syncClient.mediaSyncStatus = {
+                throw SyncError(message: "Media checksum mismatch")
+            }
+        } operation: {
+            let before = Date()
+            let coordinator = SyncCoordinator(mediaPollInterval: .milliseconds(1))
+            await coordinator.startSync()
+            try await Task.sleep(for: .milliseconds(50))
+            guard case .error(let message) = coordinator.state else {
+                Issue.record("expected .error, got \(coordinator.state)")
+                return
+            }
+            #expect(message.contains("Media checksum mismatch"))
+            #expect((coordinator.lastSuccessfulSync ?? .distantPast) >= before)
+        }
+    }
+
+    @Test @MainActor
+    func cancelDuringMediaSyncAbortsBackendTask() async throws {
+        let abortRecorder = AsyncFlag()
+        try await withDependencies {
+            $0.appStorageKeyFormatWarningEnabled = false
+            $0.syncClient.sync = { SyncSummary() }
+            $0.syncClient.mediaSyncStatus = {
+                MediaSyncStatus(
+                    active: true,
+                    progress: MediaSyncProgress(
+                        checked: "Checked: 4",
+                        added: "Added: 1\u{2191} 0\u{2193}",
+                        removed: "Removed: 0\u{2191} 0\u{2193}"
+                    )
+                )
+            }
+            $0.syncClient.abortMediaSync = { await abortRecorder.set() }
+        } operation: {
+            let coordinator = SyncCoordinator(mediaPollInterval: .seconds(1))
+            await coordinator.startSync()
+            try await Task.sleep(for: .milliseconds(50))
+            #expect(coordinator.state == .syncingMedia("Checked: 4 \u{00B7} Added: 1\u{2191} 0\u{2193}"))
+            coordinator.cancel()
+            try await Task.sleep(for: .milliseconds(50))
+            #expect(coordinator.state == .idle)
+            #expect(await abortRecorder.value)
+        }
+    }
+
+    @Test @MainActor
+    func cancelAndWaitReturnsAfterThePollLoopAndAbortHaveUnwound() async throws {
+        let abortRecorder = AsyncFlag()
+        try await withDependencies {
+            $0.appStorageKeyFormatWarningEnabled = false
+            $0.syncClient.sync = { SyncSummary() }
+            $0.syncClient.mediaSyncStatus = { MediaSyncStatus(active: true, progress: nil) }
+            $0.syncClient.abortMediaSync = { await abortRecorder.set() }
+        } operation: {
+            let coordinator = SyncCoordinator(mediaPollInterval: .seconds(10))
+            await coordinator.startSync()
+            try await Task.sleep(for: .milliseconds(50))
+            #expect(coordinator.state == .syncingMedia("Syncing media\u{2026}"))
+            await coordinator.cancelAndWait()
+            #expect(coordinator.state == .idle)
+            #expect(await abortRecorder.value)
+            // The gate is open again: a new sync may start at once.
+            await coordinator.startSync()
+            #expect(coordinator.state == .syncing(message: "Connecting…"))
+            await coordinator.cancelAndWait()
         }
     }
 
@@ -65,11 +170,32 @@ struct SyncCoordinatorTests {
     }
 
     @Test @MainActor
+    func fullUploadRequiresUserChoiceAndUploadsNothing() async throws {
+        let uploads = UploadRecorder()
+        try await withDependencies {
+            $0.appStorageKeyFormatWarningEnabled = false
+            $0.syncClient.sync = { throw SyncError.fullUploadRequired }
+            $0.syncClient.fullSync = { _ in await uploads.record() }
+        } operation: {
+            let coordinator = SyncCoordinator()
+            await coordinator.startSync()
+            try await Task.sleep(for: .milliseconds(100))
+            guard case .needsFullSync(let requirement) = coordinator.state else {
+                Issue.record("expected .needsFullSync, got \(coordinator.state)")
+                return
+            }
+            #expect(requirement == .serverEmpty)
+            #expect(await uploads.called == false)
+        }
+    }
+
+    @Test @MainActor
     func confirmFullSyncUpload() async throws {
         try await withDependencies {
             $0.appStorageKeyFormatWarningEnabled = false
             $0.syncClient.sync = { throw SyncError.fullSyncRequired }
             $0.syncClient.fullSync = { _ in /* success */ }
+            $0.syncClient.mediaSyncStatus = { MediaSyncStatus(active: false, progress: nil) }
         } operation: {
             let coordinator = SyncCoordinator()
             await coordinator.startSync()
@@ -130,11 +256,6 @@ struct SyncCoordinatorTests {
             await coordinator.startSync()
             try await Task.sleep(for: .milliseconds(20))
             coordinator.cancel()
-            // `cancel()` is advisory: the Rust FFI call has no cancellation
-            // hook, so the coordinator stays `.syncing` and keeps `activeTask`
-            // set — clearing it here re-opened the `startSync` re-entry gate
-            // and allowed two concurrent syncs. The terminal `.idle` arrives
-            // later, from `finishCancellationIfNeeded`.
             #expect(coordinator.state == .syncing(message: "Connecting…"))
             #expect(coordinator.logEntries.contains { $0.message.contains("Cancelling") })
 
@@ -158,5 +279,33 @@ struct SyncCoordinatorTests {
             #expect(coordinator.logEntries[0].level == .info)
             #expect(coordinator.logEntries[2].level == .error)
         }
+    }
+}
+
+private actor UploadRecorder {
+    private(set) var called = false
+
+    func record() {
+        called = true
+    }
+}
+
+private actor MediaStatusQueue {
+    private var statuses: [MediaSyncStatus]
+
+    init(_ statuses: [MediaSyncStatus]) {
+        self.statuses = statuses
+    }
+
+    func next() -> MediaSyncStatus {
+        statuses.count > 1 ? statuses.removeFirst() : statuses[0]
+    }
+}
+
+private actor AsyncFlag {
+    private(set) var value = false
+
+    func set() {
+        value = true
     }
 }

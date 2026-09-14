@@ -1,6 +1,13 @@
+//
+//  NoteEditingDestinationView.swift
+//  BrowseFeature
+//
+//  Created by Vladimir Gusev on 29.04.2026.
+//
+
 package import SwiftUI
 package import AnkiKit
-import AmgiTheme
+import Theme
 
 package struct NoteEditingDestinationView: View {
     let note: NoteRecord
@@ -27,6 +34,7 @@ package struct NoteEditingDestinationView: View {
 
     @ViewBuilder
     private var destinationBody: some View {
+        #if canImport(UIKit)
         if note.isImageOcclusionNote {
             EditImageOcclusionNoteView(
                 noteId: note.id,
@@ -36,5 +44,8 @@ package struct NoteEditingDestinationView: View {
         } else {
             NoteEditorView(note: note, onSave: onSave)
         }
+        #else
+        NoteEditorView(note: note, onSave: onSave)
+        #endif
     }
 }

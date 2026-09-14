@@ -1,7 +1,15 @@
+//
+//  ImageOcclusionMaskSummaryCard.swift
+//  BrowseFeature
+//
+//  Created by Vladimir Gusev on 15.08.2026.
+//
+
+#if canImport(UIKit)
 import SwiftUI
 import UIKit
-import AmgiTheme
-import AmgiUI
+import Theme
+import UI
 
 // MARK: - imageOcclusionPreviewHeight
 
@@ -50,3 +58,4 @@ struct ImageOcclusionMaskSummaryCard: View {
         .background(palette.surface, in: RoundedRectangle(cornerRadius: AmgiRadius.pill, style: .continuous))
     }
 }
+#endif

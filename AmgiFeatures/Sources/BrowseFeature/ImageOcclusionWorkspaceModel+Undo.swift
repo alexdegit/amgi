@@ -1,4 +1,12 @@
-import AmgiTheme
+//
+//  ImageOcclusionWorkspaceModel+Undo.swift
+//  BrowseFeature
+//
+//  Created by Vladimir Gusev on 20.08.2026.
+//
+
+#if canImport(UIKit)
+import Theme
 import SwiftUI
 import UIKit
 
@@ -151,3 +159,4 @@ extension ImageOcclusionWorkspaceModel {
         }
     }
 }
+#endif

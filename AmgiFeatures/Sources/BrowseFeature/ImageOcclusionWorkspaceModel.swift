@@ -1,4 +1,12 @@
-import AmgiTheme
+//
+//  ImageOcclusionWorkspaceModel.swift
+//  BrowseFeature
+//
+//  Created by Vladimir Gusev on 15.08.2026.
+//
+
+#if canImport(UIKit)
+import Theme
 import SwiftUI
 import UIKit
 
@@ -257,8 +265,9 @@ final class ImageOcclusionWorkspaceModel {
         guard !indices.isEmpty else { return }
 
         var updatedMasks = masks
-        var duplicatedIndices: Set<Int> = []
-        var ordinalMapping: [Int: Int] = [:]
+        updatedMasks.reserveCapacity(masks.count + indices.count)
+        var duplicatedIndices = Set<Int>(minimumCapacity: indices.count)
+        var ordinalMapping = [Int: Int](minimumCapacity: indices.count)
 
         for index in indices {
             var duplicate = offset(mask: masks[index], dx: 0.03, dy: 0.03).applyingSerializationOrdinal(nil)
@@ -409,3 +418,4 @@ final class ImageOcclusionWorkspaceModel {
         registerUndo(previous: previousSnapshot, current: current)
     }
 }
+#endif

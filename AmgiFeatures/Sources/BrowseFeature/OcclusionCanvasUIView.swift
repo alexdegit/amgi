@@ -1,4 +1,12 @@
-import AmgiTheme
+//
+//  OcclusionCanvasUIView.swift
+//  BrowseFeature
+//
+//  Created by Vladimir Gusev on 20.08.2026.
+//
+
+#if canImport(UIKit)
+import Theme
 import SwiftUI
 import UIKit
 
@@ -277,3 +285,4 @@ final class OcclusionCanvasUIView: UIView {
     }
 
 }
+#endif

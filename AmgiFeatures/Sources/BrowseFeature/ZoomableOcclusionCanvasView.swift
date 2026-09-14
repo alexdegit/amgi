@@ -1,3 +1,11 @@
+//
+//  ZoomableOcclusionCanvasView.swift
+//  BrowseFeature
+//
+//  Created by Vladimir Gusev on 15.08.2026.
+//
+
+#if canImport(UIKit)
 import SwiftUI
 import UIKit
 
@@ -169,3 +177,4 @@ private extension ZoomableOcclusionCanvasContainer {
         canvasView.frame = frame
     }
 }
+#endif

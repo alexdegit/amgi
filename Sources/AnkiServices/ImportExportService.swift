@@ -1,3 +1,10 @@
+//
+//  ImportExportService.swift
+//  AnkiServices
+//
+//  Created by Vladimir Gusev on 01.04.2026.
+//
+
 import AnkiBackend
 import AnkiProtoBridge
 public import AnkiKit
@@ -37,7 +44,9 @@ extension ImportExportService: DependencyKey {
                 return "Imported: \(log.newCount) new, \(log.updatedCount) updated, \(log.duplicateCount) duplicates"
             },
             exportCollectionPackage: { outPath, includeMedia in
-                try backend.invoke(.exportCollectionPackage(outPath: outPath, includeMedia: includeMedia))
+                let export = Result { try backend.invoke(.exportCollectionPackage(outPath: outPath, includeMedia: includeMedia)) }
+                try backend.reopenCollection()
+                try export.get()
             },
             exportDeckPackage: { deckId, outPath, withScheduling, withDeckConfigs, withMedia, legacy in
                 try backend.invoke(.exportAnkiPackage(

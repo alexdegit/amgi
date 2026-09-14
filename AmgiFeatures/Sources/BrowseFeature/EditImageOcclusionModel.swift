@@ -1,3 +1,11 @@
+//
+//  EditImageOcclusionModel.swift
+//  BrowseFeature
+//
+//  Created by Vladimir Gusev on 29.04.2026.
+//
+
+#if canImport(UIKit)
 import AnkiKit
 import AnkiClients
 import Dependencies
@@ -80,6 +88,7 @@ final class EditImageOcclusionModel {
 private func parseMasks(from occlusions: String) -> [IOMask] {
     let lines = occlusions.components(separatedBy: "\n")
     var result: [IOMask] = []
+    result.reserveCapacity(lines.count)
     for line in lines {
         guard let payload = extractClozePayload(line) else { continue }
         let parts = payload.body.components(separatedBy: ":")
@@ -108,6 +117,7 @@ private func parseMasks(from occlusions: String) -> [IOMask] {
                 let coords = raw.components(separatedBy: CharacterSet(charactersIn: ", "))
                     .compactMap { Double($0) }
                 var pts: [CGPoint] = []
+                pts.reserveCapacity(coords.count / 2)
                 var i = 0
                 while i + 1 < coords.count {
                     pts.append(CGPoint(x: coords[i], y: coords[i + 1]))
@@ -201,3 +211,4 @@ private func extractClozePayload(_ cloze: String) -> IOClozePayload? {
     let ordinal = Int(ordinalText)
     return IOClozePayload(ordinal: ordinal, body: String(inner[colonIdx.upperBound...]))
 }
+#endif
