@@ -1,5 +1,12 @@
-import AmgiAppCore
-import AmgiAppShared
+//
+//  ProfileSwitching.swift
+//  RootFeature
+//
+//  Created by Vladimir Gusev on 29.08.2026.
+//
+
+import AppCore
+import AppShared
 import AnkiBackend
 import Dependencies
 import Foundation
@@ -36,8 +43,12 @@ func switchProfile(to account: AmgiAccount) async {
     @Dependency(\.ankiBackend) var backend
     @Dependency(\.syncCoordinator) var syncCoordinator
 
-    syncCoordinator.cancel()
-    try? backend.closeCollection()
+    await syncCoordinator.cancelAndWait()
+    do {
+        try backend.closeCollection()
+    } catch {
+        Log.decks.error("Failed to close collection during profile switch: \(error)")
+    }
     store.select(account)
     do {
         try openCollection(for: account.id, backend: backend)

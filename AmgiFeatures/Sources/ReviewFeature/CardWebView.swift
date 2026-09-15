@@ -1,5 +1,14 @@
-import AmgiAppCore
+//
+//  CardWebView.swift
+//  ReviewFeature
+//
+//  Created by Vladimir Gusev on 27.03.2026.
+//
+
+import AppCore
+import AppShared
 import OSLog
+import Reader
 import SwiftUI
 import WebKit
 import UIKit
@@ -7,7 +16,8 @@ import AVFoundation
 import AmgiCardWeb
 
 
-struct CardWebView: UIViewRepresentable {
+@MainActor
+struct CardWebView {
     @Environment(\.colorScheme) private var colorScheme
 
     let html: String
@@ -21,12 +31,15 @@ struct CardWebView: UIViewRepresentable {
     let showInlineAudioReplayButtons: Bool
     let openLinksExternally: Bool
     let lookupPopupEnabled: Bool
+    let dictionaryScanLength: Int
+    let lookupHighlight: LookupHighlight
     let prefetchHTML: String?
     let contentAlignment: CardWebViewContentAlignment
     let bottomContentInset: CGFloat
     let onAudioStateChange: ((Bool) -> Void)?
-    let onCardBackgroundColorChange: ((UIColor, Bool) -> Void)?
+    let onCardBackgroundColorChange: ((Color, Bool) -> Void)?
     let onLookupRequested: ((String?, String?, CGPoint) -> Void)?
+    let onShowAnswerRequested: (() -> Void)?
 
     init(
         html: String,
@@ -40,12 +53,15 @@ struct CardWebView: UIViewRepresentable {
         showInlineAudioReplayButtons: Bool = true,
         openLinksExternally: Bool = true,
         lookupPopupEnabled: Bool = false,
+        dictionaryScanLength: Int = 16,
+        lookupHighlight: LookupHighlight = LookupHighlight(),
         prefetchHTML: String? = nil,
         contentAlignment: CardWebViewContentAlignment = .center,
         bottomContentInset: CGFloat = 0,
         onAudioStateChange: ((Bool) -> Void)? = nil,
-        onCardBackgroundColorChange: ((UIColor, Bool) -> Void)? = nil,
-        onLookupRequested: ((String?, String?, CGPoint) -> Void)? = nil
+        onCardBackgroundColorChange: ((Color, Bool) -> Void)? = nil,
+        onLookupRequested: ((String?, String?, CGPoint) -> Void)? = nil,
+        onShowAnswerRequested: (() -> Void)? = nil
     ) {
         self.html = html
         self.cardCSS = cardCSS
@@ -58,45 +74,43 @@ struct CardWebView: UIViewRepresentable {
         self.showInlineAudioReplayButtons = showInlineAudioReplayButtons
         self.openLinksExternally = openLinksExternally
         self.lookupPopupEnabled = lookupPopupEnabled
+        self.dictionaryScanLength = dictionaryScanLength
+        self.lookupHighlight = lookupHighlight
         self.prefetchHTML = prefetchHTML
         self.contentAlignment = contentAlignment
         self.bottomContentInset = bottomContentInset
         self.onAudioStateChange = onAudioStateChange
         self.onCardBackgroundColorChange = onCardBackgroundColorChange
         self.onLookupRequested = onLookupRequested
+        self.onShowAnswerRequested = onShowAnswerRequested
     }
 
     func makeCoordinator() -> CardWebViewCoordinator {
         CardWebViewCoordinator(
             onAudioStateChange: onAudioStateChange,
             onCardBackgroundColorChange: onCardBackgroundColorChange,
-            onLookupRequested: onLookupRequested
+            onLookupRequested: onLookupRequested,
+            onShowAnswerRequested: onShowAnswerRequested
         )
     }
 
-    func makeUIView(context: Context) -> WKWebView {
+    func makeWebView(coordinator: CardWebViewCoordinator) -> WKWebView {
         let config = WKWebViewConfiguration()
         config.defaultWebpagePreferences.allowsContentJavaScript = true
         config.setURLSchemeHandler(CardAssetScheme(), forURLScheme: CardAssetPath.scheme)
-        config.userContentController.add(context.coordinator, name: "amgiAudioState")
-        config.userContentController.add(context.coordinator, name: "amgiOpenLink")
-        config.userContentController.add(context.coordinator, name: "amgiSpeakTts")
-        config.userContentController.add(context.coordinator, name: "amgiStopTts")
-        config.userContentController.add(context.coordinator, name: "amgiCardTheme")
-        config.userContentController.add(context.coordinator, name: "amgiLookupText")
+        config.userContentController.add(coordinator, name: "amgiAudioState")
+        config.userContentController.add(coordinator, name: "amgiOpenLink")
+        config.userContentController.add(coordinator, name: "amgiSpeakTts")
+        config.userContentController.add(coordinator, name: "amgiStopTts")
+        config.userContentController.add(coordinator, name: "amgiCardTheme")
+        config.userContentController.add(coordinator, name: "amgiLookupText")
+        config.userContentController.add(coordinator, name: "amgiShowAnswer")
 
-        // Tap-to-lookup. Mirrors ChapterWebView's handler: skip when
-        // there's an active selection, walk text nodes from the tap
-        // caret for ~32 chars, post to native. Only injected when the
-        // host wired `onLookupRequested` so cards still behave normally
-        // when lookup is off.
-        if onLookupRequested != nil {
-            config.userContentController.addUserScript(WKUserScript(
-                source: Self.tapLookupBootstrapJS,
-                injectionTime: .atDocumentEnd,
-                forMainFrameOnly: true
-            ))
-        }
+        config.userContentController.addUserScript(WKUserScript(
+            source: LookupExtractionScript.source,
+            injectionTime: .atDocumentStart,
+            forMainFrameOnly: true
+        ))
 
         // Enable media playback without user interaction
         config.mediaTypesRequiringUserActionForPlayback = []
@@ -107,21 +121,22 @@ struct CardWebView: UIViewRepresentable {
         webView.backgroundColor = .clear
         webView.scrollView.backgroundColor = .clear
         webView.scrollView.showsVerticalScrollIndicator = false
-        webView.navigationDelegate = context.coordinator
+        webView.navigationDelegate = coordinator
         return webView
     }
 
-    static func dismantleUIView(_ webView: WKWebView, coordinator: CardWebViewCoordinator) {
+    static func dismantleWebView(_ webView: WKWebView, coordinator: CardWebViewCoordinator) {
         webView.configuration.userContentController.removeScriptMessageHandler(forName: "amgiAudioState")
         webView.configuration.userContentController.removeScriptMessageHandler(forName: "amgiOpenLink")
         webView.configuration.userContentController.removeScriptMessageHandler(forName: "amgiSpeakTts")
         webView.configuration.userContentController.removeScriptMessageHandler(forName: "amgiStopTts")
         webView.configuration.userContentController.removeScriptMessageHandler(forName: "amgiCardTheme")
         webView.configuration.userContentController.removeScriptMessageHandler(forName: "amgiLookupText")
+        webView.configuration.userContentController.removeScriptMessageHandler(forName: "amgiShowAnswer")
         coordinator.stopTTS()
     }
 
-    func updateUIView(_ webView: WKWebView, context: Context) {
+    func updateWebView(_ webView: WKWebView, coordinator: CardWebViewCoordinator) {
         let isDarkMode = colorScheme == .dark
         let alignTop = contentAlignment == .top
 
@@ -134,15 +149,17 @@ struct CardWebView: UIViewRepresentable {
         // `html`, `isDarkMode`, and `showInlineAudioReplayButtons` are its only
         // inputs, so they discriminate exactly as well.
         let pageSignature = "\(isDarkMode)"
-        let contentSignature = "\(autoplayEnabled)|\(isAnswerSide)|\(lookupPopupEnabled)|\(replayMode.rawValue)|\(cardOrdinal)|\(alignTop)|\(showInlineAudioReplayButtons)|\(cardCSS.hashValue)|\(html.hashValue)|\(prefetchHTML?.hashValue ?? 0)"
+        // `bottomContentInset` joins the signature because it is now carried as
+        // body padding in the show-card script rather than as a scroll inset.
+        let contentSignature = "\(autoplayEnabled)|\(isAnswerSide)|\(lookupPopupEnabled)|\(dictionaryScanLength)|\(replayMode.rawValue)|\(cardOrdinal)|\(alignTop)|\(showInlineAudioReplayButtons)|\(Int(bottomContentInset))|\(cardCSS.hashValue)|\(html.hashValue)|\(prefetchHTML?.hashValue ?? 0)"
 
         // Bookkeeping that has to track every render, expensive or not.
-        context.coordinator.openLinksExternally = openLinksExternally
-        context.coordinator.currentWebView = webView
+        coordinator.openLinksExternally = openLinksExternally
+        coordinator.currentWebView = webView
         webView.overrideUserInterfaceStyle = isDarkMode ? .dark : .light
 
-        let pageChanged = context.coordinator.lastPageSignature != pageSignature
-        let contentChanged = context.coordinator.lastContentSignature != contentSignature
+        let pageChanged = coordinator.lastPageSignature != pageSignature
+        let contentChanged = coordinator.lastContentSignature != contentSignature
 
         if pageChanged || contentChanged {
             // Convert Anki [sound:filename.mp3] tags to <audio> HTML elements.
@@ -158,7 +175,7 @@ struct CardWebView: UIViewRepresentable {
                     showReplayButtons: showInlineAudioReplayButtons
                 )
             )
-            let bodyPaddingBottom = 16
+            let bodyPaddingBottom = 16 + Int(bottomContentInset)
             let cardPaddingBottom = 0
             let bodyClass = Self.bodyClasses(cardOrdinal: cardOrdinal, isDarkMode: isDarkMode)
 
@@ -170,6 +187,7 @@ struct CardWebView: UIViewRepresentable {
                 cardCSS: cardCSS,
                 isAnswerSide: isAnswerSide,
                 lookupPopupEnabled: lookupPopupEnabled,
+                dictionaryScanLength: dictionaryScanLength,
                 bodyClass: bodyClass,
                 autoplayEnabled: autoplayEnabled,
                 replayMode: replayMode.rawValue,
@@ -181,18 +199,18 @@ struct CardWebView: UIViewRepresentable {
             // any unrelated re-render — including the audio callback writing
             // `isAudioPlaying` back onto the session — cut off speech that was
             // still playing.
-            context.coordinator.stopTTS()
+            coordinator.stopTTS()
 
             if pageChanged {
-                context.coordinator.lastPageSignature = pageSignature
-                context.coordinator.lastContentSignature = contentSignature
-                context.coordinator.isPageLoaded = false
+                coordinator.lastPageSignature = pageSignature
+                coordinator.lastContentSignature = contentSignature
+                coordinator.isPageLoaded = false
                 let htmlClass = Self.htmlClasses(isDarkMode: isDarkMode)
                 let playIconHTML = Self.audioButtonIconHTML(systemName: "play.circle", alt: "Play", isDarkMode: isDarkMode)
                 let pauseIconHTML = Self.audioButtonIconHTML(systemName: "pause.circle", alt: "Pause", isDarkMode: isDarkMode)
                 let baseTag = CardAssetPath.mediaBaseTag()
                 // Stash the show-card call so we can run it once the page finishes loading.
-                context.coordinator.pendingUpdateScript = showCardScript
+                coordinator.pendingUpdateScript = showCardScript
 
                 let styledHTML = Self.buildFrameHTML(
                     htmlClass: htmlClass,
@@ -206,41 +224,40 @@ struct CardWebView: UIViewRepresentable {
                 // The CardAssetScheme handler processes amgi-asset:// URLs.
                 webView.loadHTMLString(styledHTML, baseURL: CardAssetPath.cardBaseURL)
             } else {
-                context.coordinator.lastContentSignature = contentSignature
-                if context.coordinator.isPageLoaded {
+                coordinator.lastContentSignature = contentSignature
+                if coordinator.isPageLoaded {
                     webView.evaluateJavaScript(showCardScript) { _, error in
                         // A JS exception in _showQuestion/_showAnswer renders
                         // a blank card; dropping the error left no diagnostic.
                         if let error { Log.review.error("showCard script failed: \(error)") }
                     }
                 } else {
-                    context.coordinator.pendingUpdateScript = showCardScript
+                    coordinator.pendingUpdateScript = showCardScript
                 }
             }
         }
-        if replayRequestID != context.coordinator.lastReplayRequestID {
-            context.coordinator.lastReplayRequestID = replayRequestID
+        if replayRequestID != coordinator.lastReplayRequestID {
+            coordinator.lastReplayRequestID = replayRequestID
             webView.evaluateJavaScript("window.amgiReplayAll && window.amgiReplayAll('" + replayMode.rawValue + "');") { _, error in
                 if let error { Log.review.error("replayAll script failed: \(error)") }
             }
         }
 
-        if stopAudioRequestID != context.coordinator.lastStopAudioRequestID {
-            context.coordinator.lastStopAudioRequestID = stopAudioRequestID
+        if stopAudioRequestID != coordinator.lastStopAudioRequestID {
+            coordinator.lastStopAudioRequestID = stopAudioRequestID
             webView.evaluateJavaScript("window.amgiStopAllAudio && window.amgiStopAllAudio();") { _, error in
                 if let error { Log.review.error("stopAllAudio script failed: \(error)") }
             }
         }
 
-        // Force bottom content inset so card content can always scroll above the floating
-        // action bar. WKWebView does not reliably inherit SwiftUI safeAreaInset changes,
-        // so we set it explicitly via DispatchQueue.main.async to override any WebKit-internal
-        // layout pass that might run after updateUIView.
-        let targetInset = bottomContentInset
-        DispatchQueue.main.async {
-            webView.scrollView.contentInset.bottom = targetInset
-            webView.scrollView.verticalScrollIndicatorInsets.bottom = targetInset
+        if lookupHighlight.generation != coordinator.lastLookupHighlightGeneration {
+            coordinator.lastLookupHighlightGeneration = lookupHighlight.generation
+            let call = lookupHighlight.utf16Length > 0 ? "highlightMatched(\(lookupHighlight.utf16Length))" : "clearHighlight()"
+            webView.evaluateJavaScript("window.amgiLookup && window.amgiLookup.\(call);") { _, error in
+                if let error { Log.review.error("lookup highlight script failed: \(error)") }
+            }
         }
+
     }
 
     // MARK: - Helpers
@@ -260,45 +277,20 @@ struct CardWebView: UIViewRepresentable {
         }
         return str
     }()
+}
 
-    /// Tap-to-lookup user script. Listens for click events at the
-    /// capture phase, skips when there's an active selection (so taps
-    /// that dismiss selection don't also fire a lookup), grabs ~32
-    /// chars of text from the caret point, and posts to the native
-    /// `amgiLookupText` handler with the phrase + tap coordinates +
-    /// surrounding sentence context. Mirrors the chapter reader's
-    /// gesture so reviewer + reader behave the same.
-    private static let tapLookupBootstrapJS = """
-    document.addEventListener('click', function(e) {
-      const sel = window.getSelection();
-      if (sel && sel.toString().length > 0) { return; }
-      const range = document.caretRangeFromPoint(e.clientX, e.clientY);
-      if (!range) { return; }
-      let phrase = '';
-      let node = range.startContainer;
-      let offset = range.startOffset;
-      while (node && phrase.length < 32) {
-        if (node.nodeType === Node.TEXT_NODE) {
-          const t = node.nodeValue || '';
-          phrase += t.substring(offset);
-          offset = 0;
-        }
-        if (node.firstChild) {
-          node = node.firstChild;
-        } else {
-          while (node && !node.nextSibling) { node = node.parentNode; }
-          node = node && node.nextSibling;
-        }
-      }
-      phrase = phrase.replace(/\\s+/g, ' ').trim();
-      if (phrase.length > 0) {
-        window.webkit.messageHandlers.amgiLookupText.postMessage({
-          text: phrase,
-          sentence: '',
-          x: e.clientX,
-          y: e.clientY
-        });
-      }
-    }, true);
-    """
+// MARK: - Representable conformance
+
+extension CardWebView: UIViewRepresentable {
+    func makeUIView(context: Context) -> WKWebView {
+        makeWebView(coordinator: context.coordinator)
+    }
+
+    func updateUIView(_ webView: WKWebView, context: Context) {
+        updateWebView(webView, coordinator: context.coordinator)
+    }
+
+    static func dismantleUIView(_ webView: WKWebView, coordinator: CardWebViewCoordinator) {
+        dismantleWebView(webView, coordinator: coordinator)
+    }
 }

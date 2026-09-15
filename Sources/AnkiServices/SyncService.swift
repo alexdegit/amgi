@@ -1,3 +1,10 @@
+//
+//  SyncService.swift
+//  AnkiServices
+//
+//  Created by Vladimir Gusev on 27.03.2026.
+//
+
 import AnkiBackend
 import AnkiProtoBridge
 import AnkiSync
@@ -13,7 +20,8 @@ private let logger = Logger(label: "com.ankiapp.sync.service")
 public struct SyncService: Sendable {
     public var sync: @Sendable (_ endpoint: String, _ hostKey: String) async throws -> SyncSummary
     public var fullSync: @Sendable (_ endpoint: String, _ hostKey: String, _ direction: SyncDirection) async throws -> Void
-    public var syncMedia: @Sendable (_ endpoint: String, _ hostKey: String) async throws -> Void
+    public var mediaSyncStatus: @Sendable () async throws -> MediaSyncStatus
+    public var abortMediaSync: @Sendable () async throws -> Void
     public var login: @Sendable (_ endpoint: String, _ username: String, _ password: String) async throws -> String
 }
 
@@ -49,15 +57,15 @@ extension SyncService: DependencyKey {
                         try await backend.invoke(.fullUploadOrDownload(
                             auth: auth, upload: false, serverUsn: result.serverMediaUsn
                         ))
-                        try? await backendOffload { try backend.checkDatabase() }
+                        let problems = try await backendOffload { try backend.invoke(.checkDatabase) }
+                        if !problems.isEmpty {
+                            logger.notice("checkDatabase found problems after full download: \(problems)")
+                        }
                         return SyncSummary()
 
                     case .fullUpload:
-                        logger.info("Full upload required")
-                        try await backend.invoke(.fullUploadOrDownload(
-                            auth: auth, upload: true, serverUsn: result.serverMediaUsn
-                        ))
-                        return SyncSummary()
+                        logger.info("Full upload required - user must confirm")
+                        throw SyncError.fullUploadRequired
 
                     case .unrecognized(let v):
                         // Reporting success here would tell the user their
@@ -82,12 +90,17 @@ extension SyncService: DependencyKey {
                     throw SyncError(message: error.message)
                 }
             },
-            syncMedia: { endpoint, hostKey in
-                let auth = SyncAuth(hkey: hostKey, endpoint: endpoint)
+            mediaSyncStatus: {
                 do {
-                    try await backend.invoke(.syncMedia(auth: auth))
+                    return try await backend.invoke(.mediaSyncStatus)
                 } catch let error as BackendError {
-                    if error.isSyncAuthError { throw SyncError.authFailed }
+                    throw SyncError(message: error.message)
+                }
+            },
+            abortMediaSync: {
+                do {
+                    try await backend.invoke(.abortMediaSync)
+                } catch let error as BackendError {
                     throw SyncError(message: error.message)
                 }
             },

@@ -1,5 +1,13 @@
+//
+//  CreateDeckSheet.swift
+//  DecksFeature
+//
+//  Created by Vladimir Gusev on 14.05.2026.
+//
+
 import SwiftUI
-import AmgiAppShared
+import AppShared
+import Theme
 import AnkiKit
 import AnkiClients
 import Dependencies

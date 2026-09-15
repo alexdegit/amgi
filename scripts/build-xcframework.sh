@@ -70,18 +70,20 @@ make_framework() {
 
     local fw="$STAGE_DIR/$slice/AnkiRustLib.framework"
     rm -rf "$fw"
-    mkdir -p "$fw/Headers" "$fw/Modules"
-    cp "$dylib" "$fw/AnkiRustLib"
-    cp "$HEADER" "$fw/Headers/"
 
-    cat > "$fw/Modules/module.modulemap" <<'MODULEMAP'
+    local root="$fw" plist_dir="$fw"
+    mkdir -p "$root/Headers" "$root/Modules"
+    cp "$dylib" "$root/AnkiRustLib"
+    cp "$HEADER" "$root/Headers/"
+
+    cat > "$root/Modules/module.modulemap" <<'MODULEMAP'
 framework module AnkiRustLib {
     header "anki_bridge.h"
     export *
 }
 MODULEMAP
 
-    cat > "$fw/Info.plist" <<PLIST
+    cat > "$plist_dir/Info.plist" <<PLIST
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -100,7 +102,7 @@ MODULEMAP
 </plist>
 PLIST
 
-    echo "==> $slice: $(du -h "$fw/AnkiRustLib" | cut -f1)"
+    echo "==> $slice: $(du -h "$root/AnkiRustLib" | cut -f1)"
 }
 
 echo "==> Staging frameworks..."
@@ -116,6 +118,30 @@ xcodebuild -create-xcframework \
     -framework "$STAGE_DIR/ios-sim/AnkiRustLib.framework" \
     -framework "$STAGE_DIR/watchos-sim/AnkiRustLib.framework" \
     -output "$OUTPUT_DIR"
+
+echo "==> Restoring cargo binaries over the packaged ones (LINKEDIT alignment)..."
+restore_binary() {
+    local triple="$1" slice="$2"
+    local dylib="$BRIDGE_DIR/target/$triple/release/libanki_bridge_ios.dylib"
+    local packaged="$OUTPUT_DIR/$slice/AnkiRustLib.framework/AnkiRustLib"
+    cp "$dylib" "$packaged"
+
+    # Fail loudly rather than hand a broken xcframework to every consumer.
+    local stroff
+    stroff=$(otool -l "$packaged" | awk '/LC_SYMTAB/{f=1} f&&/stroff/{print $2; exit}')
+    # An empty stroff would make the arithmetic below read 0 and pass.
+    [ -n "$stroff" ] || { echo "ERROR: $slice: could not parse LC_SYMTAB stroff from otool"; exit 1; }
+    if [ $((stroff % 8)) -ne 0 ]; then
+        echo "ERROR: $slice LC_SYMTAB string pool is mis-aligned (stroff=$stroff)."
+        echo "       ld will reject this framework. See the comment above this check."
+        exit 1
+    fi
+    echo "==> $slice: stroff=$stroff (8-byte aligned)"
+}
+
+restore_binary aarch64-apple-ios         ios-arm64
+restore_binary aarch64-apple-ios-sim     ios-arm64-simulator
+restore_binary aarch64-apple-watchos-sim watchos-arm64-simulator
 
 echo "==> Done! XCFramework at: $OUTPUT_DIR"
 echo "==> Contents:"

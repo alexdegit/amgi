@@ -1,3 +1,10 @@
+//
+//  ReviewSessionTests.swift
+//  AmgiAppTests
+//
+//  Created by Vladimir Gusev on 01.05.2026.
+//
+
 import Testing
 import SwiftUI
 import UIKit
@@ -6,7 +13,7 @@ import Foundation
 import AnkiKit
 import AnkiServices
 @testable import AmgiApp
-@testable import AmgiReviewCore
+@testable import ReviewCore
 
 // MARK: - ReviewSessionTests
 // Lifted from ~/Clones/amgi/AnkiApp/Sources/Review/ReviewSessionTests.swift (82 LOC)
@@ -165,11 +172,11 @@ import AnkiServices
         let session = ReviewSession(deckId: DeckID(1))
         #expect(session.cardChromeColor == .clear)
         #expect(!session.cardChromeIsDark)
-        session.updateCardChrome(color: UIColor.red, isDark: false)
-        #expect(session.cardChromeColor == Color(uiColor: UIColor.red))
+        session.updateCardChrome(color: .red, isDark: false)
+        #expect(session.cardChromeColor == .red)
         #expect(!session.cardChromeIsDark)
-        session.updateCardChrome(color: UIColor.black, isDark: true)
-        #expect(session.cardChromeColor == Color(uiColor: UIColor.black))
+        session.updateCardChrome(color: .black, isDark: true)
+        #expect(session.cardChromeColor == .black)
         #expect(session.cardChromeIsDark)
     }
 
@@ -300,8 +307,8 @@ import AnkiServices
             #expect(session.replayRequestID == 1)
 
             // JS reports a card-bg color
-            session.updateCardChrome(color: UIColor.systemBlue, isDark: false)
-            #expect(session.cardChromeColor == Color(uiColor: UIColor.systemBlue))
+            session.updateCardChrome(color: .blue, isDark: false)
+            #expect(session.cardChromeColor == .blue)
         }
     }
 

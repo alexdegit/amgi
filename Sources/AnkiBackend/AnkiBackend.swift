@@ -1,12 +1,22 @@
+//
+//  AnkiBackend.swift
+//  AnkiBackend
+//
+//  Created by Vladimir Gusev on 27.03.2026.
+//
+
 import AnkiRustLib
 import AnkiProto
 import Synchronization
 public import Foundation
 private import SwiftProtobuf
+private import os
 
 public final class AnkiBackend: Sendable {
     private let backendPtr: Int64
     private let lock = NSLock()
+
+    private static let perfLog = Logger(subsystem: "com.amgiapp.perf", category: "rpc")
 
     /// Written during `openCollection` and read from arbitrary threads —
     /// the card asset scheme handler and the watch's review screen among
@@ -16,6 +26,13 @@ public final class AnkiBackend: Sendable {
     /// that would have said so.
     private let mediaFolderStorage = Mutex<String?>(nil)
 
+    private struct OpenPaths: Sendable {
+        let collection: String
+        let mediaFolder: String
+        let mediaDb: String
+    }
+    private let openPathsStorage = Mutex<OpenPaths?>(nil)
+
     /// Absolute path of the open collection's media folder, or nil if no
     /// collection is currently open. Safe to read from any thread; callers
     /// must not assume stability across `close` / `openCollection` cycles.
@@ -24,6 +41,12 @@ public final class AnkiBackend: Sendable {
     }
 
     public init(preferredLangs: [String] = ["en"]) throws {
+        let t0 = DispatchTime.now().uptimeNanoseconds
+        defer {
+            Self.perfLog.debug(
+                "open_backend us=\((DispatchTime.now().uptimeNanoseconds - t0) / 1000, privacy: .public)"
+            )
+        }
         var initMsg = Anki_Backend_BackendInit()
         initMsg.preferredLangs = preferredLangs
         initMsg.server = false
@@ -95,24 +118,40 @@ public final class AnkiBackend: Sendable {
         mediaFolderPath: String,
         mediaDbPath: String
     ) throws {
-        mediaFolderStorage.withLock { $0 = mediaFolderPath }
-
         var req = Anki_Collection_OpenCollectionRequest()
         req.collectionPath = collectionPath
         req.mediaFolderPath = mediaFolderPath
         req.mediaDbPath = mediaDbPath
         try callVoid(service: Service.collection, method: CollectionMethod.open, request: req)
+
+        mediaFolderStorage.withLock { $0 = mediaFolderPath }
+        openPathsStorage.withLock {
+            $0 = OpenPaths(
+                collection: collectionPath,
+                mediaFolder: mediaFolderPath,
+                mediaDb: mediaDbPath
+            )
+        }
+    }
+
+    public func reopenCollection() throws {
+        guard let paths = openPathsStorage.withLock({ $0 }) else {
+            throw BackendError(
+                kind: .invalidInput,
+                message: "reopenCollection called before any collection was opened"
+            )
+        }
+        try openCollection(
+            collectionPath: paths.collection,
+            mediaFolderPath: paths.mediaFolder,
+            mediaDbPath: paths.mediaDb
+        )
     }
 
     public func closeCollection(downgradeToSchema11: Bool = false) throws {
         var req = Anki_Collection_CloseCollectionRequest()
         req.downgradeToSchema11 = downgradeToSchema11
         try callVoid(service: Service.collection, method: CollectionMethod.close, request: req)
-    }
-
-    /// Runs CheckDatabase to repair any inconsistencies (CollectionService 2, method 0).
-    public func checkDatabase() throws {
-        _ = try callRaw(service: Service.collectionOps, method: CollectionOpsMethod.checkDatabase, input: Data())
     }
 
     // MARK: - Collection Config (typed JSON helpers)
@@ -190,8 +229,20 @@ public final class AnkiBackend: Sendable {
     // MARK: - Raw FFI
 
     private func callRaw(service: UInt32, method: UInt32, input: Data) throws(BackendError) -> Data {
+        let t0 = DispatchTime.now().uptimeNanoseconds
         lock.lock()
-        defer { lock.unlock() }
+        let tLocked = DispatchTime.now().uptimeNanoseconds
+        defer {
+            lock.unlock()
+            Self.perfLog.debug(
+                """
+                rpc svc=\(service, privacy: .public) m=\(method, privacy: .public) \
+                wait=\((tLocked - t0) / 1000, privacy: .public) \
+                us=\((DispatchTime.now().uptimeNanoseconds - tLocked) / 1000, privacy: .public) \
+                in=\(input.count, privacy: .public)
+                """
+            )
+        }
 
         var outPtr: UnsafeMutablePointer<UInt8>? = nil
         var outLen: Int = 0
@@ -294,15 +345,14 @@ public final class AnkiBackend: Sendable {
 
 // MARK: - Internal service constants
 //
-// AnkiBackend's *internal* RPCs (openCollection/closeCollection/checkDatabase
-// and the config-JSON helpers) keep a small private constant table. The
+// AnkiBackend's *internal* RPCs (openCollection/closeCollection and the
+// config-JSON helpers) keep a small private constant table. The
 // canonical, exhaustive service/method ID catalog lives in AnkiProtoBridge.
 // Bridge factories are the only sanctioned way for service code to dispatch
 // RPCs — every other constant exposure was a drift risk.
 
 extension AnkiBackend {
     fileprivate enum Service {
-        static let collectionOps: UInt32 = 2
         static let collection: UInt32 = 3
         static let config: UInt32 = 9
     }
@@ -310,10 +360,6 @@ extension AnkiBackend {
     fileprivate enum CollectionMethod {
         static let open: UInt32 = 0
         static let close: UInt32 = 1
-    }
-
-    fileprivate enum CollectionOpsMethod {
-        static let checkDatabase: UInt32 = 0
     }
 
     // BackendConfigService (service 9). Verified against the DreamAfar fork.

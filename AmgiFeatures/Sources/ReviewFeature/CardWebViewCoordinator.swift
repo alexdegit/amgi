@@ -1,10 +1,17 @@
+//
+//  CardWebViewCoordinator.swift
+//  ReviewFeature
+//
+//  Created by Vladimir Gusev on 01.05.2026.
+//
+
 import OSLog
-import AmgiAppCore
+import AppCore
 import Foundation
 import WebKit
-import UIKit
 import SwiftUI
 import AVFoundation
+import UIKit
 import SafariServices
 import AmgiCardWeb
 
@@ -28,6 +35,7 @@ final class CardWebViewCoordinator: NSObject, WKNavigationDelegate, WKScriptMess
     var lastContentSignature: String?
     var lastReplayRequestID: Int = 0
     var lastStopAudioRequestID: Int = 0
+    var lastLookupHighlightGeneration: Int = 0
     var isPageLoaded = false
     var pendingUpdateScript: String?
     var openLinksExternally: Bool = true
@@ -36,8 +44,9 @@ final class CardWebViewCoordinator: NSObject, WKNavigationDelegate, WKScriptMess
     // MARK: Callbacks (injected by makeCoordinator)
 
     private let onAudioStateChange: ((Bool) -> Void)?
-    private let onCardBackgroundColorChange: ((UIColor, Bool) -> Void)?
+    private let onCardBackgroundColorChange: ((Color, Bool) -> Void)?
     private let onLookupRequested: ((String?, String?, CGPoint) -> Void)?
+    private let onShowAnswerRequested: (() -> Void)?
 
     // MARK: Private state
 
@@ -48,12 +57,14 @@ final class CardWebViewCoordinator: NSObject, WKNavigationDelegate, WKScriptMess
 
     init(
         onAudioStateChange: ((Bool) -> Void)? = nil,
-        onCardBackgroundColorChange: ((UIColor, Bool) -> Void)? = nil,
-        onLookupRequested: ((String?, String?, CGPoint) -> Void)? = nil
+        onCardBackgroundColorChange: ((Color, Bool) -> Void)? = nil,
+        onLookupRequested: ((String?, String?, CGPoint) -> Void)? = nil,
+        onShowAnswerRequested: (() -> Void)? = nil
     ) {
         self.onAudioStateChange = onAudioStateChange
         self.onCardBackgroundColorChange = onCardBackgroundColorChange
         self.onLookupRequested = onLookupRequested
+        self.onShowAnswerRequested = onShowAnswerRequested
         super.init()
         speechSynthesizer.delegate = self
     }
@@ -61,6 +72,11 @@ final class CardWebViewCoordinator: NSObject, WKNavigationDelegate, WKScriptMess
     // MARK: - WKScriptMessageHandler
 
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        if message.name == "amgiShowAnswer" {
+            onShowAnswerRequested?()
+            return
+        }
+
         if message.name == "amgiAudioState" {
             if let isPlaying = message.body as? Bool {
                 onAudioStateChange?(isPlaying)
@@ -176,13 +192,7 @@ final class CardWebViewCoordinator: NSObject, WKNavigationDelegate, WKScriptMess
         let isWebLink = scheme == "http" || scheme == "https"
         if !isWebLink || openLinksExternally {
             decisionHandler(.cancel)
-            DispatchQueue.main.async {
-                if url.scheme == "http" || url.scheme == "https" {
-                    self.presentSafariView(url: url)
-                } else {
-                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                }
-            }
+            DispatchQueue.main.async { self.openExternally(url) }
         } else {
             // Keep http/https inside WKWebView when external opening is disabled.
             decisionHandler(.allow)
@@ -271,12 +281,14 @@ private extension CardWebViewCoordinator {
             return
         }
 
-        DispatchQueue.main.async {
-            if url.scheme == "http" || url.scheme == "https" {
-                self.presentSafariView(url: url)
-            } else {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            }
+        DispatchQueue.main.async { self.openExternally(url) }
+    }
+
+    func openExternally(_ url: URL) {
+        if url.scheme == "http" || url.scheme == "https" {
+            presentSafariView(url: url)
+        } else {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
     }
 
@@ -301,7 +313,7 @@ private extension CardWebViewCoordinator {
 
     // MARK: - CSS color parsing
 
-    static func parseCSSColor(_ cssColor: String) -> UIColor? {
+    static func parseCSSColor(_ cssColor: String) -> Color? {
         let trimmed = cssColor.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
         if trimmed.hasPrefix("#") {
             return parseHexColor(trimmed)
@@ -313,30 +325,30 @@ private extension CardWebViewCoordinator {
             let range = NSRange(location: 0, length: trimmed.utf16.count)
             guard let match = regex.firstMatch(in: trimmed, options: [], range: range) else { return nil }
 
-            func component(_ idx: Int) -> CGFloat {
+            func component(_ idx: Int) -> Double {
                 guard let r = Range(match.range(at: idx), in: trimmed) else { return 0 }
                 let value = Double(trimmed[r]) ?? 0
-                return CGFloat(max(0, min(255, value)) / 255.0)
+                return max(0, min(255, value)) / 255.0
             }
 
-            var alpha: CGFloat = 1
+            var alpha: Double = 1
             if match.range(at: 4).location != NSNotFound,
                let r = Range(match.range(at: 4), in: trimmed) {
                 let value = Double(trimmed[r]) ?? 1
-                alpha = CGFloat(max(0, min(1, value)))
+                alpha = max(0, min(1, value))
             }
 
-            return UIColor(red: component(1), green: component(2), blue: component(3), alpha: alpha)
+            return Color(red: component(1), green: component(2), blue: component(3), opacity: alpha)
         }
 
         if trimmed == "transparent" {
-            return UIColor.clear
+            return .clear
         }
 
         return nil
     }
 
-    static func parseHexColor(_ hex: String) -> UIColor? {
+    static func parseHexColor(_ hex: String) -> Color? {
         let value = String(hex.dropFirst())
         let chars = Array(value)
         func hexByte(_ a: Character, _ b: Character) -> UInt8 {
@@ -348,18 +360,18 @@ private extension CardWebViewCoordinator {
             let r = hexByte(chars[0], chars[0])
             let g = hexByte(chars[1], chars[1])
             let b = hexByte(chars[2], chars[2])
-            return UIColor(red: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: 1)
+            return Color(red: Double(r) / 255, green: Double(g) / 255, blue: Double(b) / 255)
         case 6:
             let r = hexByte(chars[0], chars[1])
             let g = hexByte(chars[2], chars[3])
             let b = hexByte(chars[4], chars[5])
-            return UIColor(red: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: 1)
+            return Color(red: Double(r) / 255, green: Double(g) / 255, blue: Double(b) / 255)
         case 8:
             let r = hexByte(chars[0], chars[1])
             let g = hexByte(chars[2], chars[3])
             let b = hexByte(chars[4], chars[5])
             let a = hexByte(chars[6], chars[7])
-            return UIColor(red: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: CGFloat(a) / 255)
+            return Color(red: Double(r) / 255, green: Double(g) / 255, blue: Double(b) / 255, opacity: Double(a) / 255)
         default:
             return nil
         }

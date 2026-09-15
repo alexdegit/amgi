@@ -1,8 +1,17 @@
+//
+//  SyncCoordinator.swift
+//  SyncFeature
+//
+//  Created by Vladimir Gusev on 02.05.2026.
+//
+
 import Foundation
 import SwiftUI
+#if canImport(UIKit)
 import UIKit
-import AmgiAppCore
-import AmgiAppShared
+#endif
+import AppCore
+import AppShared
 import AnkiClients
 import AnkiKit
 import AnkiSync
@@ -13,11 +22,7 @@ package final class SyncCoordinator {
     enum SyncState: Sendable, Equatable {
         case idle
         case syncing(message: String)
-        // No `.syncingMedia`: it was declared, rendered by SyncToastController,
-        // and never assigned by anything — a progress state that could not
-        // occur, which read as "media progress is shown" to anyone auditing
-        // this. `syncClient.syncMedia()` reports no counts, so bring it back
-        // only when the engine can supply real ones.
+        case syncingMedia(String)
         case success(SyncSummary)
         case error(String)
         case needsFullSync(SyncFullSyncRequirement)
@@ -38,8 +43,12 @@ package final class SyncCoordinator {
     /// advisory — the in-flight FFI call still runs to completion, so the
     /// task handle has to stay put to keep the re-entry gate shut.
     @ObservationIgnored private var isCancelling = false
+    @ObservationIgnored private var mediaAbortTask: Task<Void, Never>?
+    #if canImport(UIKit)
     @ObservationIgnored private var backgroundTaskID: UIBackgroundTaskIdentifier = .invalid
+    #endif
     @ObservationIgnored private var lifecycleObservers: [any NSObjectProtocol] = []
+    @ObservationIgnored private let mediaPollInterval: Duration
 
     // Profile-scoped persisted state. Computed per access — the key embeds
     // the active profile id, and this coordinator is a singleton that
@@ -61,7 +70,8 @@ package final class SyncCoordinator {
     /// touches it first, so the old `MainActor.assumeIsolated` would abort
     /// the process on first resolution from a detached task or background
     /// test. Observer registration is main-actor work, so it hops.
-    package nonisolated init() {
+    package nonisolated init(mediaPollInterval: Duration = .milliseconds(250)) {
+        self.mediaPollInterval = mediaPollInterval
         Task { @MainActor [self] in registerLifecycleObservers() }
     }
 
@@ -110,21 +120,22 @@ package final class SyncCoordinator {
             let client = self.syncClient
             do {
                 let summary = try await client.sync()
-                self.appendLog("Sync complete: \(summary.cardsPushed) pushed, \(summary.cardsPulled) pulled")
-                self.state = .success(summary)
+                let mediaFailure = try await self.awaitMediaCompletion(using: client)
                 self.lastSyncedAtUnix = Date().timeIntervalSince1970
                 self.needsFullSyncFlag = false
                 self.activeTask = nil
                 self.isCancelling = false
+                self.report(mediaFailure: mediaFailure, otherwise: summary)
                 // Sync can change counts without any review — refresh widgets
                 // or they keep showing the pre-sync collection.
                 await writeWidgetSnapshot()
-            } catch let error as SyncError where error == .fullSyncRequired {
-                self.appendLog("Server requires a full sync", level: .warning)
-                self.state = .needsFullSync(SyncFullSyncRequirement(
-                    reason: "Schema mismatch — choose upload or download",
-                    localIsEmpty: false
-                ))
+            } catch let error as SyncError where error == .fullSyncRequired || error == .fullUploadRequired {
+                let needsUpload = error == .fullUploadRequired
+                self.appendLog(
+                    needsUpload ? "Server requires a full upload" : "Server requires a full sync",
+                    level: .warning
+                )
+                self.state = .needsFullSync(needsUpload ? .serverEmpty : .diverged)
                 self.needsFullSyncFlag = true
                 self.activeTask = nil
                 self.isCancelling = false
@@ -160,12 +171,12 @@ package final class SyncCoordinator {
             let client = self.syncClient
             do {
                 try await client.fullSync(direction)
-                self.appendLog("Full sync complete")
-                self.state = .success(SyncSummary())
+                let mediaFailure = try await self.awaitMediaCompletion(using: client)
                 self.lastSyncedAtUnix = Date().timeIntervalSince1970
                 self.needsFullSyncFlag = false
                 self.activeTask = nil
                 self.isCancelling = false
+                self.report(mediaFailure: mediaFailure, otherwise: SyncSummary())
                 // A full download replaces the whole collection — widgets are
                 // guaranteed stale without a rewrite.
                 await writeWidgetSnapshot()
@@ -222,7 +233,27 @@ package final class SyncCoordinator {
         activeTask?.cancel()
         if case .syncing = state {
             appendLog("Cancelling — finishing the current step in the background", level: .warning)
+        } else if case .syncingMedia = state {
+            appendLog("Media sync cancelled", level: .warning)
+            let client = syncClient
+            mediaAbortTask = Task { [weak self] in
+                do {
+                    try await client.abortMediaSync()
+                } catch {
+                    self?.appendLog(
+                        "Failed to abort media sync: \(error.localizedDescription)",
+                        level: .error
+                    )
+                }
+            }
         }
+    }
+
+    package func cancelAndWait() async {
+        cancel()
+        await mediaAbortTask?.value
+        mediaAbortTask = nil
+        await activeTask?.value
     }
 
     // MARK: - Log helpers (used by all behaviors)
@@ -241,7 +272,45 @@ package final class SyncCoordinator {
 }
 
 private extension SyncCoordinator {
+    func awaitMediaCompletion(using client: SyncClient) async throws -> String? {
+        do {
+            try await waitForMediaCompletion(using: client)
+            return nil
+        } catch is CancellationError {
+            throw CancellationError()
+        } catch {
+            return error.localizedDescription
+        }
+    }
+
+    func report(mediaFailure: String?, otherwise summary: SyncSummary) {
+        guard let mediaFailure else {
+            appendLog("Sync complete: \(summary.cardsPushed) pushed, \(summary.cardsPulled) pulled")
+            state = .success(summary)
+            return
+        }
+        appendLog("Collection synced; media sync failed: \(mediaFailure)", level: .error)
+        state = .error("Collection synced, but media failed: \(mediaFailure)")
+    }
+
+    static func mediaProgressMessage(_ progress: MediaSyncProgress?) -> String {
+        guard let progress else { return "Syncing media\u{2026}" }
+        return "\(progress.checked) \u{00B7} \(progress.added)"
+    }
+
+    func waitForMediaCompletion(using client: SyncClient) async throws {
+        while true {
+            try Task.checkCancellation()
+            let status = try await client.mediaSyncStatus()
+            guard status.active else { return }
+
+            state = .syncingMedia(Self.mediaProgressMessage(status.progress))
+            try await Task.sleep(for: mediaPollInterval)
+        }
+    }
+
     func registerLifecycleObservers() {
+        #if canImport(UIKit)
         let center = NotificationCenter.default
         lifecycleObservers.append(center.addObserver(
             forName: UIApplication.didEnterBackgroundNotification,
@@ -261,6 +330,7 @@ private extension SyncCoordinator {
                 self?.endBackgroundExecutionIfNeeded()
             }
         })
+        #endif
 
         if needsFullSyncFlag {
             state = .needsFullSync(SyncFullSyncRequirement(
@@ -271,9 +341,10 @@ private extension SyncCoordinator {
     }
 
     func beginBackgroundExecutionIfNeeded() {
+        #if canImport(UIKit)
         let isSyncing: Bool
         switch state {
-        case .syncing: isSyncing = true
+        case .syncing, .syncingMedia: isSyncing = true
         default: isSyncing = false
         }
         guard isSyncing, backgroundTaskID == .invalid else { return }
@@ -285,13 +356,16 @@ private extension SyncCoordinator {
             }
         }
         appendLog("Backgrounded mid-sync — extending execution window")
+        #endif
     }
 
     func endBackgroundExecutionIfNeeded() {
+        #if canImport(UIKit)
         guard backgroundTaskID != .invalid else { return }
         UIApplication.shared.endBackgroundTask(backgroundTaskID)
         backgroundTaskID = .invalid
         appendLog("Foreground resumed — released BG task")
+        #endif
     }
 }
 

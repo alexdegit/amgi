@@ -1,8 +1,16 @@
+//
+//  AnkiMobileAttributionView.swift
+//  SyncFeature
+//
+//  Created by Vladimir Gusev on 02.05.2026.
+//
+
 package import SwiftUI
-import AmgiTheme
+import Theme
 
 package struct AnkiMobileAttributionView: View {
     @Environment(\.palette) private var palette
+    @Environment(\.openURL) private var openURL
 
     package init() {}
 
@@ -31,7 +39,7 @@ package struct AnkiMobileAttributionView: View {
 private extension AnkiMobileAttributionView {
     func openAnkiMobile() {
         guard let url = URL(string: "itms-apps://itunes.apple.com/app/id373493387") else { return }
-        UIApplication.shared.open(url)
+        openURL(url)
     }
 }
 

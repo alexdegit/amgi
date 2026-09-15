@@ -2,8 +2,11 @@
 //
 // Injected at document-end into every EPUB chapter the paginated reader
 // loads. Responsibilities:
-//   1. Wrap text-node runs in <span class="amgi-tok"> tokens. Tokenisation
-//      uses three regimes:
+//   1. Wrap text-node runs in <span class="amgi-tok"> tokens — for the
+//      dashed underline only. Lookup does NOT read the tokens: the CJK
+//      regime is one codepoint per token, and a lookup built from that
+//      hands the engine a single character (DICT-1). Tokenisation uses
+//      three regimes:
 //        - Hangul runs (consecutive Hangul codepoints = one token)
 //        - CJK + kana per-codepoint
 //        - Latin word boundaries (\b\w+\b)
@@ -12,8 +15,11 @@
 //      WKWebView's scrollable root; we never mutate body.style.width.
 //   3. On scroll-end (debounced 250ms), report current pageIndex +
 //      progressFraction (pageIndex / max(pageCount-1, 1)).
-//   4. On click of a tokenised span, capture the surrounding sentence
-//      (split on [.!?。！？\n]) and post a wordTap message.
+//   4. On click, hand the tap point to the shared extractor
+//      (window.amgiLookup, from LookupExtraction.js — injected before this
+//      script) and post its text + sentence as a wordTap message. The scan
+//      window is window.__amgiLookupScanLength, set by the host from the
+//      user's dictionary scan length.
 //
 // Posts to three message handlers: pageInfo, progress, wordTap.
 
@@ -30,11 +36,7 @@
            (cp >= 0x3000 && cp <= 0x303F) || // CJK Symbols
            (cp >= 0x3400 && cp <= 0x9FFF);   // CJK Unified Ideographs
   }
-  function isWordChar(ch) {
-    return /[A-Za-z0-9_À-ɏЀ-ӿ]/.test(ch);
-  }
-
-  function segmentText(text) {
+  function segmentText(text, lookup) {
     const out = [];
     let buf = '';
     let bufKind = null;
@@ -58,7 +60,7 @@
       } else if (isCJK(cp)) {
         flush();
         out.push({ text: ch, isToken: true });
-      } else if (isWordChar(ch)) {
+      } else if (lookup.isWordChar(ch)) {
         if (bufKind !== 'latin') flush();
         bufKind = 'latin';
         buf += ch;
@@ -74,7 +76,11 @@
   }
 
   function tokenise(root) {
-    const skipTags = { SCRIPT: 1, STYLE: 1, NOSCRIPT: 1 };
+    const lookup = window.amgiLookup;
+    if (!lookup) return;
+    // rt/rp (ruby annotations) match the shared extractor's own exclusion
+    // list — no point underlining text the tap-to-lookup extractor refuses.
+    const skipTags = { SCRIPT: 1, STYLE: 1, NOSCRIPT: 1, RT: 1, RP: 1 };
     const walker = document.createTreeWalker(
       root,
       NodeFilter.SHOW_TEXT,
@@ -99,7 +105,7 @@
     while ((n = walker.nextNode())) queue.push(n);
 
     for (const textNode of queue) {
-      const segments = segmentText(textNode.nodeValue);
+      const segments = segmentText(textNode.nodeValue, lookup);
       if (segments.length === 1 && !segments[0].isToken) continue;
       const frag = document.createDocumentFragment();
       for (const seg of segments) {
@@ -115,26 +121,6 @@
       }
       textNode.parentNode.replaceChild(frag, textNode);
     }
-  }
-
-  function sentenceAround(span) {
-    const TERMINATORS = /[.!?。！？\n]/;
-    const text = (span.closest('p, li, div, section, body') || document.body).innerText || '';
-    const tokenText = span.textContent || '';
-    const idx = text.indexOf(tokenText);
-    if (idx < 0) return tokenText;
-
-    let start = idx;
-    while (start > 0 && !TERMINATORS.test(text[start - 1])) {
-      start--;
-      if (idx - start > 300) break;
-    }
-    let end = idx + tokenText.length;
-    while (end < text.length && !TERMINATORS.test(text[end])) {
-      end++;
-      if (end - idx > 300) break;
-    }
-    return text.substring(start, end + 1).trim();
   }
 
   // Ensures a viewport meta tag is present so WKWebView uses
@@ -210,14 +196,14 @@
 
   function installTapHandler() {
     document.addEventListener('click', function (e) {
-      const target = e.target;
-      if (!target || !target.classList || !target.classList.contains('amgi-tok')) return;
-      const token = target.getAttribute('data-token') || target.textContent || '';
-      const sentence = sentenceAround(target);
+      const lookup = window.amgiLookup;
+      if (!lookup) return;
+      const payload = lookup.payloadAt(e.clientX, e.clientY, window.__amgiLookupScanLength || 16);
+      if (!payload) return;
       try {
         window.webkit.messageHandlers.wordTap.postMessage({
-          token: token,
-          sentence: sentence
+          token: payload.text,
+          sentence: payload.sentence
         });
       } catch (e) { /* host detached */ }
     }, true);

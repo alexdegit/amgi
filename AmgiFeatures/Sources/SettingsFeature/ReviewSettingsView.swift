@@ -1,7 +1,15 @@
+//
+//  ReviewSettingsView.swift
+//  SettingsFeature
+//
+//  Created by Vladimir Gusev on 02.05.2026.
+//
+
 import SwiftUI
-import AmgiAppCore
+import AppCore
+import Theme
 import Sharing
-import AmgiReviewCore
+import ReviewCore
 import ReviewFeature
 
 struct ReviewSettingsView: View {
