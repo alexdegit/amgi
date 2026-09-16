@@ -1,7 +1,14 @@
+//
+//  RootView.swift
+//  RootFeature
+//
+//  Created by Vladimir Gusev on 29.08.2026.
+//
+
 public import SwiftUI
-import AmgiAppCore
-import AmgiAppShared
-import AmgiTheme
+import AppCore
+import AppShared
+import Theme
 import AnkiKit
 import Dependencies
 import Foundation
@@ -101,9 +108,7 @@ public struct RootView: View {
                 refreshID = UUID()
             }
         }
-        // Review presents the reader's dictionary popup without importing
-        // ReaderFeature; the root injects it. Applied last so it reaches the
-        // tabs and every sheet/cover presented above.
         .environment(\.lookupPopup, ReaderLookupPopup())
+        .environment(\.dictionarySettings, ReaderDictionarySettings())
     }
 }

@@ -1,4 +1,11 @@
-import AmgiAppCore
+//
+//  CardHTMLBuilder.swift
+//  ReviewFeature
+//
+//  Created by Vladimir Gusev on 27.03.2026.
+//
+
+import AppCore
 import OSLog
 import SwiftUI
 import WebKit
@@ -64,6 +71,7 @@ extension CardWebView {
         cardCSS: String,
         isAnswerSide: Bool,
         lookupPopupEnabled: Bool,
+        dictionaryScanLength: Int,
         bodyClass: String,
         autoplayEnabled: Bool,
         replayMode: String,
@@ -79,10 +87,10 @@ extension CardWebView {
         let applyCSS = "amgiSetCardCSS(\(cssLit));"
 
         if isAnswerSide {
-            return applyCSS + "_showAnswer(\(htmlLit),\(jsStringLiteral(bodyClass)),\(autoplay),\(jsStringLiteral(replayMode)),\(alignTopStr),\(bodyPaddingBottom),\(cardPaddingBottom),\(lookupEnabled)" + ");"
+            return applyCSS + "_showAnswer(\(htmlLit),\(jsStringLiteral(bodyClass)),\(autoplay),\(jsStringLiteral(replayMode)),\(alignTopStr),\(bodyPaddingBottom),\(cardPaddingBottom),\(lookupEnabled),\(dictionaryScanLength)" + ");"
         } else {
             let prefetchLit = jsStringLiteral(prefetchHTML ?? "")
-            return applyCSS + "_showQuestion(\(htmlLit),\(prefetchLit),\(jsStringLiteral(bodyClass)),\(autoplay),\(jsStringLiteral(replayMode)),\(alignTopStr),\(bodyPaddingBottom),\(cardPaddingBottom),\(lookupEnabled)" + ");"
+            return applyCSS + "_showQuestion(\(htmlLit),\(prefetchLit),\(jsStringLiteral(bodyClass)),\(autoplay),\(jsStringLiteral(replayMode)),\(alignTopStr),\(bodyPaddingBottom),\(cardPaddingBottom),\(lookupEnabled),\(dictionaryScanLength)" + ");"
         }
     }
 
@@ -204,7 +212,7 @@ extension CardWebView {
 
         let range = NSRange(raw.startIndex..., in: raw)
         let matches = regex.matches(in: raw, range: range)
-        var result: [String: String] = [:]
+        var result = [String: String](minimumCapacity: matches.count)
         for match in matches {
             guard let keyRange = Range(match.range(at: 1), in: raw),
                   let valueRange = Range(match.range(at: 2), in: raw) else { continue }

@@ -1,12 +1,19 @@
+//
+//  SettingsView.swift
+//  SettingsFeature
+//
+//  Created by Vladimir Gusev on 28.04.2026.
+//
+
 package import SwiftUI
-import AmgiTheme
-package import AmgiAppCore
+import Theme
+package import AppCore
+import AppShared
 import BrowseFeature
 import TemplatesFeature
-import ReaderFeature
 
 /// Settings, following the `amgi-settings.jsx` screen in the Amgi design
-/// project: in-content large title, grouped inset panels, tinted glyph
+/// project: native large-title navigation bar, grouped inset panels, tinted glyph
 /// tiles, trailing values, hairline footer.
 ///
 /// Row inventory is the app's real screens rather than the mock's — the
@@ -26,10 +33,11 @@ package struct SettingsView: View {
 
     @Environment(\.palette) private var palette
 
+    @Environment(\.dictionarySettings) private var dictionarySettings
+
     package var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
-                title
                 appearanceSection
                 accountSection
                 studySection
@@ -41,17 +49,7 @@ package struct SettingsView: View {
             .padding(.bottom, AmgiSpacing.xl)
         }
         .background(palette.background)
-        .toolbarVisibility(.hidden, for: .navigationBar)
-    }
-
-    // MARK: - Title
-
-    private var title: some View {
-        Text("Settings")
-            .amgiFont(.displayHero)
-            .foregroundStyle(palette.textPrimary)
-            .padding(.horizontal, 20)
-            .padding(.top, AmgiSpacing.sm)
+        .navigationTitle("Settings")
     }
 
     // MARK: - Sections
@@ -68,6 +66,7 @@ package struct SettingsView: View {
                 ) {
                     AppearanceSettingsView(manager: .shared)
                 }
+                #if canImport(UIKit)
                 SettingsSeparator()
                 SettingsRowLink(
                     title: "Reader Display",
@@ -76,6 +75,7 @@ package struct SettingsView: View {
                 ) {
                     ReaderSettingsView()
                 }
+                #endif
             }
         }
     }
@@ -153,14 +153,16 @@ package struct SettingsView: View {
 
     private var readerSection: some View {
         Group {
-            SettingsSectionHeader(title: "Reader")
-            SettingsGroup {
-                SettingsRowLink(
-                    title: "Dictionaries",
-                    systemImage: "character.book.closed",
-                    tone: .danger
-                ) {
-                    ReaderDictionarySettingsView()
+            if let dictionarySettings {
+                SettingsSectionHeader(title: "Reader")
+                SettingsGroup {
+                    SettingsRowLink(
+                        title: "Dictionaries",
+                        systemImage: "character.book.closed",
+                        tone: .danger
+                    ) {
+                        dictionarySettings.settings()
+                    }
                 }
             }
         }
