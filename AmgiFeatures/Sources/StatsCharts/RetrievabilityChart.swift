@@ -1,7 +1,14 @@
+//
+//  RetrievabilityChart.swift
+//  StatsCharts
+//
+//  Created by Vladimir Gusev on 28.04.2026.
+//
+
 public import SwiftUI
 import Charts
-import AmgiTheme
-import AmgiUI
+import Theme
+import UI
 public import AnkiKit
 
 public struct RetrievabilityChart: View {
@@ -12,7 +19,7 @@ public struct RetrievabilityChart: View {
     }
 
     @Environment(\.palette) private var palette
-    @State private var selectedBucketStart: Int?
+    @State private var selectedX: Double?
 
     private struct Bucket: Identifiable {
         let start: Int
@@ -45,8 +52,8 @@ public struct RetrievabilityChart: View {
     }
 
     private var selectedBucket: Bucket? {
-        guard let selectedBucketStart else { return nil }
-        return chartData.first(where: { $0.start == selectedBucketStart })
+        guard let selectedX else { return nil }
+        return chartData.min { abs($0.center - selectedX) < abs($1.center - selectedX) }
     }
 
     private var maxCount: Int { chartData.map(\.count).max() ?? 0 }
@@ -108,9 +115,7 @@ public struct RetrievabilityChart: View {
     private var retrievabilityChart: some View {
         baseRetrievabilityChart
             .chartXScale(domain: 0...100)
-            .chartOverlay { proxy in
-                retrievabilityChartOverlay(proxy: proxy)
-            }
+            .chartXSelection(value: $selectedX)
             .chartXAxis {
                 retrievabilityChartXAxis()
             }
@@ -137,6 +142,8 @@ private extension RetrievabilityChart {
             y: .value("Cards", item.count)
         )
         .foregroundStyle(bucketColor(for: item.center).gradient)
+        .accessibilityLabel(item.label)
+        .accessibilityValue(ChartSpeech.count(item.count, "card"))
     }
 
     @ChartContentBuilder
@@ -154,51 +161,6 @@ private extension RetrievabilityChart {
                     )
                 }
         }
-    }
-
-    @ViewBuilder
-    func retrievabilityChartOverlay(proxy: ChartProxy) -> some View {
-        GeometryReader { geometry in
-            Rectangle()
-                .fill(Color.clear)
-                .contentShape(Rectangle())
-                .gesture(
-                    SpatialTapGesture()
-                        .onEnded { value in
-                            updateSelectedBucketStart(for: value, proxy: proxy, geometry: geometry)
-                        }
-                )
-        }
-    }
-
-    func updateSelectedBucketStart(
-        for value: SpatialTapGesture.Value,
-        proxy: ChartProxy,
-        geometry: GeometryProxy
-    ) {
-        guard let plotFrameAnchor = proxy.plotFrame else { return }
-        let plotFrame = geometry[plotFrameAnchor]
-        let plotX = value.location.x - plotFrame.origin.x
-        guard plotX >= 0,
-              plotX <= proxy.plotSize.width,
-              let retrievabilityValue: Double = proxy.value(atX: plotX)
-        else {
-            selectedBucketStart = nil
-            return
-        }
-
-        var nearestBucketStart: Int?
-        var nearestDistance = Double.greatestFiniteMagnitude
-
-        for item in chartData {
-            let distance = Swift.abs(item.center - retrievabilityValue)
-            if distance < nearestDistance {
-                nearestDistance = distance
-                nearestBucketStart = item.start
-            }
-        }
-
-        selectedBucketStart = selectedBucketStart == nearestBucketStart ? nil : nearestBucketStart
     }
 
     @AxisContentBuilder

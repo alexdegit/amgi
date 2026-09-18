@@ -1,6 +1,13 @@
+//
+//  FutureDueChart.swift
+//  StatsCharts
+//
+//  Created by Vladimir Gusev on 30.03.2026.
+//
+
 public import SwiftUI
-import AmgiTheme
-import AmgiUI
+import Theme
+import UI
 import Charts
 public import AnkiKit
 
@@ -44,9 +51,6 @@ public struct FutureDueChart: View {
     }
 
     public var body: some View {
-        // Built once per pass and threaded through — reading the computed
-        // `filteredData` from each call site re-ran the compactMap + sort five
-        // times per `body`.
         let filteredData = self.filteredData
         AmgiCard(
             background: .surface,
@@ -66,6 +70,12 @@ public struct FutureDueChart: View {
                             y: .value("Cards", item.count)
                         )
                         .foregroundStyle(item.day < 0 ? palette.danger.gradient : palette.accent.gradient)
+                        .accessibilityLabel(
+                            item.day < 0
+                                ? "\(ChartSpeech.day(item.day)), overdue"
+                                : ChartSpeech.day(item.day)
+                        )
+                        .accessibilityValue(ChartSpeech.count(item.count, "card"))
                     }
                     .chartXAxis {
                         AxisMarks(values: .automatic(desiredCount: 5)) { _ in

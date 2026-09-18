@@ -1,6 +1,13 @@
+//
+//  ButtonsChart.swift
+//  StatsCharts
+//
+//  Created by Vladimir Gusev on 30.03.2026.
+//
+
 public import SwiftUI
-import AmgiTheme
-import AmgiUI
+import Theme
+import UI
 import Charts
 public import AnkiKit
 
@@ -78,6 +85,8 @@ public struct ButtonsChart: View {
                             y: .value("Count", entry.count)
                         )
                         .foregroundStyle(by: .value("Type", entry.cardType))
+                        .accessibilityLabel("\(entry.cardType), \(entry.button)")
+                        .accessibilityValue(ChartSpeech.count(entry.count, "press"))
                     }
                     .chartForegroundStyleScale([
                         "Learning": palette.cardStateNew,

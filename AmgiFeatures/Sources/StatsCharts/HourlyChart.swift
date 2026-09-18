@@ -1,6 +1,13 @@
+//
+//  HourlyChart.swift
+//  StatsCharts
+//
+//  Created by Vladimir Gusev on 27.03.2026.
+//
+
 public import SwiftUI
-import AmgiTheme
-import AmgiUI
+import Theme
+import UI
 import Charts
 public import AnkiKit
 
@@ -60,6 +67,8 @@ public struct HourlyChart: View {
                             y: .value("Reviews", entry.total)
                         )
                         .foregroundStyle(palette.accent.gradient)
+                        .accessibilityLabel(formatHour(entry.hour))
+                        .accessibilityValue(ChartSpeech.count(entry.total, "review"))
                     }
                     .chartXAxis {
                         AxisMarks(values: [0, 4, 8, 12, 16, 20]) { value in
@@ -79,6 +88,8 @@ public struct HourlyChart: View {
                         )
                         .foregroundStyle(palette.positive)
                         .interpolationMethod(.catmullRom)
+                        .accessibilityLabel(formatHour(entry.hour))
+                        .accessibilityValue("\(ChartSpeech.percent(entry.correctPct)) correct")
 
                         AreaMark(
                             x: .value("Hour", entry.hour),

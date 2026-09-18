@@ -1,6 +1,13 @@
+//
+//  CardCountsChart.swift
+//  StatsCharts
+//
+//  Created by Vladimir Gusev on 30.03.2026.
+//
+
 public import SwiftUI
-import AmgiTheme
-import AmgiUI
+import Theme
+import UI
 import Charts
 public import AnkiKit
 
@@ -52,6 +59,8 @@ public struct CardCountsChart: View {
                             angularInset: 1
                         )
                         .foregroundStyle(item.color)
+                        .accessibilityLabel(item.name)
+                        .accessibilityValue(ChartSpeech.count(item.count, "card"))
                     }
                     .frame(height: 200)
 

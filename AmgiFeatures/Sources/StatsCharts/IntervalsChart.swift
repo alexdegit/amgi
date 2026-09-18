@@ -1,6 +1,13 @@
+//
+//  IntervalsChart.swift
+//  StatsCharts
+//
+//  Created by Vladimir Gusev on 30.03.2026.
+//
+
 public import SwiftUI
-import AmgiTheme
-import AmgiUI
+import Theme
+import UI
 import Charts
 public import AnkiKit
 
@@ -62,6 +69,8 @@ public struct IntervalsChart: View {
                             y: .value("Cards", bucket.count)
                         )
                         .foregroundStyle(palette.accent.gradient)
+                        .accessibilityLabel(bucket.label)
+                        .accessibilityValue(ChartSpeech.count(bucket.count, "card"))
                     }
                     .chartXAxis {
                         AxisMarks(values: .automatic) { _ in

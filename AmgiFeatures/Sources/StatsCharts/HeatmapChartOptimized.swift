@@ -1,6 +1,13 @@
+//
+//  HeatmapChartOptimized.swift
+//  StatsCharts
+//
+//  Created by Vladimir Gusev on 29.04.2026.
+//
+
 public import SwiftUI
-import AmgiTheme
-import AmgiUI
+import Theme
+import UI
 public import AnkiKit
 
 /// Optimized heatmap with incremental loading.
@@ -21,18 +28,11 @@ public struct HeatmapChartOptimized: View {
     @State private var scrollPosition: CGFloat = 0
     @State private var selectedDateRange: Int = 180
 
-    // Snapshotted from actor after each mutation. Other derived values are
-    // computed from this dictionary inline (cheap sync transforms).
     @State private var visibleData: [Int: Int] = [:]
     @State private var maxCount: Int = 1
     @State private var totalReviews: Int = 0
-    /// Derived from `visibleData` once per snapshot rather than per body pass
-    /// (and per scroll frame, which is where it used to be read from).
     @State private var weeksToShow: Int = 26
-    /// Guards against `onScrollGeometryChange` spawning one expansion task per
-    /// frame while the user is still flicking past the edge.
     @State private var isExpanding = false
-    /// Rebuilds the grid only when the range, counts, or calendar day change.
     @State private var gridCache = HeatmapGridCache()
 
     var compactHeight: CGFloat? = nil
@@ -60,10 +60,6 @@ public struct HeatmapChartOptimized: View {
     // MARK: - Derived Computed Properties (sync, over snapshot)
 
     private var currentStreak: Int {
-        // Shared with the Library hero card via AnkiKit.DayStreak. This used
-        // to be a third, subtly different implementation, so the two screens
-        // could disagree about the same user's streak. Windowed to the range
-        // actually loaded.
         DayStreak.count(totals: visibleData, window: max(1, selectedDateRange))
     }
 
@@ -112,10 +108,6 @@ private extension HeatmapChartOptimized {
                     .foregroundStyle(palette.textPrimary)
                     .frame(maxWidth: .infinity, alignment: .leading)
 
-                // Date range picker (when not compact). `Menu(content:label:)` is
-                // unavailable on watchOS; AmgiCharts compiles as one module for
-                // every platform in Package.swift, and the watch app never
-                // references this view, so the picker is iOS/macOS-only.
                 #if !os(watchOS)
                 if !isCompact {
                     Menu {
@@ -155,7 +147,6 @@ private extension HeatmapChartOptimized {
                     }
                 }
 
-                // Scroll view with edge detection for loading more
                 ScrollViewReader { scrollProxy in
                     ScrollView(.horizontal, showsIndicators: !isCompact) {
                         VStack(alignment: .leading, spacing: 0) {
@@ -233,6 +224,15 @@ private extension HeatmapChartOptimized {
                 }
             }
         }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("Review activity")
+        .accessibilityValue(heatmapSummary)
+    }
+
+    var heatmapSummary: String {
+        let days = visibleData.values.count(where: { $0 > 0 })
+        return "\(ChartSpeech.count(totalReviews, "review")) over \(dateRangeLabel(selectedDateRange)), "
+            + "on \(ChartSpeech.count(days, "day")). Busiest day \(ChartSpeech.count(maxCount, "review"))."
     }
 
     func legendView() -> some View {
@@ -246,6 +246,7 @@ private extension HeatmapChartOptimized {
             Text("More").amgiFont(.micro).foregroundStyle(palette.textSecondary)
         }
         .frame(maxWidth: .infinity, alignment: .trailing)
+        .accessibilityHidden(true)
     }
 
     // MARK: - Helpers
@@ -260,6 +261,9 @@ private extension HeatmapChartOptimized {
                 .foregroundStyle(palette.textSecondary)
         }
         .frame(maxWidth: .infinity)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(label)
+        .accessibilityValue(value)
     }
 
     func weekdayLabel(_ index: Int) -> String {
@@ -284,12 +288,10 @@ private extension HeatmapChartOptimized {
 
     // MARK: - Async Snapshot Helper
 
-    /// Reads the actor's current visible data and snapshots it into @State.
-    /// Called on the @MainActor (view) after every actor mutation.
     func refreshFromManager() async {
         guard let manager = loadingManager else { return }
         let snapshot = await manager.getVisibleData()
-        var nextVisible: [Int: Int] = [:]
+        var nextVisible = [Int: Int](minimumCapacity: snapshot.count)
         var nextTotal = 0
         var nextMax = 1
         for (offset, review) in snapshot {
@@ -303,8 +305,6 @@ private extension HeatmapChartOptimized {
         weeksToShow = Self.weekCount(for: nextVisible)
     }
 
-    /// Enough week-columns to cover the loaded range, floored at 26 so a
-    /// sparse collection still renders a full six months.
     static func weekCount(for data: [Int: Int]) -> Int {
         guard let minOffset = data.keys.min() else { return 26 }
         return max((Swift.abs(minOffset) + 7) / 7 + 1, 26)
@@ -330,8 +330,6 @@ private extension HeatmapChartOptimized {
         let contentWidth = CGFloat(weeksToShow) * (cellSize + cellSpacing)
         let isNearEnd = contentWidth - offset < scrollThreshold
 
-        // This fires every scroll frame, so without the in-flight guard a
-        // single flick past the edge queues dozens of redundant expansions.
         guard isNearEnd, !isExpanding else { return }
         isExpanding = true
         Task {

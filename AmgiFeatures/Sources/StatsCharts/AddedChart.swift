@@ -1,6 +1,13 @@
+//
+//  AddedChart.swift
+//  StatsCharts
+//
+//  Created by Vladimir Gusev on 30.03.2026.
+//
+
 public import SwiftUI
-import AmgiTheme
-import AmgiUI
+import Theme
+import UI
 import Charts
 public import AnkiKit
 
@@ -52,6 +59,8 @@ public struct AddedChart: View {
                             y: .value("Cards", item.count)
                         )
                         .foregroundStyle(palette.accent.gradient)
+                        .accessibilityLabel(ChartSpeech.day(item.day))
+                        .accessibilityValue(ChartSpeech.count(item.count, "card"))
                     }
                     .chartXAxis {
                         AxisMarks(values: .automatic(desiredCount: 5)) { _ in

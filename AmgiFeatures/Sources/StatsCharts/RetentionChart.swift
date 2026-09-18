@@ -1,6 +1,13 @@
+//
+//  RetentionChart.swift
+//  StatsCharts
+//
+//  Created by Vladimir Gusev on 27.03.2026.
+//
+
 public import SwiftUI
-import AmgiTheme
-import AmgiUI
+import Theme
+import UI
 public import AnkiKit
 
 public struct RetentionChart: View {
@@ -67,6 +74,11 @@ public struct RetentionChart: View {
                             retentionBadge(row.youngRate)
                             retentionBadge(row.matureRate)
                         }
+                        .accessibilityElement(children: .ignore)
+                        .accessibilityLabel(row.label)
+                        .accessibilityValue(
+                            "Young \(retentionSpeech(row.youngRate)), mature \(retentionSpeech(row.matureRate))"
+                        )
                     }
                 }
             }
@@ -80,6 +92,10 @@ private extension RetentionChart {
             .amgiFont(.captionBold)
             .monospacedDigit()
             .foregroundStyle(retentionColor(rate))
+    }
+
+    func retentionSpeech(_ rate: Double) -> String {
+        rate > 0 ? ChartSpeech.percent(rate * 100) : "no data"
     }
 
     func retentionColor(_ rate: Double) -> Color {

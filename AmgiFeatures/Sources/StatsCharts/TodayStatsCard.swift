@@ -1,6 +1,13 @@
+//
+//  TodayStatsCard.swift
+//  StatsCharts
+//
+//  Created by Vladimir Gusev on 27.03.2026.
+//
+
 public import SwiftUI
-import AmgiTheme
-import AmgiUI
+import Theme
+import UI
 public import AnkiKit
 
 public struct PeriodStatsCard: View {
@@ -128,6 +135,9 @@ private extension PeriodStatsCard {
             Text(title).amgiFont(.caption).foregroundStyle(palette.textSecondary)
         }
         .frame(maxWidth: .infinity)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(title)
+        .accessibilityValue(value)
     }
 
     func statBadge(_ title: String, count: Int, color: Color) -> some View {
@@ -136,6 +146,9 @@ private extension PeriodStatsCard {
             Text(title).amgiFont(.micro).foregroundStyle(palette.textSecondary)
         }
         .frame(maxWidth: .infinity)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(title)
+        .accessibilityValue("\(count)")
     }
 
     func formatMillis(_ ms: UInt64) -> String {

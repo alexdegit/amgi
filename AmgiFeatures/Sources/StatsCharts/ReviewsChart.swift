@@ -1,6 +1,13 @@
+//
+//  ReviewsChart.swift
+//  StatsCharts
+//
+//  Created by Vladimir Gusev on 30.03.2026.
+//
+
 public import SwiftUI
-import AmgiTheme
-import AmgiUI
+import Theme
+import UI
 import Charts
 public import AnkiKit
 
@@ -16,13 +23,8 @@ public struct ReviewsChart: View {
     @Environment(\.palette) private var palette
 
     private struct ReviewEntry: Identifiable {
-        /// Number of review types — the stride `id` packs `day` by.
         static let typeCount = 5
 
-        /// Stable across rebuilds: `(day, typeIndex)` is unique because
-        /// `typeIndex` is always less than the stride, and Charts diffs marks
-        /// by `id`. A fresh `UUID` here would give every mark a new identity on
-        /// every `body` pass, forcing a full re-layout instead of an update.
         var id: Int { day * Self.typeCount + typeIndex }
         let day: Int
         let typeIndex: Int
@@ -67,10 +69,6 @@ public struct ReviewsChart: View {
     }
 
     public var body: some View {
-        // Built once per pass and threaded through. Reading the computed
-        // `entries` from each call site instead rebuilt the whole series six
-        // times per `body` — once for `isEmpty`, once for the chart, and four
-        // more inside the two footer figures.
         let entries = self.entries
         AmgiCard(
             background: .surface,
@@ -90,6 +88,8 @@ public struct ReviewsChart: View {
                             y: .value("Count", entry.count)
                         )
                         .foregroundStyle(by: .value("Type", entry.type))
+                        .accessibilityLabel("\(entry.type), \(ChartSpeech.day(entry.day))")
+                        .accessibilityValue(ChartSpeech.count(entry.count, "review"))
                     }
                     .chartForegroundStyleScale([
                         "Learn": palette.cardStateNew,
