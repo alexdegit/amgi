@@ -1,7 +1,15 @@
+//
+//  EditImageOcclusionNoteView.swift
+//  BrowseFeature
+//
+//  Created by Vladimir Gusev on 29.04.2026.
+//
+
+#if canImport(UIKit)
 import SwiftUI
 import AnkiKit
-import AmgiTheme
-import AmgiUI
+import Theme
+import UI
 
 // MARK: - EditImageOcclusionNoteView
 
@@ -45,12 +53,12 @@ struct EditImageOcclusionNoteView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             if embedInNavigationStack {
-                ToolbarItem(placement: .topBarLeading) {
+                ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") { dismiss() }
                         .amgiToolbarTextButton(tone: .neutral)
                 }
             }
-            ToolbarItem(placement: .topBarTrailing) {
+            ToolbarItem(placement: .confirmationAction) {
                 Button("Save") {
                     Task {
                         if await model.save() {
@@ -170,4 +178,5 @@ struct EditImageOcclusionContent: View {
             .navigationBarTitleDisplayMode(.inline)
     }
 }
+#endif
 #endif

@@ -1,4 +1,13 @@
+//
+//  RichNoteFieldEditor.swift
+//  BrowseFeature
+//
+//  Created by Vladimir Gusev on 28.04.2026.
+//
+
 import SwiftUI
+
+#if canImport(UIKit)
 import UIKit
 
 /// A note field editor that defaults to plain-text editing and can preserve raw
@@ -191,6 +200,7 @@ struct RichNoteFieldEditor: UIViewRepresentable {
 
             let source = text as NSString
             var output = ""
+            output.reserveCapacity(source.length)
             var currentLocation = 0
 
             for match in regex.matches(in: text, range: NSRange(location: 0, length: source.length)) {
@@ -256,41 +266,43 @@ private extension RichNoteFieldEditor {
         scrollView.addSubview(stackView)
 
         stackView.addArrangedSubview(
-            makeSymbolButton(systemName: "arrow.uturn.backward") {
+            makeSymbolButton(systemName: "arrow.uturn.backward", title: "Undo") {
                 textView.undoManager?.undo()
             }
         )
         stackView.addArrangedSubview(
-            makeSymbolButton(systemName: "arrow.uturn.forward") {
+            makeSymbolButton(systemName: "arrow.uturn.forward", title: "Redo") {
                 textView.undoManager?.redo()
             }
         )
 
-        stackView.addArrangedSubview(
-            makeFormatButton(systemName: "bold", title: boldTitle) {
-                coordinator.wrapSelection(prefix: "<b>", suffix: "</b>")
-            }
-        )
-        stackView.addArrangedSubview(
-            makeFormatButton(systemName: "italic", title: italicTitle) {
-                coordinator.wrapSelection(prefix: "<i>", suffix: "</i>")
-            }
-        )
-        stackView.addArrangedSubview(
-            makeFormatButton(systemName: "underline", title: underlineTitle) {
-                coordinator.wrapSelection(prefix: "<u>", suffix: "</u>")
-            }
-        )
-        stackView.addArrangedSubview(
-            makeFormatButton(systemName: "strikethrough", title: strikeTitle) {
-                coordinator.wrapSelection(prefix: "<s>", suffix: "</s>")
-            }
-        )
-        stackView.addArrangedSubview(
-            makeFormatButton(systemName: "textformat", title: clearFormatTitle) {
-                coordinator.clearFormattingInSelection()
-            }
-        )
+        if preservesSourceHTML {
+            stackView.addArrangedSubview(
+                makeFormatButton(systemName: "bold", title: boldTitle) {
+                    coordinator.wrapSelection(prefix: "<b>", suffix: "</b>")
+                }
+            )
+            stackView.addArrangedSubview(
+                makeFormatButton(systemName: "italic", title: italicTitle) {
+                    coordinator.wrapSelection(prefix: "<i>", suffix: "</i>")
+                }
+            )
+            stackView.addArrangedSubview(
+                makeFormatButton(systemName: "underline", title: underlineTitle) {
+                    coordinator.wrapSelection(prefix: "<u>", suffix: "</u>")
+                }
+            )
+            stackView.addArrangedSubview(
+                makeFormatButton(systemName: "strikethrough", title: strikeTitle) {
+                    coordinator.wrapSelection(prefix: "<s>", suffix: "</s>")
+                }
+            )
+            stackView.addArrangedSubview(
+                makeFormatButton(systemName: "textformat", title: clearFormatTitle) {
+                    coordinator.clearFormattingInSelection()
+                }
+            )
+        }
 
         stackView.addArrangedSubview(
             makeTextButton(title: doneButtonTitle) {
@@ -319,10 +331,11 @@ private extension RichNoteFieldEditor {
         return container
     }
 
-    func makeSymbolButton(systemName: String, action: @escaping () -> Void) -> UIButton {
+    func makeSymbolButton(systemName: String, title: String, action: @escaping () -> Void) -> UIButton {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(systemName: systemName), for: .normal)
+        button.accessibilityLabel = title
         button.tintColor = .label
         button.backgroundColor = .tertiarySystemFill
         button.layer.cornerRadius = 8
@@ -421,3 +434,17 @@ private extension RichNoteFieldEditor.Coordinator {
         return output
     }
 }
+
+#else
+
+struct RichNoteFieldEditor: View {
+    @Binding var htmlText: String
+    var preservesSourceHTML = false
+
+    var body: some View {
+        TextEditor(text: $htmlText)
+            .scrollContentBackground(.hidden)
+    }
+}
+
+#endif

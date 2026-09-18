@@ -1,6 +1,13 @@
+//
+//  MediaCheckResultView.swift
+//  SettingsFeature
+//
+//  Created by Vladimir Gusev on 29.04.2026.
+//
+
 import SwiftUI
-import AmgiTheme
-import AmgiUI
+import Theme
+import UI
 import AnkiClients
 import AnkiKit
 import Dependencies
@@ -10,6 +17,7 @@ struct MediaCheckResultView: View {
     @Environment(\.palette) private var palette
 
     @State private var model = MediaCheckModel()
+    @State private var showEmptyTrashConfirm = false
 
     var body: some View {
         Group {
@@ -20,11 +28,13 @@ struct MediaCheckResultView: View {
             } else if let result = model.currentResult {
                 contentList(result: result)
             } else {
-                ContentUnavailableView(
-                    "Media check unavailable",
-                    systemImage: "exclamationmark.triangle",
-                    description: Text(model.actionMessage ?? "Couldn't read the media database.")
-                )
+                ContentUnavailableView {
+                    Label("Media Check Unavailable", systemImage: "exclamationmark.triangle")
+                } description: {
+                    Text(model.actionMessage ?? "Couldn't read the media database.")
+                } actions: {
+                    Button("Try Again") { Task { await model.runMediaCheck() } }
+                }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(palette.background)
             }
@@ -33,10 +43,25 @@ struct MediaCheckResultView: View {
         .background(palette.background)
         .navigationTitle("Media Check")
         .navigationBarTitleDisplayMode(.inline)
-        .alert("Done", isPresented: $model.showActionAlert) {
+        .alert(
+            Text(model.actionFailed ? "Couldn't update media" : "Media updated"),
+            isPresented: $model.showActionAlert
+        ) {
             Button("OK", role: .cancel) {}
         } message: {
             Text(model.actionMessage ?? "")
+        }
+        .confirmationDialog(
+            "Empty trash?",
+            isPresented: $showEmptyTrashConfirm,
+            titleVisibility: .visible
+        ) {
+            Button("Empty Trash", role: .destructive) {
+                Task { await model.emptyTrash() }
+            }
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text("Permanently deletes the trashed media files. They can't be restored afterwards.")
         }
         .task { await model.runMediaCheck() }
     }
@@ -141,8 +166,8 @@ private extension MediaCheckResultView {
             }
 
             if result.haveTrash {
-                Button {
-                    Task { await model.emptyTrash() }
+                Button(role: .destructive) {
+                    showEmptyTrashConfirm = true
                 } label: {
                     if model.isDeletingTrash {
                         HStack {
@@ -151,11 +176,10 @@ private extension MediaCheckResultView {
                             ProgressView()
                         }
                     } else {
-                        Label("Empty trash", systemImage: "trash.slash")
+                        Label("Empty trash…", systemImage: "trash.slash")
                     }
                 }
                 .disabled(model.isDeletingTrash)
-                .foregroundStyle(palette.danger)
                 .listRowBackground(palette.surfaceElevated)
 
                 Button {

@@ -1,8 +1,15 @@
+//
+//  DeckDetailModel.swift
+//  DecksFeature
+//
+//  Created by Vladimir Gusev on 14.05.2026.
+//
+
 import OSLog
-import AmgiAppCore
+import AppCore
 import Foundation
-import AmgiAppShared
-import AmgiUI
+import AppShared
+import UI
 import AnkiKit
 import AnkiClients
 import Dependencies
@@ -25,20 +32,24 @@ final class DeckDetailModel {
     var childDecks: [DeckTreeNode] = []
     var statsSnapshot: DeckDetailStats.Snapshot?
 
+    private(set) var cardTotal: Int?
+
+    var isEmpty: Bool { Self.isEmpty(cardTotal: cardTotal, counts: counts, childDecks: childDecks) }
+
+    static func isEmpty(cardTotal: Int?, counts: DeckCounts, childDecks: [DeckTreeNode]) -> Bool {
+        if let cardTotal { return cardTotal == 0 }
+        return counts.total == 0 && childDecks.isEmpty
+    }
+
     var actionInFlight = false
-    var rebuildFeedback: String?
+    var feedback: String?
     var exportInProgress = false
-    var importInProgress = false
 
     @ObservationIgnored @Dependency(\.deckClient) private var deckClient
     @ObservationIgnored @Dependency(\.statsClient) private var statsClient
     @ObservationIgnored @Dependency(\.collectionStore) private var store
     @ObservationIgnored private var statsTask: Task<Void, Never>?
-
-    enum ImportOutcome {
-        case success(String)
-        case failure(String)
-    }
+    @ObservationIgnored private var feedbackTask: Task<Void, Never>?
 
     enum ExportOutcome {
         case success(URL)
@@ -74,20 +85,30 @@ final class DeckDetailModel {
     func loadStats() {
         statsTask?.cancel()
         let deckName = deck.name
-        let isEmpty = counts.total == 0 && childDecks.isEmpty
         statsTask = Task { [weak self, statsClient] in
             // search syntax matches the Anki desktop "deck:" filter.
             let search = DeckSearch.term(deckName)
             let graphs = try? await statsClient.fetchGraphs(search, 30)
             guard !Task.isCancelled, let self else { return }
             if let graphs {
-                self.statsSnapshot = DeckDetailStats.project(graphs: graphs, isEmpty: isEmpty)
+                self.cardTotal = graphs.cardCounts.includingInactive.total
+                self.statsSnapshot = DeckDetailStats.project(graphs: graphs, isEmpty: self.isEmpty)
             } else {
                 self.statsSnapshot = DeckDetailStats.Snapshot(
                     insights: .empty,
-                    subtitle: isEmpty ? "No cards yet · Add some to start studying" : ""
+                    subtitle: self.isEmpty ? "No cards yet · Add some to start studying" : ""
                 )
             }
+        }
+    }
+
+    func showFeedback(_ text: String) {
+        feedbackTask?.cancel()
+        feedback = text
+        feedbackTask = Task { [weak self] in
+            try? await Task.sleep(for: .seconds(3))
+            guard !Task.isCancelled else { return }
+            self?.feedback = nil
         }
     }
 
@@ -97,11 +118,9 @@ final class DeckDetailModel {
         defer { actionInFlight = false }
         do {
             let count = try await deckClient.rebuildFilteredDeck(deck.id)
-            rebuildFeedback = "Rebuilt — \(count) cards"
+            showFeedback("Rebuilt — \(count) cards")
             // Rebuild's request only decodes a count — invalidate conservatively.
             store.apply(CollectionChanges(card: true, deck: true, studyQueues: true))
-            try? await Task.sleep(for: .seconds(2))
-            rebuildFeedback = nil
             return nil
         } catch {
             return error.localizedDescription
@@ -154,19 +173,6 @@ final class DeckDetailModel {
         }
     }
 
-    func handleImport(_ result: Result<URL, any Error>) async -> ImportOutcome {
-        switch result {
-        case .success(let url):
-            let ext = url.pathExtension.lowercased()
-            guard ext == "apkg" || ext == "colpkg" else {
-                return .failure("Unsupported file type. Please select an .apkg or .colpkg file.")
-            }
-            return await runImport(from: url)
-        case .failure(let error):
-            return .failure("Could not select file: \(error.localizedDescription)")
-        }
-    }
-
     /// Returns nil on success; otherwise an error message to surface.
     func createSubdeck(rawName: String) async -> String? {
         let trimmed = rawName.trimmingCharacters(in: .whitespaces)
@@ -195,18 +201,4 @@ private extension DeckDetailModel {
         return []
     }
 
-    func runImport(from url: URL) async -> ImportOutcome {
-        importInProgress = true
-        defer { importInProgress = false }
-        do {
-            // ImportHelper offloads the engine work itself now.
-            let summary = try await ImportHelper.importPackage(from: url)
-            // Import can touch anything; the generation bump reloads this
-            // screen and the Library behind it.
-            store.apply(.all)
-            return .success(summary)
-        } catch {
-            return .failure("Import failed: \(error.localizedDescription)")
-        }
-    }
 }

@@ -1,6 +1,13 @@
+//
+//  BackupView.swift
+//  SettingsFeature
+//
+//  Created by Vladimir Gusev on 14.05.2026.
+//
+
 import SwiftUI
-import AmgiTheme
-import AmgiAppCore
+import Theme
+import AppCore
 import AnkiBackend
 import AnkiServices
 import Dependencies
@@ -84,7 +91,7 @@ struct BackupView: View {
 
     private var emptySection: some View {
         Section {
-            Text("No backups yet.")
+            Text("No backups yet. Use “Create backup now” above to make one.")
                 .amgiFont(.body)
                 .foregroundStyle(palette.textSecondary)
                 .frame(maxWidth: .infinity, alignment: .center)
@@ -212,6 +219,7 @@ private struct BackupRow: View {
                     .foregroundStyle(accent)
             }
             .buttonStyle(.plain)
+            .accessibilityLabel("Share backup from \(entry.formattedDate)")
         }
     }
 }
@@ -237,22 +245,23 @@ private struct BackupAlerts: ViewModifier {
 
     func body(content: Content) -> some View {
         content
-            .alert(
+            .confirmationDialog(
                 "Delete backup?",
                 isPresented: Binding($destination.confirmDelete),
+                titleVisibility: .visible,
                 presenting: pendingDelete
             ) { entry in
-                Button("Cancel", role: .cancel) {}
                 Button("Delete", role: .destructive) { onDelete(entry) }
+                Button("Cancel", role: .cancel) {}
             } message: { entry in
                 Text("Delete the backup from \(entry.formattedDate)?")
             }
-            .alert("Done", isPresented: Binding($destination.success)) {
+            .alert("Backup saved", isPresented: Binding($destination.success)) {
                 Button("OK", role: .cancel) {}
             } message: {
                 Text(successMessage ?? "")
             }
-            .alert("Error", isPresented: Binding($destination.failure)) {
+            .alert("Couldn't create backup", isPresented: Binding($destination.failure)) {
                 Button("OK", role: .cancel) {}
             } message: {
                 Text(failureMessage ?? "")

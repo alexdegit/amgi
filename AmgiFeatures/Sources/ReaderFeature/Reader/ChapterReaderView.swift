@@ -1,6 +1,14 @@
-import AmgiReader
-import AmgiTheme
-import AmgiAppCore
+//
+//  ChapterReaderView.swift
+//  ReaderFeature
+//
+//  Created by Vladimir Gusev on 05.05.2026.
+//
+
+import Reader
+import Theme
+import AppCore
+import AppShared
 import Sharing
 import SwiftUI
 import WebKit
@@ -129,6 +137,17 @@ struct ChapterReaderView: View {
                     .scaleEffect(x: 1, y: 0.6, anchor: .top)
                     .ignoresSafeArea(edges: .horizontal)
             }
+            if showPercentage {
+                Text("\(Int(scrollProgress * 100))%")
+                    .amgiFont(.caption)
+                    .foregroundStyle(palette.textSecondary)
+                    .monospacedDigit()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
+                    .padding(.horizontal, 12)
+                    .padding(.bottom, 24)
+                    .allowsHitTesting(false)
+                    .accessibilityLabel("Reading progress")
+            }
             if debugInfoEnabled {
                 debugOverlay
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
@@ -156,14 +175,6 @@ struct ChapterReaderView: View {
                     Image(systemName: "character.book.closed")
                 }
                 .accessibilityLabel("Look up word")
-            }
-            if showPercentage {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Text("\(Int(scrollProgress * 100))%")
-                        .amgiFont(.caption)
-                        .foregroundStyle(palette.textSecondary)
-                        .monospacedDigit()
-                }
             }
         }
         .sheet(item: Binding(

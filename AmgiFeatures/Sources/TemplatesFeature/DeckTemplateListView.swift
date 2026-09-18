@@ -1,6 +1,13 @@
+//
+//  DeckTemplateListView.swift
+//  TemplatesFeature
+//
+//  Created by Vladimir Gusev on 14.05.2026.
+//
+
 package import SwiftUI
-import AmgiTheme
-import AmgiUI
+import Theme
+import UI
 import AnkiClients
 import AnkiKit
 import Dependencies
@@ -10,7 +17,6 @@ import Dependencies
 /// rows, alerts, and the editor itself live in sibling files under
 /// `DeckTemplateList/`.
 package struct DeckTemplateListView: View {
-    @Environment(\.dismiss) private var dismiss
     @Environment(\.palette) private var palette
 
     @State private var model = DeckTemplateListModel()
@@ -35,7 +41,6 @@ package struct DeckTemplateListView: View {
             .navigationTitle("Card Templates")
             .navigationBarTitleDisplayMode(.inline)
             .searchable(text: $searchText, prompt: "Search notetypes")
-            .toolbar { toolbarContent }
             .sheet(item: $editorTarget) { target in
                 TemplateEditorView(
                     notetypeId: target.id,
@@ -58,13 +63,6 @@ package struct DeckTemplateListView: View {
             .task { await model.loadTemplates() }
     }
 
-    @ToolbarContentBuilder
-    private var toolbarContent: some ToolbarContent {
-        ToolbarItem(placement: .topBarTrailing) {
-            Button("Done") { dismiss() }
-                .amgiToolbarTextButton()
-        }
-    }
 
     @ViewBuilder
     private var mainContent: some View {
@@ -81,7 +79,7 @@ package struct DeckTemplateListView: View {
             ContentUnavailableView(
                 "No notetypes",
                 systemImage: "square.stack.3d.up.slash",
-                description: Text("No notetypes match this search.")
+                description: Text("This collection has no notetypes yet.")
             )
         } else if filteredEntries.isEmpty {
             ContentUnavailableView.search(text: searchText)

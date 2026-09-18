@@ -1,5 +1,12 @@
+//
+//  TagsView.swift
+//  BrowseFeature
+//
+//  Created by Vladimir Gusev on 28.04.2026.
+//
+
 package import SwiftUI
-import AmgiTheme
+import Theme
 import AnkiClients
 package import AnkiKit
 import Dependencies
@@ -47,9 +54,35 @@ package struct TagsView: View {
             .navigationTitle(navigationTitle)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
+                ToolbarItem(placement: .primaryAction) {
                     Button("Add Tag", systemImage: "plus") { destination = .addTag("") }
                 }
+                if !isNoteMode {
+                    ToolbarItem(placement: .primaryAction) {
+                        Menu {
+                            Button("Clear Unused Tags", systemImage: "sparkles") {
+                                Task { await model.clearUnusedTags() }
+                            }
+                            .disabled(model.isDeleting)
+                        } label: {
+                            Label("More", systemImage: "ellipsis")
+                        }
+                    }
+                }
+            }
+            .alert(
+                "Unused Tags Cleared",
+                isPresented: Binding(
+                    get: { model.lastCleanupCount != nil },
+                    set: { if !$0 { model.lastCleanupCount = nil } }
+                ),
+                presenting: model.lastCleanupCount
+            ) { _ in
+                Button("OK") { model.lastCleanupCount = nil }
+            } message: { count in
+                Text(count == 0
+                    ? "Every tag in your collection is still in use."
+                    : "Removed \(count) tag\(count == 1 ? "" : "s") that no note was using.")
             }
     }
 
@@ -111,15 +144,16 @@ package struct TagsView: View {
             .sheet(isPresented: Binding($destination.addTag)) {
                 addTagSheet
             }
-            .alert(
+            .confirmationDialog(
                 "Delete Tag?",
                 isPresented: Binding($destination.deleteTag),
+                titleVisibility: .visible,
                 presenting: pendingDeleteTag
             ) { tag in
-                Button("Cancel", role: .cancel) {}
                 Button("Delete", role: .destructive) {
                     Task { await deleteTag(tag) }
                 }
+                Button("Cancel", role: .cancel) {}
             } message: { tag in
                 Text("Delete \"\(tag)\"? This will remove it from all notes.")
             }
@@ -138,7 +172,7 @@ package struct TagsView: View {
             } message: { rename in
                 Text("Enter a new name for \"\(rename.original)\". It will be updated on all notes that use it.")
             }
-            .alert("Error", isPresented: Binding($model.errorMessage)) {
+            .alert("Couldn't update tags", isPresented: Binding($model.errorMessage)) {
                 Button("OK") {}
             } message: {
                 Text(model.errorMessage ?? "An unknown error occurred.")
@@ -220,7 +254,7 @@ package struct TagsView: View {
             .navigationTitle("New Tag")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
+                ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") { destination = nil }
                 }
             }

@@ -1,11 +1,14 @@
+//
+//  DeckDetailStats.swift
+//  DecksFeature
+//
+//  Created by Vladimir Gusev on 16.05.2026.
+//
+
 import Foundation
 import AnkiKit
-import AmgiUI
+import UI
 
-/// Projects a `GraphsSnapshot` (scoped to a single deck via
-/// `search: "deck:\"<name>\""`) into the value types the AmgiUI screen
-/// consumes. Lives in the Container layer so AmgiUI never has to know
-/// about GraphsSnapshot / AnkiProto.
 enum DeckDetailStats {
     struct Snapshot: Equatable {
         let insights: InsightsCardData
@@ -36,11 +39,6 @@ enum DeckDetailStats {
         }
         let avg: Int? = totalReviews > 0 ? Int((Double(totalReviews) / 30.0).rounded()) : nil
 
-        // Mature card count — use excludingInactive when populated, fall back
-        // to includingInactive. TODO: graph protobuf scoping by deck search
-        // is not fully reliable for cardCounts upstream today — this can
-        // surface a collection-wide mature count. Acceptable for v1; reroute
-        // through SearchCards as the follow-up if it bites.
         let excl = graphs.cardCounts.excludingInactive
         let incl = graphs.cardCounts.includingInactive
         let mature = excl.mature > 0 ? excl.mature : incl.mature

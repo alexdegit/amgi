@@ -1,7 +1,14 @@
+//
+//  BrowseView.swift
+//  BrowseFeature
+//
+//  Created by Vladimir Gusev on 27.03.2026.
+//
+
 package import SwiftUI
-import AmgiAppShared
+import AppShared
 import AnkiKit
-import AmgiTheme
+import Theme
 import SwiftUINavigation
 
 enum BrowseSortOrder: String, CaseIterable, Sendable {
@@ -18,6 +25,8 @@ package struct BrowseView: View {
     @State private var model: BrowseModel
     @State private var selectionState = BrowseSelectionState()
     @State private var destination: BrowseDestination?
+    @State private var pendingTool: BrowseTool?
+    @FocusState private var searchFocused: Bool
 
     package init() {
         _model = State(initialValue: BrowseModel())
@@ -36,11 +45,15 @@ package struct BrowseView: View {
         @Bindable var model = model
         decoratedContent
             .searchable(text: $model.searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search notes...")
+            .searchFocused($searchFocused)
             .task { await model.loadInitial() }
             // Keyed on the assembled query so text, deck, and tag changes all
             // restart one search — SwiftUI cancels the previous run, which is
             // what debounces the typing and keeps a stale result from landing.
             .task(id: model.searchQuery) { await model.performSearch() }
+            .sensoryFeedback(trigger: selectionState.isSelectMode) { _, entered in
+                entered ? .selection : nil
+            }
     }
 
     private var decoratedContent: some View {
@@ -48,6 +61,11 @@ package struct BrowseView: View {
             .navigationTitle("Browse")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar { toolbarContent }
+            .navigationDestination(item: $pendingTool) { tool in
+                switch tool {
+                case .duplicates: DuplicatesView()
+                }
+            }
     }
 
     private var dialogContent: some View {
@@ -93,9 +111,11 @@ package struct BrowseView: View {
                 Task { await model.performSearch() }
             }
         }
+        #if canImport(UIKit)
         .sheet(isPresented: $destination.addImageOcclusion) {
             AddImageOcclusionNoteView { Task { await model.performSearch() } }
         }
+        #endif
         .alert(
             "Some changes didn't apply",
             isPresented: Binding(
@@ -121,45 +141,57 @@ package struct BrowseView: View {
 
     @ToolbarContentBuilder
     private var toolbarContent: some ToolbarContent {
-        ToolbarItem(placement: .topBarLeading) {
-            Menu {
-                Button("Add Note") { destination = .addNote }
-                Button("Add Image Occlusion") { destination = .addImageOcclusion }
-            } label: {
-                Image(systemName: "plus")
-            }
-        }
-        ToolbarItem(placement: .topBarLeading) {
-            Menu {
-                ForEach(BrowseSortOrder.allCases, id: \.self) { order in
-                    Button {
-                        model.sortOrder = order
-                    } label: {
-                        if model.sortOrder == order {
-                            Label(order.rawValue, systemImage: "checkmark")
-                        } else {
-                            Text(order.rawValue)
-                        }
-                    }
-                }
-            } label: {
-                Image(systemName: "arrow.up.arrow.down")
-            }
-            .disabled(model.notes.isEmpty)
-        }
-        ToolbarItem(placement: .topBarTrailing) {
-            if selectionState.isSelectMode {
+        if selectionState.isSelectMode {
+            ToolbarItem(placement: .confirmationAction) {
                 Button("Done") {
                     selectionState.exitSelectMode()
                 }
-            } else if !model.notes.isEmpty {
-                Button("Edit") {
-                    selectionState.enterSelectMode()
+            }
+            selectionToolbar
+        } else {
+            ToolbarItem(placement: .primaryAction) {
+                Menu {
+                    Button("Add Note", systemImage: "square.and.pencil") {
+                        destination = .addNote
+                    }
+                    .keyboardShortcut("n", modifiers: .command)
+                    Button("Add Image Occlusion", systemImage: "rectangle.on.rectangle") {
+                        destination = .addImageOcclusion
+                    }
+                } label: {
+                    Label("Add", systemImage: "plus")
                 }
             }
-        }
-        if selectionState.isSelectMode {
-            selectionToolbar
+            ToolbarItem(placement: .primaryAction) {
+                Menu {
+                    if !model.notes.isEmpty {
+                        Section {
+                            Button("Select", systemImage: "checkmark.circle") {
+                                selectionState.enterSelectMode()
+                            }
+                        }
+                        Section {
+                            Picker("Sort By", selection: $model.sortOrder) {
+                                ForEach(BrowseSortOrder.allCases, id: \.self) { order in
+                                    Text(order.rawValue).tag(order)
+                                }
+                            }
+                            .pickerStyle(.inline)
+                        }
+                    }
+                    Section {
+                        Button("Find", systemImage: "magnifyingglass") {
+                            searchFocused = true
+                        }
+                        .keyboardShortcut("f", modifiers: .command)
+                        Button("Find Duplicates", systemImage: "doc.on.doc") {
+                            pendingTool = .duplicates
+                        }
+                    }
+                } label: {
+                    Label("More", systemImage: "ellipsis")
+                }
+            }
         }
     }
 
@@ -256,18 +288,23 @@ struct BrowseContent: View {
 
     @ViewBuilder
     private var statefulContent: some View {
-        if model.notes.isEmpty && !model.isLoading && model.searchText.isEmpty && model.activeDeck == nil {
+        if model.notes.isEmpty && !model.isLoading && model.searchText.isEmpty
+            && model.activeDeck == nil && model.activeTag == nil {
             ContentUnavailableView(
                 "Browse Notes",
                 systemImage: "magnifyingglass",
                 description: Text("Search by content, tags, or filter by deck.")
             )
         } else if model.notes.isEmpty && !model.isLoading && model.searchFailed {
-            ContentUnavailableView(
-                "Search Failed",
-                systemImage: "exclamationmark.triangle",
-                description: Text("The collection couldn't be searched. Pull to try again.")
-            )
+            ContentUnavailableView {
+                Label("Search Failed", systemImage: "exclamationmark.triangle")
+            } description: {
+                Text("The collection couldn't be searched.")
+            } actions: {
+                Button("Try Again") {
+                    Task { await model.performSearch(debounce: .zero) }
+                }
+            }
         } else if model.notes.isEmpty && !model.isLoading {
             ContentUnavailableView.search(text: model.searchText)
         } else {
@@ -293,12 +330,6 @@ struct BrowseContent: View {
             if model.isLoading {
                 ProgressView()
                     .frame(maxWidth: .infinity)
-            }
-        }
-        .navigationDestination(for: NoteRecord.self) { note in
-            // If tapped a stub, fetch full details first.
-            NoteEditingDestinationView(note: model.resolved(note)) {
-                Task { await model.performSearch() }
             }
         }
     }
@@ -327,7 +358,11 @@ struct BrowseContent: View {
                 .onAppear { onRowAppear(note) }
             } else {
                 HStack {
-                    NavigationLink(value: note) {
+                    NavigationLink {
+                        NoteEditingDestinationView(note: model.resolved(note)) {
+                            Task { await model.performSearch() }
+                        }
+                    } label: {
                         NoteRowView(note: note, notetypeName: model.notetypeNames[note.mid])
                             .onAppear { onRowAppear(note) }
                     }
@@ -336,9 +371,11 @@ struct BrowseContent: View {
                     }
                 }
                 .contentShape(Rectangle())
-                .onLongPressGesture(minimumDuration: 0.5) {
-                    selectionState.enterSelectMode(preselect: note.id)
-                }
+                .simultaneousGesture(
+                    LongPressGesture(minimumDuration: 0.5).onEnded { _ in
+                        selectionState.enterSelectMode(preselect: note.id)
+                    }
+                )
                 // The long press is the only way into select mode, and it's
                 // not a gesture VoiceOver can perform — expose it as a named
                 // action in the rotor as well.

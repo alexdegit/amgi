@@ -1,8 +1,15 @@
+//
+//  ReaderSettingsView.swift
+//  SettingsFeature
+//
+//  Created by Vladimir Gusev on 05.05.2026.
+//
+
 import Sharing
 import SwiftUI
-import AmgiTheme
-import AmgiAppCore
-import ReaderFeature
+import Theme
+import AppCore
+import AppShared
 
 /// Tight subset of DreamAfar's reader display preferences. Keys are
 /// already declared in `ReaderPreferences.Keys`; this view binds the
@@ -298,7 +305,7 @@ struct ReaderSettingsView: View {
                 SettingsSeparator()
                 SettingsToggleRow(
                     title: "Top progress bar",
-                    systemImage: "chart.bar",
+                    systemImage: "rectangle.topthird.inset.filled",
                     tone: .review,
                     isOn: Binding($showProgressTop)
                 )

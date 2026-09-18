@@ -1,5 +1,12 @@
-import AmgiReader
-import AmgiAppCore
+//
+//  ReaderLibraryView.swift
+//  ReaderFeature
+//
+//  Created by Vladimir Gusev on 05.05.2026.
+//
+
+import Reader
+import AppCore
 import Sharing
 package import SwiftUI
 import UniformTypeIdentifiers
@@ -44,6 +51,7 @@ package struct ReaderLibraryView: View {
     @State private var searchText: String = ""
     @State private var isImporting: Bool = false
     @State private var showConfiguration: Bool = false
+    @FocusState private var searchFocused: Bool
 
     package init(refreshID: UUID? = nil) {
         self.refreshID = refreshID
@@ -61,6 +69,13 @@ package struct ReaderLibraryView: View {
         BookshelfSortMode(rawValue: sortModeRaw) ?? .recent
     }
 
+    private var sortSelection: Binding<BookshelfSortMode> {
+        Binding(
+            get: { sortMode },
+            set: { mode in $sortModeRaw.withLock { $0 = mode.rawValue } }
+        )
+    }
+
     package var body: some View {
         ReaderLibraryContent(
             state: model.state,
@@ -72,19 +87,13 @@ package struct ReaderLibraryView: View {
         )
         .navigationTitle("Library")
         .navigationBarTitleDisplayMode(.large)
-        .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                Menu { plusMenu } label: {
-                    Image(systemName: "plus")
-                }
-                .accessibilityLabel("Library actions")
-            }
-        }
+        .toolbar { toolbarContent }
         .searchable(
             text: $searchText,
             placement: .navigationBarDrawer(displayMode: .automatic),
             prompt: "Search books"
         )
+        .searchFocused($searchFocused)
         .onChange(of: searchText) { _, _ in model.rebuildViewData(searchText: searchText, sortMode: sortMode) }
         .onChange(of: sortModeRaw) { _, _ in model.rebuildViewData(searchText: searchText, sortMode: sortMode) }
         .onChange(of: deckName) { _, _ in model.startReload(searchText: searchText, sortMode: sortMode) }
@@ -115,28 +124,33 @@ package struct ReaderLibraryView: View {
         }
     }
 
-    @ViewBuilder
-    private var plusMenu: some View {
-        Button { isImporting = true } label: {
-            Label("Import EPUB…", systemImage: "square.and.arrow.down")
+    @ToolbarContentBuilder
+    private var toolbarContent: some ToolbarContent {
+        ToolbarItem(placement: .topBarTrailing) {
+            Button("Import EPUB…", systemImage: "square.and.arrow.down") {
+                isImporting = true
+            }
+            .keyboardShortcut("o", modifiers: .command)
         }
-        Divider()
-        Menu("Sort by") {
-            ForEach(BookshelfSortMode.allCases) { mode in
-                Button {
-                    $sortModeRaw.withLock { $0 = mode.rawValue }
-                } label: {
-                    if sortMode == mode {
-                        Label(mode.label, systemImage: "checkmark")
-                    } else {
-                        Text(mode.label)
+        ToolbarItem(placement: .topBarTrailing) {
+            Menu {
+                Picker("Sort By", selection: sortSelection) {
+                    ForEach(BookshelfSortMode.allCases) { mode in
+                        Text(mode.label).tag(mode)
                     }
                 }
+                .pickerStyle(.inline)
+                Divider()
+                Button("Find", systemImage: "magnifyingglass") {
+                    searchFocused = true
+                }
+                .keyboardShortcut("f", modifiers: .command)
+                Button("Reader Settings", systemImage: "slider.horizontal.3") {
+                    showConfiguration = true
+                }
+            } label: {
+                Label("More", systemImage: "ellipsis")
             }
-        }
-        Divider()
-        Button { showConfiguration = true } label: {
-            Label("Settings", systemImage: "slider.horizontal.3")
         }
     }
 

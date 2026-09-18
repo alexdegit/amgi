@@ -1,19 +1,20 @@
+//
+//  DeckDetailView.swift
+//  DecksFeature
+//
+//  Created by Vladimir Gusev on 14.05.2026.
+//
+
 import SwiftUI
-import AmgiAppShared
-import AmgiTheme
-import AmgiUI
+import AppShared
+import Theme
+import UI
 import AnkiKit
 import AnkiClients
 import Dependencies
 import BrowseFeature
+import Foundation
 
-/// Owns the `DeckDetailModel` (data state) and a single `Destination?`
-/// that drives every modal axis: full-screen review, sheets, alerts,
-/// and the file importer.
-///
-/// Presentation is delegated to `AmgiUI.DeckDetailScreen` — this file
-/// is a thin assembler that builds a `DeckDetailViewData` DTO from the
-/// model and dispatches `DeckDetailScreen.Action` callbacks.
 struct DeckDetailView: View {
     let deck: DeckInfo
 
@@ -34,10 +35,6 @@ struct DeckDetailView: View {
         Self.leafName(from: deck.name)
     }
 
-    /// Leaf segment of a "Parent::Child" deck path — must be passed to
-    /// `DeckTileGlyph.resolve` (see `deckName:` below) instead of the full
-    /// path, or emoji detection/letter abbreviation/tint hash all break for
-    /// subdecks. Extracted for direct testing (AmgiAppTests).
     static func leafName(from fullName: String) -> String {
         String(fullName.split(separator: "::", omittingEmptySubsequences: true).last ?? Substring(fullName))
     }
@@ -51,16 +48,13 @@ struct DeckDetailView: View {
         guard let alert = currentAlert else { return "" }
         switch alert {
         case .empty: return "Empty \"\(shortTitle)\"?"
-        case .error: return "Something went wrong"
-        case .info: return "Done"
-        case .subdeck: return "Create Subdeck"
-        case .extendLimit(let kind): return "Increase Today's \(kind.noun) Limit"
+        case .error(let title, _): return title
         }
     }
 
     private var viewState: DeckDetailViewState {
         guard model.hasLoaded else { return .loading }
-        let isEmpty = model.counts.total == 0 && model.childDecks.isEmpty
+        let isEmpty = model.isEmpty
         let subtitle: String = {
             if let snap = model.statsSnapshot, !snap.subtitle.isEmpty { return snap.subtitle }
             return isEmpty
@@ -72,13 +66,6 @@ struct DeckDetailView: View {
             title: shortTitle,
             subtitle: subtitle,
             tone: DeckTonePalette.tone(for: deck.name),
-            // Leaf-only name — must match what Library passes to
-            // DeckTileGlyph.resolve (DeckRowViewData.name) so the glyph
-            // and tint agree for the same deck. `deck.name` here is the
-            // full "Parent::Child" path for subdecks; DeckTileGlyph does
-            // no "::" stripping of its own (it operates on a deck *name*,
-            // not a path), so passing the full path breaks emoji
-            // detection, the letter abbreviation, and the tint hash.
             deckName: shortTitle,
             tileCounts: DeckDetailTileData(
                 newCount: model.counts.newCount,
@@ -100,27 +87,21 @@ struct DeckDetailView: View {
                 deckId: deck.id,
                 onReviewDismiss: {
                     destination = nil
-                    // Review-end from this screen's own cover: invalidate so
-                    // the generation-keyed loads here AND in Library/Study
-                    // behind us all refresh (answers mutate the queues).
                     store.invalidateAll()
                 },
                 sheetContent: { sheet in AnyView(sheetContent(for: sheet)) }
             ))
-            .modifier(AlertImporterModifier(
+            .modifier(AlertModifier(
                 destination: $destination,
                 currentAlert: currentAlert,
                 alertTitle: alertTitle,
                 alertActions: { AnyView(alertActions(for: $0)) },
-                alertMessage: { AnyView(alertMessage(for: $0)) },
-                onImportResult: { result in Task { await runImport(result) } }
+                alertMessage: { AnyView(alertMessage(for: $0)) }
             ))
-            .overlay(alignment: .top) { ImportInProgressBanner(visible: model.importInProgress) }
-            .overlay(alignment: .bottom) { RebuildFeedbackBanner(feedback: model.rebuildFeedback) }
-            .animation(AmgiMotion.momentum, value: model.rebuildFeedback)
-            .animation(AmgiMotion.momentum, value: model.importInProgress)
-            // Keyed on the store's generation so mutations (subdeck create,
-            // rebuild/empty, import) reload this screen via Invalidation.
+            .overlay(alignment: .bottom) {
+                FeedbackToast(feedback: model.feedback) { model.feedback = nil }
+            }
+            .animation(AmgiMotion.momentum, value: model.feedback)
             .task(id: store.generation) {
                 await model.loadCounts()
                 await model.loadChildren()
@@ -146,61 +127,55 @@ struct DeckDetailView: View {
 
     @ToolbarContentBuilder
     private var toolbarContent: some ToolbarContent {
-        ToolbarItem(placement: .topBarTrailing) {
+        ToolbarItem(placement: .primaryAction) {
             Menu {
-                Button {
-                    destination = .sheet(.addNote)
-                } label: {
-                    Label("Add Note", systemImage: "square.and.pencil")
+                Section {
+                    Button {
+                        destination = .sheet(.addNote)
+                    } label: {
+                        Label("Add Note…", systemImage: "square.and.pencil")
+                    }
+                    if !deck.isFiltered {
+                        Button {
+                            newSubdeckName = ""
+                            destination = .sheet(.createSubdeck)
+                        } label: {
+                            Label("Create Subdeck…", systemImage: "folder.badge.plus")
+                        }
+                    }
                 }
                 if !deck.isFiltered {
-                    Button {
-                        newSubdeckName = ""
-                        destination = .alert(.subdeck)
-                    } label: {
-                        Label("Create Subdeck", systemImage: "folder.badge.plus")
-                    }
-                    Button {
-                        destination = .sheet(.showDeckOptions)
-                    } label: {
-                        Label("Deck Options…", systemImage: "slider.horizontal.3")
-                    }
-                    Button {
-                        limitDelta = Self.defaultNewDelta
-                        destination = .alert(.extendLimit(.new))
-                    } label: {
-                        Label("Increase New Limit…", systemImage: "plus.rectangle.on.rectangle")
-                    }
-                    Button {
-                        limitDelta = Self.defaultReviewDelta
-                        destination = .alert(.extendLimit(.review))
-                    } label: {
-                        Label("Increase Review Limit…", systemImage: "plus.rectangle.on.rectangle")
+                    Section {
+                        Button {
+                            destination = .sheet(.showDeckOptions)
+                        } label: {
+                            Label("Deck Options…", systemImage: "slider.horizontal.3")
+                        }
+                        Button {
+                            limitDelta = Self.defaultNewDelta
+                            destination = .sheet(.extendLimit(.new))
+                        } label: {
+                            Label("Increase New Limit…", systemImage: "plus.rectangle.on.rectangle")
+                        }
+                        Button {
+                            limitDelta = Self.defaultReviewDelta
+                            destination = .sheet(.extendLimit(.review))
+                        } label: {
+                            Label("Increase Review Limit…", systemImage: "plus.rectangle.on.rectangle")
+                        }
                     }
                 }
-                Divider()
-                Button {
-                    destination = .importer
-                } label: {
-                    Label("Import .apkg…", systemImage: "square.and.arrow.down")
+                Section {
+                    Button {
+                        Task { await runExport() }
+                    } label: {
+                        Label("Export Deck…", systemImage: "square.and.arrow.up")
+                    }
+                    .disabled(model.exportInProgress)
                 }
-                .disabled(model.importInProgress)
-                Button {
-                    Task { await runExport() }
-                } label: {
-                    Label("Export Deck…", systemImage: "square.and.arrow.up")
-                }
-                .disabled(model.exportInProgress)
             } label: {
-                // No hand-drawn material circle: on iOS 26 the toolbar draws
-                // its own Liquid Glass capsule behind the item, and a material
-                // inside it nests a second surface within the first.
-                Image(systemName: "ellipsis")
-                    .font(.system(size: 16, weight: .semibold))
-                    .frame(width: 44, height: 44)
-                    .contentShape(Rectangle())
+                Label("More", systemImage: "ellipsis")
             }
-            .accessibilityLabel("More")
         }
     }
 }
@@ -215,11 +190,6 @@ private extension DeckDetailView {
         case .emptyDeck:
             destination = .alert(.empty)
         case .subdeckSelected(let row):
-            // Push by setting pendingSubdeck — navigationDestination(item:)
-            // below picks it up and pushes onto the parent stack. We use
-            // an item-bound push rather than the parent's value-bound
-            // navigationDestination(for: DeckInfo.self) so this Container
-            // owns the dismissal contract for the row tap.
             pendingSubdeck = DeckInfo(
                 id: DeckID(row.id),
                 name: row.fullName,
@@ -237,21 +207,41 @@ private extension DeckDetailView {
     func sheetContent(for sheet: DeckDetailSheet) -> some View {
         switch sheet {
         case .addNote:
-            // AddNoteModel invalidates the store on save; the generation-keyed
-            // .task reloads this screen. Nothing extra to do here.
             AddNoteView(preselectedDeckId: deck.id) {}
         case .showDeckOptions:
             NavigationStack {
                 DeckConfigView(deckId: deck.id, deckName: deck.name) {
                     destination = nil
-                    // Limits/config changes reshape due counts everywhere.
                     store.apply(CollectionChanges(deck: true, studyQueues: true))
                 }
             }
         case .exportFile(let url):
             ShareSheet(items: [url]) {
                 destination = nil
+                try? FileManager.default.removeItem(at: url)
             }
+        case .createSubdeck:
+            TextPromptSheet(
+                title: "Create Subdeck",
+                placeholder: "Subdeck name",
+                footer: "Created inside \(shortTitle).",
+                confirmLabel: "Create",
+                capitalization: .words,
+                isValid: { !$0.trimmingCharacters(in: .whitespaces).isEmpty },
+                onConfirm: { name in await model.createSubdeck(rawName: name) },
+                text: $newSubdeckName
+            )
+        case .extendLimit(let kind):
+            TextPromptSheet(
+                title: "Increase Today's \(kind.noun) Limit",
+                placeholder: "Extra cards",
+                footer: "Extra \(kind.noun.lowercased()) cards to show today, on top of this deck's daily limit. Resets tomorrow.",
+                confirmLabel: "Increase",
+                keyboard: .numberPad,
+                isValid: { Self.parseDelta($0) != nil },
+                onConfirm: { text in await runExtendLimit(kind, delta: text) },
+                text: $limitDelta
+            )
         }
     }
 
@@ -263,29 +253,8 @@ private extension DeckDetailView {
                 Task { await runEmpty() }
             }
             Button("Cancel", role: .cancel) {}
-        case .error, .info:
+        case .error:
             Button("OK", role: .cancel) {}
-        case .subdeck:
-            TextField("Subdeck name", text: $newSubdeckName)
-                .autocorrectionDisabled()
-                .textInputAutocapitalization(.words)
-            Button("Create") {
-                let name = newSubdeckName
-                Task { await runCreateSubdeck(name: name) }
-            }
-            .disabled(newSubdeckName.trimmingCharacters(in: .whitespaces).isEmpty)
-            Button("Cancel", role: .cancel) {
-                newSubdeckName = ""
-            }
-        case .extendLimit(let kind):
-            TextField("Extra cards", text: $limitDelta)
-                .keyboardType(.numberPad)
-            Button("Increase") {
-                let delta = limitDelta
-                Task { await runExtendLimit(kind, delta: delta) }
-            }
-            .disabled(Self.parseDelta(limitDelta) == nil)
-            Button("Cancel", role: .cancel) {}
         }
     }
 
@@ -294,28 +263,22 @@ private extension DeckDetailView {
         switch alert {
         case .empty:
             Text("Cards will be returned to their home decks.")
-        case .error(let msg), .info(let msg):
-            Text(msg)
-        case .subdeck:
-            Text("Will be created as \(deck.name)::<name>")
-        case .extendLimit(let kind):
-            Text("Extra \(kind.noun.lowercased()) cards to show today, on top of this deck's daily limit. Resets tomorrow.")
+        case .error(_, let message):
+            Text(message)
         }
     }
 
     // MARK: Action bridges (model results → destination state)
 
-    // Rebuild/empty already invalidate in the model; the generation-keyed
-    // .task reloads counts, children, and stats — no manual chaining here.
     func runRebuild() async {
         if let err = await model.rebuild() {
-            destination = .alert(.error(err))
+            destination = .alert(.error(title: "Couldn't rebuild \"\(shortTitle)\"", message: err))
         }
     }
 
     func runEmpty() async {
         if let err = await model.empty() {
-            destination = .alert(.error(err))
+            destination = .alert(.error(title: "Couldn't empty \"\(shortTitle)\"", message: err))
         }
     }
 
@@ -324,46 +287,21 @@ private extension DeckDetailView {
         case .success(let url):
             destination = .sheet(.exportFile(url))
         case .failure(let msg):
-            destination = .alert(.error(msg))
+            destination = .alert(.error(title: "Couldn't export \"\(shortTitle)\"", message: msg))
         }
     }
 
-    func runImport(_ result: Result<URL, any Error>) async {
-        switch await model.handleImport(result) {
-        case .success(let summary):
-            destination = .alert(.info(summary))
-        case .failure(let msg):
-            destination = .alert(.error(msg))
-        }
-    }
-
-    /// Anki's own prefills for the same two custom-study fields. We don't
-    /// read the deck's remembered `extend_new`/`extend_review` back, so
-    /// these stay constant rather than tracking the last value used.
     static let defaultNewDelta = "10"
     static let defaultReviewDelta = "50"
 
-    /// Positive whole number, or nil — the Increase button keys off this,
-    /// so "", "-3", "1.5" and "abc" all leave it disabled.
     static func parseDelta(_ text: String) -> Int32? {
         guard let value = Int32(text.trimmingCharacters(in: .whitespaces)), value > 0 else { return nil }
         return value
     }
 
-    func runExtendLimit(_ kind: DeckLimitKind, delta: String) async {
-        guard let amount = Self.parseDelta(delta) else { return }
-        if let err = await model.extendLimit(kind, by: amount) {
-            destination = .alert(.error(err))
-        }
-    }
-
-    func runCreateSubdeck(name: String) async {
-        if let err = await model.createSubdeck(rawName: name) {
-            destination = .alert(.error(err))
-        } else {
-            newSubdeckName = ""
-            destination = nil
-        }
+    func runExtendLimit(_ kind: DeckLimitKind, delta: String) async -> String? {
+        guard let amount = Self.parseDelta(delta) else { return nil }
+        return await model.extendLimit(kind, by: amount)
     }
 
     // MARK: - Mapping
@@ -385,8 +323,6 @@ private extension DeckDetailView {
 
 #if DEBUG
 #Preview {
-    // Construct the view inside `withDependencies` so the model captures the
-    // preview clients at init; the seeded `.task` load then renders deterministically.
     withDependencies {
         $0.deckClient = .previewValue
         $0.statsClient = .previewValue

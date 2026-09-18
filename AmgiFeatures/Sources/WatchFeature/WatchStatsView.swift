@@ -1,8 +1,18 @@
-import AmgiCharts
+//
+//  WatchStatsView.swift
+//  WatchFeature
+//
+//  Created by Leaf Eriksen on 17.07.2026.
+//
+
+import StatsCharts
 import AnkiClients
 import AnkiKit
 import Dependencies
+import os
 import SwiftUI
+
+private let logger = Logger(subsystem: "com.amgiapp.AmgiApp", category: "WatchStats")
 
 struct WatchStatsView: View {
     @Dependency(\.statsClient) var statsClient
@@ -24,12 +34,15 @@ struct WatchStatsView: View {
         Group {
             switch state {
             case .loading:
-                ProgressView("Loading...")
+                ProgressView("Loading statistics...")
             case .failed(let error):
-                Text(error)
-                    .font(.caption)
-                    .multilineTextAlignment(.center)
-                    .padding()
+                ContentUnavailableView {
+                    Label("Couldn't Load Stats", systemImage: "exclamationmark.triangle")
+                } description: {
+                    Text(error)
+                } actions: {
+                    Button("Try Again") { Task { await loadStats() } }
+                }
             case .loaded(let graphs):
                 List {
                     Section {
@@ -61,7 +74,7 @@ struct WatchStatsView: View {
     private var deckPicker: some View {
         Picker(selection: $selectedDeck) {
             Text("Collection").tag(nil as DeckInfo?)
-            ForEach(decks.filter({ !$0.name.contains("::") })) { deck in
+            ForEach(decks) { deck in
                 Text(deck.name).tag(deck as DeckInfo?)
             }
         } label: {
@@ -78,7 +91,12 @@ struct WatchStatsView: View {
         }
     }
     private func loadDecks() async {
-        decks = (try? await deckClient.fetchAll()) ?? []
+        do {
+            decks = try await deckClient.fetchAll().filter { !$0.name.contains("::") }
+        } catch {
+            logger.error("Deck load error: \(error)")
+            decks = []
+        }
     }
     private func loadStats() async {
         do {

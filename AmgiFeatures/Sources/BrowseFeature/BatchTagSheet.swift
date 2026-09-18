@@ -1,8 +1,15 @@
+//
+//  BatchTagSheet.swift
+//  BrowseFeature
+//
+//  Created by Vladimir Gusev on 03.05.2026.
+//
+
 import SwiftUI
 import AnkiClients
 import AnkiKit
 import Dependencies
-import AmgiTheme
+import Theme
 
 struct BatchTagSheet: View {
     let noteIDs: Set<NoteID>
@@ -63,10 +70,10 @@ struct BatchTagSheet: View {
             .navigationTitle("Add tags to \(noteIDs.count) note\(noteIDs.count == 1 ? "" : "s")")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
+                ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") { dismiss() }
                 }
-                ToolbarItem(placement: .topBarTrailing) {
+                ToolbarItem(placement: .confirmationAction) {
                     Button("Apply") { apply() }
                         .disabled(checkedTags.isEmpty || model.isApplying)
                 }

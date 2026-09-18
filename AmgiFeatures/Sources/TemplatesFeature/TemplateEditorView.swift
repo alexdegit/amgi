@@ -1,7 +1,14 @@
+//
+//  TemplateEditorView.swift
+//  TemplatesFeature
+//
+//  Created by Vladimir Gusev on 14.05.2026.
+//
+
 package import SwiftUI
-import AmgiAppCore
-import AmgiTheme
-import AmgiUI
+import AppCore
+import Theme
+import UI
 package import AnkiKit
 import Sharing
 import SwiftUINavigation
@@ -120,22 +127,16 @@ package struct TemplateEditorView: View {
 
     @ToolbarContentBuilder
     private var toolbarContent: some ToolbarContent {
-        ToolbarItem(placement: .topBarLeading) {
+        ToolbarItem(placement: .cancellationAction) {
             Button("Cancel") { attemptDismiss() }
                 .amgiToolbarTextButton(tone: .neutral)
         }
-        ToolbarItem(placement: .principal) {
-            Text(mode.title)
-                .amgiFont(.bodyEmphasis)
-                .foregroundStyle(palette.textPrimary)
-                .lineLimit(1)
-        }
-        ToolbarItem(placement: .topBarTrailing) {
+        ToolbarItem(placement: .primaryAction) {
             Button("Fields") { destination = .fieldManager }
                 .amgiToolbarTextButton(tone: .neutral)
                 .disabled(model.isLoading)
         }
-        ToolbarItem(placement: .topBarTrailing) {
+        ToolbarItem(placement: .confirmationAction) {
             if model.isSaving {
                 ProgressView()
             } else {

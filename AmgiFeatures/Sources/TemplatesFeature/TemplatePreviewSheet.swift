@@ -1,6 +1,13 @@
+//
+//  TemplatePreviewSheet.swift
+//  TemplatesFeature
+//
+//  Created by Vladimir Gusev on 14.05.2026.
+//
+
 import SwiftUI
-import AmgiTheme
-import AmgiUI
+import Theme
+import UI
 import AnkiClients
 import AnkiKit
 import AnkiServices
@@ -80,7 +87,7 @@ struct TemplatePreviewSheet: View {
 
     @ToolbarContentBuilder
     private var toolbarContent: some ToolbarContent {
-        ToolbarItem(placement: .topBarTrailing) {
+        ToolbarItem(placement: .confirmationAction) {
             Button("Done") { dismiss() }
                 .amgiToolbarTextButton()
         }

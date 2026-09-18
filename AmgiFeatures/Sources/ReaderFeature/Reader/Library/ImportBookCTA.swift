@@ -1,4 +1,11 @@
-import AmgiTheme
+//
+//  ImportBookCTA.swift
+//  ReaderFeature
+//
+//  Created by Vladimir Gusev on 17.05.2026.
+//
+
+import Theme
 import SwiftUI
 
 struct ImportBookCTA: View {
@@ -8,7 +15,7 @@ struct ImportBookCTA: View {
 
     var body: some View {
         Button(action: action) {
-            Label("Import EPUB", systemImage: "plus")
+            Label("Import EPUB", systemImage: "square.and.arrow.down")
                 .amgiFont(.body)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 14)

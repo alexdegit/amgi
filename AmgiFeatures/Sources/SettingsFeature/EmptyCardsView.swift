@@ -1,6 +1,13 @@
+//
+//  EmptyCardsView.swift
+//  SettingsFeature
+//
+//  Created by Vladimir Gusev on 29.04.2026.
+//
+
 import SwiftUI
-import AmgiTheme
-import AmgiUI
+import Theme
+import UI
 import AnkiKit
 import BrowseFeature
 import CasePaths
@@ -24,9 +31,14 @@ struct EmptyCardsView: View {
     enum Destination {
         case confirmDeleteAll
         case deleted
-        case error(String)
+        case error(Failure)
         case editNote(NoteRecord)
         case editImageOcclusion(NoteRecord)
+    }
+
+    struct Failure {
+        let title: String
+        let message: String
     }
 
     var body: some View {
@@ -37,22 +49,12 @@ struct EmptyCardsView: View {
         )
         .navigationTitle("Empty Cards")
         .navigationBarTitleDisplayMode(.inline)
-        .alert("Delete empty cards?", isPresented: $destination.confirmDeleteAll) {
-            Button("Cancel", role: .cancel) {}
-            Button("Delete", role: .destructive) { Task { await deleteAll() } }
-        } message: {
-            Text("Delete \(model.totalEmptyCards) empty cards? This cannot be undone.")
-        }
-        .alert("Done", isPresented: $destination.deleted) {
-            Button("OK", role: .cancel) { dismiss() }
-        } message: {
-            Text("Empty cards deleted.")
-        }
-        .alert("Error", isPresented: Binding($destination.error)) {
-            Button("OK", role: .cancel) {}
-        } message: {
-            Text(errorMessage ?? "An unknown error occurred.")
-        }
+        .modifier(EmptyCardsPrompts(
+            destination: $destination,
+            emptyCardCount: model.totalEmptyCards,
+            onConfirmDeleteAll: { Task { await deleteAll() } },
+            onAcknowledgeDeleted: { dismiss() }
+        ))
         .task { await load() }
         .sheet(item: $destination.editNote) { note in
             NoteEditingDestinationView(note: note, embedInNavigationStack: true) {
@@ -66,16 +68,14 @@ struct EmptyCardsView: View {
         }
     }
 
-    private var errorMessage: String? {
-        guard case .error(let message) = destination else { return nil }
-        return message
-    }
-
     private func load() async {
         do {
             try await model.loadEmptyCards()
         } catch {
-            destination = .error(error.localizedDescription)
+            destination = .error(.init(
+                title: "Couldn't load empty cards",
+                message: error.localizedDescription
+            ))
         }
     }
 
@@ -84,22 +84,70 @@ struct EmptyCardsView: View {
             try await model.deleteAllEmpty()
             destination = .deleted
         } catch {
-            destination = .error(error.localizedDescription)
+            destination = .error(.init(
+                title: "Couldn't delete empty cards",
+                message: error.localizedDescription
+            ))
         }
     }
 
     private func openNote(_ id: NoteID) async {
         do {
             guard let note = try await model.fetchNote(id) else {
-                destination = .error("That note no longer exists.")
+                destination = .error(.init(
+                    title: "Note unavailable",
+                    message: "That note no longer exists."
+                ))
                 return
             }
             destination = note.isImageOcclusionNote
                 ? .editImageOcclusion(note)
                 : .editNote(note)
         } catch {
-            destination = .error(error.localizedDescription)
+            destination = .error(.init(
+                title: "Couldn't open note",
+                message: error.localizedDescription
+            ))
         }
+    }
+}
+
+// MARK: - Prompts
+
+private struct EmptyCardsPrompts: ViewModifier {
+    @Binding var destination: EmptyCardsView.Destination?
+    let emptyCardCount: Int
+    let onConfirmDeleteAll: () -> Void
+    let onAcknowledgeDeleted: () -> Void
+
+    private var failure: EmptyCardsView.Failure? {
+        guard case .error(let failure) = destination else { return nil }
+        return failure
+    }
+
+    func body(content: Content) -> some View {
+        content
+            .confirmationDialog(
+                "Delete empty cards?",
+                isPresented: $destination.confirmDeleteAll,
+                titleVisibility: .visible
+            ) {
+                Button("Delete", role: .destructive, action: onConfirmDeleteAll)
+                Button("Cancel", role: .cancel) {}
+            } message: {
+                Text("Delete \(emptyCardCount) empty cards? This cannot be undone.")
+            }
+            .alert("Empty cards deleted", isPresented: $destination.deleted) {
+                Button("OK", role: .cancel, action: onAcknowledgeDeleted)
+            }
+            .alert(
+                Text(failure?.title ?? ""),
+                isPresented: Binding($destination.error)
+            ) {
+                Button("OK", role: .cancel) {}
+            } message: {
+                Text(failure?.message ?? "An unknown error occurred.")
+            }
     }
 }
 
@@ -217,7 +265,7 @@ struct EmptyCardsContent: View {
                         ProgressView()
                     }
                 } else {
-                    Label("Delete All Empty Cards", systemImage: "trash")
+                    Label("Delete All Empty Cards…", systemImage: "trash")
                 }
             }
             .disabled(model.isDeletingAll)

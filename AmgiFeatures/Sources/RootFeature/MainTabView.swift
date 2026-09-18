@@ -1,4 +1,11 @@
-import AmgiAppCore
+//
+//  MainTabView.swift
+//  RootFeature
+//
+//  Created by Vladimir Gusev on 27.03.2026.
+//
+
+import AppCore
 import AnkiKit
 import DecksFeature
 import ReaderFeature
@@ -27,57 +34,56 @@ struct MainTabView: View {
 
     @Environment(\.startSync) private var startSync
 
+    private enum MainTab: Hashable {
+        case library, read, study, stats, settings
+    }
+
+    @State private var selection: MainTab = .library
+
     var body: some View {
-        TabView {
+        TabView(selection: $selection) {
             // 1. Library
-            Tab("Library", systemImage: "books.vertical") {
+            Tab("Library", systemImage: "rectangle.stack", value: MainTab.library) {
                 NavigationStack {
-                    DeckListView(onSwitchProfile: { await switchProfile(to: $0) })
-                        .toolbar { libraryToolbar }
+                    DeckListView(
+                        onSwitchProfile: { await switchProfile(to: $0) },
+                        onSync: { startSync() },
+                        onImport: onImport
+                    )
                 }
             }
-            // 2. Reader
+            // 2. Reader and 3. Study both live in ReaderFeature.
             if showReaderTab {
-                Tab("Read", systemImage: "book") {
+                Tab("Read", systemImage: "book", value: MainTab.read) {
                     NavigationStack {
                         ReaderLibraryView(refreshID: refreshID)
                     }
                 }
             }
-            // 3. Study
-            Tab("Study", systemImage: "graduationcap") {
+            Tab("Study", systemImage: "graduationcap", value: MainTab.study) {
                 NavigationStack {
                     StudyLandingView(onSelectDeck: onSelectStudyDeck)
                 }
             }
             // 4. Stats
-            Tab("Stats", systemImage: "chart.bar") {
+            Tab("Stats", systemImage: "chart.bar", value: MainTab.stats) {
                 NavigationStack {
                     StatsDashboardView(refreshID: refreshID)
                 }
             }
             // 5. Settings
-            Tab("Settings", systemImage: "gearshape") {
+            Tab("Settings", systemImage: "gearshape", value: MainTab.settings) {
                 NavigationStack {
                     SettingsView(onSwitchProfile: { await switchProfile(to: $0) })
                 }
             }
         }
+        .background {
+            Button("Settings") { selection = .settings }
+                .keyboardShortcut(",", modifiers: .command)
+                .opacity(0)
+                .accessibilityHidden(true)
+        }
     }
 
-    @ToolbarContentBuilder
-    private var libraryToolbar: some ToolbarContent {
-        ToolbarItem(placement: .topBarTrailing) {
-            Button { startSync() } label: {
-                Image(systemName: "arrow.triangle.2.circlepath")
-            }
-            .accessibilityLabel("Sync")
-        }
-        ToolbarItem(placement: .topBarTrailing) {
-            Button(action: onImport) {
-                Image(systemName: "square.and.arrow.down")
-            }
-            .accessibilityLabel("Import deck")
-        }
-    }
 }

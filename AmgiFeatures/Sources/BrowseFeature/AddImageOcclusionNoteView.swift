@@ -1,7 +1,15 @@
+//
+//  AddImageOcclusionNoteView.swift
+//  BrowseFeature
+//
+//  Created by Vladimir Gusev on 29.04.2026.
+//
+
+#if canImport(UIKit)
 import SwiftUI
 import PhotosUI
-import AmgiTheme
-import AmgiUI
+import Theme
+import UI
 import AnkiKit
 
 // MARK: - AddImageOcclusionNoteView
@@ -15,6 +23,7 @@ struct AddImageOcclusionNoteView: View {
     @State private var model: AddImageOcclusionModel
     @State private var selectedItem: PhotosPickerItem?
     @State private var showOcclusionEditor = false
+    @State private var showDiscardConfirm = false
 
     let onSave: () -> Void
 
@@ -34,12 +43,29 @@ struct AddImageOcclusionNoteView: View {
             .navigationTitle("Image Occlusion")
             .navigationBarTitleDisplayMode(.inline)
             .task { await model.loadDecks() }
+            .interactiveDismissDisabled(model.hasUnsavedChanges)
+            .confirmationDialog(
+                "Discard this note?",
+                isPresented: $showDiscardConfirm,
+                titleVisibility: .visible
+            ) {
+                Button("Discard", role: .destructive) { dismiss() }
+                Button("Cancel", role: .cancel) {}
+            } message: {
+                Text("The note hasn't been saved yet. Discarding loses the image and its masks.")
+            }
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button("Cancel") { dismiss() }
-                        .amgiToolbarTextButton(tone: .neutral)
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") {
+                        if model.hasUnsavedChanges {
+                            showDiscardConfirm = true
+                        } else {
+                            dismiss()
+                        }
+                    }
+                    .amgiToolbarTextButton(tone: .neutral)
                 }
-                ToolbarItem(placement: .topBarTrailing) {
+                ToolbarItem(placement: .confirmationAction) {
                     Button("Save") {
                         Task {
                             if await model.save() {
@@ -191,4 +217,5 @@ struct AddImageOcclusionContent: View {
         .navigationBarTitleDisplayMode(.inline)
     }
 }
+#endif
 #endif

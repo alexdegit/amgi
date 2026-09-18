@@ -1,4 +1,11 @@
-import AmgiReader
+//
+//  ReaderLibraryContent.swift
+//  ReaderFeature
+//
+//  Created by Vladimir Gusev on 17.05.2026.
+//
+
+import Reader
 import SwiftUI
 
 struct ReaderLibraryContent: View {
@@ -57,7 +64,7 @@ private extension ReaderLibraryContent {
                 Text("Your configured deck doesn't have any books yet. Import an EPUB or reconfigure your reader source.")
             }
         } actions: {
-            Button(action: onImport) { Label("Import EPUB", systemImage: "plus") }
+            Button(action: onImport) { Label("Import EPUB", systemImage: "square.and.arrow.down") }
                 .buttonStyle(.borderedProminent)
             Button(reason == .noBooksConfigured ? "Reconfigure Reader" : "Set Up Anki Library",
                    action: onConfigure)
@@ -66,6 +73,14 @@ private extension ReaderLibraryContent {
 
     @ViewBuilder
     func loaded(_ data: ReaderLibraryViewData) -> some View {
+        if data.allBooks.isEmpty {
+            ContentUnavailableView.search
+        } else {
+            shelf(data)
+        }
+    }
+
+    func shelf(_ data: ReaderLibraryViewData) -> some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 24) {
                 ContinueReadingSection(items: data.continueReading, bookForId: bookForId, progress: progress)

@@ -1,4 +1,12 @@
+//
+//  DeckDetailViewTests.swift
+//  AmgiAppTests
+//
+//  Created by Vladimir Gusev on 16.07.2026.
+//
+
 import Testing
+import AnkiKit
 @testable import AmgiApp
 @testable import DecksFeature
 
@@ -24,5 +32,30 @@ import Testing
 
     @Test func deeplyNestedPathReturnsOnlyTheLeaf() {
         #expect(DeckDetailView.leafName(from: "A::B::C::D") == "D")
+    }
+}
+
+@MainActor
+@Suite struct DeckDetailEmptinessTests {
+    private let noneDue = DeckCounts.zero
+
+    @Test func fullyReviewedDeckIsNotEmpty() {
+        #expect(!DeckDetailModel.isEmpty(cardTotal: 42, counts: noneDue, childDecks: []))
+    }
+
+    @Test func deckWithNoCardsIsEmpty() {
+        #expect(DeckDetailModel.isEmpty(cardTotal: 0, counts: noneDue, childDecks: []))
+    }
+
+    @Test func suspendedOnlyDeckIsNotEmpty() {
+        // `includingInactive` counts suspended/buried cards, so a deck the
+        // user suspended wholesale still has cards.
+        #expect(!DeckDetailModel.isEmpty(cardTotal: 7, counts: noneDue, childDecks: []))
+    }
+
+    @Test func dueCountsStandInUntilTheCardTotalArrives() {
+        let due = DeckCounts(newCount: 3, learnCount: 0, reviewCount: 0)
+        #expect(!DeckDetailModel.isEmpty(cardTotal: nil, counts: due, childDecks: []))
+        #expect(DeckDetailModel.isEmpty(cardTotal: nil, counts: noneDue, childDecks: []))
     }
 }

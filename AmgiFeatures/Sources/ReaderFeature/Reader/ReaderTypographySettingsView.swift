@@ -1,4 +1,12 @@
-import AmgiTheme
+//
+//  ReaderTypographySettingsView.swift
+//  ReaderFeature
+//
+//  Created by Vladimir Gusev on 16.05.2026.
+//
+
+import AppShared
+import Theme
 import Sharing
 import SwiftUI
 
@@ -138,7 +146,7 @@ struct ReaderTypographySettingsView: View {
     }
 
     private var doneButton: some ToolbarContent {
-        ToolbarItem(placement: .topBarTrailing) {
+        ToolbarItem(placement: .confirmationAction) {
             Button("Done") { dismiss() }
                 .fontWeight(.semibold)
         }

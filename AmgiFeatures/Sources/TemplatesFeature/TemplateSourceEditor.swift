@@ -1,5 +1,14 @@
-import AmgiTheme
+//
+//  TemplateSourceEditor.swift
+//  TemplatesFeature
+//
+//  Created by Vladimir Gusev on 29.04.2026.
+//
+
+import Theme
 import SwiftUI
+
+#if canImport(UIKit)
 import UIKit
 
 struct TemplateSourceEditor: UIViewRepresentable {
@@ -204,10 +213,10 @@ private extension TemplateSourceEditor.Coordinator {
         stack.spacing = 2
         scrollView.addSubview(stack)
 
-        stack.addArrangedSubview(makeIconButton(systemName: "arrow.uturn.backward") { [weak self] in
+        stack.addArrangedSubview(makeIconButton(systemName: "arrow.uturn.backward", title: "Undo") { [weak self] in
             self?.textView?.undoManager?.undo()
         })
-        stack.addArrangedSubview(makeIconButton(systemName: "arrow.uturn.forward") { [weak self] in
+        stack.addArrangedSubview(makeIconButton(systemName: "arrow.uturn.forward", title: "Redo") { [weak self] in
             self?.textView?.undoManager?.redo()
         })
 
@@ -272,9 +281,10 @@ private extension TemplateSourceEditor.Coordinator {
         textViewDidChange(textView)
     }
 
-    func makeIconButton(systemName: String, action: @escaping () -> Void) -> UIButton {
+    func makeIconButton(systemName: String, title: String, action: @escaping () -> Void) -> UIButton {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.accessibilityLabel = title
         var cfg = UIButton.Configuration.plain()
         cfg.image = UIImage(systemName: systemName)
         cfg.preferredSymbolConfigurationForImage = UIImage.SymbolConfiguration(pointSize: 13, weight: .semibold)
@@ -329,3 +339,25 @@ private extension TemplateSourceEditor.Coordinator {
         return view
     }
 }
+
+#else
+
+struct TemplateSourceEditor: View {
+    @Binding var text: String
+
+    let fieldNames: [String]
+    let insertableTokens: [String]
+    let fieldButtonTitle: String
+    let doneButtonTitle: String
+    let searchQuery: String
+    var fontSize: Double = 14.0
+    var fontFamilyRaw: String = "Menlo"
+
+    var body: some View {
+        TextEditor(text: $text)
+            .font(.system(size: fontSize, design: .monospaced))
+            .scrollContentBackground(.hidden)
+    }
+}
+
+#endif

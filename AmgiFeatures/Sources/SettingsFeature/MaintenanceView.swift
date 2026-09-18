@@ -1,5 +1,12 @@
+//
+//  MaintenanceView.swift
+//  SettingsFeature
+//
+//  Created by Vladimir Gusev on 28.04.2026.
+//
+
 import SwiftUI
-import AmgiTheme
+import Theme
 
 struct MaintenanceView: View {
     @State private var model = MaintenanceModel()
@@ -14,17 +21,19 @@ struct MaintenanceView: View {
                 SettingsButtonRow(
                     title: "Check Database",
                     systemImage: "stethoscope",
-                    tone: .info
+                    tone: .info,
+                    isBusy: model.isChecking
                 ) {
                     Task { await model.checkDatabase() }
                 }
+                .disabled(model.isChecking)
             }
             SettingsFootnote("Verifies the integrity of your local Anki collection.")
 
             SettingsSectionHeader(title: "Danger Zone")
             SettingsGroup {
                 SettingsButtonRow(
-                    title: "Reset Everything",
+                    title: "Reset Everything…",
                     systemImage: "trash",
                     tone: .danger,
                     isDestructive: true

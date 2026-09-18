@@ -1,3 +1,10 @@
+//
+//  GraphsSnapshot.swift
+//  AnkiKit
+//
+//  Created by Vladimir Gusev on 08.05.2026.
+//
+
 /// Mirror for `Anki_Stats_GraphsResponse`. The Stats dashboard fetches
 /// one of these and threads sub-types into individual chart views.
 ///
@@ -288,6 +295,10 @@ public struct CardCountsSeries: Sendable, Hashable {
             self.mature = mature
             self.suspended = suspended
             self.buried = buried
+        }
+
+        public var total: Int {
+            newCards + learn + relearn + young + mature + suspended + buried
         }
     }
 }

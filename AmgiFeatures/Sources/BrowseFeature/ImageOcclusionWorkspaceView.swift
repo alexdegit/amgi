@@ -1,7 +1,15 @@
+//
+//  ImageOcclusionWorkspaceView.swift
+//  BrowseFeature
+//
+//  Created by Vladimir Gusev on 29.04.2026.
+//
+
+#if canImport(UIKit)
 import SwiftUI
 import UIKit
-import AmgiTheme
-import AmgiUI
+import Theme
+import UI
 import SwiftUINavigation
 
 private enum IOMaskFillOption: CaseIterable {
@@ -111,11 +119,11 @@ struct ImageOcclusionWorkspaceView: View {
 
     @ToolbarContentBuilder
     private var workspaceToolbar: some ToolbarContent {
-        ToolbarItem(placement: .topBarLeading) {
+        ToolbarItem(placement: .cancellationAction) {
             Button("Cancel") { requestDismiss() }
                 .amgiToolbarTextButton(tone: .neutral)
         }
-        ToolbarItem(placement: .topBarTrailing) {
+        ToolbarItem(placement: .confirmationAction) {
             Button("Save") { saveWorkspace() }
                 .amgiToolbarTextButton()
         }
@@ -229,11 +237,11 @@ private struct IOTextEditorSheet: View {
             .navigationTitle(title)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
+                ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") { onCancel() }
                         .amgiToolbarTextButton(tone: .neutral)
                 }
-                ToolbarItem(placement: .topBarTrailing) {
+                ToolbarItem(placement: .confirmationAction) {
                     Button("Save") { onSave(draft) }
                         .amgiToolbarTextButton()
                         .disabled(!draft.isSubmittable)
@@ -262,14 +270,15 @@ private struct IOFillEditorSheet: View {
             .navigationTitle("Custom")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
+                ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") { onCancel() }
                         .amgiToolbarTextButton(tone: .neutral)
                 }
-                ToolbarItemGroup(placement: .topBarTrailing) {
+                ToolbarItem(placement: .primaryAction) {
                     Button("Default") { onDefault() }
                         .amgiToolbarTextButton(tone: .neutral)
-
+                }
+                ToolbarItem(placement: .confirmationAction) {
                     Button("Save") { onSave(draft.color) }
                         .amgiToolbarTextButton()
                 }
@@ -491,7 +500,7 @@ private struct IOPaletteChip: View {
             Image(systemName: systemImage)
                 .font(.system(size: 12, weight: .semibold))
             Text(title)
-                .font(.system(size: 10, weight: .medium))
+                .amgiFont(size: 10, weight: .medium, relativeTo: .caption2)
                 .lineLimit(2)
                 .minimumScaleFactor(0.65)
                 .multilineTextAlignment(.center)
@@ -537,3 +546,4 @@ private struct IOToolbarIcon: View {
             .amgiToolbarIconButton(size: 30)
     }
 }
+#endif

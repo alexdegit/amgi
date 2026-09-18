@@ -1,7 +1,14 @@
+//
+//  SyncSettingsView.swift
+//  SettingsFeature
+//
+//  Created by Vladimir Gusev on 28.04.2026.
+//
+
 import SwiftUI
-import AmgiTheme
+import Theme
 import SyncFeature
-import AmgiAppCore
+import AppCore
 import AnkiSync
 import Sharing
 
@@ -12,6 +19,7 @@ struct SyncSettingsView: View {
     @State private var isLoggedIn: Bool = KeychainHelper.loadHostKey() != nil
     @State private var showServerSetup = false
     @State private var showDisableConfirm = false
+    @State private var showLogoutConfirm = false
 
     @Environment(\.palette) private var palette
 
@@ -41,6 +49,16 @@ struct SyncSettingsView: View {
             Button("Cancel", role: .cancel) {}
         } message: {
             Text("Removes the server, credentials, and switches the app to local-only mode.")
+        }
+        .confirmationDialog(
+            "Log out?",
+            isPresented: $showLogoutConfirm,
+            titleVisibility: .visible
+        ) {
+            Button("Log Out", role: .destructive) { logout() }
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text("Removes the stored credentials for this server. Your local collection is unaffected; you can sign in again at any time.")
         }
     }
 
@@ -87,7 +105,7 @@ struct SyncSettingsView: View {
         SettingsSectionHeader(title: "Actions")
         SettingsGroup {
             SettingsButtonRow(
-                title: "Change Server",
+                title: "Change Server…",
                 systemImage: "arrow.triangle.2.circlepath",
                 tone: .info
             ) {
@@ -95,19 +113,19 @@ struct SyncSettingsView: View {
             }
             SettingsSeparator()
             SettingsButtonRow(
-                title: "Logout",
+                title: "Log Out…",
                 systemImage: "rectangle.portrait.and.arrow.right",
                 tone: .danger,
                 isDestructive: true
             ) {
-                logout()
+                showLogoutConfirm = true
             }
             .disabled(!isLoggedIn)
         }
 
         SettingsGroup {
             SettingsButtonRow(
-                title: "Disable Sync (Local Only)",
+                title: "Disable Sync (Local Only)…",
                 systemImage: "iphone.slash",
                 tone: .danger,
                 isDestructive: true
@@ -132,7 +150,7 @@ struct SyncSettingsView: View {
             )
             SettingsSeparator()
             SettingsButtonRow(
-                title: "Set Up Server",
+                title: "Set Up Server…",
                 systemImage: "arrow.triangle.2.circlepath",
                 tone: .accent
             ) {

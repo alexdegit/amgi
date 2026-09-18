@@ -36,20 +36,21 @@ let package = Package(
     name: "AmgiFeatures",
     platforms: [.iOS(.v18), .macOS(.v15), .watchOS(.v11)],
     products: [
-        .library(name: "AmgiAppCore", targets: ["AmgiAppCore"]),
-        .library(name: "AmgiAppShared", targets: ["AmgiAppShared"]),
-        .library(name: "AmgiCharts", targets: ["AmgiCharts"]),
+        .library(name: "AppCore", targets: ["AppCore"]),
+        .library(name: "AppShared", targets: ["AppShared"]),
+        .library(name: "StatsCharts", targets: ["StatsCharts"]),
         .library(name: "TemplatesFeature", targets: ["TemplatesFeature"]),
         .library(name: "StatsFeature", targets: ["StatsFeature"]),
         .library(name: "BrowseFeature", targets: ["BrowseFeature"]),
         .library(name: "SyncFeature", targets: ["SyncFeature"]),
         .library(name: "ReaderFeature", targets: ["ReaderFeature"]),
-        .library(name: "AmgiReviewCore", targets: ["AmgiReviewCore"]),
+        .library(name: "ReviewCore", targets: ["ReviewCore"]),
         .library(name: "ReviewFeature", targets: ["ReviewFeature"]),
         .library(name: "DecksFeature", targets: ["DecksFeature"]),
         .library(name: "WidgetFeature", targets: ["WidgetFeature"]),
         .library(name: "SettingsFeature", targets: ["SettingsFeature"]),
         .library(name: "WatchFeature", targets: ["WatchFeature"]),
+        .library(name: "IntentsFeature", targets: ["IntentsFeature"]),
         .library(name: "RootFeature", targets: ["RootFeature"]),
     ],
     dependencies: [
@@ -63,7 +64,7 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "AmgiAppCore",
+            name: "AppCore",
             dependencies: [
                 .product(name: "AnkiKit", package: "amgi"),
                 .product(name: "Sharing", package: "swift-sharing"),
@@ -71,46 +72,46 @@ let package = Package(
             swiftSettings: sharedSwiftSettings
         ),
         .testTarget(
-            name: "AmgiAppCoreTests",
-            dependencies: ["AmgiAppCore"],
+            name: "AppCoreTests",
+            dependencies: ["AppCore"],
             swiftSettings: sharedSwiftSettings
         ),
         .target(
-            name: "AmgiAppShared",
+            name: "AppShared",
             dependencies: [
-                "AmgiAppCore",
+                "AppCore",
                 .product(name: "AnkiKit", package: "amgi"),
                 .product(name: "AnkiClients", package: "amgi"),
                 .product(name: "AnkiServices", package: "amgi"),
-                .product(name: "AmgiTheme", package: "AmgiUI"),
-                .product(name: "AmgiUI", package: "AmgiUI"),
+                .product(name: "Theme", package: "AmgiUI"),
+                .product(name: "UI", package: "AmgiUI"),
                 .product(name: "Dependencies", package: "swift-dependencies"),
             ],
             swiftSettings: sharedSwiftSettings
         ),
         .testTarget(
-            name: "AmgiAppSharedTests",
-            dependencies: ["AmgiAppShared"],
+            name: "AppSharedTests",
+            dependencies: ["AppShared"],
             swiftSettings: sharedSwiftSettings
         ),
         .target(
-            name: "AmgiCharts",
+            name: "StatsCharts",
             dependencies: [
                 .product(name: "AnkiKit", package: "amgi"),
-                .product(name: "AmgiTheme", package: "AmgiUI"),
-                .product(name: "AmgiUI", package: "AmgiUI"),
+                .product(name: "Theme", package: "AmgiUI"),
+                .product(name: "UI", package: "AmgiUI"),
             ],
             swiftSettings: sharedSwiftSettings
         ),
         .target(
             name: "TemplatesFeature",
             dependencies: [
-                "AmgiAppCore",
+                "AppCore",
                 .product(name: "AnkiKit", package: "amgi"),
                 .product(name: "AnkiClients", package: "amgi"),
                 .product(name: "AnkiServices", package: "amgi"),
-                .product(name: "AmgiTheme", package: "AmgiUI"),
-                .product(name: "AmgiUI", package: "AmgiUI"),
+                .product(name: "Theme", package: "AmgiUI"),
+                .product(name: "UI", package: "AmgiUI"),
                 .product(name: "Dependencies", package: "swift-dependencies"),
                 .product(name: "Sharing", package: "swift-sharing"),
                 .product(name: "SwiftUINavigation", package: "swift-navigation"),
@@ -121,12 +122,12 @@ let package = Package(
         .target(
             name: "StatsFeature",
             dependencies: [
-                "AmgiAppCore",
-                "AmgiCharts",
+                "AppCore",
+                "StatsCharts",
                 .product(name: "AnkiKit", package: "amgi"),
                 .product(name: "AnkiClients", package: "amgi"),
-                .product(name: "AmgiTheme", package: "AmgiUI"),
-                .product(name: "AmgiUI", package: "AmgiUI"),
+                .product(name: "Theme", package: "AmgiUI"),
+                .product(name: "UI", package: "AmgiUI"),
                 .product(name: "Dependencies", package: "swift-dependencies"),
             ],
             swiftSettings: sharedSwiftSettings
@@ -135,8 +136,8 @@ let package = Package(
             name: "DecksFeatureTests",
             dependencies: [
                 "DecksFeature",
-                "AmgiAppShared",
-                .product(name: "AmgiUI", package: "AmgiUI"),
+                "AppShared",
+                .product(name: "UI", package: "AmgiUI"),
                 .product(name: "AnkiKit", package: "amgi"),
                 .product(name: "AnkiClients", package: "amgi"),
                 .product(name: "Dependencies", package: "swift-dependencies"),
@@ -156,12 +157,12 @@ let package = Package(
         .target(
             name: "BrowseFeature",
             dependencies: [
-                "AmgiAppShared",
+                "AppShared",
                 .product(name: "AnkiKit", package: "amgi"),
                 .product(name: "AnkiClients", package: "amgi"),
                 .product(name: "AnkiServices", package: "amgi"),
-                .product(name: "AmgiTheme", package: "AmgiUI"),
-                .product(name: "AmgiUI", package: "AmgiUI"),
+                .product(name: "Theme", package: "AmgiUI"),
+                .product(name: "UI", package: "AmgiUI"),
                 .product(name: "Dependencies", package: "swift-dependencies"),
                 .product(name: "SwiftUINavigation", package: "swift-navigation"),
                 .product(name: "CasePaths", package: "swift-case-paths"),
@@ -181,14 +182,14 @@ let package = Package(
         // by the iOS review screen and AmgiWatchApp. Exists ONLY because both
         // need it: before 2026-08-15 project.yml cherry-picked these files
         // into the watch target by path, compiling them twice into two
-        // distinct types. Same role AmgiCharts plays for the stats views.
+        // distinct types. Same role StatsCharts plays for the stats views.
         //
-        // Must stay watchOS-clean — no AmgiAppShared (UIKit/WidgetKit
+        // Must stay watchOS-clean — no AppShared (UIKit/WidgetKit
         // unguarded), no UI. Guard any UIKit use with #if canImport(UIKit).
         .target(
-            name: "AmgiReviewCore",
+            name: "ReviewCore",
             dependencies: [
-                "AmgiAppCore",
+                "AppCore",
                 .product(name: "AnkiKit", package: "amgi"),
                 .product(name: "AnkiClients", package: "amgi"),
                 .product(name: "AnkiServices", package: "amgi"),
@@ -203,7 +204,7 @@ let package = Package(
         //
         // No .interoperabilityMode(.Cxx). This target used to need it purely
         // transitively — DecksFeature -> ReviewFeature -> ReaderFeature ->
-        // AmgiReaderDictionary put the CHoshiDicts modulemap in its Clang
+        // ReaderDictionary put the CHoshiDicts modulemap in its Clang
         // scan. That edge was inverted on 2026-08-15 (the app injects the
         // lookup popup via EnvironmentValues.lookupPopup), so the Cxx chain is
         // ReaderFeature and the app target only. Importing any Cxx-mode module
@@ -212,14 +213,14 @@ let package = Package(
         .target(
             name: "DecksFeature",
             dependencies: [
-                "AmgiAppCore",
-                "AmgiAppShared",
+                "AppCore",
+                "AppShared",
                 "BrowseFeature",
                 "ReviewFeature",
                 .product(name: "AnkiKit", package: "amgi"),
                 .product(name: "AnkiClients", package: "amgi"),
-                .product(name: "AmgiTheme", package: "AmgiUI"),
-                .product(name: "AmgiUI", package: "AmgiUI"),
+                .product(name: "Theme", package: "AmgiUI"),
+                .product(name: "UI", package: "AmgiUI"),
                 .product(name: "Dependencies", package: "swift-dependencies"),
                 .product(name: "SwiftUINavigation", package: "swift-navigation"),
                 .product(name: "CasePaths", package: "swift-case-paths"),
@@ -228,7 +229,7 @@ let package = Package(
         ),
         // The review screen: WebKit card host, flip chrome, rating bar,
         // native renderer, render-mode UI. The session state machine itself is
-        // AmgiReviewCore, which the watch also links — keep engine logic there
+        // ReviewCore, which the watch also links — keep engine logic there
         // and presentation here.
         //
         // Depends on BrowseFeature/TemplatesFeature for note editing and
@@ -243,21 +244,25 @@ let package = Package(
         // modules and compilation caching (rdar://122829880).
         //
         // Inverted on 2026-08-15: the app root supplies the popup through
-        // EnvironmentValues.lookupPopup (AmgiAppShared), so ReviewView renders
+        // EnvironmentValues.lookupPopup (AppShared), so ReviewView renders
         // it without knowing what it is. Do not re-add the import.
         .target(
             name: "ReviewFeature",
             dependencies: [
-                "AmgiAppCore",
-                "AmgiAppShared",
-                "AmgiReviewCore",
+                "AppCore",
+                "AppShared",
+                "ReviewCore",
                 "BrowseFeature",
                 "TemplatesFeature",
+                // Reader (not ReaderDictionary) is pure Swift — no Cxx mode —
+                // and carries LookupExtraction.js, the tap-to-lookup extractor
+                // the card web view injects.
+                .product(name: "Reader", package: "AmgiReader"),
                 .product(name: "AnkiKit", package: "amgi"),
                 .product(name: "AnkiClients", package: "amgi"),
                 .product(name: "AmgiCardWeb", package: "amgi"),
-                .product(name: "AmgiTheme", package: "AmgiUI"),
-                .product(name: "AmgiUI", package: "AmgiUI"),
+                .product(name: "Theme", package: "AmgiUI"),
+                .product(name: "UI", package: "AmgiUI"),
                 .product(name: "Dependencies", package: "swift-dependencies"),
                 .product(name: "Sharing", package: "swift-sharing"),
                 .product(name: "SwiftUINavigation", package: "swift-navigation"),
@@ -266,7 +271,7 @@ let package = Package(
             swiftSettings: sharedSwiftSettings
         ),
         // The EPUB reader, its dictionary lookup UI, and the study landing
-        // screen. The only target that touches AmgiReaderDictionary, which is
+        // screen. The only target that touches ReaderDictionary, which is
         // built in Cxx-interop mode for the hoshidicts bridge — hence the
         // .interoperabilityMode below. SPM passes that to the dependency
         // scanner natively, so unlike the Xcode app target this needs no
@@ -278,15 +283,15 @@ let package = Package(
         .target(
             name: "ReaderFeature",
             dependencies: [
-                "AmgiAppCore",
-                "AmgiAppShared",
+                "AppCore",
+                "AppShared",
                 "BrowseFeature",
-                .product(name: "AmgiReader", package: "AmgiReader"),
-                .product(name: "AmgiReaderDictionary", package: "AmgiReader"),
+                .product(name: "Reader", package: "AmgiReader"),
+                .product(name: "ReaderDictionary", package: "AmgiReader"),
                 .product(name: "AnkiKit", package: "amgi"),
                 .product(name: "AnkiClients", package: "amgi"),
-                .product(name: "AmgiTheme", package: "AmgiUI"),
-                .product(name: "AmgiUI", package: "AmgiUI"),
+                .product(name: "Theme", package: "AmgiUI"),
+                .product(name: "UI", package: "AmgiUI"),
                 .product(name: "Dependencies", package: "swift-dependencies"),
                 .product(name: "Sharing", package: "swift-sharing"),
             ],
@@ -295,13 +300,13 @@ let package = Package(
         .target(
             name: "SyncFeature",
             dependencies: [
-                "AmgiAppCore",
-                "AmgiAppShared",
+                "AppCore",
+                "AppShared",
                 .product(name: "AnkiKit", package: "amgi"),
                 .product(name: "AnkiClients", package: "amgi"),
                 .product(name: "AnkiSync", package: "amgi"),
-                .product(name: "AmgiTheme", package: "AmgiUI"),
-                .product(name: "AmgiUI", package: "AmgiUI"),
+                .product(name: "Theme", package: "AmgiUI"),
+                .product(name: "UI", package: "AmgiUI"),
                 .product(name: "Dependencies", package: "swift-dependencies"),
                 .product(name: "Sharing", package: "swift-sharing"),
             ],
@@ -311,6 +316,7 @@ let package = Package(
             name: "SyncFeatureTests",
             dependencies: [
                 "SyncFeature",
+                "AppCore",
                 .product(name: "AnkiKit", package: "amgi"),
                 .product(name: "AnkiClients", package: "amgi"),
                 .product(name: "Sharing", package: "swift-sharing"),
@@ -321,7 +327,7 @@ let package = Package(
         // configuration, the timeline provider, and the three family views.
         // Only @main AmgiWidgetBundle stays behind in the AmgiWidget target.
         //
-        // Same hard rule as AmgiAppCore, for a sharper reason: the widget is a
+        // Same hard rule as AppCore, for a sharper reason: the widget is a
         // separate process that reads the app group via WidgetSnapshotStore.
         // It must NEVER gain AnkiClients — it has no business being able to
         // reach the Rust engine at all.
@@ -331,8 +337,8 @@ let package = Package(
         .target(
             name: "WidgetFeature",
             dependencies: [
-                "AmgiAppCore",
-                .product(name: "AmgiTheme", package: "AmgiUI"),
+                "AppCore",
+                .product(name: "Theme", package: "AmgiUI"),
             ],
             swiftSettings: sharedSwiftSettings
         ),
@@ -345,12 +351,17 @@ let package = Package(
         // feature — that is inherent to what a settings screen is, not a
         // layering smell. Public surface is SettingsView alone.
         //
-        // Two consequences of that fan-in, both deliberate:
-        //   - It imports ReaderFeature (ReaderSettingsView, dictionary
-        //     settings), so it joins the Cxx chain and needs
-        //     .interoperabilityMode(.Cxx) — and loses compilation caching
-        //     with it (rdar://122829880). Unavoidable while the reader's own
-        //     settings screens live in ReaderFeature.
+        // It is NOT in the Cxx chain, and must not re-enter it. It used to be:
+        // it imported ReaderFeature for three things — ReaderFontOption and
+        // ReaderThemeColor (plain data, now in AppCore/AppShared) and
+        // ReaderDictionarySettingsView (one screen, now injected through
+        // EnvironmentValues.dictionarySettings by the app root, exactly like
+        // LookupPopupView was for ReviewFeature). Importing any Cxx-mode
+        // module here brings back .interoperabilityMode(.Cxx) and the loss of
+        // explicit modules and compilation caching (rdar://122829880) on the
+        // app's largest fan-in target.
+        //
+        // One consequence of the fan-in is deliberate:
         //   - It imports AnkiBackend directly, for MaintenanceModel's
         //     closeCollection() in "Reset Everything". No other *Feature does;
         //     AnkiClients already links it, so this costs no new linkage.
@@ -362,10 +373,10 @@ let package = Package(
         .target(
             name: "SettingsFeature",
             dependencies: [
-                "AmgiAppCore",
-                "AmgiReviewCore",
+                "AppCore",
+                "AppShared",
+                "ReviewCore",
                 "BrowseFeature",
-                "ReaderFeature",
                 "ReviewFeature",
                 "SyncFeature",
                 "TemplatesFeature",
@@ -375,15 +386,15 @@ let package = Package(
                 .product(name: "AnkiServices", package: "amgi"),
                 .product(name: "AnkiSync", package: "amgi"),
                 .product(name: "AmgiCardWeb", package: "amgi"),
-                .product(name: "AmgiTheme", package: "AmgiUI"),
-                .product(name: "AmgiUI", package: "AmgiUI"),
+                .product(name: "Theme", package: "AmgiUI"),
+                .product(name: "UI", package: "AmgiUI"),
                 .product(name: "Dependencies", package: "swift-dependencies"),
                 .product(name: "Sharing", package: "swift-sharing"),
                 .product(name: "SwiftNavigation", package: "swift-navigation"),
                 .product(name: "SwiftUINavigation", package: "swift-navigation"),
                 .product(name: "CasePaths", package: "swift-case-paths"),
             ],
-            swiftSettings: sharedSwiftSettings + [.interoperabilityMode(.Cxx)]
+            swiftSettings: sharedSwiftSettings
         ),
         // Everything the watchOS app renders: its content root, deck list,
         // deck detail, review, stats and login screens. Only @main WatchApp
@@ -391,19 +402,30 @@ let package = Package(
         // bootstrap — same split as WidgetFeature.
         //
         // watchOS-only in practice, so it must stay watchOS-clean: no
-        // AmgiAppShared (it imports UIKit/WidgetKit unguarded), no
+        // AppShared (it imports UIKit/WidgetKit unguarded), no
         // iOS-only API. Public surface is WatchContentView + WatchLoginView.
         .target(
             name: "WatchFeature",
             dependencies: [
-                "AmgiCharts",
-                "AmgiReviewCore",
+                "StatsCharts",
+                "ReviewCore",
                 .product(name: "AnkiKit", package: "amgi"),
                 .product(name: "AnkiBackend", package: "amgi"),
                 .product(name: "AnkiClients", package: "amgi"),
                 .product(name: "AnkiSync", package: "amgi"),
                 .product(name: "AmgiCardWeb", package: "amgi"),
-                .product(name: "AmgiTheme", package: "AmgiUI"),
+                .product(name: "Theme", package: "AmgiUI"),
+                .product(name: "Dependencies", package: "swift-dependencies"),
+            ],
+            swiftSettings: sharedSwiftSettings
+        ),
+        .target(
+            name: "IntentsFeature",
+            dependencies: [
+                "AppCore",
+                "AppShared",
+                .product(name: "AnkiKit", package: "amgi"),
+                .product(name: "AnkiClients", package: "amgi"),
                 .product(name: "Dependencies", package: "swift-dependencies"),
             ],
             swiftSettings: sharedSwiftSettings
@@ -422,8 +444,8 @@ let package = Package(
         .target(
             name: "RootFeature",
             dependencies: [
-                "AmgiAppCore",
-                "AmgiAppShared",
+                "AppCore",
+                "AppShared",
                 "DecksFeature",
                 "ReaderFeature",
                 "ReviewFeature",
@@ -434,9 +456,9 @@ let package = Package(
                 .product(name: "AnkiBackend", package: "amgi"),
                 .product(name: "AnkiClients", package: "amgi"),
                 .product(name: "AnkiSync", package: "amgi"),
-                .product(name: "AmgiReader", package: "AmgiReader"),
-                .product(name: "AmgiTheme", package: "AmgiUI"),
-                .product(name: "AmgiUI", package: "AmgiUI"),
+                .product(name: "Reader", package: "AmgiReader"),
+                .product(name: "Theme", package: "AmgiUI"),
+                .product(name: "UI", package: "AmgiUI"),
                 .product(name: "Dependencies", package: "swift-dependencies"),
                 .product(name: "Sharing", package: "swift-sharing"),
             ],

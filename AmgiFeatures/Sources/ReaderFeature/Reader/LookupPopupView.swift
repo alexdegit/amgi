@@ -1,6 +1,13 @@
-import AmgiReader
-import AmgiReaderDictionary
-import AmgiAppCore
+//
+//  LookupPopupView.swift
+//  ReaderFeature
+//
+//  Created by Vladimir Gusev on 05.05.2026.
+//
+
+import Reader
+import ReaderDictionary
+import AppCore
 import AnkiClients
 import AnkiKit
 import Dependencies
@@ -29,19 +36,25 @@ package struct LookupPopupView: View {
     /// EPUB reader uses this to post a `.amgiReaderCardAdded` notification
     /// so the book detail screen can refresh card counts live.
     var onAddedNote: (() -> Void)? = nil
+    var sentence: String? = nil
+    var onMatched: ((String) -> Void)? = nil
     let onDismiss: () -> Void
 
     package init(
         initialQuery: String,
         languageHint: String? = nil,
         extraTags: [String] = [],
+        sentence: String? = nil,
         onAddedNote: (() -> Void)? = nil,
+        onMatched: ((String) -> Void)? = nil,
         onDismiss: @escaping () -> Void
     ) {
         self.initialQuery = initialQuery
         self.languageHint = languageHint
         self.extraTags = extraTags
+        self.sentence = sentence
         self.onAddedNote = onAddedNote
+        self.onMatched = onMatched
         self.onDismiss = onDismiss
     }
 
@@ -139,6 +152,9 @@ package struct LookupPopupView: View {
                 .task {
                     query = initialQuery
                     await performLookup()
+                    if let matched = model.result?.entries.first?.matched {
+                        onMatched?(matched)
+                    }
                 }
                 .navigationDestination(for: LookupPathEntry.self) { pushed in
                     LookupChildPane(
@@ -323,7 +339,7 @@ private extension LookupPopupView {
         let payload = ReaderLookupNotePayload(
             term: entry.term,
             reading: entry.reading,
-            sentence: nil,
+            sentence: sentence,
             definitions: entry.glossaries.isEmpty
                 ? ReaderLookupNotePayload.definitionsByDictionary(from: entry.structuredGlossaries)
                 : entry.glossaries,
@@ -395,6 +411,16 @@ private struct LookupChildPane: View {
                     Label("Lookup failed", systemImage: "exclamationmark.triangle")
                 } description: {
                     Text(lookupError)
+                } actions: {
+                    Button("Retry") {
+                        Task {
+                            await model.runLookup(
+                                query: query,
+                                maxResults: maxResults,
+                                scanLength: scanLength
+                            )
+                        }
+                    }
                 }
             } else if let result = model.result, !result.entries.isEmpty {
                 LookupResultList(
