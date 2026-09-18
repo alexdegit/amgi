@@ -1,5 +1,12 @@
+//
+//  FsrsSimulator.swift
+//  DecksFeature
+//
+//  Created by Vladimir Gusev on 14.05.2026.
+//
+
 import SwiftUI
-import AmgiTheme
+import Theme
 import AnkiKit
 
 // MARK: - Context
@@ -10,7 +17,7 @@ enum FsrsSimulatorMode: String, Identifiable, CaseIterable {
     var id: String { rawValue }
 }
 
-struct FsrsSimulatorContext: Identifiable {
+struct FsrsSimulatorContext: Identifiable, Hashable {
     let id = UUID()
     var mode: FsrsSimulatorMode
     var weights: [Float]
@@ -31,26 +38,15 @@ struct FsrsSimulatorContext: Identifiable {
 
 struct FsrsSimulatorView: View {
     @State var context: FsrsSimulatorContext
-    let onDismiss: () -> Void
 
     @State private var model = FsrsSimulatorModel()
     @State private var daysToSimulate = 365
     @State private var additionalCards = 0
 
     var body: some View {
-        NavigationStack {
-            formBody
-                .navigationTitle("FSRS Simulator")
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar { toolbarContent }
-        }
-    }
-
-    @ToolbarContentBuilder
-    private var toolbarContent: some ToolbarContent {
-        ToolbarItem(placement: .confirmationAction) {
-            Button("Done") { onDismiss() }
-        }
+        formBody
+            .navigationTitle("FSRS Simulator")
+            .navigationBarTitleDisplayMode(.inline)
     }
 
     private var formBody: some View {
@@ -75,7 +71,8 @@ struct FsrsSimulatorView: View {
                             additionalCards: additionalCards
                         )
                     }
-                }
+                },
+                onCancel: { model.cancel() }
             )
             FsrsSimulatorResultsSections(
                 summary: model.summary,
@@ -140,6 +137,7 @@ struct FsrsSimulatorSettingsSection: View {
 struct FsrsSimulatorRunSection: View {
     let isRunning: Bool
     let onRun: () -> Void
+    let onCancel: () -> Void
 
     var body: some View {
         Section {
@@ -150,6 +148,9 @@ struct FsrsSimulatorRunSection: View {
                 }
             }
             .disabled(isRunning)
+            if isRunning {
+                Button("Cancel", role: .cancel, action: onCancel)
+            }
         }
     }
 }
@@ -188,23 +189,28 @@ struct FsrsSimulatorResultsSections: View {
 
 #if DEBUG
 #Preview {
-    FsrsSimulatorView(
-        context: FsrsSimulatorContext(
-            mode: .review,
-            weights: [0.4, 0.6, 2.4, 5.8],
-            desiredRetentionPercent: 90,
-            historicalRetentionPercent: 90,
-            newCardsPerDay: 20,
-            reviewsPerDay: 200,
-            maxIntervalDays: 36500,
-            search: "preset:\"Default\" -is:suspended",
-            ignoreNewLimit: false,
-            suspendLeeches: true,
-            leechThreshold: 8,
-            learningStepCount: 2,
-            relearningStepCount: 1
-        ),
-        onDismiss: {}
+    NavigationStack {
+        FsrsSimulatorView(
+            context: .preview
+        )
+    }
+}
+
+private extension FsrsSimulatorContext {
+    static let preview = FsrsSimulatorContext(
+        mode: .review,
+        weights: [0.4, 0.6, 2.4, 5.8],
+        desiredRetentionPercent: 90,
+        historicalRetentionPercent: 90,
+        newCardsPerDay: 20,
+        reviewsPerDay: 200,
+        maxIntervalDays: 36500,
+        search: "preset:\"Default\" -is:suspended",
+        ignoreNewLimit: false,
+        suspendLeeches: true,
+        leechThreshold: 8,
+        learningStepCount: 2,
+        relearningStepCount: 1
     )
 }
 #endif

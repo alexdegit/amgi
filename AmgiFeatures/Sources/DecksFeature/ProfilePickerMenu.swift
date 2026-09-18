@@ -1,17 +1,14 @@
-import SwiftUI
-import AmgiTheme
-import AmgiAppCore
+//
+//  ProfilePickerMenu.swift
+//  DecksFeature
+//
+//  Created by Vladimir Gusev on 05.05.2026.
+//
 
-/// Compact toolbar menu that exposes profile switching from the Decks
-/// tab without forcing the user into Settings. Active profile shows a
-/// checkmark; tapping any other profile switches immediately — the
-/// collection is swapped in place and the UI rebuilds.
-///
-/// Add/delete still happens in Settings → Account → Profiles; this
-/// menu is a fast picker, not a full manager.
-/// `switchProfile` lives in the app's composition root — it drives the shared
-/// backend, the sync coordinator, and collection open/close — so the action is
-/// injected rather than imported.
+import SwiftUI
+import Theme
+import AppCore
+
 struct ProfilePickerMenu: View {
     let onSwitch: (AmgiAccount) async -> Void
 
@@ -20,21 +17,10 @@ struct ProfilePickerMenu: View {
 
     var body: some View {
         Menu {
-            Section {
+            Picker("Switch Profile", selection: selection) {
                 ForEach(store.accounts) { account in
-                    Button {
-                        Task { await onSwitch(account) }
-                    } label: {
-                        HStack {
-                            Text(account.displayName)
-                            if account.id == store.selectedID {
-                                Image(systemName: "checkmark")
-                            }
-                        }
-                    }
+                    Text(account.displayName).tag(account.id)
                 }
-            } header: {
-                Text("Switch profile")
             }
         } label: {
             HStack(spacing: 4) {
@@ -46,5 +32,17 @@ struct ProfilePickerMenu: View {
             }
         }
         .accessibilityLabel("Profile: \(store.current.displayName)")
+    }
+
+    private var selection: Binding<String> {
+        Binding(
+            get: { store.selectedID },
+            set: { newID in
+                guard newID != store.selectedID,
+                      let account = store.accounts.first(where: { $0.id == newID })
+                else { return }
+                Task { await onSwitch(account) }
+            }
+        )
     }
 }

@@ -1,22 +1,27 @@
+//
+//  DeckConfigPresentations.swift
+//  DecksFeature
+//
+//  Created by Vladimir Gusev on 14.05.2026.
+//
+
 import SwiftUI
 import SwiftNavigation
 import SwiftUINavigation
 
-/// Drives every modal axis (alert + sheet) from `destination`. Sub-views own
-/// the alert title/actions/message rendering so this modifier stays a flat
-/// composition.
 struct DeckConfigPresentations: ViewModifier {
     @Binding var destination: DeckConfigDestination?
     let currentAlert: DeckConfigAlert?
     let alertTitle: String
     @Binding var newPresetName: String
     @Binding var renamePresetDraft: String
+    let currentPresetName: String?
     let deletingPresetName: String?
     let fallbackPresetName: String?
-    let onCreate: () -> Void
-    let onRename: () -> Void
+    let onCreate: () async -> String?
+    let onRename: () async -> String?
     let onDelete: () -> Void
-    let onDismissSheet: () -> Void
+    let onDiscard: () -> Void
 
     func body(content: Content) -> some View {
         content
@@ -25,14 +30,7 @@ struct DeckConfigPresentations: ViewModifier {
                 isPresented: Binding($destination.alert),
                 presenting: currentAlert
             ) { alert in
-                DeckConfigAlertActions(
-                    alert: alert,
-                    newPresetName: $newPresetName,
-                    renamePresetDraft: $renamePresetDraft,
-                    onCreate: onCreate,
-                    onRename: onRename,
-                    onDelete: onDelete
-                )
+                DeckConfigAlertActions(alert: alert, onDelete: onDelete, onDiscard: onDiscard)
             } message: { alert in
                 DeckConfigAlertMessage(
                     alert: alert,
@@ -40,38 +38,58 @@ struct DeckConfigPresentations: ViewModifier {
                     fallbackPresetName: fallbackPresetName
                 )
             }
-            .sheet(item: $destination.sheet) { sheet in
-                DeckConfigSheetContent(sheet: sheet, onDismiss: onDismissSheet)
+            .sheet(item: $destination.prompt) { prompt in
+                promptSheet(prompt)
             }
+            .navigationDestination(item: $destination.route) { route in
+                switch route {
+                case .simulator(let context):
+                    FsrsSimulatorView(context: context)
+                }
+            }
+    }
+
+    @ViewBuilder
+    private func promptSheet(_ prompt: DeckConfigPrompt) -> some View {
+        switch prompt {
+        case .createPreset:
+            TextPromptSheet(
+                title: "Add Preset",
+                placeholder: "Preset name",
+                footer: "Cloned from \(currentPresetName.map { "\"\($0)\"" } ?? "the current preset") and selected for this deck.",
+                confirmLabel: "Create",
+                isValid: { !$0.trimmingCharacters(in: .whitespaces).isEmpty },
+                onConfirm: { _ in await onCreate() },
+                text: $newPresetName
+            )
+        case .renamePreset:
+            TextPromptSheet(
+                title: "Rename Preset",
+                placeholder: "Preset name",
+                footer: nil,
+                confirmLabel: "Save",
+                isValid: { !$0.trimmingCharacters(in: .whitespaces).isEmpty },
+                onConfirm: { _ in await onRename() },
+                text: $renamePresetDraft
+            )
+        }
     }
 }
 
 struct DeckConfigAlertActions: View {
     let alert: DeckConfigAlert
-    @Binding var newPresetName: String
-    @Binding var renamePresetDraft: String
-    let onCreate: () -> Void
-    let onRename: () -> Void
     let onDelete: () -> Void
+    let onDiscard: () -> Void
 
     var body: some View {
         switch alert {
         case .saveFailed, .fsrsError, .presetError:
             Button("OK", role: .cancel) {}
-        case .createPreset:
-            TextField("Preset name", text: $newPresetName)
-                .autocorrectionDisabled()
-            Button("Create") { onCreate() }
-                .disabled(newPresetName.trimmingCharacters(in: .whitespaces).isEmpty)
-            Button("Cancel", role: .cancel) {}
-        case .renamePreset:
-            TextField("Preset name", text: $renamePresetDraft)
-                .autocorrectionDisabled()
-            Button("Save") { onRename() }
-                .disabled(renamePresetDraft.trimmingCharacters(in: .whitespaces).isEmpty)
-            Button("Cancel", role: .cancel) {}
         case .deletePresetConfirm:
             Button("Delete", role: .destructive) { onDelete() }
+            Button("Cancel", role: .cancel) {}
+        case .discardChanges:
+            Button("Discard", role: .destructive) { onDiscard() }
             Button("Cancel", role: .cancel) {}
         }
     }
@@ -84,30 +102,16 @@ struct DeckConfigAlertMessage: View {
 
     var body: some View {
         switch alert {
-        case .saveFailed(let msg), .fsrsError(let msg), .presetError(let msg):
+        case .saveFailed(let msg), .presetError(let msg), .fsrsError(_, let msg):
             Text(msg)
-        case .createPreset:
-            Text("New preset will be cloned from the current one and selected for this deck.")
-        case .renamePreset:
-            EmptyView()
         case .deletePresetConfirm:
             if let name = deletingPresetName, let fallback = fallbackPresetName {
                 Text("\"\(name)\" will be removed and decks using it will switch to \"\(fallback)\".")
             } else {
                 Text("This preset will be removed.")
             }
-        }
-    }
-}
-
-struct DeckConfigSheetContent: View {
-    let sheet: DeckConfigSheet
-    let onDismiss: () -> Void
-
-    var body: some View {
-        switch sheet {
-        case .simulator(let context):
-            FsrsSimulatorView(context: context, onDismiss: onDismiss)
+        case .discardChanges:
+            Text("You have unsaved changes to this deck's options. Discard them?")
         }
     }
 }

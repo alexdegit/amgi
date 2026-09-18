@@ -1,3 +1,10 @@
+//
+//  FsrsSimulatorModel.swift
+//  DecksFeature
+//
+//  Created by Vladimir Gusev on 27.06.2026.
+//
+
 import AnkiClients
 import AnkiKit
 import Dependencies
@@ -16,10 +23,17 @@ final class FsrsSimulatorModel {
     var errorMessage: String?
 
     @ObservationIgnored @Dependency(\.deckClient) private var deckClient
+    @ObservationIgnored private var generation = 0
+
+    func cancel() {
+        generation &+= 1
+        isRunning = false
+    }
 
     func run(context: FsrsSimulatorContext, daysToSimulate: Int, additionalCards: Int) async {
+        let generation = self.generation
         isRunning = true
-        defer { isRunning = false }
+        defer { if generation == self.generation { isRunning = false } }
         errorMessage = nil
 
         let request = FsrsSimulationRequest(
@@ -42,6 +56,7 @@ final class FsrsSimulatorModel {
             switch context.mode {
             case .review:
                 let result = try await deckClient.simulateFsrsReview(request)
+                guard generation == self.generation else { return }
                 let totalNew = result.dailyNewCount.reduce(0, +)
                 let totalReview = result.dailyReviewCount.reduce(0, +)
                 let totalTime = result.dailyTimeCost.reduce(0, +)
@@ -57,6 +72,7 @@ final class FsrsSimulatorModel {
                 workloadRows = []
             case .workload:
                 let result = try await deckClient.simulateFsrsWorkload(request)
+                guard generation == self.generation else { return }
                 let sorted = result.cost.keys.sorted()
                 workloadRows = sorted.map { retention in
                     let cost = result.cost[retention] ?? 0
@@ -69,6 +85,7 @@ final class FsrsSimulatorModel {
                 summary = [("Points", "\(workloadRows.count)")]
             }
         } catch {
+            guard generation == self.generation else { return }
             errorMessage = error.localizedDescription
         }
     }

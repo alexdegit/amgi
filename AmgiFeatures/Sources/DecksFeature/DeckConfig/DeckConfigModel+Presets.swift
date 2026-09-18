@@ -1,3 +1,10 @@
+//
+//  DeckConfigModel+Presets.swift
+//  DecksFeature
+//
+//  Created by Vladimir Gusev on 20.08.2026.
+//
+
 import AnkiClients
 import AnkiKit
 import Dependencies
@@ -15,24 +22,25 @@ extension DeckConfigModel {
         }
     }
 
-    func createPreset() async {
+    func createPreset() async -> String? {
         let name = newPresetName.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !name.isEmpty, let base = loaded?.config else { return }
+        guard !name.isEmpty, let base = loaded?.config else { return nil }
         isPresetMutating = true
         defer { isPresetMutating = false }
         do {
             try await deckClient.createDeckPreset(deckId, base, uniqueName(name), applyToChildren)
             newPresetName = ""
             await loadConfig()
+            return nil
         } catch {
-            destination = .alert(.presetError("Failed to create preset: \(error.localizedDescription)"))
+            return "Failed to create preset: \(error.localizedDescription)"
         }
     }
 
-    func renamePreset() async {
-        guard var base = loaded?.config else { return }
+    func renamePreset() async -> String? {
+        guard var base = loaded?.config else { return nil }
         let trimmed = renamePresetDraft.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmed.isEmpty else { return }
+        guard !trimmed.isEmpty else { return nil }
         isPresetMutating = true
         defer { isPresetMutating = false }
         do {
@@ -41,8 +49,9 @@ extension DeckConfigModel {
             // place — same RPC the Anki Desktop "rename preset" flow uses.
             try await deckClient.selectDeckPreset(deckId, base, applyToChildren)
             await loadConfig()
+            return nil
         } catch {
-            destination = .alert(.presetError("Failed to rename preset: \(error.localizedDescription)"))
+            return "Failed to rename preset: \(error.localizedDescription)"
         }
     }
 
@@ -68,10 +77,16 @@ extension DeckConfigModel {
 
     // MARK: - FSRS optimize
 
+    func cancelOptimize() {
+        optimizeGeneration &+= 1
+        isOptimizingFsrs = false
+    }
+
     func optimizeCurrentPreset() async {
         guard let loaded else { return }
+        let generation = optimizeGeneration
         isOptimizingFsrs = true
-        defer { isOptimizingFsrs = false }
+        defer { if generation == optimizeGeneration { isOptimizingFsrs = false } }
 
         do {
             let cfg = loaded.config.config
@@ -84,16 +99,27 @@ extension DeckConfigModel {
             )
 
             let result = try await deckClient.computeFsrsParams(request)
+            guard generation == optimizeGeneration else { return }
             guard !result.weights.isEmpty else {
-                destination = .alert(.fsrsError("Not enough review history to optimize. Try lowering historical retention or expanding the search."))
+                destination = .alert(.fsrsError(
+                    title: "Not enough review history",
+                    message: "FSRS needs more reviews before it can optimize. Try lowering historical retention or expanding the search."
+                ))
                 return
             }
             fsrsWeightsText = formatWeights(result.weights.values)
             if result.healthCheck == .failed {
-                destination = .alert(.fsrsError("Health check failed — review history may be inconsistent. Inspect parameters before saving."))
+                destination = .alert(.fsrsError(
+                    title: "FSRS health check failed",
+                    message: "Review history may be inconsistent. Inspect the parameters before saving."
+                ))
             }
         } catch {
-            destination = .alert(.fsrsError(error.localizedDescription))
+            guard generation == optimizeGeneration else { return }
+            destination = .alert(.fsrsError(
+                title: "Couldn't optimize FSRS parameters",
+                message: error.localizedDescription
+            ))
         }
     }
 
@@ -106,7 +132,10 @@ extension DeckConfigModel {
             try await deckClient.optimizeFsrsPresets(deckId, loaded.config)
             await loadConfig()
         } catch {
-            destination = .alert(.fsrsError(error.localizedDescription))
+            destination = .alert(.fsrsError(
+                title: "Couldn't optimize all presets",
+                message: error.localizedDescription
+            ))
         }
     }
 
@@ -118,7 +147,10 @@ extension DeckConfigModel {
         let editedWeights = parseFloats(fsrsWeightsText)
         let weights = editedWeights.isEmpty ? currentWeights(from: cfg) : editedWeights
         guard !weights.isEmpty else {
-            destination = .alert(.fsrsError("FSRS weights are empty. Run Optimize Weights first or save the preset."))
+            destination = .alert(.fsrsError(
+                title: "Simulator needs FSRS weights",
+                message: "This preset has no weights yet. Run Optimize Weights first, or save the preset."
+            ))
             return
         }
         let context = FsrsSimulatorContext(
@@ -136,6 +168,6 @@ extension DeckConfigModel {
             learningStepCount: parseSteps(learningStepsText).count,
             relearningStepCount: parseSteps(relearningStepsText).count
         )
-        destination = .sheet(.simulator(context))
+        destination = .route(.simulator(context))
     }
 }

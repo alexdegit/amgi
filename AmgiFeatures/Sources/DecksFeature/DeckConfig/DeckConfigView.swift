@@ -1,5 +1,12 @@
+//
+//  DeckConfigView.swift
+//  DecksFeature
+//
+//  Created by Vladimir Gusev on 14.05.2026.
+//
+
 import SwiftUI
-import AmgiTheme
+import Theme
 import AnkiKit
 import AnkiClients
 import Dependencies
@@ -33,18 +40,20 @@ struct DeckConfigView: View {
             .navigationTitle("Deck Options")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar { toolbarContent }
+            .interactiveDismissDisabled(model.hasUnsavedChanges)
             .modifier(DeckConfigPresentations(
                 destination: $model.destination,
                 currentAlert: model.currentAlert,
                 alertTitle: model.alertTitle,
                 newPresetName: $model.newPresetName,
                 renamePresetDraft: $model.renamePresetDraft,
+                currentPresetName: model.currentPresetName,
                 deletingPresetName: model.currentPresetName,
                 fallbackPresetName: model.deleteFallbackPresetName,
-                onCreate: { Task { await model.createPreset() } },
-                onRename: { Task { await model.renamePreset() } },
+                onCreate: { await model.createPreset() },
+                onRename: { await model.renamePreset() },
                 onDelete: { Task { await model.deletePreset() } },
-                onDismissSheet: { model.destination = nil }
+                onDiscard: onDismiss
             ))
             .task { await model.loadConfig() }
     }
@@ -52,7 +61,7 @@ struct DeckConfigView: View {
     @ToolbarContentBuilder
     private var toolbarContent: some ToolbarContent {
         ToolbarItem(placement: .cancellationAction) {
-            Button("Cancel") { onDismiss() }
+            Button("Cancel") { attemptDismiss() }
         }
         ToolbarItem(placement: .confirmationAction) {
             Button("Save") { Task { if await model.saveConfig() { onDismiss() } } }
@@ -89,11 +98,11 @@ struct DeckConfigView: View {
             onSelect: { target in Task { await model.selectPreset(target) } },
             onAdd: {
                 model.newPresetName = ""
-                model.destination = .alert(.createPreset)
+                model.destination = .prompt(.createPreset)
             },
             onRename: {
                 model.renamePresetDraft = model.currentPresetName ?? ""
-                model.destination = .alert(.renamePreset)
+                model.destination = .prompt(.renamePreset)
             },
             onDelete: { model.destination = .alert(.deletePresetConfirm) }
         )
@@ -153,6 +162,7 @@ struct DeckConfigView: View {
             fsrsWeightsText: $model.fsrsWeightsText,
             isOptimizingFsrs: model.isOptimizingFsrs,
             onOptimizeCurrent: { Task { await model.optimizeCurrentPreset() } },
+            onCancelOptimize: { model.cancelOptimize() },
             onOpenSimulatorReview: { model.openSimulator(mode: .review) },
             onOpenSimulatorWorkload: { model.openSimulator(mode: .workload) },
             onOptimizeAll: { Task { await model.optimizeAllPresets() } }
@@ -162,6 +172,14 @@ struct DeckConfigView: View {
             easyDayPercentages: $model.easyDayPercentages
         )
         ApplySection(applyToChildren: $model.applyToChildren)
+    }
+
+    private func attemptDismiss() {
+        if model.hasUnsavedChanges {
+            model.destination = .alert(.discardChanges)
+        } else {
+            onDismiss()
+        }
     }
 }
 

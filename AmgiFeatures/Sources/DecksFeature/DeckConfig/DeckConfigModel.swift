@@ -1,3 +1,10 @@
+//
+//  DeckConfigModel.swift
+//  DecksFeature
+//
+//  Created by Vladimir Gusev on 14.05.2026.
+//
+
 import AnkiClients
 import AnkiKit
 import Dependencies
@@ -21,6 +28,7 @@ final class DeckConfigModel {
     @ObservationIgnored @Dependency(\.deckClient) var deckClient
 
     var loaded: LoadedConfig?
+    var baseline: DeckConfig?
     var isLoading = true
     var isSaving = false
     var loadError: String?
@@ -46,6 +54,7 @@ final class DeckConfigModel {
     var fsrsWeightsText: String = ""
     var fsrsParamSearch: String = ""
     var isOptimizingFsrs = false
+    @ObservationIgnored var optimizeGeneration = 0
 
     var applyToChildren = false
 
@@ -109,12 +118,11 @@ final class DeckConfigModel {
 
     var alertTitle: String {
         switch currentAlert {
-        case .saveFailed: "Save failed"
-        case .fsrsError: "FSRS"
-        case .presetError: "Preset"
-        case .createPreset: "New preset"
-        case .renamePreset: "Rename preset"
-        case .deletePresetConfirm: "Delete preset?"
+        case .saveFailed: "Couldn't save deck options"
+        case .fsrsError(let title, _): title
+        case .presetError: "Couldn't change preset"
+        case .deletePresetConfirm: "Delete \"\(currentPresetName ?? "this preset")\"?"
+        case .discardChanges: "Unsaved changes"
         case nil: ""
         }
     }
@@ -225,17 +233,21 @@ final class DeckConfigModel {
         } else {
             easyDayPercentages = Array(repeating: 100, count: 7)
         }
+
+        baseline = editedConfig(from: config)
     }
 
-    /// Writes the edited form back through the engine. Returns `true` when
-    /// the save succeeded so the Container can dismiss; sets a `.saveFailed`
-    /// alert and returns `false` otherwise.
-    func saveConfig() async -> Bool {
-        guard let loaded else { return false }
-        isSaving = true
-        defer { isSaving = false }
+    var hasUnsavedChanges: Bool {
+        guard let loaded, let baseline else { return false }
+        return editedConfig(from: loaded.config) != baseline
+            || newCardsIgnoreReviewLimit != loaded.context.newCardsIgnoreReviewLimit
+            || applyAllParentLimits != loaded.context.applyAllParentLimits
+            || fsrsHealthCheck != loaded.context.fsrsHealthCheck
+            || fsrsEnabled != loaded.context.fsrs
+    }
 
-        var updated = loaded.config
+    func editedConfig(from base: DeckConfig) -> DeckConfig {
+        var updated = base
         var cfg = updated.config
         cfg.newPerDay = Int(max(0, newCardsPerDay))
         cfg.reviewsPerDay = Int(max(0, reviewsPerDay))
@@ -294,11 +306,18 @@ final class DeckConfigModel {
         }
 
         updated.config = cfg
+        return updated
+    }
+
+    func saveConfig() async -> Bool {
+        guard let loaded else { return false }
+        isSaving = true
+        defer { isSaving = false }
 
         do {
             try await deckClient.updateDeckConfig(
                 deckId,
-                updated,
+                editedConfig(from: loaded.config),
                 applyToChildren,
                 fsrsEnabled,
                 newCardsIgnoreReviewLimit,

@@ -1,6 +1,13 @@
+//
+//  DeckDetailPresentations.swift
+//  DecksFeature
+//
+//  Created by Vladimir Gusev on 14.05.2026.
+//
+
 import SwiftUI
-import UIKit
 import AnkiKit
+import Theme
 import SwiftNavigation
 import SwiftUINavigation
 import ReviewFeature
@@ -28,13 +35,12 @@ struct SheetCoverModifier: ViewModifier {
     }
 }
 
-struct AlertImporterModifier: ViewModifier {
+struct AlertModifier: ViewModifier {
     let destination: Binding<DeckDetailDestination?>
     let currentAlert: DeckDetailAlert?
     let alertTitle: String
     let alertActions: (DeckDetailAlert) -> AnyView
     let alertMessage: (DeckDetailAlert) -> AnyView
-    let onImportResult: (Result<URL, any Error>) -> Void
 
     func body(content: Content) -> some View {
         content
@@ -46,12 +52,6 @@ struct AlertImporterModifier: ViewModifier {
                 alertActions(alert)
             } message: { alert in
                 alertMessage(alert)
-            }
-            .fileImporter(
-                isPresented: destination.importer,
-                allowedContentTypes: [.data]
-            ) { result in
-                onImportResult(result)
             }
     }
 }

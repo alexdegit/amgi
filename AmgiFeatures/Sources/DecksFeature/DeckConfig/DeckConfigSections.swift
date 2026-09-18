@@ -1,5 +1,12 @@
+//
+//  DeckConfigSections.swift
+//  DecksFeature
+//
+//  Created by Vladimir Gusev on 14.05.2026.
+//
+
 import SwiftUI
-import AmgiTheme
+import Theme
 import AnkiKit
 
 // Section structs for the deck-options Form. Each is dedicated so SwiftUI can
@@ -58,14 +65,14 @@ struct PresetSection: View {
 
             Menu {
                 Button { onAdd() } label: {
-                    Label("Add preset…", systemImage: "plus")
+                    Label("Add Preset…", systemImage: "plus")
                 }
                 Button { onRename() } label: {
-                    Label("Rename…", systemImage: "pencil")
+                    Label("Rename Preset…", systemImage: "pencil")
                 }
                 .disabled(!hasLoadedConfig)
                 Button(role: .destructive) { onDelete() } label: {
-                    Label("Delete preset", systemImage: "trash")
+                    Label("Delete Preset", systemImage: "trash")
                 }
                 .disabled(!canDeletePreset)
             } label: {
@@ -302,6 +309,7 @@ struct FsrsSection: View {
     @Binding var fsrsWeightsText: String
     let isOptimizingFsrs: Bool
     let onOptimizeCurrent: () -> Void
+    let onCancelOptimize: () -> Void
     let onOpenSimulatorReview: () -> Void
     let onOpenSimulatorWorkload: () -> Void
     let onOptimizeAll: () -> Void
@@ -346,6 +354,10 @@ struct FsrsSection: View {
                     }
                 }
                 .disabled(isOptimizingFsrs)
+
+                if isOptimizingFsrs {
+                    Button("Cancel", role: .cancel, action: onCancelOptimize)
+                }
 
                 Button(action: onOpenSimulatorReview) {
                     Label("Open FSRS Simulator", systemImage: "chart.line.uptrend.xyaxis")
