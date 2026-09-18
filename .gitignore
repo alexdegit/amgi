@@ -6,7 +6,7 @@
 AmgiApp/memory/
 DerivedData/
 build/
-AnkiRustLib.xcframework/
+AnkiRustLib.xcframework
 anki-bridge-rs/target/
 anki-upstream/target/
 .claude/
@@ -32,3 +32,5 @@ design/
 
 # xcode-build-benchmark artifacts (local measurement scratch)
 .build-benchmark/
+
+AmgiApp/*.xcodeproj/
