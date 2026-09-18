@@ -16,7 +16,7 @@ Thank you to everyone who has contributed to Amgi.
 
 - **Leaf Eriksen** ([@leaferiksen](https://github.com/leaferiksen)) — the Apple Watch companion app (**v0.0.5**, PR #14): AmgiWatchApp target with deck list, card review with audio playback, stats, and sync/login, plus the watchOS cross-compilation of the Rust engine (`-Z build-std` tier-3 target slice in the XCFramework build).
 
-- **Kirill Gusev** ([@myaumura](https://github.com/myaumura)) — the safe sync merge flow (**v0.0.5**, PR #15): fixed local cards being deleted when syncing in local mode by splitting `fullSync` from `fullDownload`, added the export → download → import → upload merge option with on-disk recovery backups, sync-shard endpoint persistence, and destructive-sync confirmation dialogs.
+- **Kirill Gusev** ([@myaumura](https://github.com/myaumura)) — the safe sync merge flow (**v0.0.5**, PR #15): fixed local cards being deleted when syncing in local mode by splitting `fullSync` from `fullDownload`, added the export → download → import → upload merge option with on-disk recovery backups, sync-shard endpoint persistence, and destructive-sync confirmation dialogs. Also honest media-sync progress (**v0.2.0**, PR #27): `MediaSyncProgress`'s proto fields are localized display lines built by rslib from the ftl catalog and carry no numbers to parse, so `Int(_:)` over them returned nil on every real sync and both the toast and the sheet counted "Syncing media 0/0" for an entire download — the engine's own progress text is shown instead.
 
 ## Upstream Acknowledgments
 
