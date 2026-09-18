@@ -1,8 +1,16 @@
+//
+//  AccountsSettingsView.swift
+//  SettingsFeature
+//
+//  Created by Vladimir Gusev on 05.05.2026.
+//
+
 import SwiftUI
-import AmgiTheme
-import AmgiAppCore
+import Theme
+import AppCore
 import AnkiSync
 import CasePaths
+import Sharing
 import SwiftUINavigation
 
 /// Profile picker / manager. Each row is one `AmgiAccount`; the active
@@ -16,6 +24,8 @@ struct AccountsSettingsView: View {
 
     @State private var store = AccountStore.shared
     @State private var destination: Destination?
+    @Shared(.appStorage(AppearancePreferences.Keys.showProfileInToolbar))
+    private var showProfileInToolbar = true
 
     /// One axis for the add sheet and both delete alerts. The add sheet's
     /// name field and validation error only exist while it's up, so they
@@ -46,6 +56,7 @@ struct AccountsSettingsView: View {
         List {
             profilesSection
             addSection
+            toolbarSection
         }
         .scrollContentBackground(.hidden)
         .background(palette.background)
@@ -54,9 +65,10 @@ struct AccountsSettingsView: View {
         .sheet(isPresented: Binding($destination.add)) {
             addProfileSheet
         }
-        .alert(
+        .confirmationDialog(
             "Delete \(pendingDelete?.displayName ?? "")?",
             isPresented: Binding($destination.confirmDelete),
+            titleVisibility: .visible,
             presenting: pendingDelete
         ) { account in
             Button("Delete profile only", role: .destructive) {
@@ -107,6 +119,15 @@ struct AccountsSettingsView: View {
                 destination = .add(draft)
             }
         )
+    }
+
+    private var toolbarSection: some View {
+        Section {
+            Toggle("Show in Library toolbar", isOn: Binding($showProfileInToolbar))
+                .listRowBackground(palette.surfaceElevated)
+        } footer: {
+            Text("The profile switcher is hidden automatically while you have only one profile. Profiles are always available here.")
+        }
     }
 
     private var profilesSection: some View {

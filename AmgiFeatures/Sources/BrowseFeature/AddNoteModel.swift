@@ -1,6 +1,13 @@
+//
+//  AddNoteModel.swift
+//  BrowseFeature
+//
+//  Created by Vladimir Gusev on 22.06.2026.
+//
+
 import OSLog
-import AmgiAppCore
-import AmgiAppShared
+import AppCore
+import AppShared
 import AnkiBackend
 import AnkiKit
 import AnkiClients
@@ -32,6 +39,13 @@ final class AddNoteModel {
 
     @ObservationIgnored private let preselectedDeckId: DeckID?
     @ObservationIgnored private let initialDraft: AddNoteDraft?
+
+    @ObservationIgnored private var baselineFieldValues: [String] = []
+    @ObservationIgnored private var baselineTags: String = ""
+
+    var hasUnsavedChanges: Bool {
+        fieldValues != baselineFieldValues || tags != baselineTags
+    }
 
     init(preselectedDeckId: DeckID? = nil, initialDraft: AddNoteDraft? = nil) {
         self.preselectedDeckId = preselectedDeckId
@@ -74,6 +88,7 @@ final class AddNoteModel {
         if let initialDraft, !initialDraft.tags.isEmpty {
             tags = initialDraft.tags.joined(separator: " ")
         }
+        baselineTags = tags
     }
 
     func loadFields() async {
@@ -90,6 +105,7 @@ final class AddNoteModel {
             fieldValues = fieldNames.map { name in
                 initialDraft?.fieldValues[name] ?? ""
             }
+            baselineFieldValues = fieldValues
         } catch {
             Log.browse.error("Error loading fields: \(error)")
         }

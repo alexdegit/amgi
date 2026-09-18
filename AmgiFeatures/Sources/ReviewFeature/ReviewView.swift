@@ -1,16 +1,23 @@
+//
+//  ReviewView.swift
+//  ReviewFeature
+//
+//  Created by Vladimir Gusev on 27.03.2026.
+//
+
 package import SwiftUI
 import AmgiCardWeb
-import AmgiTheme
-import AmgiUI
-import AmgiAppCore
-import AmgiAppShared
+import Theme
+import UI
+import AppCore
+import AppShared
 import AnkiClients
 package import AnkiKit
 import Dependencies
 import BrowseFeature
 import TemplatesFeature
 import Sharing
-import AmgiReviewCore
+import ReviewCore
 import SwiftUINavigation
 
 
@@ -84,6 +91,7 @@ package struct ReviewView: View {
             ReviewAudioSession.apply(playInSilent: newValue)
         }
         .onDisappear {
+            ReviewAudioSession.release()
             Task { await writeWidgetSnapshot() }
         }
     }

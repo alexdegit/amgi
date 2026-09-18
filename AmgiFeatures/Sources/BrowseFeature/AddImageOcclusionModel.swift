@@ -1,3 +1,11 @@
+//
+//  AddImageOcclusionModel.swift
+//  BrowseFeature
+//
+//  Created by Vladimir Gusev on 22.06.2026.
+//
+
+#if canImport(UIKit)
 import AnkiBackend
 import AnkiKit
 import AnkiClients
@@ -41,6 +49,11 @@ final class AddImageOcclusionModel {
         selectedDeckId.rawValue != 0 && selectedImage != nil && imageURL != nil && !masks.isEmpty
     }
 
+    var hasUnsavedChanges: Bool {
+        selectedImage != nil || !masks.isEmpty
+            || !header.isEmpty || !backExtra.isEmpty || !tagsText.isEmpty
+    }
+
     func loadDecks() async {
         decks = (try? await deckClient.fetchAll()) ?? []
 
@@ -61,16 +74,18 @@ final class AddImageOcclusionModel {
         }
     }
 
-    /// Longest edge the occlusion editor ever needs. Masks are stored
-    /// normalized (0...1), so downsampling the on-screen image does not
-    /// change what gets written to the note.
-    private static let maxDisplayEdge: CGFloat = 2048
+    nonisolated static let maxImageEdge: CGFloat = 2048
 
-    private static func displayFit(for size: CGSize) -> CGSize {
+    nonisolated static func imageFit(for size: CGSize) -> CGSize {
         let longest = max(size.width, size.height)
-        guard longest > maxDisplayEdge, longest > 0 else { return size }
-        let scale = maxDisplayEdge / longest
+        guard longest > maxImageEdge, longest > 0 else { return size }
+        let scale = maxImageEdge / longest
         return CGSize(width: size.width * scale, height: size.height * scale)
+    }
+
+    nonisolated static func fittedForStorage(_ image: UIImage) async -> (UIImage, Data?) {
+        let fitted = await image.byPreparingThumbnail(ofSize: imageFit(for: image.size)) ?? image
+        return (fitted, fitted.jpegData(compressionQuality: 0.92))
     }
 
     func loadImage(from item: PhotosPickerItem?) async {
@@ -88,22 +103,13 @@ final class AddImageOcclusionModel {
             let filename = "io_pick_\(UUID().uuidString).jpg"
             let url = tempDir.appendingPathComponent(filename)
             let result = await Task.detached(priority: .userInitiated) {
-                // The note gets the full-resolution encode; the editor gets a
-                // display-sized copy. Holding the 12 MP original as a decoded
-                // ~48 MB backing store for the whole editing session (plus the
-                // canvas's own scaled bitmap) was a jetsam risk on older
-                // devices.
-                let displayImage = await img.byPreparingThumbnail(
-                    ofSize: Self.displayFit(for: img.size)
-                ) ?? img
-                guard let jpegData = img.jpegData(compressionQuality: 0.92) else {
-                    return (displayImage, false)
-                }
+                let (fitted, jpegData) = await Self.fittedForStorage(img)
+                guard let jpegData else { return (fitted, false) }
                 do {
                     try jpegData.write(to: url)
-                    return (displayImage, true)
+                    return (fitted, true)
                 } catch {
-                    return (displayImage, false)
+                    return (fitted, false)
                 }
             }.value
             selectedImage = result.0
@@ -146,3 +152,4 @@ final class AddImageOcclusionModel {
         }
     }
 }
+#endif

@@ -1,7 +1,14 @@
+//
+//  OnboardingView.swift
+//  SyncFeature
+//
+//  Created by Vladimir Gusev on 30.03.2026.
+//
+
 package import SwiftUI
-import AmgiTheme
-import AmgiUI
-import AmgiAppCore
+import Theme
+import UI
+import AppCore
 import AnkiSync
 import Sharing
 
@@ -10,12 +17,25 @@ package struct OnboardingView: View {
     @Shared(.onboardingCompleted) private var onboardingCompleted
     @Shared(.syncMode) private var syncMode
     @State private var showServerSetup = false
+    @State private var showSyncChoice = false
     @State private var serverURL = ""
     @State private var endpointError: String?
 
     package init() {}
 
+    @ViewBuilder
     package var body: some View {
+        if showSyncChoice {
+            syncChoice
+        } else {
+            WelcomeFlowView {
+                withAnimation(AmgiMotion.standard) { showSyncChoice = true }
+            }
+            .transition(AmgiMotion.reveal)
+        }
+    }
+
+    private var syncChoice: some View {
         VStack(spacing: AmgiSpacing.xxl) {
             Spacer()
 
@@ -23,7 +43,7 @@ package struct OnboardingView: View {
                 .font(.system(size: 64))
                 .foregroundStyle(palette.accent)
 
-            Text("Welcome")
+            Text("Stay in sync")
                 .amgiFont(.displayHero)
                 .foregroundStyle(palette.textPrimary)
 

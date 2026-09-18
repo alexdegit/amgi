@@ -1,5 +1,12 @@
-import AmgiTheme
-import AmgiUI
+//
+//  ContinueReadingCard.swift
+//  ReaderFeature
+//
+//  Created by Vladimir Gusev on 17.05.2026.
+//
+
+import Theme
+import UI
 import SwiftUI
 
 struct ContinueReadingCard: View {
@@ -38,10 +45,23 @@ struct ContinueReadingCard: View {
         .aspectRatio(Self.coverAspect, contentMode: .fit)
         .clipShape(RoundedRectangle(cornerRadius: AmgiRadius.control))
         .overlay(alignment: .topTrailing) {
-            Image(systemName: "bookmark.fill")
-                .font(.system(size: 18, weight: .semibold))
-                .foregroundStyle(.tint)
-                .padding(10)
+            RibbonShape()
+                .fill(BookCoverPalette.resolve(seed: item.id).lineColor)
+                .frame(width: 16, height: 28)
+                .padding(.trailing, 16)
+        }
+    }
+
+    private struct RibbonShape: Shape {
+        func path(in rect: CGRect) -> Path {
+            var p = Path()
+            p.move(to: CGPoint(x: rect.minX, y: rect.minY))
+            p.addLine(to: CGPoint(x: rect.maxX, y: rect.minY))
+            p.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
+            p.addLine(to: CGPoint(x: rect.midX, y: rect.maxY - rect.width * 0.4))
+            p.addLine(to: CGPoint(x: rect.minX, y: rect.maxY))
+            p.closeSubpath()
+            return p
         }
     }
 

@@ -1,5 +1,12 @@
+//
+//  SettingsControls.swift
+//  SettingsFeature
+//
+//  Created by Vladimir Gusev on 05.08.2026.
+//
+
 import SwiftUI
-import AmgiTheme
+import Theme
 
 // MARK: - Page scaffold
 
@@ -167,8 +174,10 @@ struct SettingsStepperRow<Value: Strideable>: View {
                     .foregroundStyle(palette.textSecondary)
                     .lineLimit(1)
                     .fixedSize(horizontal: true, vertical: false)
+                    .accessibilityHidden(true)
                 Stepper(title, value: $value, in: range, step: step)
                     .labelsHidden()
+                    .accessibilityValue(format(value))
             }
         }
     }
@@ -211,6 +220,7 @@ struct SettingsValueRow: View {
                 .truncationMode(truncation)
                 .lineLimit(truncation == .middle ? 1 : nil)
         }
+        .accessibilityElement(children: .combine)
     }
 }
 

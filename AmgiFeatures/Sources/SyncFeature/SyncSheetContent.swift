@@ -1,7 +1,14 @@
-import AmgiUI
+//
+//  SyncSheetContent.swift
+//  SyncFeature
+//
+//  Created by Vladimir Gusev on 27.03.2026.
+//
+
+import UI
 import SwiftUI
-import AmgiTheme
-import AmgiAppCore
+import Theme
+import AppCore
 import AnkiKit
 import AnkiClients
 import AnkiSync
@@ -89,8 +96,8 @@ struct SyncSheetContent: View {
             successView(summary)
         case .error(let message):
             errorView(message)
-        case .needsFullSync:
-            fullSyncChoiceView
+        case .needsFullSync(let requirement):
+            fullSyncChoiceView(requirement.reason)
         case .noServer:
             noServerView
         }
@@ -124,6 +131,7 @@ struct SyncSheetContent: View {
                         Image(systemName: "ellipsis.circle")
                             .foregroundStyle(palette.textSecondary)
                     }
+                    .accessibilityLabel("Account actions")
                 }
                 .padding(.horizontal)
             } else if syncMode == .local {
@@ -246,14 +254,14 @@ struct SyncSheetContent: View {
         }
     }
 
-    private var fullSyncChoiceView: some View {
+    private func fullSyncChoiceView(_ reason: String) -> some View {
         VStack(spacing: 16) {
             Image(systemName: "arrow.triangle.2.circlepath")
                 .font(.system(size: 48))
                 .foregroundStyle(palette.warning)
             Text("Full Sync Required")
                 .amgiFont(.sectionHeading)
-            Text("Your local and server collections have diverged. Choose how to reconcile them — Merge is the safest option.")
+            Text(reason)
                 .amgiFont(.caption)
                 .foregroundStyle(palette.textSecondary)
                 .multilineTextAlignment(.center)

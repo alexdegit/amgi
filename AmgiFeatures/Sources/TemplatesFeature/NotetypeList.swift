@@ -1,5 +1,12 @@
+//
+//  NotetypeList.swift
+//  TemplatesFeature
+//
+//  Created by Vladimir Gusev on 14.05.2026.
+//
+
 import SwiftUI
-import AmgiTheme
+import Theme
 import AnkiKit
 
 /// Plain list of notetypes with swipe actions for rename / delete.
@@ -82,7 +89,11 @@ struct DeckTemplateListAlerts: ViewModifier {
             } message: {
                 Text(renameTargetName)
             }
-            .alert("Delete notetype", isPresented: $showDeleteConfirm) {
+            .confirmationDialog(
+                "Delete notetype",
+                isPresented: $showDeleteConfirm,
+                titleVisibility: .visible
+            ) {
                 Button("Delete", role: .destructive) { onDelete() }
                 Button("Cancel", role: .cancel) {}
             } message: {
@@ -90,7 +101,7 @@ struct DeckTemplateListAlerts: ViewModifier {
                     Text("Delete \"\(name)\"? Cards using this notetype will be removed too.")
                 }
             }
-            .alert("Error", isPresented: $showActionError) {
+            .alert("Couldn't update notetype", isPresented: $showActionError) {
                 Button("OK", role: .cancel) {}
             } message: {
                 Text(actionError ?? "An unknown error occurred.")

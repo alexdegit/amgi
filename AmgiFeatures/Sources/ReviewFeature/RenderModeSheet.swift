@@ -1,9 +1,16 @@
+//
+//  RenderModeSheet.swift
+//  ReviewFeature
+//
+//  Created by Vladimir Gusev on 20.07.2026.
+//
+
 import SwiftUI
 package import AmgiCardWeb
-import AmgiTheme
-import AmgiAppCore
+import Theme
+import AppCore
 import Sharing
-import AmgiReviewCore
+import ReviewCore
 
 extension CardRenderEngine {
     package var displayName: String {
@@ -16,9 +23,9 @@ extension CardRenderEngine {
 
     package var summary: String {
         switch self {
-        case .auto: "Simple cards render natively, the rest use the template's HTML."
-        case .alwaysNative: "Prefer native rendering wherever the card allows it."
-        case .alwaysHTML: "Always render the template's HTML in the sandboxed web view."
+        case .auto: "Use the built-in renderer for simple cards, and the card's own template for the rest."
+        case .alwaysNative: "Use the built-in renderer wherever the card allows it."
+        case .alwaysHTML: "Always use the card's own template."
         }
     }
 }
@@ -68,6 +75,8 @@ struct RenderModeSheet: View {
             }
             .navigationTitle("Card Rendering")
             .navigationBarTitleDisplayMode(.inline)
+            .onChange(of: engineRaw) { _, _ in onChanged() }
+            .onChange(of: overridesRaw) { _, _ in onChanged() }
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Done") { dismiss() }
@@ -84,7 +93,6 @@ struct RenderModeSheet: View {
     private func engineRow(_ engine: CardRenderEngine) -> some View {
         Button {
             $engineRaw.withLock { $0 = engine.rawValue }
-            onChanged()
         } label: {
             HStack {
                 VStack(alignment: .leading, spacing: 2) {
@@ -120,7 +128,6 @@ struct RenderModeSheet: View {
                     in: overridesRaw
                 )
                 $overridesRaw.withLock { $0 = updated }
-                onChanged()
             }
         )
     }

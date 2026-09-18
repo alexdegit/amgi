@@ -1,6 +1,13 @@
+//
+//  RenderModeChipRow.swift
+//  ReviewFeature
+//
+//  Created by Vladimir Gusev on 20.07.2026.
+//
+
 import SwiftUI
 import AmgiCardWeb
-import AmgiTheme
+import Theme
 
 /// R11 chip row between the counts bar and the card: resolved-mode badge
 /// (Native green / HTML orange), an "auto" caption when the mode came from
@@ -35,6 +42,8 @@ struct RenderModeChipRow: View {
                     .accessibilityHidden(true)
                     .frame(maxWidth: .infinity, alignment: .trailing)
             }
+            .frame(minHeight: 44)
+            .contentShape(Rectangle())
         }
         .buttonStyle(.pressScale)
         .accessibilityLabel("Rendering: \(isNative ? "Native" : "HTML")\(isAuto ? ", automatic" : "")")

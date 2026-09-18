@@ -1,6 +1,13 @@
+//
+//  SettingsRow.swift
+//  SettingsFeature
+//
+//  Created by Vladimir Gusev on 05.08.2026.
+//
+
 import SwiftUI
-import AmgiTheme
-import AmgiUI
+import Theme
+import UI
 
 // MARK: - Tone
 
@@ -57,6 +64,7 @@ struct SettingsIconTile: View {
                 // rather than adding a ninth radius for a 1pt difference.
                 in: RoundedRectangle(cornerRadius: AmgiRadius.small, style: .continuous)
             )
+            .accessibilityHidden(true)
     }
 }
 

@@ -1,6 +1,13 @@
+//
+//  AddNoteView.swift
+//  BrowseFeature
+//
+//  Created by Vladimir Gusev on 30.03.2026.
+//
+
 package import SwiftUI
 package import AnkiKit
-import AmgiTheme
+import Theme
 
 /// Add Note container: owns the modal chrome (navigation, toolbar, dismissal)
 /// and drives an `AddNoteModel` for deck/notetype loading and the note write.
@@ -8,6 +15,7 @@ import AmgiTheme
 package struct AddNoteView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var model: AddNoteModel
+    @State private var showDiscardConfirm = false
     let onSave: () -> Void
 
     package init(
@@ -25,9 +33,26 @@ package struct AddNoteView: View {
             AddNoteContent(model: model)
                 .navigationTitle("Add Note")
                 .navigationBarTitleDisplayMode(.inline)
+                .interactiveDismissDisabled(model.hasUnsavedChanges)
+                .confirmationDialog(
+                    "Discard this note?",
+                    isPresented: $showDiscardConfirm,
+                    titleVisibility: .visible
+                ) {
+                    Button("Discard", role: .destructive) { dismiss() }
+                    Button("Cancel", role: .cancel) {}
+                } message: {
+                    Text("The note hasn't been added yet. Discarding loses what you typed.")
+                }
                 .toolbar {
                     ToolbarItem(placement: .cancellationAction) {
-                        Button("Cancel") { dismiss() }
+                        Button("Cancel") {
+                            if model.hasUnsavedChanges {
+                                showDiscardConfirm = true
+                            } else {
+                                dismiss()
+                            }
+                        }
                     }
                     ToolbarItem(placement: .confirmationAction) {
                         Button("Add") {

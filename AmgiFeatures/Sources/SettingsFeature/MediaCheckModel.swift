@@ -1,3 +1,10 @@
+//
+//  MediaCheckModel.swift
+//  SettingsFeature
+//
+//  Created by Vladimir Gusev on 26.06.2026.
+//
+
 import AnkiClients
 import AnkiKit
 import Dependencies
@@ -17,6 +24,7 @@ final class MediaCheckModel {
     var isRestoringTrash = false
     var actionMessage: String?
     var showActionAlert = false
+    var actionFailed = false
 
     @ObservationIgnored @Dependency(\.mediaClient) private var mediaClient
 
@@ -30,6 +38,7 @@ final class MediaCheckModel {
             currentResult = result
         } catch {
             actionMessage = error.localizedDescription
+            actionFailed = true
             showActionAlert = true
         }
         isLoading = false
@@ -49,8 +58,10 @@ final class MediaCheckModel {
             try await client.trashMediaFiles(filenames)
             currentResult = try await client.checkMedia()
             actionMessage = "Files moved to trash"
+            actionFailed = false
         } catch {
             actionMessage = error.localizedDescription
+            actionFailed = true
         }
         showActionAlert = true
     }
@@ -69,8 +80,10 @@ final class MediaCheckModel {
             try await client.emptyTrash()
             currentResult = try await client.checkMedia()
             actionMessage = "Trash emptied"
+            actionFailed = false
         } catch {
             actionMessage = error.localizedDescription
+            actionFailed = true
         }
         showActionAlert = true
     }
@@ -89,8 +102,10 @@ final class MediaCheckModel {
             try await client.restoreTrash()
             currentResult = try await client.checkMedia()
             actionMessage = "Trash restored"
+            actionFailed = false
         } catch {
             actionMessage = error.localizedDescription
+            actionFailed = true
         }
         showActionAlert = true
     }

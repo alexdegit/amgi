@@ -1,16 +1,23 @@
+//
+//  ReviewContent.swift
+//  ReviewFeature
+//
+//  Created by Vladimir Gusev on 27.03.2026.
+//
+
 import SwiftUI
 import AmgiCardWeb
-import AmgiTheme
-import AmgiUI
-import AmgiAppCore
-import AmgiAppShared
+import Theme
+import UI
+import AppCore
+import AppShared
 import AnkiClients
 import AnkiKit
 import Dependencies
 import BrowseFeature
 import TemplatesFeature
 import Sharing
-import AmgiReviewCore
+import ReviewCore
 import SwiftUINavigation
 
 // MARK: - Content
@@ -36,18 +43,27 @@ struct ReviewContent: View {
     @Environment(\.lookupPopup) private var lookupPopup
     @State private var cardActions = CardContextMenuModel()
     @State private var confirmDeleteNote = false
+    @State private var lookupHighlight = LookupHighlight()
+
+    private var keyboardActive: Bool {
+        destination == nil && !confirmDeleteNote
+    }
 
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
+                #if !canImport(UIKit)
+                macChrome
+                #endif
+
                 if showRemainingDays && session.startError == nil {
-                    progressBar
+                    ReviewProgressBar(session: session)
                 }
 
                 if let startError = session.startError {
-                    startFailureView(startError)
+                    ReviewStartFailureView(message: startError) { session.start() }
                 } else if session.isFinished {
-                    finishedView
+                    ReviewFinishedView(session: session, onDone: onDismiss)
                 } else {
                     ReviewCardArea(
                         session: session,
@@ -55,26 +71,16 @@ struct ReviewContent: View {
                         cardContentAlignment: cardContentAlignment,
                         tapLookup: tapLookup,
                         showNextReviewTime: showNextReviewTime,
-                        lookupQuery: lookupQuery
+                        lookupHighlight: lookupHighlight,
+                        shortcutsEnabled: keyboardActive,
+                        lookupQuery: $destination.lookupText
                     )
                 }
             }
             .background(palette.background)
-            // Haptics fire on the causal event, not on its consequences: the
-            // rating tap itself, and the undo actually landing. `.again` gets
-            // a firmer tap than the other three — it's the one answer that
-            // costs the user something, and matching the feedback's character
-            // to the action is the point.
-            .sensoryFeedback(trigger: session.answerTapCount) { _, _ in
-                session.tappedRating == .again
-                    ? .impact(weight: .medium)
-                    : .impact(weight: .light)
-            }
-            .sensoryFeedback(.success, trigger: session.undoneCount)
-            .sensoryFeedback(trigger: session.isFinished) { _, finished in
-                finished ? .success : nil
-            }
+            .reviewHaptics(session: session)
             .navigationBarTitleDisplayMode(.inline)
+            #if canImport(UIKit)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button {
@@ -85,52 +91,35 @@ struct ReviewContent: View {
                     .accessibilityLabel("Close")
                 }
                 ToolbarItem(placement: .principal) {
-                    Text(session.deckName)
-                        .amgiFont(.bodyEmphasis)
-                        .foregroundStyle(palette.textPrimary)
-                        .lineLimit(1)
-                        .minimumScaleFactor(0.8)
+                    ReviewDeckTitle(session: session)
                 }
                 if showRemainingDays {
                     ToolbarItem(placement: .topBarTrailing) {
-                        Text("\(cardPosition)/\(max(sessionTotal, 1))")
-                            .amgiFont(.caption)
-                            .monospacedDigit()
-                            .foregroundStyle(palette.textSecondary)
-                            .accessibilityLabel("Card \(cardPosition) of \(max(sessionTotal, 1))")
+                        ReviewPositionCounter(session: session)
                     }
                 }
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        session.undo()
-                    } label: {
-                        Image(systemName: "arrow.uturn.backward")
-                    }
-                    .disabled(!session.canUndo)
-                    .accessibilityLabel("Undo")
+                    ReviewUndoButton(session: session, shortcutEnabled: keyboardActive)
                 }
                 ToolbarItem(placement: .topBarTrailing) {
-                    cardActionsMenu
+                    CardActionsMenu(
+                        session: session,
+                        cardActions: cardActions,
+                        destination: $destination,
+                        confirmDeleteNote: $confirmDeleteNote
+                    )
                 }
             }
+            #endif
             .cardActionPresentations(
                 model: cardActions,
                 cardId: session.currentCardId,
                 noteId: session.currentNote?.id,
                 confirmDeleteNote: $confirmDeleteNote
             )
-            .toolbarBackground(
-                autoMatchCardBackground ? session.cardChromeColor : Color.clear,
-                for: .navigationBar
-            )
-            .toolbarBackground(
-                autoMatchCardBackground ? .visible : .automatic,
-                for: .navigationBar
-            )
-            .toolbarColorScheme(
-                autoMatchCardBackground && session.cardChromeIsDark ? .dark : .light,
-                for: .navigationBar
-            )
+            #if canImport(UIKit)
+            .cardChromeToolbar(session: session, enabled: autoMatchCardBackground)
+            #endif
             .sheet(item: $destination.editNote) { note in
                 NavigationStack {
                     NoteEditorView(note: note) {
@@ -148,77 +137,165 @@ struct ReviewContent: View {
                     )
                 }
             }
-            .sheet(isPresented: Binding($destination.lookup)) {
+            .sheet(isPresented: Binding($destination.lookup), onDismiss: { lookupHighlight.clear() }) {
                 if let lookupPopup {
-                    lookupPopup.popup(query: lookupQuery.wrappedValue ?? "") {
-                        destination = nil
-                    }
+                    lookupPopup.popup(
+                        query: destination.lookupText ?? "",
+                        onMatched: { lookupHighlight.show(matched: $0) },
+                        onDismiss: { destination = nil }
+                    )
                 }
             }
         }
     }
 
-    /// `ReviewCardArea` drives lookup from a tap on the card and knows nothing
-    /// about the destination enum, so it keeps a plain `String?`. Hand-rolled
-    /// rather than `$destination.lookup`, because a case-path binding refuses
-    /// writes while a *different* case is active — including the nil→lookup
-    /// write that opens the popup in the first place.
-    private var lookupQuery: Binding<String?> {
-        Binding(
-            get: { if case .lookup(let text) = destination { return text }; return nil },
-            set: { destination = $0.map(ReviewDestination.lookup) }
-        )
-    }
-
-    // MARK: - Progress
-
-    /// Total cards in this session = already reviewed + still queued. The
-    /// queued total shifts as learning cards re-enter the queue, so this
-    /// tracks the session rather than a fixed count.
-    private var sessionTotal: Int {
-        session.sessionStats.reviewed + session.remainingCounts.total
-    }
-
-    /// 1-indexed position of the current card, clamped so it never exceeds
-    /// the (moving) total.
-    private var cardPosition: Int {
-        min(session.sessionStats.reviewed + 1, max(sessionTotal, 1))
-    }
-
-    private var progressFraction: Double {
-        sessionTotal > 0 ? Double(session.sessionStats.reviewed) / Double(sessionTotal) : 0
-    }
-
-    /// Thin session-progress bar under the navigation bar (replaces the old
-    /// counts row). The numeric position lives in the toolbar.
-    private var progressBar: some View {
-        GeometryReader { geo in
-            ZStack(alignment: .leading) {
-                Capsule().fill(palette.separator)
-                Capsule()
-                    .fill(palette.accent)
-                    .frame(width: max(0, geo.size.width * progressFraction))
-            }
-        }
-        .frame(height: 3)
-        .padding(.horizontal)
-        .padding(.top, 6)
-        .padding(.bottom, 2)
-        .animation(AmgiMotion.standard, value: progressFraction)
-    }
-
-    // MARK: - Card actions
-
-    /// Every card action in one flat menu: the flag palette, this screen's own
-    /// edit/lookup/audio items, then the shared card and note sections. No
-    /// submenus and no duplicated Undo — Undo is a toolbar button of its own,
-    /// since it's the action a reviewer reaches for mid-session.
-    ///
-    /// The label keeps its `…` shape whatever the flag state; a flagged card
-    /// only tints it, so the "more actions" affordance never changes glyph
-    /// under the user.
+    #if !canImport(UIKit)
     @ViewBuilder
-    private var cardActionsMenu: some View {
+    private var macChrome: some View {
+        HStack(spacing: 12) {
+            Button {
+                onDismiss()
+            } label: {
+                Image(systemName: "xmark")
+            }
+            .accessibilityLabel("Close")
+
+            Spacer()
+            ReviewDeckTitle(session: session)
+            Spacer()
+
+            if showRemainingDays {
+                ReviewPositionCounter(session: session)
+            }
+            ReviewUndoButton(session: session, shortcutEnabled: keyboardActive)
+            CardActionsMenu(
+                session: session,
+                cardActions: cardActions,
+                destination: $destination,
+                confirmDeleteNote: $confirmDeleteNote
+            )
+        }
+        .buttonStyle(.plain)
+        .padding(.horizontal, 16)
+        .padding(.vertical, 10)
+        .background(palette.surface)
+
+        Divider()
+    }
+    #endif
+}
+
+// MARK: - Toolbar chrome
+
+private struct CardChromeToolbar: ViewModifier {
+    let session: ReviewSession
+    let enabled: Bool
+
+    func body(content: Content) -> some View {
+        content
+            .toolbarBackground(
+                enabled ? session.cardChromeColor : Color.clear,
+                for: .navigationBar
+            )
+            .toolbarBackground(
+                enabled ? .visible : .automatic,
+                for: .navigationBar
+            )
+            .toolbarColorScheme(
+                enabled && session.cardChromeIsDark ? .dark : .light,
+                for: .navigationBar
+            )
+    }
+}
+
+private struct ReviewHaptics: ViewModifier {
+    let session: ReviewSession
+
+    func body(content: Content) -> some View {
+        content
+            .sensoryFeedback(trigger: session.answerTapCount) { _, _ in
+                session.tappedRating == .again
+                    ? .impact(weight: .medium)
+                    : .impact(weight: .light)
+            }
+            .sensoryFeedback(.impact(flexibility: .soft), trigger: session.undoneCount)
+            .sensoryFeedback(trigger: session.isFinished) { _, finished in
+                finished ? .success : nil
+            }
+    }
+}
+
+private extension View {
+    func cardChromeToolbar(session: ReviewSession, enabled: Bool) -> some View {
+        modifier(CardChromeToolbar(session: session, enabled: enabled))
+    }
+
+    func reviewHaptics(session: ReviewSession) -> some View {
+        modifier(ReviewHaptics(session: session))
+    }
+}
+
+// MARK: - Toolbar items
+
+private struct ReviewDeckTitle: View {
+    let session: ReviewSession
+
+    @Environment(\.palette) private var palette
+
+    var body: some View {
+        Text(session.deckName)
+            .amgiFont(.bodyEmphasis)
+            .foregroundStyle(palette.textPrimary)
+            .lineLimit(1)
+            .minimumScaleFactor(0.8)
+    }
+}
+
+private struct ReviewPositionCounter: View {
+    let session: ReviewSession
+
+    @Environment(\.palette) private var palette
+
+    var body: some View {
+        let position = session.cardPosition
+        let total = max(session.sessionTotal, 1)
+        Text("\(position)/\(total)")
+            .amgiFont(.caption)
+            .monospacedDigit()
+            .foregroundStyle(palette.textSecondary)
+            .contentTransition(.numericText())
+            .animation(AmgiMotion.quick, value: position)
+            .accessibilityLabel("Card \(position) of \(total)")
+    }
+}
+
+private struct ReviewUndoButton: View {
+    let session: ReviewSession
+    let shortcutEnabled: Bool
+
+    var body: some View {
+        Button {
+            session.undo()
+        } label: {
+            Image(systemName: "arrow.uturn.backward")
+        }
+        .disabled(!session.canUndo)
+        .keyboardShortcut(shortcutEnabled ? KeyboardShortcut("z", modifiers: .command) : nil)
+        .accessibilityLabel("Undo")
+    }
+}
+
+// MARK: - Card actions
+
+private struct CardActionsMenu: View {
+    let session: ReviewSession
+    let cardActions: CardContextMenuModel
+    @Binding var destination: ReviewDestination?
+    @Binding var confirmDeleteNote: Bool
+
+    @Environment(\.palette) private var palette
+
+    var body: some View {
         Menu {
             if let cardId = session.currentCardId {
                 CardFlagPicker(model: cardActions, cardId: cardId)
@@ -281,26 +358,61 @@ struct ReviewContent: View {
         }
         .accessibilityLabel("Card actions")
     }
+}
 
-    /// Distinct from `finishedView`. A failed `start()` used to land on the
-    /// congratulations surface — green checkmark, "You've reviewed 0 cards",
-    /// success haptic — which reported a backend failure as a completed deck.
-    private func startFailureView(_ message: String) -> some View {
+// MARK: - Progress
+
+private struct ReviewProgressBar: View {
+    let session: ReviewSession
+
+    @Environment(\.palette) private var palette
+
+    var body: some View {
+        let fraction = min(max(session.progressFraction, 0), 1)
+        ZStack(alignment: .leading) {
+            Capsule().fill(palette.separator)
+            Capsule()
+                .fill(palette.accent)
+                .scaleEffect(x: fraction, y: 1, anchor: .leading)
+        }
+        .frame(height: 3)
+        .padding(.horizontal)
+        .padding(.top, 6)
+        .padding(.bottom, 2)
+        .animation(AmgiMotion.standard, value: fraction)
+    }
+}
+
+// MARK: - Terminal states
+
+private struct ReviewStartFailureView: View {
+    let message: String
+    let onRetry: () -> Void
+
+    var body: some View {
         ContentUnavailableView {
             Label("Couldn't Start Reviewing", systemImage: "exclamationmark.triangle")
         } description: {
             Text(message)
         } actions: {
-            Button("Try Again") { session.start() }
+            Button("Try Again", action: onRetry)
                 .buttonStyle(AmgiPrimaryButtonStyle())
         }
     }
+}
 
-    private var finishedView: some View {
+private struct ReviewFinishedView: View {
+    let session: ReviewSession
+    let onDone: () -> Void
+
+    @Environment(\.palette) private var palette
+    @ScaledMetric(relativeTo: .largeTitle) private var glyphSize: CGFloat = 64
+
+    var body: some View {
         VStack(spacing: AmgiSpacing.lg) {
             Spacer()
             Image(systemName: "checkmark.circle.fill")
-                .font(.system(size: 64))
+                .font(.system(size: glyphSize))
                 .foregroundStyle(palette.positive)
                 .accessibilityHidden(true)   // "Congratulations!" below says it
             Text("Congratulations!")
@@ -315,7 +427,7 @@ struct ReviewContent: View {
                     .foregroundStyle(palette.textSecondary)
             }
             Spacer()
-            Button("Done") { onDismiss() }
+            Button("Done", action: onDone)
                 .buttonStyle(AmgiPrimaryButtonStyle())
                 .padding()
         }
