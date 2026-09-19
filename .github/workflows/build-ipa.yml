@@ -261,6 +261,11 @@ jobs:
       - name: Compose release notes from the tag
         if: github.ref_type == 'tag'
         run: |
+          # actions/checkout fetches a tag push as `+<sha>:refs/tags/<name>`,
+          # which lands a *lightweight* tag — the annotated object never reaches
+          # the runner, and %(contents) falls back to the commit message. Re-fetch
+          # the tag itself so the tagger's text is what gets published.
+          git fetch --force origin "refs/tags/${GITHUB_REF_NAME}:refs/tags/${GITHUB_REF_NAME}"
           git tag -l --format='%(contents)' "$GITHUB_REF_NAME" > /tmp/release-notes.md
           cat >> /tmp/release-notes.md <<NOTES
 
