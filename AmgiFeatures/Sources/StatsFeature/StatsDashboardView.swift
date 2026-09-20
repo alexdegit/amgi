@@ -39,7 +39,7 @@ package struct StatsDashboardView: View {
             isRefreshing: model.isRefreshing
         )
         .scrollContentBackground(.hidden)
-        .background(palette.surface)
+        .background(palette.background)
         .navigationTitle("Statistics")
         .task(id: refreshID) { await model.loadDecks() }
         .task(id: query) { await reloadStats() }

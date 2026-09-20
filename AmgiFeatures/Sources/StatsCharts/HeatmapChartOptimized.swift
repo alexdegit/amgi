@@ -86,7 +86,6 @@ public struct HeatmapChartOptimized: View {
     public var body: some View {
         AmgiCard(
             background: .surface,
-            shadow: palette.shadows.sm,
             cornerRadius: AmgiRadius.inset,
             contentInsets: EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16)
         ) {
@@ -102,34 +101,38 @@ public struct HeatmapChartOptimized: View {
 private extension HeatmapChartOptimized {
     func heatmapContent() -> some View {
         VStack(alignment: .leading, spacing: 8) {
-            HStack {
-                Text("Reviews")
+            HStack(alignment: .top) {
+                Text("Heatmap")
                     .amgiFont(.sectionHeading)
                     .foregroundStyle(palette.textPrimary)
                     .frame(maxWidth: .infinity, alignment: .leading)
 
-                #if !os(watchOS)
-                if !isCompact {
-                    Menu {
-                        ForEach([30, 90, 180, 365, 730], id: \.self) { days in
-                            Button(dateRangeLabel(days)) {
-                                Task {
-                                    await updateDateRange(days)
+                // Range picker and streak stack instead of sharing the title's
+                // row — on narrow widths all three together truncate the title.
+                VStack(alignment: .trailing, spacing: AmgiSpacing.xxs) {
+                    #if !os(watchOS)
+                    if !isCompact {
+                        Menu {
+                            ForEach([30, 90, 180, 365, 730], id: \.self) { days in
+                                Button(dateRangeLabel(days)) {
+                                    Task {
+                                        await updateDateRange(days)
+                                    }
                                 }
                             }
+                        } label: {
+                            Label(dateRangeLabel(selectedDateRange), systemImage: "line.horizontal.3.decrease.circle")
+                                .amgiFont(.caption)
+                                .foregroundStyle(palette.accent)
                         }
-                    } label: {
-                        Label(dateRangeLabel(selectedDateRange), systemImage: "line.horizontal.3.decrease.circle")
-                            .amgiFont(.caption)
-                            .foregroundStyle(palette.accent)
                     }
-                }
-                #endif
+                    #endif
 
-                if currentStreak > 0 {
-                    Label("\(currentStreak)-day streak", systemImage: "flame.fill")
-                        .amgiFont(.captionBold)
-                        .foregroundStyle(palette.warning)
+                    if currentStreak > 0 {
+                        Label("\(currentStreak)-day streak", systemImage: "flame.fill")
+                            .amgiFont(.micro)
+                            .foregroundStyle(palette.warning)
+                    }
                 }
             }
 
