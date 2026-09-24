@@ -20,7 +20,7 @@
 	<array>
 		<dict>
 			<key>CFBundleURLName</key>
-			<string>com.amgiapp.AmgiApp</string>
+			<string>com.alexdegit.AmgiApp</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>amgi</string>
