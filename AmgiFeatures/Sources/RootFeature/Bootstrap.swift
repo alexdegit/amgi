@@ -46,7 +46,7 @@ public enum AmgiRoot {
         // available as an explicit action in Settings > Maintenance.
         do {
             try prepareDependencies {
-                let backend = try AnkiBackend(preferredLangs: ["en"])
+                let backend = try AnkiBackend(preferredLangs: BackendLanguage.current)
                 try openCollection(for: activeProfile.id, backend: backend)
                 $0.ankiBackend = backend
                 $0.syncCoordinator = SyncCoordinator()

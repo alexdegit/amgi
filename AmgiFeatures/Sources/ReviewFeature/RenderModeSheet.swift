@@ -15,17 +15,17 @@ import ReviewCore
 extension CardRenderEngine {
     package var displayName: String {
         switch self {
-        case .auto: "Auto"
-        case .alwaysNative: "Native"
+        case .auto: String(localized: "Auto")
+        case .alwaysNative: String(localized: "Native")
         case .alwaysHTML: "HTML"
         }
     }
 
     package var summary: String {
         switch self {
-        case .auto: "Use the built-in renderer for simple cards, and the card's own template for the rest."
-        case .alwaysNative: "Use the built-in renderer wherever the card allows it."
-        case .alwaysHTML: "Always use the card's own template."
+        case .auto: String(localized: "Use the built-in renderer for simple cards, and the card's own template for the rest.")
+        case .alwaysNative: String(localized: "Use the built-in renderer wherever the card allows it.")
+        case .alwaysHTML: String(localized: "Always use the card's own template.")
         }
     }
 }
@@ -67,7 +67,7 @@ struct RenderModeSheet: View {
                             Text("HTML").tag(CardRenderEngine?.some(.alwaysHTML))
                         }
                     } header: {
-                        Text(templateName.map { "Template · \($0)" } ?? "This template")
+                        Text(templateName.map { String(localized: "Template · \($0)") } ?? String(localized: "This template"))
                     } footer: {
                         Text("Overrides the global choice for every card of this template. Stored on this device only.")
                     }

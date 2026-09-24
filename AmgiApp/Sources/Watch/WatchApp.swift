@@ -65,7 +65,7 @@ struct WatchApp: App {
 
     private static func setUpBackend() throws {
         try prepareDependencies {
-            let backend = try AnkiBackend(preferredLangs: ["en"])
+            let backend = try AnkiBackend(preferredLangs: BackendLanguage.current)
             // Unprofiled path on purpose: the watch is a separate device
             // container with no profile registry, so it always resolves to
             // the "default" scope (see AnkiKit.ProfileScope). It is not the

@@ -122,6 +122,11 @@ let package = Package(
             swiftSettings: sharedSwiftSettings
         ),
         .testTarget(
+            name: "AnkiBackendTests",
+            dependencies: ["AnkiBackend"],
+            swiftSettings: interopSwiftSettings
+        ),
+        .testTarget(
             name: "AnkiProtoBridgeTests",
             dependencies: ["AnkiProtoBridge", "AnkiProto"],
             swiftSettings: sharedSwiftSettings

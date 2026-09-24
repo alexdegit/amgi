@@ -40,6 +40,13 @@
     {
       "target" : {
         "containerPath" : "container:..",
+        "identifier" : "AnkiBackendTests",
+        "name" : "AnkiBackendTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..",
         "identifier" : "AmgiCardWebTests",
         "name" : "AmgiCardWebTests"
       }

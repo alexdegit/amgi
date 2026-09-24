@@ -1,0 +1,2318 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "" : {
+      "extractionState" : "manual"
+    },
+    "\"%@\" will be removed and decks using it will switch to \"%@\"." : {
+      "extractionState" : "manual"
+    },
+    "%@" : {
+      "extractionState" : "manual"
+    },
+    "%@ correct" : {
+      "extractionState" : "manual"
+    },
+    "%@, %@" : {
+      "extractionState" : "manual"
+    },
+    "%@, next in %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@，下次 %2$@"
+          }
+        }
+      }
+    },
+    "%lld" : {
+      "extractionState" : "manual"
+    },
+    "%lld cards" : {
+      "extractionState" : "manual"
+    },
+    "%lld day streak" : {
+      "extractionState" : "manual"
+    },
+    "%lld deck%@" : {
+      "extractionState" : "manual"
+    },
+    "%lld group%@" : {
+      "extractionState" : "manual"
+    },
+    "%lld masks" : {
+      "extractionState" : "manual"
+    },
+    "%lld missing files" : {
+      "extractionState" : "manual"
+    },
+    "%lld notes" : {
+      "extractionState" : "manual"
+    },
+    "%lld of %lld" : {
+      "extractionState" : "manual"
+    },
+    "%lld of %lld cards empty" : {
+      "extractionState" : "manual"
+    },
+    "%lld pt" : {
+      "extractionState" : "manual"
+    },
+    "%lld review%@" : {
+      "extractionState" : "manual"
+    },
+    "%lld reviewed today · %lld remaining" : {
+      "extractionState" : "manual"
+    },
+    "%lld total" : {
+      "extractionState" : "manual"
+    },
+    "%lld unused files" : {
+      "extractionState" : "manual"
+    },
+    "%lld%%" : {
+      "extractionState" : "manual"
+    },
+    "%lld%% ease" : {
+      "extractionState" : "manual"
+    },
+    "%lld%% · font: %@" : {
+      "extractionState" : "manual"
+    },
+    "%lld-day streak" : {
+      "extractionState" : "manual"
+    },
+    "%lld/%lld" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld/%2$lld"
+          }
+        }
+      }
+    },
+    "%u%%" : {
+      "extractionState" : "manual"
+    },
+    "---" : {
+      "extractionState" : "manual"
+    },
+    "0 = today, 1 = tomorrow, 3-7 = a random day in that range. Append ! to also reset the interval, e.g. 3!." : {
+      "extractionState" : "manual"
+    },
+    "10m" : {
+      "extractionState" : "manual"
+    },
+    "1m 10m" : {
+      "extractionState" : "manual"
+    },
+    "ALL BOOKS" : {
+      "extractionState" : "manual"
+    },
+    "Aa" : {
+      "extractionState" : "manual"
+    },
+    "About" : {
+      "extractionState" : "manual"
+    },
+    "Account actions" : {
+      "extractionState" : "manual"
+    },
+    "Accuracy: %lld%%" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正确率：%lld%%"
+          }
+        }
+      }
+    },
+    "Action failed" : {
+      "extractionState" : "manual"
+    },
+    "Activity" : {
+      "extractionState" : "manual"
+    },
+    "Add" : {
+      "extractionState" : "manual"
+    },
+    "Add Image Occlusion" : {
+      "extractionState" : "manual"
+    },
+    "Add Note" : {
+      "extractionState" : "manual"
+    },
+    "Add Note…" : {
+      "extractionState" : "manual"
+    },
+    "Add Preset…" : {
+      "extractionState" : "manual"
+    },
+    "Add Tag" : {
+      "extractionState" : "manual"
+    },
+    "Add an Anki deck to get started." : {
+      "extractionState" : "manual"
+    },
+    "Add new tag" : {
+      "extractionState" : "manual"
+    },
+    "Add tags to %lld note%@" : {
+      "extractionState" : "manual"
+    },
+    "Additional cards: %lld" : {
+      "extractionState" : "manual"
+    },
+    "Advanced (SM-2)" : {
+      "extractionState" : "manual"
+    },
+    "After answer" : {
+      "extractionState" : "manual"
+    },
+    "After question" : {
+      "extractionState" : "manual"
+    },
+    "After reviews" : {
+      "extractionState" : "manual"
+    },
+    "Again" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重来"
+          }
+        }
+      }
+    },
+    "All Tags" : {
+      "extractionState" : "manual"
+    },
+    "Already up to date." : {
+      "extractionState" : "manual"
+    },
+    "Always use the card's own template." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "始终使用卡片自带的模板。"
+          }
+        }
+      }
+    },
+    "Amgi" : {
+      "extractionState" : "manual"
+    },
+    "Amgi shows each card exactly when you're about to forget. The longer you remember, the rarer it returns." : {
+      "extractionState" : "manual"
+    },
+    "Amgi · v%@ · Built with care" : {
+      "extractionState" : "manual"
+    },
+    "AnkiWeb is supported by sales of AnkiMobile. Please consider purchasing a copy to support the sync servers." : {
+      "extractionState" : "manual"
+    },
+    "Answer Again" : {
+      "extractionState" : "manual"
+    },
+    "Answer Buttons" : {
+      "extractionState" : "manual"
+    },
+    "Answer Good" : {
+      "extractionState" : "manual"
+    },
+    "Answer Hard" : {
+      "extractionState" : "manual"
+    },
+    "Answer timer" : {
+      "extractionState" : "manual"
+    },
+    "Appearance" : {
+      "extractionState" : "manual"
+    },
+    "Apply" : {
+      "extractionState" : "manual"
+    },
+    "Apply all parent limits" : {
+      "extractionState" : "manual"
+    },
+    "Apply to %lld note%@" : {
+      "extractionState" : "manual"
+    },
+    "Apply to subdecks" : {
+      "extractionState" : "manual"
+    },
+    "Audio" : {
+      "extractionState" : "manual"
+    },
+    "Auto" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自动"
+          }
+        }
+      }
+    },
+    "Auto-advance" : {
+      "extractionState" : "manual"
+    },
+    "Autoplay audio" : {
+      "extractionState" : "manual"
+    },
+    "Available Tags" : {
+      "extractionState" : "manual"
+    },
+    "Avg: %@" : {
+      "extractionState" : "manual"
+    },
+    "Back" : {
+      "extractionState" : "manual"
+    },
+    "Backup saved" : {
+      "extractionState" : "manual"
+    },
+    "Backups" : {
+      "extractionState" : "manual"
+    },
+    "Backups live in this device's Documents folder for the current profile. Use Share to copy a backup to Files, iCloud Drive, or another device." : {
+      "extractionState" : "manual"
+    },
+    "Before reviews" : {
+      "extractionState" : "manual"
+    },
+    "Begin session · %lld cards" : {
+      "extractionState" : "manual"
+    },
+    "Blue flag" : {
+      "extractionState" : "manual"
+    },
+    "Body text in the active palette." : {
+      "extractionState" : "manual"
+    },
+    "Book ID" : {
+      "extractionState" : "manual"
+    },
+    "Book ID field" : {
+      "extractionState" : "manual"
+    },
+    "Book cover" : {
+      "extractionState" : "manual"
+    },
+    "Book title" : {
+      "extractionState" : "manual"
+    },
+    "Book title field" : {
+      "extractionState" : "manual"
+    },
+    "Browse" : {
+      "extractionState" : "manual"
+    },
+    "Browse Notes" : {
+      "extractionState" : "manual"
+    },
+    "Built-in Reader" : {
+      "extractionState" : "manual"
+    },
+    "Bury Card Until Tomorrow" : {
+      "extractionState" : "manual"
+    },
+    "Bury Note" : {
+      "extractionState" : "manual"
+    },
+    "Bury card" : {
+      "extractionState" : "manual"
+    },
+    "Bury interday-learning siblings" : {
+      "extractionState" : "manual"
+    },
+    "Bury new siblings" : {
+      "extractionState" : "manual"
+    },
+    "Bury review siblings" : {
+      "extractionState" : "manual"
+    },
+    "Bury siblings" : {
+      "extractionState" : "manual"
+    },
+    "Button" : {
+      "extractionState" : "manual"
+    },
+    "CHAPTERS" : {
+      "extractionState" : "manual"
+    },
+    "CONTINUE READING" : {
+      "extractionState" : "manual"
+    },
+    "Cancel" : {
+      "extractionState" : "manual"
+    },
+    "Card %lld of %lld" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "第 %1$lld 张，共 %2$lld 张"
+          }
+        }
+      }
+    },
+    "Card Counts" : {
+      "extractionState" : "manual"
+    },
+    "Card Ease" : {
+      "extractionState" : "manual"
+    },
+    "Card Menu:" : {
+      "extractionState" : "manual"
+    },
+    "Card Rendering" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "卡片渲染"
+          }
+        }
+      }
+    },
+    "Card Templates" : {
+      "extractionState" : "manual"
+    },
+    "Card actions" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "卡片操作"
+          }
+        }
+      }
+    },
+    "Card template, then gather order" : {
+      "extractionState" : "manual"
+    },
+    "Card template, then random" : {
+      "extractionState" : "manual"
+    },
+    "Cards" : {
+      "extractionState" : "manual"
+    },
+    "Cards Added" : {
+      "extractionState" : "manual"
+    },
+    "Cards Due" : {
+      "extractionState" : "manual"
+    },
+    "Cards will be returned to their home decks." : {
+      "extractionState" : "manual"
+    },
+    "Center" : {
+      "extractionState" : "manual"
+    },
+    "Change Server" : {
+      "extractionState" : "manual"
+    },
+    "Chapter %@" : {
+      "extractionState" : "manual"
+    },
+    "Chapter order" : {
+      "extractionState" : "manual"
+    },
+    "Chapter order field" : {
+      "extractionState" : "manual"
+    },
+    "Chapter title" : {
+      "extractionState" : "manual"
+    },
+    "Chapter title field" : {
+      "extractionState" : "manual"
+    },
+    "Choose Deck" : {
+      "extractionState" : "manual"
+    },
+    "Choose how to sync your collection" : {
+      "extractionState" : "manual"
+    },
+    "Clear Unused Tags" : {
+      "extractionState" : "manual"
+    },
+    "Clear flag" : {
+      "extractionState" : "manual"
+    },
+    "Close" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "关闭"
+          }
+        }
+      }
+    },
+    "Code Editor" : {
+      "extractionState" : "manual"
+    },
+    "Collection" : {
+      "extractionState" : "manual"
+    },
+    "Collection removed. Quit and reopen Amgi, then sync to restore your cards." : {
+      "extractionState" : "manual"
+    },
+    "Congratulations!" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "恭喜！"
+          }
+        }
+      }
+    },
+    "Content" : {
+      "extractionState" : "manual"
+    },
+    "Content field" : {
+      "extractionState" : "manual"
+    },
+    "Continue" : {
+      "extractionState" : "manual"
+    },
+    "Continue · %lld%%" : {
+      "extractionState" : "manual"
+    },
+    "Correct %" : {
+      "extractionState" : "manual"
+    },
+    "Couldn't %@" : {
+      "extractionState" : "manual"
+    },
+    "Couldn't Check for Duplicates" : {
+      "extractionState" : "manual"
+    },
+    "Couldn't Load Decks" : {
+      "extractionState" : "manual"
+    },
+    "Couldn't Load Stats" : {
+      "extractionState" : "manual"
+    },
+    "Couldn't Start Reviewing" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法开始复习"
+          }
+        }
+      }
+    },
+    "Couldn't create backup" : {
+      "extractionState" : "manual"
+    },
+    "Couldn't create deck" : {
+      "extractionState" : "manual"
+    },
+    "Couldn't delete profile" : {
+      "extractionState" : "manual"
+    },
+    "Couldn't import deck" : {
+      "extractionState" : "manual"
+    },
+    "Couldn't load books" : {
+      "extractionState" : "manual"
+    },
+    "Couldn't open your collection" : {
+      "extractionState" : "manual"
+    },
+    "Couldn't rename deck" : {
+      "extractionState" : "manual"
+    },
+    "Couldn't save that review" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未能保存这次复习"
+          }
+        }
+      }
+    },
+    "Couldn't switch profile" : {
+      "extractionState" : "manual"
+    },
+    "Couldn't update media" : {
+      "extractionState" : "manual"
+    },
+    "Couldn't update notetype" : {
+      "extractionState" : "manual"
+    },
+    "Couldn't update tags" : {
+      "extractionState" : "manual"
+    },
+    "Count" : {
+      "extractionState" : "manual"
+    },
+    "Create" : {
+      "extractionState" : "manual"
+    },
+    "Create & Apply" : {
+      "extractionState" : "manual"
+    },
+    "Create Deck" : {
+      "extractionState" : "manual"
+    },
+    "Create Subdeck…" : {
+      "extractionState" : "manual"
+    },
+    "Create Tag" : {
+      "extractionState" : "manual"
+    },
+    "Create backup now" : {
+      "extractionState" : "manual"
+    },
+    "Created %@" : {
+      "extractionState" : "manual"
+    },
+    "Creating backup…" : {
+      "extractionState" : "manual"
+    },
+    "Custom" : {
+      "extractionState" : "manual"
+    },
+    "Custom Server" : {
+      "extractionState" : "manual"
+    },
+    "Custom Study" : {
+      "extractionState" : "manual"
+    },
+    "Custom study deck" : {
+      "extractionState" : "manual"
+    },
+    "DUE NOW" : {
+      "extractionState" : "manual"
+    },
+    "Daily Limits" : {
+      "extractionState" : "manual"
+    },
+    "Dark" : {
+      "extractionState" : "manual"
+    },
+    "Day" : {
+      "extractionState" : "manual"
+    },
+    "Day, then deck" : {
+      "extractionState" : "manual"
+    },
+    "Days" : {
+      "extractionState" : "manual"
+    },
+    "Days: %lld" : {
+      "extractionState" : "manual"
+    },
+    "Deck" : {
+      "extractionState" : "manual"
+    },
+    "Deck Options" : {
+      "extractionState" : "manual"
+    },
+    "Deck Options…" : {
+      "extractionState" : "manual"
+    },
+    "Deck filter" : {
+      "extractionState" : "manual"
+    },
+    "Deck name" : {
+      "extractionState" : "manual"
+    },
+    "Deck name, use :: for subdecks" : {
+      "extractionState" : "manual"
+    },
+    "Deck view" : {
+      "extractionState" : "manual"
+    },
+    "Deck, then day" : {
+      "extractionState" : "manual"
+    },
+    "Deck, then random notes" : {
+      "extractionState" : "manual"
+    },
+    "Deck: %@" : {
+      "extractionState" : "manual"
+    },
+    "Decks" : {
+      "extractionState" : "manual"
+    },
+    "Decrease text size" : {
+      "extractionState" : "manual"
+    },
+    "Default" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "默认"
+          }
+        }
+      }
+    },
+    "Delete" : {
+      "extractionState" : "manual"
+    },
+    "Delete \"%@\"?" : {
+      "extractionState" : "manual"
+    },
+    "Delete \"%@\"? Cards using this notetype will be removed too." : {
+      "extractionState" : "manual"
+    },
+    "Delete \"%@\"? This will remove it from all notes." : {
+      "extractionState" : "manual"
+    },
+    "Delete %@?" : {
+      "extractionState" : "manual"
+    },
+    "Delete %lld empty cards? This cannot be undone." : {
+      "extractionState" : "manual"
+    },
+    "Delete %lld note%@?" : {
+      "extractionState" : "manual"
+    },
+    "Delete All Empty Cards" : {
+      "extractionState" : "manual"
+    },
+    "Delete All Empty Cards…" : {
+      "extractionState" : "manual"
+    },
+    "Delete Collection" : {
+      "extractionState" : "manual"
+    },
+    "Delete Note" : {
+      "extractionState" : "manual"
+    },
+    "Delete Preset" : {
+      "extractionState" : "manual"
+    },
+    "Delete Tag?" : {
+      "extractionState" : "manual"
+    },
+    "Delete backup?" : {
+      "extractionState" : "manual"
+    },
+    "Delete empty cards?" : {
+      "extractionState" : "manual"
+    },
+    "Delete notetype" : {
+      "extractionState" : "manual"
+    },
+    "Delete profile and files" : {
+      "extractionState" : "manual"
+    },
+    "Delete profile only" : {
+      "extractionState" : "manual"
+    },
+    "Delete the backup from %@?" : {
+      "extractionState" : "manual"
+    },
+    "Delete this note?" : {
+      "extractionState" : "manual"
+    },
+    "Deletes the local collection and sync credentials for this profile. Other profiles are untouched." : {
+      "extractionState" : "manual"
+    },
+    "Dictionaries" : {
+      "extractionState" : "manual"
+    },
+    "Dictionary" : {
+      "extractionState" : "manual"
+    },
+    "Dictionary lookup engine is still a placeholder — full hoshidicts integration is pending." : {
+      "extractionState" : "manual"
+    },
+    "Disable" : {
+      "extractionState" : "manual"
+    },
+    "Disable Sync?" : {
+      "extractionState" : "manual"
+    },
+    "Disable autoplay audio" : {
+      "extractionState" : "manual"
+    },
+    "Discard" : {
+      "extractionState" : "manual"
+    },
+    "Discard changes?" : {
+      "extractionState" : "manual"
+    },
+    "Discard this note?" : {
+      "extractionState" : "manual"
+    },
+    "Dismisses this message" : {
+      "extractionState" : "manual"
+    },
+    "Distribution of card recall probability" : {
+      "extractionState" : "manual"
+    },
+    "Done" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "完成"
+          }
+        }
+      }
+    },
+    "Done today" : {
+      "extractionState" : "manual"
+    },
+    "Duplicates" : {
+      "extractionState" : "manual"
+    },
+    "EPUB" : {
+      "extractionState" : "manual"
+    },
+    "Each profile keeps its own collection, sync login, and review history. Switching applies immediately." : {
+      "extractionState" : "manual"
+    },
+    "Ease" : {
+      "extractionState" : "manual"
+    },
+    "Easy" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "简单"
+          }
+        }
+      }
+    },
+    "Easy Days" : {
+      "extractionState" : "manual"
+    },
+    "Easy interval: %dd" : {
+      "extractionState" : "manual"
+    },
+    "Edit" : {
+      "extractionState" : "manual"
+    },
+    "Edit Image Occlusion" : {
+      "extractionState" : "manual"
+    },
+    "Edit Note" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "编辑笔记"
+          }
+        }
+      }
+    },
+    "Edit Template" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "编辑模板"
+          }
+        }
+      }
+    },
+    "Empty" : {
+      "extractionState" : "manual"
+    },
+    "Empty Cards" : {
+      "extractionState" : "manual"
+    },
+    "Empty Trash" : {
+      "extractionState" : "manual"
+    },
+    "Empty cards deleted" : {
+      "extractionState" : "manual"
+    },
+    "Empty trash" : {
+      "extractionState" : "manual"
+    },
+    "Empty trash?" : {
+      "extractionState" : "manual"
+    },
+    "Empty trash…" : {
+      "extractionState" : "manual"
+    },
+    "Enable FSRS" : {
+      "extractionState" : "manual"
+    },
+    "Enable FSRS to configure Easy Days." : {
+      "extractionState" : "manual"
+    },
+    "End of book" : {
+      "extractionState" : "manual"
+    },
+    "Engine not ready" : {
+      "extractionState" : "manual"
+    },
+    "Enter a new name for \"%@\". It will be updated on all notes that use it." : {
+      "extractionState" : "manual"
+    },
+    "Enter prompt text" : {
+      "extractionState" : "manual"
+    },
+    "Enter the URL of your Anki sync server (e.g. https://sync.example.com)." : {
+      "extractionState" : "manual"
+    },
+    "Every tag in your collection is still in use." : {
+      "extractionState" : "manual"
+    },
+    "Everything up to date" : {
+      "extractionState" : "manual"
+    },
+    "Existing tags" : {
+      "extractionState" : "manual"
+    },
+    "Export Deck…" : {
+      "extractionState" : "manual"
+    },
+    "Extra info shown on the back" : {
+      "extractionState" : "manual"
+    },
+    "FSRS" : {
+      "extractionState" : "manual"
+    },
+    "FSRS Simulator" : {
+      "extractionState" : "manual"
+    },
+    "Field editor coming soon." : {
+      "extractionState" : "manual"
+    },
+    "Field mapping" : {
+      "extractionState" : "manual"
+    },
+    "Field names from the notetype that holds your book chapters. Each note becomes a chapter; chapters with the same Book ID collapse into one book." : {
+      "extractionState" : "manual"
+    },
+    "Fields" : {
+      "extractionState" : "manual"
+    },
+    "Files include the Anki collection, media, and per-profile sync state. Deleting only the profile leaves the files on disk; you can re-add the profile to recover." : {
+      "extractionState" : "manual"
+    },
+    "Filtered" : {
+      "extractionState" : "manual"
+    },
+    "Find" : {
+      "extractionState" : "manual"
+    },
+    "Find Duplicates" : {
+      "extractionState" : "manual"
+    },
+    "Flag" : {
+      "extractionState" : "manual"
+    },
+    "Font" : {
+      "extractionState" : "manual"
+    },
+    "Font Size" : {
+      "extractionState" : "manual"
+    },
+    "Forget Card" : {
+      "extractionState" : "manual"
+    },
+    "Found %lld notes with empty cards" : {
+      "extractionState" : "manual"
+    },
+    "Frequency" : {
+      "extractionState" : "manual"
+    },
+    "Full Sync Required" : {
+      "extractionState" : "manual"
+    },
+    "Full report" : {
+      "extractionState" : "manual"
+    },
+    "Future Due" : {
+      "extractionState" : "manual"
+    },
+    "Gather order" : {
+      "extractionState" : "manual"
+    },
+    "Get Cards Due" : {
+      "extractionState" : "manual"
+    },
+    "Good" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "良好"
+          }
+        }
+      }
+    },
+    "Graduating interval: %dd" : {
+      "extractionState" : "manual"
+    },
+    "Green flag" : {
+      "extractionState" : "manual"
+    },
+    "HTML" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "HTML"
+          }
+        }
+      }
+    },
+    "Hard" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "困难"
+          }
+        }
+      }
+    },
+    "Header" : {
+      "extractionState" : "manual"
+    },
+    "Heatmap" : {
+      "extractionState" : "manual"
+    },
+    "Help Me Decide (Workload)" : {
+      "extractionState" : "manual"
+    },
+    "Hour" : {
+      "extractionState" : "manual"
+    },
+    "Hourly Breakdown" : {
+      "extractionState" : "manual"
+    },
+    "How it works" : {
+      "extractionState" : "manual"
+    },
+    "If you sync, your cards are safe on the server and will come back after a reset." : {
+      "extractionState" : "manual"
+    },
+    "Image" : {
+      "extractionState" : "manual"
+    },
+    "Image Occlusion" : {
+      "extractionState" : "manual"
+    },
+    "Import %@ archive…" : {
+      "extractionState" : "manual"
+    },
+    "Import Deck…" : {
+      "extractionState" : "manual"
+    },
+    "Import EPUB" : {
+      "extractionState" : "manual"
+    },
+    "Import EPUB…" : {
+      "extractionState" : "manual"
+    },
+    "Import a book and look up unfamiliar words as you read, without leaving the page." : {
+      "extractionState" : "manual"
+    },
+    "Import a deck and start reviewing. Five minutes a day is all it takes." : {
+      "extractionState" : "manual"
+    },
+    "Import an EPUB or configure a deck of notes to start reading." : {
+      "extractionState" : "manual"
+    },
+    "Import failed" : {
+      "extractionState" : "manual"
+    },
+    "Include Backlog" : {
+      "extractionState" : "manual"
+    },
+    "Increase New Limit…" : {
+      "extractionState" : "manual"
+    },
+    "Increase Review Limit…" : {
+      "extractionState" : "manual"
+    },
+    "Increase text size" : {
+      "extractionState" : "manual"
+    },
+    "Insert field" : {
+      "extractionState" : "manual"
+    },
+    "Interday learning mix" : {
+      "extractionState" : "manual"
+    },
+    "Interval" : {
+      "extractionState" : "manual"
+    },
+    "Intervals — ascending" : {
+      "extractionState" : "manual"
+    },
+    "Intervals — descending" : {
+      "extractionState" : "manual"
+    },
+    "Justify Text" : {
+      "extractionState" : "manual"
+    },
+    "Keeps cards from both sides; conflicts use newest" : {
+      "extractionState" : "manual"
+    },
+    "LAST 7 DAYS" : {
+      "extractionState" : "manual"
+    },
+    "Language" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "语言"
+          }
+        }
+      }
+    },
+    "Lapses" : {
+      "extractionState" : "manual"
+    },
+    "Learning steps" : {
+      "extractionState" : "manual"
+    },
+    "Leech action" : {
+      "extractionState" : "manual"
+    },
+    "Leech threshold: %d" : {
+      "extractionState" : "manual"
+    },
+    "Less" : {
+      "extractionState" : "manual"
+    },
+    "Let's build a habit." : {
+      "extractionState" : "manual"
+    },
+    "Library" : {
+      "extractionState" : "manual"
+    },
+    "Light" : {
+      "extractionState" : "manual"
+    },
+    "Line Height" : {
+      "extractionState" : "manual"
+    },
+    "Loading decks…" : {
+      "extractionState" : "manual"
+    },
+    "Loading statistics..." : {
+      "extractionState" : "manual"
+    },
+    "Local-only changes will be lost" : {
+      "extractionState" : "manual"
+    },
+    "Log Out" : {
+      "extractionState" : "manual"
+    },
+    "Log out?" : {
+      "extractionState" : "manual"
+    },
+    "Login" : {
+      "extractionState" : "manual"
+    },
+    "Logout" : {
+      "extractionState" : "manual"
+    },
+    "Look Up" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "查词"
+          }
+        }
+      }
+    },
+    "Look up word" : {
+      "extractionState" : "manual"
+    },
+    "Lookup" : {
+      "extractionState" : "manual"
+    },
+    "Lookup behavior" : {
+      "extractionState" : "manual"
+    },
+    "Lookup failed" : {
+      "extractionState" : "manual"
+    },
+    "Maintenance" : {
+      "extractionState" : "manual"
+    },
+    "Make note from selection" : {
+      "extractionState" : "manual"
+    },
+    "Make note from this entry" : {
+      "extractionState" : "manual"
+    },
+    "Manage Preset" : {
+      "extractionState" : "manual"
+    },
+    "Margins" : {
+      "extractionState" : "manual"
+    },
+    "Mark Note" : {
+      "extractionState" : "manual"
+    },
+    "Masks" : {
+      "extractionState" : "manual"
+    },
+    "Mature" : {
+      "extractionState" : "manual"
+    },
+    "Max answer seconds: %d" : {
+      "extractionState" : "manual"
+    },
+    "Max results: %lld" : {
+      "extractionState" : "manual"
+    },
+    "Maximum review interval: %dd" : {
+      "extractionState" : "manual"
+    },
+    "Media Check" : {
+      "extractionState" : "manual"
+    },
+    "Media Check Unavailable" : {
+      "extractionState" : "manual"
+    },
+    "Media updated" : {
+      "extractionState" : "manual"
+    },
+    "Merge (combine both)" : {
+      "extractionState" : "manual"
+    },
+    "Mix with reviews" : {
+      "extractionState" : "manual"
+    },
+    "Mixed by day" : {
+      "extractionState" : "manual"
+    },
+    "Mode" : {
+      "extractionState" : "manual"
+    },
+    "More" : {
+      "extractionState" : "manual"
+    },
+    "Native" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "原生"
+          }
+        }
+      }
+    },
+    "New Cards" : {
+      "extractionState" : "manual"
+    },
+    "New Deck" : {
+      "extractionState" : "manual"
+    },
+    "New Tag" : {
+      "extractionState" : "manual"
+    },
+    "New card insert order" : {
+      "extractionState" : "manual"
+    },
+    "New card sort order" : {
+      "extractionState" : "manual"
+    },
+    "New cards ignore review limit" : {
+      "extractionState" : "manual"
+    },
+    "New cards/day: %d" : {
+      "extractionState" : "manual"
+    },
+    "New gather priority" : {
+      "extractionState" : "manual"
+    },
+    "New name" : {
+      "extractionState" : "manual"
+    },
+    "New profile" : {
+      "extractionState" : "manual"
+    },
+    "New tag" : {
+      "extractionState" : "manual"
+    },
+    "New/day: %lld" : {
+      "extractionState" : "manual"
+    },
+    "New/review mix" : {
+      "extractionState" : "manual"
+    },
+    "No %@ dictionaries imported yet." : {
+      "extractionState" : "manual"
+    },
+    "No Decks" : {
+      "extractionState" : "manual"
+    },
+    "No Duplicates" : {
+      "extractionState" : "manual"
+    },
+    "No Overrides" : {
+      "extractionState" : "manual"
+    },
+    "No Server Configured" : {
+      "extractionState" : "manual"
+    },
+    "No Tags" : {
+      "extractionState" : "manual"
+    },
+    "No backups yet. Use “Create backup now” above to make one." : {
+      "extractionState" : "manual"
+    },
+    "No books yet" : {
+      "extractionState" : "manual"
+    },
+    "No button data" : {
+      "extractionState" : "manual"
+    },
+    "No cards" : {
+      "extractionState" : "manual"
+    },
+    "No cards added" : {
+      "extractionState" : "manual"
+    },
+    "No cards due" : {
+      "extractionState" : "manual"
+    },
+    "No decks yet" : {
+      "extractionState" : "manual"
+    },
+    "No ease data" : {
+      "extractionState" : "manual"
+    },
+    "No empty cards found" : {
+      "extractionState" : "manual"
+    },
+    "No interval data" : {
+      "extractionState" : "manual"
+    },
+    "No masks yet" : {
+      "extractionState" : "manual"
+    },
+    "No notetypes" : {
+      "extractionState" : "manual"
+    },
+    "No retrievability data yet" : {
+      "extractionState" : "manual"
+    },
+    "No review data" : {
+      "extractionState" : "manual"
+    },
+    "No reviews" : {
+      "extractionState" : "manual"
+    },
+    "No reviews yet" : {
+      "extractionState" : "manual"
+    },
+    "No tags yet" : {
+      "extractionState" : "manual"
+    },
+    "No two notes in your collection share a first field." : {
+      "extractionState" : "manual"
+    },
+    "Note Type" : {
+      "extractionState" : "manual"
+    },
+    "Note id: %lld" : {
+      "extractionState" : "manual"
+    },
+    "Notes are duplicates when their first fields match once formatting is ignored — the same rule Anki uses when it warns you while adding a note." : {
+      "extractionState" : "manual"
+    },
+    "Nothing due" : {
+      "extractionState" : "manual"
+    },
+    "Nothing due in %@." : {
+      "extractionState" : "manual"
+    },
+    "OK" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "好"
+          }
+        }
+      }
+    },
+    "Open Amgi once so it can publish its deck counts, then try again." : {
+      "extractionState" : "manual"
+    },
+    "Open FSRS Simulator" : {
+      "extractionState" : "manual"
+    },
+    "Opens Amgi and starts reviewing a deck." : {
+      "extractionState" : "manual"
+    },
+    "Optimize All Presets" : {
+      "extractionState" : "manual"
+    },
+    "Optimize Weights" : {
+      "extractionState" : "manual"
+    },
+    "Optimizing…" : {
+      "extractionState" : "manual"
+    },
+    "Optional" : {
+      "extractionState" : "manual"
+    },
+    "Orange flag" : {
+      "extractionState" : "manual"
+    },
+    "Order" : {
+      "extractionState" : "manual"
+    },
+    "Override" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "覆盖"
+          }
+        }
+      }
+    },
+    "Overrides the global choice for every card of this template. Stored on this device only." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "对此模板的所有卡片覆盖全局设置，仅保存在本设备上。"
+          }
+        }
+      }
+    },
+    "Password" : {
+      "extractionState" : "manual"
+    },
+    "Pause" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "暂停"
+          }
+        }
+      }
+    },
+    "Period" : {
+      "extractionState" : "manual"
+    },
+    "Permanently deletes the trashed media files. They can't be restored afterwards." : {
+      "extractionState" : "manual"
+    },
+    "Pick an image, draw occlusions over the regions you want to test, then save." : {
+      "extractionState" : "manual"
+    },
+    "Pick image" : {
+      "extractionState" : "manual"
+    },
+    "Pink flag" : {
+      "extractionState" : "manual"
+    },
+    "Pitch" : {
+      "extractionState" : "manual"
+    },
+    "Play" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "播放"
+          }
+        }
+      }
+    },
+    "Play pronunciation" : {
+      "extractionState" : "manual"
+    },
+    "Playback mode" : {
+      "extractionState" : "manual"
+    },
+    "Position — highest first" : {
+      "extractionState" : "manual"
+    },
+    "Position — lowest first" : {
+      "extractionState" : "manual"
+    },
+    "Preparing cards…" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在准备卡片…"
+          }
+        }
+      }
+    },
+    "Preset" : {
+      "extractionState" : "manual"
+    },
+    "Preview" : {
+      "extractionState" : "manual"
+    },
+    "Primary action" : {
+      "extractionState" : "manual"
+    },
+    "Profile name" : {
+      "extractionState" : "manual"
+    },
+    "Profile: %@" : {
+      "extractionState" : "manual"
+    },
+    "Profiles" : {
+      "extractionState" : "manual"
+    },
+    "Prompt" : {
+      "extractionState" : "manual"
+    },
+    "Purple flag" : {
+      "extractionState" : "manual"
+    },
+    "Random" : {
+      "extractionState" : "manual"
+    },
+    "Random cards" : {
+      "extractionState" : "manual"
+    },
+    "Random note, then template" : {
+      "extractionState" : "manual"
+    },
+    "Random notes" : {
+      "extractionState" : "manual"
+    },
+    "Read" : {
+      "extractionState" : "manual"
+    },
+    "Read. Tap. Remember." : {
+      "extractionState" : "manual"
+    },
+    "Reader Display" : {
+      "extractionState" : "manual"
+    },
+    "Reader Settings" : {
+      "extractionState" : "manual"
+    },
+    "Reader Setup" : {
+      "extractionState" : "manual"
+    },
+    "Reading Style" : {
+      "extractionState" : "manual"
+    },
+    "Reading progress" : {
+      "extractionState" : "manual"
+    },
+    "Reconfigure Reader" : {
+      "extractionState" : "manual"
+    },
+    "Red flag" : {
+      "extractionState" : "manual"
+    },
+    "Reduce the daily workload on specific weekdays. 100% means a normal day; lower values back off reviews on that day." : {
+      "extractionState" : "manual"
+    },
+    "Relearning steps" : {
+      "extractionState" : "manual"
+    },
+    "Reload library" : {
+      "extractionState" : "manual"
+    },
+    "Remember everything you learn — with cards that schedule themselves." : {
+      "extractionState" : "manual"
+    },
+    "Remove" : {
+      "extractionState" : "manual"
+    },
+    "Remove from %lld note%@" : {
+      "extractionState" : "manual"
+    },
+    "Removed %lld tag%@ that no note was using." : {
+      "extractionState" : "manual"
+    },
+    "Removes the server, credentials, and switches the app to local-only mode." : {
+      "extractionState" : "manual"
+    },
+    "Removes the stored credentials for this server. Your local collection is unaffected; you can sign in again at any time." : {
+      "extractionState" : "manual"
+    },
+    "Rename" : {
+      "extractionState" : "manual"
+    },
+    "Rename Deck" : {
+      "extractionState" : "manual"
+    },
+    "Rename Preset…" : {
+      "extractionState" : "manual"
+    },
+    "Rename Tag" : {
+      "extractionState" : "manual"
+    },
+    "Rename notetype" : {
+      "extractionState" : "manual"
+    },
+    "Rendering: %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "渲染方式：%@"
+          }
+        }
+      }
+    },
+    "Rendering: %@, automatic" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "渲染方式：%@，自动"
+          }
+        }
+      }
+    },
+    "Replace local with server" : {
+      "extractionState" : "manual"
+    },
+    "Replace server with local" : {
+      "extractionState" : "manual"
+    },
+    "Replay Audio" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重播音频"
+          }
+        }
+      }
+    },
+    "Report" : {
+      "extractionState" : "manual"
+    },
+    "Reports how many cards are waiting for review." : {
+      "extractionState" : "manual"
+    },
+    "Reset" : {
+      "extractionState" : "manual"
+    },
+    "Reset Everything?" : {
+      "extractionState" : "manual"
+    },
+    "Reset This Profile's Collection" : {
+      "extractionState" : "manual"
+    },
+    "Reset this profile's collection?" : {
+      "extractionState" : "manual"
+    },
+    "Restore trash" : {
+      "extractionState" : "manual"
+    },
+    "Resume" : {
+      "extractionState" : "manual"
+    },
+    "Retention vs cost" : {
+      "extractionState" : "manual"
+    },
+    "Retrievability" : {
+      "extractionState" : "manual"
+    },
+    "Retrievability — descending" : {
+      "extractionState" : "manual"
+    },
+    "Retry" : {
+      "extractionState" : "manual"
+    },
+    "Review" : {
+      "extractionState" : "manual"
+    },
+    "Review Intervals" : {
+      "extractionState" : "manual"
+    },
+    "Review activity" : {
+      "extractionState" : "manual"
+    },
+    "Review order" : {
+      "extractionState" : "manual"
+    },
+    "Review streak" : {
+      "extractionState" : "manual"
+    },
+    "Reviews" : {
+      "extractionState" : "manual"
+    },
+    "Reviews in the last 7 days" : {
+      "extractionState" : "manual"
+    },
+    "Reviews/day: %d" : {
+      "extractionState" : "manual"
+    },
+    "Reviews/day: %lld" : {
+      "extractionState" : "manual"
+    },
+    "Run FSRS health check on save" : {
+      "extractionState" : "manual"
+    },
+    "Run Simulation" : {
+      "extractionState" : "manual"
+    },
+    "Running…" : {
+      "extractionState" : "manual"
+    },
+    "Save" : {
+      "extractionState" : "manual"
+    },
+    "Save failed" : {
+      "extractionState" : "manual"
+    },
+    "Saved" : {
+      "extractionState" : "manual"
+    },
+    "Scan length: %lld" : {
+      "extractionState" : "manual"
+    },
+    "Search" : {
+      "extractionState" : "manual"
+    },
+    "Search Failed" : {
+      "extractionState" : "manual"
+    },
+    "Search books" : {
+      "extractionState" : "manual"
+    },
+    "Search by content, tags, or filter by deck." : {
+      "extractionState" : "manual"
+    },
+    "Search fields" : {
+      "extractionState" : "manual"
+    },
+    "Search notes..." : {
+      "extractionState" : "manual"
+    },
+    "Search notetypes" : {
+      "extractionState" : "manual"
+    },
+    "See your cards due today." : {
+      "extractionState" : "manual"
+    },
+    "Select" : {
+      "extractionState" : "manual"
+    },
+    "Select a deck" : {
+      "extractionState" : "manual"
+    },
+    "Select which deck to display." : {
+      "extractionState" : "manual"
+    },
+    "Selected Notes" : {
+      "extractionState" : "manual"
+    },
+    "Selected Retrievability" : {
+      "extractionState" : "manual"
+    },
+    "Sequential (oldest first)" : {
+      "extractionState" : "manual"
+    },
+    "Serif" : {
+      "extractionState" : "manual"
+    },
+    "Server" : {
+      "extractionState" : "manual"
+    },
+    "Server Setup" : {
+      "extractionState" : "manual"
+    },
+    "Server URL" : {
+      "extractionState" : "manual"
+    },
+    "Server-only changes will be lost" : {
+      "extractionState" : "manual"
+    },
+    "Set" : {
+      "extractionState" : "manual"
+    },
+    "Set Due Date" : {
+      "extractionState" : "manual"
+    },
+    "Set Up Anki Library" : {
+      "extractionState" : "manual"
+    },
+    "Set Up Server" : {
+      "extractionState" : "manual"
+    },
+    "Set one from the render-mode sheet while reviewing." : {
+      "extractionState" : "manual"
+    },
+    "Set up a sync server to keep your collection in sync across devices." : {
+      "extractionState" : "manual"
+    },
+    "Settings" : {
+      "extractionState" : "manual"
+    },
+    "Settings will be applied to this deck and any nested subdecks that share its preset." : {
+      "extractionState" : "manual"
+    },
+    "Share backup from %@" : {
+      "extractionState" : "manual"
+    },
+    "Show Answer" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "显示答案"
+          }
+        }
+      }
+    },
+    "Show answer" : {
+      "extractionState" : "manual"
+    },
+    "Show answer timer" : {
+      "extractionState" : "manual"
+    },
+    "Show in Library toolbar" : {
+      "extractionState" : "manual"
+    },
+    "Show reminder" : {
+      "extractionState" : "manual"
+    },
+    "Side" : {
+      "extractionState" : "manual"
+    },
+    "Sign In" : {
+      "extractionState" : "manual"
+    },
+    "Skip" : {
+      "extractionState" : "manual"
+    },
+    "Some changes didn't apply" : {
+      "extractionState" : "manual"
+    },
+    "Sort By" : {
+      "extractionState" : "manual"
+    },
+    "Source URL template" : {
+      "extractionState" : "manual"
+    },
+    "Space- or comma-separated parameters" : {
+      "extractionState" : "manual"
+    },
+    "Space-separated" : {
+      "extractionState" : "manual"
+    },
+    "Spaced repetition,\nbeautifully tuned." : {
+      "extractionState" : "manual"
+    },
+    "Spacing" : {
+      "extractionState" : "manual"
+    },
+    "Speak" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "朗读"
+          }
+        }
+      }
+    },
+    "Speak with TTS" : {
+      "extractionState" : "manual"
+    },
+    "Start learning" : {
+      "extractionState" : "manual"
+    },
+    "Start today's review" : {
+      "extractionState" : "manual"
+    },
+    "Statistics" : {
+      "extractionState" : "manual"
+    },
+    "Stats" : {
+      "extractionState" : "manual"
+    },
+    "Stay in sync" : {
+      "extractionState" : "manual"
+    },
+    "Step %lld of %lld" : {
+      "extractionState" : "manual"
+    },
+    "Stop Audio" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "停止音频"
+          }
+        }
+      }
+    },
+    "Stop timer on answer" : {
+      "extractionState" : "manual"
+    },
+    "Streak" : {
+      "extractionState" : "manual"
+    },
+    "Study" : {
+      "extractionState" : "manual"
+    },
+    "Study Deck" : {
+      "extractionState" : "manual"
+    },
+    "Study Now" : {
+      "extractionState" : "manual"
+    },
+    "Study now" : {
+      "extractionState" : "manual"
+    },
+    "Summary" : {
+      "extractionState" : "manual"
+    },
+    "Suspend" : {
+      "extractionState" : "manual"
+    },
+    "Suspend Card" : {
+      "extractionState" : "manual"
+    },
+    "Suspend Note" : {
+      "extractionState" : "manual"
+    },
+    "Suspend card" : {
+      "extractionState" : "manual"
+    },
+    "Switch Profile" : {
+      "extractionState" : "manual"
+    },
+    "Sync" : {
+      "extractionState" : "manual"
+    },
+    "Sync Collection" : {
+      "extractionState" : "manual"
+    },
+    "Sync Complete" : {
+      "extractionState" : "manual"
+    },
+    "Sync Failed" : {
+      "extractionState" : "manual"
+    },
+    "Sync Now" : {
+      "extractionState" : "manual"
+    },
+    "Sync Server" : {
+      "extractionState" : "manual"
+    },
+    "Sync failed: %@" : {
+      "extractionState" : "manual"
+    },
+    "Sync provided by AnkiWeb" : {
+      "extractionState" : "manual"
+    },
+    "Sync running" : {
+      "extractionState" : "manual"
+    },
+    "Sync server URL" : {
+      "extractionState" : "manual"
+    },
+    "Sync with your server, or create a deck to get started." : {
+      "extractionState" : "manual"
+    },
+    "Synced — ^[%lld change](inflect: true) up, ^[%lld change](inflect: true) down." : {
+      "extractionState" : "manual"
+    },
+    "Syncing is disabled" : {
+      "extractionState" : "manual"
+    },
+    "Syncs your collection with the sync server." : {
+      "extractionState" : "manual"
+    },
+    "System" : {
+      "extractionState" : "manual"
+    },
+    "Tag Name" : {
+      "extractionState" : "manual"
+    },
+    "Tag only" : {
+      "extractionState" : "manual"
+    },
+    "Tags" : {
+      "extractionState" : "manual"
+    },
+    "Tags (space-separated)" : {
+      "extractionState" : "manual"
+    },
+    "Tap a tag to act on %lld selected note%@" : {
+      "extractionState" : "manual"
+    },
+    "Tap and drag to draw a mask. Drag handles to resize." : {
+      "extractionState" : "manual"
+    },
+    "Tap the menu button below" : {
+      "extractionState" : "manual"
+    },
+    "Template Editor" : {
+      "extractionState" : "manual"
+    },
+    "Template Overrides" : {
+      "extractionState" : "manual"
+    },
+    "Template · %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "模板 · %@"
+          }
+        }
+      }
+    },
+    "Term" : {
+      "extractionState" : "manual"
+    },
+    "Text color" : {
+      "extractionState" : "manual"
+    },
+    "That deck is no longer available." : {
+      "extractionState" : "manual"
+    },
+    "The collection couldn't be searched." : {
+      "extractionState" : "manual"
+    },
+    "The new tag will be applied to %lld selected note%@." : {
+      "extractionState" : "manual"
+    },
+    "The note hasn't been added yet. Discarding loses what you typed." : {
+      "extractionState" : "manual"
+    },
+    "The note hasn't been saved yet. Discarding loses the image and its masks." : {
+      "extractionState" : "manual"
+    },
+    "The profile switcher is hidden automatically while you have only one profile. Profiles are always available here." : {
+      "extractionState" : "manual"
+    },
+    "These notes don't have any tags." : {
+      "extractionState" : "manual"
+    },
+    "This action cannot be undone." : {
+      "extractionState" : "manual"
+    },
+    "This cannot be undone" : {
+      "extractionState" : "manual"
+    },
+    "This card: %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "本卡片：%@"
+          }
+        }
+      }
+    },
+    "This collection has no notetypes yet." : {
+      "extractionState" : "manual"
+    },
+    "This deletes the active profile's collection database, media, and stored credentials. Other profiles are unaffected. The action cannot be undone." : {
+      "extractionState" : "manual"
+    },
+    "This deletes the note and all its cards. The action cannot be undone." : {
+      "extractionState" : "manual"
+    },
+    "This preset will be removed." : {
+      "extractionState" : "manual"
+    },
+    "This template" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此模板"
+          }
+        }
+      }
+    },
+    "This will permanently delete the deck and all its cards." : {
+      "extractionState" : "manual"
+    },
+    "Time period" : {
+      "extractionState" : "manual"
+    },
+    "Top" : {
+      "extractionState" : "manual"
+    },
+    "Trash unused files" : {
+      "extractionState" : "manual"
+    },
+    "True Retention" : {
+      "extractionState" : "manual"
+    },
+    "Try Again" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重试"
+          }
+        }
+      }
+    },
+    "Turquoise flag" : {
+      "extractionState" : "manual"
+    },
+    "Type" : {
+      "extractionState" : "manual"
+    },
+    "Type the answer" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "输入答案"
+          }
+        }
+      }
+    },
+    "Undo" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "撤销"
+          }
+        }
+      }
+    },
+    "Unmark Note" : {
+      "extractionState" : "manual"
+    },
+    "Unsaved changes" : {
+      "extractionState" : "manual"
+    },
+    "Unsaved changes will be lost." : {
+      "extractionState" : "manual"
+    },
+    "Unused Tags Cleared" : {
+      "extractionState" : "manual"
+    },
+    "Use Locally" : {
+      "extractionState" : "manual"
+    },
+    "Use the built-in renderer for simple cards, and the card's own template for the rest." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "简单卡片使用内置渲染器，其余卡片使用卡片自带的模板。"
+          }
+        }
+      }
+    },
+    "Use the built-in renderer wherever the card allows it." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "只要卡片支持，就使用内置渲染器。"
+          }
+        }
+      }
+    },
+    "Use {term} and {reading} placeholders. Endpoint must return Yomichan-style audioSourceList JSON." : {
+      "extractionState" : "manual"
+    },
+    "Used by" : {
+      "extractionState" : "manual"
+    },
+    "Username" : {
+      "extractionState" : "manual"
+    },
+    "View AnkiMobile in App Store" : {
+      "extractionState" : "manual"
+    },
+    "Wait for audio before answering" : {
+      "extractionState" : "manual"
+    },
+    "Weights" : {
+      "extractionState" : "manual"
+    },
+    "Welcome to" : {
+      "extractionState" : "manual"
+    },
+    "Whole Collection" : {
+      "extractionState" : "manual"
+    },
+    "Will also delete the note (all cards empty)" : {
+      "extractionState" : "manual"
+    },
+    "Word or phrase" : {
+      "extractionState" : "manual"
+    },
+    "Working…" : {
+      "extractionState" : "manual"
+    },
+    "Workload" : {
+      "extractionState" : "manual"
+    },
+    "You can change this anytime in sync settings" : {
+      "extractionState" : "manual"
+    },
+    "You can close this — syncing continues." : {
+      "extractionState" : "manual"
+    },
+    "You have unsaved changes to this deck's options. Discard them?" : {
+      "extractionState" : "manual"
+    },
+    "You have unsaved changes. Discard them?" : {
+      "extractionState" : "manual"
+    },
+    "You're ready" : {
+      "extractionState" : "manual"
+    },
+    "You've reviewed %lld cards" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "你已复习 %lld 张卡片"
+          }
+        }
+      }
+    },
+    "Young" : {
+      "extractionState" : "manual"
+    },
+    "Young %@, mature %@" : {
+      "extractionState" : "manual"
+    },
+    "Your collection has no tags yet." : {
+      "extractionState" : "manual"
+    },
+    "Your configured deck doesn't have any books yet. Import an EPUB or reconfigure your reader source." : {
+      "extractionState" : "manual"
+    },
+    "^[%lld card](inflect: true) due in %@." : {
+      "extractionState" : "manual"
+    },
+    "auto" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自动"
+          }
+        }
+      }
+    },
+    "cards due" : {
+      "extractionState" : "manual"
+    },
+    "cool, stylish, splendid" : {
+      "extractionState" : "manual"
+    },
+    "e.g. Korean" : {
+      "extractionState" : "manual"
+    },
+    "e.g. anatomy::heart" : {
+      "extractionState" : "manual"
+    },
+    "heatmap (R03)" : {
+      "extractionState" : "manual"
+    },
+    "https://sync.example.com" : {
+      "extractionState" : "manual"
+    },
+    "last tap: %@" : {
+      "extractionState" : "manual"
+    },
+    "layout: %@ · lang: %@" : {
+      "extractionState" : "manual"
+    },
+    "preset:\"…\" -is:suspended" : {
+      "extractionState" : "manual"
+    },
+    "rev %@" : {
+      "extractionState" : "manual"
+    },
+    "{{Front}}" : {
+      "extractionState" : "manual"
+    },
+    "…and %lld more" : {
+      "extractionState" : "manual"
+    },
+    "↑ %lld cards sent" : {
+      "extractionState" : "manual"
+    },
+    "↑ %lld notes sent" : {
+      "extractionState" : "manual"
+    },
+    "↓ %lld cards received" : {
+      "extractionState" : "manual"
+    },
+    "↓ %lld notes received" : {
+      "extractionState" : "manual"
+    },
+    "✓" : {
+      "extractionState" : "manual"
+    }
+  },
+  "version" : "1.0"
+}

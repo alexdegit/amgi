@@ -46,7 +46,9 @@ struct RenderModeChipRow: View {
             .contentShape(Rectangle())
         }
         .buttonStyle(.pressScale)
-        .accessibilityLabel("Rendering: \(isNative ? "Native" : "HTML")\(isAuto ? ", automatic" : "")")
+        .accessibilityLabel(isAuto
+            ? String(localized: "Rendering: \(isNative ? "Native" : "HTML"), automatic")
+            : String(localized: "Rendering: \(isNative ? "Native" : "HTML")"))
     }
 
     private var badge: some View {

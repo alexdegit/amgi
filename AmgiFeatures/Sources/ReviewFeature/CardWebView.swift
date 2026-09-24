@@ -206,8 +206,8 @@ struct CardWebView {
                 coordinator.lastContentSignature = contentSignature
                 coordinator.isPageLoaded = false
                 let htmlClass = Self.htmlClasses(isDarkMode: isDarkMode)
-                let playIconHTML = Self.audioButtonIconHTML(systemName: "play.circle", alt: "Play", isDarkMode: isDarkMode)
-                let pauseIconHTML = Self.audioButtonIconHTML(systemName: "pause.circle", alt: "Pause", isDarkMode: isDarkMode)
+                let playIconHTML = Self.audioButtonIconHTML(systemName: "play.circle", alt: String(localized: "Play"), isDarkMode: isDarkMode)
+                let pauseIconHTML = Self.audioButtonIconHTML(systemName: "pause.circle", alt: String(localized: "Pause"), isDarkMode: isDarkMode)
                 let baseTag = CardAssetPath.mediaBaseTag()
                 // Stash the show-card call so we can run it once the page finishes loading.
                 coordinator.pendingUpdateScript = showCardScript

@@ -11,6 +11,9 @@ package import AppCore
 import AppShared
 import BrowseFeature
 import TemplatesFeature
+#if canImport(UIKit)
+import UIKit
+#endif
 
 /// Settings, following the `amgi-settings.jsx` screen in the Amgi design
 /// project: native large-title navigation bar, grouped inset panels, tinted glyph
@@ -32,6 +35,7 @@ package struct SettingsView: View {
     }
 
     @Environment(\.palette) private var palette
+    @Environment(\.openURL) private var openURL
 
     @Environment(\.dictionarySettings) private var dictionarySettings
 
@@ -66,6 +70,22 @@ package struct SettingsView: View {
                 ) {
                     AppearanceSettingsView(manager: .shared)
                 }
+                #if canImport(UIKit)
+                SettingsSeparator()
+                SettingsRowButton(
+                    title: "Language",
+                    systemImage: "globe",
+                    tone: .info,
+                    detail: currentLanguageName
+                ) {
+                    // iOS owns per-app language: declaring the localizations is
+                    // what makes Settings > Amgi > Language appear. Switching
+                    // there relaunches the app in the new language.
+                    if let url = URL(string: UIApplication.openSettingsURLString) {
+                        openURL(url)
+                    }
+                }
+                #endif
                 #if canImport(UIKit)
                 SettingsSeparator()
                 SettingsRowLink(
@@ -229,6 +249,13 @@ package struct SettingsView: View {
                 }
             }
         }
+    }
+
+    /// The language this launch resolved to, named in that same language
+    /// ("简体中文", "English") so it reads correctly whichever one is active.
+    private var currentLanguageName: String? {
+        guard let code = Bundle.main.preferredLocalizations.first else { return nil }
+        return Locale(identifier: code).localizedString(forIdentifier: code)
     }
 
     private var footer: some View {

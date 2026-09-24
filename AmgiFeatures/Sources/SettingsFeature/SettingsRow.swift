@@ -119,6 +119,45 @@ struct SettingsRowLink<Destination: View>: View {
     }
 }
 
+/// A row that runs an action instead of pushing a screen — same chrome as
+/// `SettingsRowLink`, but the chevron points out of the app (`arrow.up.forward`)
+/// because the action hands off to another place, such as iOS Settings.
+struct SettingsRowButton: View {
+    @Environment(\.palette) private var palette
+
+    let title: LocalizedStringKey
+    let systemImage: String
+    let tone: SettingsTone
+    var detail: String?
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: AmgiSpacing.md) {
+                SettingsIconTile(systemImage: systemImage, tone: tone)
+                Text(title)
+                    .amgiFont(.body)
+                    .foregroundStyle(palette.textPrimary)
+                Spacer(minLength: AmgiSpacing.sm)
+                if let detail {
+                    Text(detail)
+                        .amgiFont(.body)
+                        .foregroundStyle(palette.textSecondary)
+                        .lineLimit(1)
+                }
+                Image(systemName: "arrow.up.forward")
+                    .font(.system(size: 13, weight: .semibold))
+                    .foregroundStyle(palette.textTertiary)
+            }
+            .padding(.horizontal, AmgiSpacing.lg)
+            .padding(.vertical, AmgiSpacing.md)
+            .frame(minHeight: 44)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.pressScale)
+    }
+}
+
 // MARK: - Group chrome
 
 /// The design's `.inset-group`: an elevated panel holding a run of rows.

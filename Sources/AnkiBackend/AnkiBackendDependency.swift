@@ -9,7 +9,7 @@ public import Dependencies
 
 private enum AnkiBackendKey: DependencyKey {
     static let liveValue: AnkiBackend = {
-        try! AnkiBackend(preferredLangs: ["en"])
+        try! AnkiBackend(preferredLangs: BackendLanguage.current)
     }()
 
     static let testValue: AnkiBackend = {
