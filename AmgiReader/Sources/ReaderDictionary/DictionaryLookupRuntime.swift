@@ -98,10 +98,10 @@ actor DictionaryLookupRuntime {
             switch self {
             case let .importFailed(files):
                 return files.isEmpty
-                    ? "Failed to import dictionary archive."
-                    : "Failed to import: \(files.joined(separator: ", "))."
+                    ? String(localized: "Failed to import dictionary archive.")
+                    : String(localized: "Failed to import: \(files.joined(separator: ", ")).")
             case let .dictionaryNotFound(id):
-                return "Dictionary not found: \(id)"
+                return String(localized: "Dictionary not found: \(id)")
             }
         }
     }

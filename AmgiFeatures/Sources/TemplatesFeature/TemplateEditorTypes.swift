@@ -6,6 +6,7 @@
 //
 
 import AnkiKit
+import Foundation
 
 /// Sheet payload identifying which notetype/template the editor should open.
 struct TemplateEditorTarget: Identifiable {
@@ -20,7 +21,7 @@ package enum TemplateEditorMode {
     case currentCard
 
     var title: String {
-        "Edit template"
+        String(localized: "Edit template")
     }
 
     var allowsTemplateSelection: Bool {
@@ -43,9 +44,9 @@ enum TemplateEditorTab: CaseIterable {
     var label: String {
         switch self {
         case .front:
-            return "Front template"
+            return String(localized: "Front template")
         case .back:
-            return "Back template"
+            return String(localized: "Back template")
         case .css:
             return "CSS"
         case .preview:

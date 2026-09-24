@@ -66,7 +66,7 @@ struct AccountsSettingsView: View {
             addProfileSheet
         }
         .confirmationDialog(
-            "Delete \(pendingDelete?.displayName ?? "")?",
+            String(localized: "Delete \(pendingDelete?.displayName ?? "")?"),
             isPresented: Binding($destination.confirmDelete),
             titleVisibility: .visible,
             presenting: pendingDelete

@@ -51,7 +51,7 @@ struct AboutView: View {
                     tone: .learning
                 )
             }
-            SettingsFootnote("Amgi uses the official Anki Rust backend. The backend code is licensed under AGPL-3.0 and remains the work of its authors.")
+            SettingsFootnote(String(localized: "Amgi uses the official Anki Rust backend. The backend code is licensed under AGPL-3.0 and remains the work of its authors."))
         }
         .navigationTitle("About")
         .navigationBarTitleDisplayMode(.inline)

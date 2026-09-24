@@ -195,7 +195,7 @@ struct EPUBChapterReaderView: View {
 
     private var pagesLeftText: String {
         let remaining = pagesLeftInChapter
-        if remaining == 0 { return "Last page of chapter" }
+        if remaining == 0 { return String(localized: "Last page of chapter") }
         if remaining == 1 { return "1 page left in chapter" }
         return "\(remaining) pages left in chapter"
     }

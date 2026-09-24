@@ -277,7 +277,7 @@ package struct SettingsView: View {
         let id = ThemeManager.shared.themeID.rawValue
         return ThemeRegistry.shared.allThemes()
             .first { $0.id == id }?
-            .displayName ?? "—"
+            .localizedDisplayName ?? "—"
     }
 
     private var appVersion: String {

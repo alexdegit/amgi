@@ -44,7 +44,7 @@ struct AppearanceSettingsView: View {
                     Text("Serif").tag(AppFont.serif.rawValue)
                 }
             }
-            SettingsFootnote("Changes the font used throughout the app. Card-template content and hero numbers stay in their own typeface.")
+            SettingsFootnote(String(localized: "Changes the font used throughout the app. Card-template content and hero numbers stay in their own typeface."))
 
             SettingsSectionHeader(title: "Preview")
             PreviewCard()
@@ -65,7 +65,7 @@ struct AppearanceSettingsView: View {
                 let id = ThemeID(rawValue: data.id)
                 ThemeCard(
                     themeID: id,
-                    label: data.displayName,
+                    label: data.localizedDisplayName,
                     isSelected: manager.themeID == id
                 ) {
                     manager.themeID = id
@@ -147,7 +147,7 @@ private struct PreviewCard: View {
 }
 
 private extension PreviewCard {
-    func badge(_ text: String, color: Color) -> some View {
+    func badge(_ text: LocalizedStringKey, color: Color) -> some View {
         Text(text)
             .amgiFont(.captionBold)
             .foregroundStyle(color)

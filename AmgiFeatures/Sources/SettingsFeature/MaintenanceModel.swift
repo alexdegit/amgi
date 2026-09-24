@@ -36,10 +36,10 @@ final class MaintenanceModel {
             let service = collectionService
             let problems = try await backendOffload { try service.checkDatabase() }
             statusMessage = problems.isEmpty
-                ? "Database check passed"
-                : "Database check completed:\n" + problems.joined(separator: "\n")
+                ? String(localized: "Database check passed")
+                : String(localized: "Database check completed:") + "\n" + problems.joined(separator: "\n")
         } catch {
-            statusMessage = "Database check error: \(error.localizedDescription)"
+            statusMessage = String(localized: "Database check error: \(error.localizedDescription)")
         }
     }
 
@@ -63,13 +63,13 @@ final class MaintenanceModel {
         KeychainHelper.deleteAll(forProfile: profileID)
         do {
             try FileManager.default.removeItem(at: profileDirectory)
-            statusMessage = "Reset complete. Please restart the app."
+            statusMessage = String(localized: "Reset complete. Please restart the app.")
         } catch CocoaError.fileNoSuchFile {
-            statusMessage = "Reset complete. Please restart the app."
+            statusMessage = String(localized: "Reset complete. Please restart the app.")
         } catch {
             // Reporting success on a failed delete left the user believing
             // their data was gone when it was not.
-            statusMessage = "Reset failed: \(error.localizedDescription)"
+            statusMessage = String(localized: "Reset failed: \(error.localizedDescription)")
         }
     }
 }

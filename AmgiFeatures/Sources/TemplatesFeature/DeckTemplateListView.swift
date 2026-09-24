@@ -70,7 +70,7 @@ package struct DeckTemplateListView: View {
             ProgressView()
         } else if let errorMessage = model.errorMessage {
             AmgiStatusMessageView(
-                title: "Could not load templates",
+                title: String(localized: "Could not load templates"),
                 message: errorMessage,
                 systemImage: "exclamationmark.triangle",
                 tone: .warning

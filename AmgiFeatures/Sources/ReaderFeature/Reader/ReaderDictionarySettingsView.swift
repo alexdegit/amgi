@@ -45,7 +45,7 @@ package struct ReaderDictionarySettingsView: View {
     private static let zipType = UTType(filenameExtension: "zip") ?? .data
 
     private var libraryFooter: String {
-        let base = "Import Yomitan-format dictionary ZIP archives. Reordering and update-on-version-change land when the lookup engine is fully wired."
+        let base = String(localized: "Import Yomitan-format dictionary ZIP archives. Reordering and update-on-version-change land when the lookup engine is fully wired.")
         guard model.lacksFrequencyDictionary else { return base }
         return base + " Add a frequency dictionary to sort common words first."
     }

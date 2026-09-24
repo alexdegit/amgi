@@ -31,7 +31,7 @@ struct MediaCheckResultView: View {
                 ContentUnavailableView {
                     Label("Media Check Unavailable", systemImage: "exclamationmark.triangle")
                 } description: {
-                    Text(model.actionMessage ?? "Couldn't read the media database.")
+                    Text(model.actionMessage ?? String(localized: "Couldn't read the media database."))
                 } actions: {
                     Button("Try Again") { Task { await model.runMediaCheck() } }
                 }

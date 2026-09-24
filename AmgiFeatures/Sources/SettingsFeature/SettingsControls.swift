@@ -36,9 +36,9 @@ struct SettingsPage<Content: View>: View {
 struct SettingsListHeader: View {
     @Environment(\.palette) private var palette
 
-    let title: String
+    let title: LocalizedStringKey
 
-    init(_ title: String) { self.title = title }
+    init(_ title: LocalizedStringKey) { self.title = title }
 
     var body: some View {
         Text(title)
@@ -79,7 +79,7 @@ struct SettingsFootnote: View {
 struct SettingsToggleRow: View {
     @Environment(\.palette) private var palette
 
-    let title: String
+    let title: LocalizedStringKey
     let systemImage: String
     let tone: SettingsTone
     @Binding var isOn: Bool
@@ -98,7 +98,7 @@ struct SettingsToggleRow: View {
 struct SettingsPickerRow<Value: Hashable, Options: View>: View {
     @Environment(\.palette) private var palette
 
-    let title: String
+    let title: LocalizedStringKey
     let systemImage: String
     let tone: SettingsTone
     @Binding var selection: Value
@@ -123,7 +123,7 @@ struct SettingsButtonRow: View {
     // itself, so the dimming is applied here instead.
     @Environment(\.isEnabled) private var isEnabled
 
-    let title: String
+    let title: LocalizedStringKey
     let systemImage: String
     let tone: SettingsTone
     var isDestructive: Bool = false
@@ -155,7 +155,7 @@ struct SettingsButtonRow: View {
 struct SettingsStepperRow<Value: Strideable>: View {
     @Environment(\.palette) private var palette
 
-    let title: String
+    let title: LocalizedStringKey
     let systemImage: String
     let tone: SettingsTone
     @Binding var value: Value
@@ -185,7 +185,7 @@ struct SettingsStepperRow<Value: Strideable>: View {
 
 /// A row whose trailing control is a colour well.
 struct SettingsColorRow: View {
-    let title: String
+    let title: LocalizedStringKey
     let systemImage: String
     let tone: SettingsTone
     @Binding var color: Color
@@ -203,7 +203,7 @@ struct SettingsColorRow: View {
 struct SettingsValueRow: View {
     @Environment(\.palette) private var palette
 
-    let title: String
+    let title: LocalizedStringKey
     let value: String
     let systemImage: String
     let tone: SettingsTone
@@ -232,7 +232,7 @@ struct SettingsValueRow: View {
 private struct SettingsRowLayout<Accessory: View>: View {
     @Environment(\.palette) private var palette
 
-    let title: String
+    let title: LocalizedStringKey
     let systemImage: String
     let tone: SettingsTone
     @ViewBuilder let accessory: () -> Accessory

@@ -71,7 +71,7 @@ private extension LoginSheet {
             isPresented = false
             onSuccess()
         } catch {
-            errorMessage = "Login failed. Check your username and password."
+            errorMessage = String(localized: "Login failed. Check your username and password.")
         }
         isLoading = false
     }

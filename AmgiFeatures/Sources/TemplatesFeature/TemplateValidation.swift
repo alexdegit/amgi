@@ -53,11 +53,11 @@ private let specialTemplateFieldNames: Set<String> = [
 func templateValidationMessage(for notetype: Notetype) -> String? {
     switch templateValidationIssue(for: notetype) {
     case .noFrontField:
-        return "The front template must reference at least one field."
+        return String(localized: "The front template must reference at least one field.")
     case .noSuchField(_, let fieldName):
-        return "Field \"\(fieldName)\" doesn't exist on this notetype."
+        return String(localized: "Field \"\(fieldName)\" doesn't exist on this notetype.")
     case .missingCloze:
-        return "This template needs a {{cloze:...}} field."
+        return String(localized: "This template needs a {{cloze:...}} field.")
     case .none:
         return nil
     }

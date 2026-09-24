@@ -204,10 +204,10 @@ enum AccountStoreError: LocalizedError {
 
     var errorDescription: String? {
         switch self {
-        case .emptyName: return "Profile name can't be empty."
+        case .emptyName: return String(localized: "Profile name can't be empty.")
         case .duplicateName: return "A profile with that name already exists."
-        case .cannotDeleteLast: return "You need at least one profile."
-        case .cannotDeleteActive: return "Switch to another profile before deleting this one."
+        case .cannotDeleteLast: return String(localized: "You need at least one profile.")
+        case .cannotDeleteActive: return String(localized: "Switch to another profile before deleting this one.")
         }
     }
 }

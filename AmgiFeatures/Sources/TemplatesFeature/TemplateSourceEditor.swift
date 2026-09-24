@@ -237,7 +237,7 @@ private extension TemplateSourceEditor.Coordinator {
                 UIAction(title: token) { [weak self] _ in self?.insert(token) }
             }
             stack.addArrangedSubview(makeMenuButton(
-                title: "Insert",
+                title: String(localized: "Insert"),
                 menu: UIMenu(children: tokenActions)
             ))
         }

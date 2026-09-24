@@ -429,10 +429,10 @@ extension ReaderSettingsView {
 extension ReaderThemeMode {
     var label: String {
         switch self {
-        case .system: return "Match system"
-        case .eyeCare: return "Eye-care"
-        case .sepia: return "Sepia"
-        case .custom: return "Custom"
+        case .system: return String(localized: "Match system")
+        case .eyeCare: return String(localized: "Eye-care")
+        case .sepia: return String(localized: "Sepia")
+        case .custom: return String(localized: "Custom")
         }
     }
 }

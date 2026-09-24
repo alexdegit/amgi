@@ -100,7 +100,7 @@ struct TemplateOverridesView: View {
             guard let notetype = notetypes[mid] ?? nil else { continue }
             let templateName = notetype.templates.indices.contains(ord)
                 ? notetype.templates[ord].name
-                : "Card \(ord + 1)"
+                : String(localized: "Card \(ord + 1)")
             resolved[entry.key] = "\(notetype.name) · \(templateName)"
         }
         displayNames = resolved

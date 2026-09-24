@@ -22,9 +22,9 @@ enum BookshelfSortMode: String, CaseIterable, Identifiable {
 
     var label: String {
         switch self {
-        case .recent:   "Recently Read"
-        case .title:    "Title"
-        case .progress: "Progress"
+        case .recent:   String(localized: "Recently Read")
+        case .title:    String(localized: "Title")
+        case .progress: String(localized: "Progress")
         }
     }
 }

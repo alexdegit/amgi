@@ -209,7 +209,15 @@
       }
     },
     "%lld missing files" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld 个缺失文件"
+          }
+        }
+      }
     },
     "%lld notes" : {
       "extractionState" : "manual",
@@ -223,10 +231,26 @@
       }
     },
     "%lld of %lld" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld / %2$lld"
+          }
+        }
+      }
     },
     "%lld of %lld cards empty" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%2$lld 张卡片中有 %1$lld 张为空"
+          }
+        }
+      }
     },
     "%lld of %lld items couldn't be deleted: %@" : {
       "extractionState" : "manual",
@@ -262,7 +286,15 @@
       }
     },
     "%lld pt" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld pt"
+          }
+        }
+      }
     },
     "%lld reviewed today · %lld remaining" : {
       "extractionState" : "manual",
@@ -309,7 +341,15 @@
       }
     },
     "%lld unused files" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld 个未使用的文件"
+          }
+        }
+      }
     },
     "%lld%%" : {
       "extractionState" : "manual",
@@ -334,7 +374,15 @@
       }
     },
     "%lld%% · font: %@" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld%% · 字体：%2$@"
+          }
+        }
+      }
     },
     "%lld-day streak" : {
       "extractionState" : "manual",
@@ -590,16 +638,70 @@
       }
     },
     "ALL BOOKS" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "所有书籍"
+          }
+        }
+      }
     },
     "Aa" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aa"
+          }
+        }
+      }
     },
     "About" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "关于"
+          }
+        }
+      }
+    },
+    "About Amgi" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "关于 Amgi"
+          }
+        }
+      }
+    },
+    "Account" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "账户"
+          }
+        }
+      }
     },
     "Account actions" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "账户操作"
+          }
+        }
+      }
     },
     "Accuracy: %lld%%" : {
       "extractionState" : "manual",
@@ -612,6 +714,17 @@
         }
       }
     },
+    "Acknowledgements" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "致谢"
+          }
+        }
+      }
+    },
     "Action failed" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -619,6 +732,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "操作失败"
+          }
+        }
+      }
+    },
+    "Actions" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "操作"
           }
         }
       }
@@ -651,7 +775,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "添加图片遮挡"
+            "value" : "添加图片遮盖"
           }
         }
       }
@@ -788,6 +912,17 @@
         }
       }
     },
+    "Affected notes" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "受影响的笔记"
+          }
+        }
+      }
+    },
     "After answer" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -920,6 +1055,17 @@
         }
       }
     },
+    "Already up to date" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已是最新"
+          }
+        }
+      }
+    },
     "Already up to date." : {
       "extractionState" : "manual"
     },
@@ -935,13 +1081,59 @@
       }
     },
     "Amgi" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Amgi"
+          }
+        }
+      }
     },
     "Amgi shows each card exactly when you're about to forget. The longer you remember, the rarer it returns." : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Amgi 会在你快要忘记时准确地展示每张卡片。记得越久，它出现得越少。"
+          }
+        }
+      }
+    },
+    "Amgi uses the official Anki Rust backend. The backend code is licensed under AGPL-3.0 and remains the work of its authors." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Amgi 使用 Anki 官方的 Rust 后端。后端代码采用 AGPL-3.0 许可，其著作权归原作者所有。"
+          }
+        }
+      }
+    },
+    "Amgi works fully offline. Add a server only if you want to sync with AnkiWeb or a self-hosted instance." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Amgi 可以完全离线使用。只有在需要与 AnkiWeb 或自建服务器同步时，才需要添加服务器。"
+          }
+        }
+      }
     },
     "Amgi · v%@ · Built with care" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Amgi · v%@ · 用心打造"
+          }
+        }
+      }
     },
     "An unknown error occurred." : {
       "extractionState" : "manual",
@@ -954,8 +1146,27 @@
         }
       }
     },
+    "Anki engine" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anki 引擎"
+          }
+        }
+      }
+    },
     "AnkiWeb is supported by sales of AnkiMobile. Please consider purchasing a copy to support the sync servers." : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AnkiWeb 的运营依靠 AnkiMobile 的销售收入。请考虑购买一份，以支持同步服务器。"
+          }
+        }
+      }
     },
     "Answer Again" : {
       "extractionState" : "manual",
@@ -1012,8 +1223,27 @@
         }
       }
     },
+    "App Font" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "应用字体"
+          }
+        }
+      }
+    },
     "Appearance" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "外观"
+          }
+        }
+      }
     },
     "Apply" : {
       "extractionState" : "manual",
@@ -1071,7 +1301,26 @@
       }
     },
     "Audio" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "音频"
+          }
+        }
+      }
+    },
+    "Authentication failed — please sign in again" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "身份验证失败，请重新登录"
+          }
+        }
+      }
     },
     "Auto" : {
       "extractionState" : "manual",
@@ -1096,7 +1345,15 @@
       }
     },
     "Autoplay audio" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自动播放音频"
+          }
+        }
+      }
     },
     "Available Tags" : {
       "extractionState" : "manual",
@@ -1105,6 +1362,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "可用标签"
+          }
+        }
+      }
+    },
+    "Available backups" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "可用的备份"
           }
         }
       }
@@ -1153,17 +1421,93 @@
         }
       }
     },
+    "Avoid breaking paragraphs" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "避免段落跨页"
+          }
+        }
+      }
+    },
     "Back" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "背面"
+          }
+        }
+      }
+    },
+    "Back template" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "背面内容模版"
+          }
+        }
+      }
+    },
+    "Background colour" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "背景颜色"
+          }
+        }
+      }
     },
     "Backup saved" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "备份已保存"
+          }
+        }
+      }
     },
     "Backups" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "备份"
+          }
+        }
+      }
+    },
+    "Backups for %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 的备份"
+          }
+        }
+      }
     },
     "Backups live in this device's Documents folder for the current profile. Use Share to copy a backup to Files, iCloud Drive, or another device." : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "当前用户的备份保存在本设备的「文稿」文件夹中。可以用「共享」把备份复制到「文件」、iCloud 云盘或其他设备。"
+          }
+        }
+      }
     },
     "Before reviews" : {
       "extractionState" : "manual",
@@ -1209,8 +1553,27 @@
         }
       }
     },
+    "Body font" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正文字体"
+          }
+        }
+      }
+    },
     "Body text in the active palette." : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "当前配色下的正文文字。"
+          }
+        }
+      }
     },
     "Bold" : {
       "extractionState" : "manual",
@@ -1224,19 +1587,59 @@
       }
     },
     "Book ID" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "书籍 ID"
+          }
+        }
+      }
     },
     "Book ID field" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "书籍 ID 字段"
+          }
+        }
+      }
     },
     "Book cover" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "书籍封面"
+          }
+        }
+      }
     },
     "Book title" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "书名"
+          }
+        }
+      }
     },
     "Book title field" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "书名字段"
+          }
+        }
+      }
     },
     "Browse" : {
       "extractionState" : "manual",
@@ -1261,7 +1664,15 @@
       }
     },
     "Built-in Reader" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "内置阅读器"
+          }
+        }
+      }
     },
     "Buried" : {
       "extractionState" : "manual",
@@ -1385,10 +1796,26 @@
       }
     },
     "CHAPTERS" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "章节"
+          }
+        }
+      }
     },
     "CONTINUE READING" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "继续阅读"
+          }
+        }
+      }
     },
     "Cancel" : {
       "extractionState" : "manual",
@@ -1401,6 +1828,17 @@
         }
       }
     },
+    "Cannot access backup directory." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法访问备份目录。"
+          }
+        }
+      }
+    },
     "Cannot access the selected file" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1408,6 +1846,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "无法访问所选文件"
+          }
+        }
+      }
+    },
+    "Card %lld" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "卡片 %lld"
           }
         }
       }
@@ -1430,6 +1879,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "卡片数量"
+          }
+        }
+      }
+    },
+    "Card Display" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "卡片显示"
           }
         }
       }
@@ -1468,7 +1928,15 @@
       }
     },
     "Card Templates" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "卡片模板"
+          }
+        }
+      }
     },
     "Card actions" : {
       "extractionState" : "manual",
@@ -1526,7 +1994,15 @@
       }
     },
     "Cards Due" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "到期卡片"
+          }
+        }
+      }
     },
     "Cards will be returned to their home decks." : {
       "extractionState" : "manual",
@@ -1540,7 +2016,15 @@
       }
     },
     "Center" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "居中"
+          }
+        }
+      }
     },
     "Center horizontally" : {
       "extractionState" : "manual",
@@ -1565,22 +2049,103 @@
       }
     },
     "Change Server" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更换服务器"
+          }
+        }
+      }
+    },
+    "Change Server…" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更换服务器…"
+          }
+        }
+      }
+    },
+    "Changes the font used throughout the app. Card-template content and hero numbers stay in their own typeface." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更改整个应用使用的字体。卡片模板内容和大号数字保持各自的字体。"
+          }
+        }
+      }
     },
     "Chapter %@" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "第 %@ 章"
+          }
+        }
+      }
     },
     "Chapter order" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "章节顺序"
+          }
+        }
+      }
     },
     "Chapter order field" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "章节顺序字段"
+          }
+        }
+      }
     },
     "Chapter title" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "章节标题"
+          }
+        }
+      }
     },
     "Chapter title field" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "章节标题字段"
+          }
+        }
+      }
+    },
+    "Check Database" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "检查数据库"
+          }
+        }
+      }
     },
     "Choose Deck" : {
       "extractionState" : "manual"
@@ -1597,7 +2162,15 @@
       }
     },
     "Choose how to sync your collection" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "选择集合的同步方式"
+          }
+        }
+      }
     },
     "Clear Unused Tags" : {
       "extractionState" : "manual",
@@ -1666,10 +2239,37 @@
       }
     },
     "Code Editor" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "代码编辑器"
+          }
+        }
+      }
+    },
+    "Collapse dictionaries" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "折叠词典"
+          }
+        }
+      }
     },
     "Collection" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "集合"
+          }
+        }
+      }
     },
     "Collection removed. Quit and reopen Amgi, then sync to restore your cards." : {
       "extractionState" : "manual",
@@ -1678,6 +2278,50 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "集合已删除。请退出并重新打开 Amgi，然后同步以恢复你的卡片。"
+          }
+        }
+      }
+    },
+    "Collection synced, but media failed: %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "集合已同步，但媒体文件同步失败：%@"
+          }
+        }
+      }
+    },
+    "Community" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "社区"
+          }
+        }
+      }
+    },
+    "Compact" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "紧凑"
+          }
+        }
+      }
+    },
+    "Compact glossaries" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "紧凑释义"
           }
         }
       }
@@ -1693,6 +2337,17 @@
         }
       }
     },
+    "Connecting…" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在连接…"
+          }
+        }
+      }
+    },
     "Content" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1704,14 +2359,49 @@
         }
       }
     },
+    "Content alignment" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "内容对齐"
+          }
+        }
+      }
+    },
     "Content field" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "内容字段"
+          }
+        }
+      }
     },
     "Continue" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "继续"
+          }
+        }
+      }
     },
     "Continue · %lld%%" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "继续 · %lld%%"
+          }
+        }
+      }
     },
     "Correct" : {
       "extractionState" : "manual",
@@ -1735,7 +2425,29 @@
         }
       }
     },
+    "Could not load templates" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法载入模板"
+          }
+        }
+      }
+    },
     "Could not select file: %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法选择文件：%@"
+          }
+        }
+      }
+    },
+    "Could not select files: %@" : {
       "extractionState" : "manual",
       "localizations" : {
         "zh-Hans" : {
@@ -1813,7 +2525,15 @@
       }
     },
     "Couldn't create backup" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法创建备份"
+          }
+        }
+      }
     },
     "Couldn't create deck" : {
       "extractionState" : "manual",
@@ -1826,8 +2546,27 @@
         }
       }
     },
+    "Couldn't delete empty cards" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法删除空卡片"
+          }
+        }
+      }
+    },
     "Couldn't delete profile" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法删除用户"
+          }
+        }
+      }
     },
     "Couldn't delete that item: %@" : {
       "extractionState" : "manual",
@@ -1907,7 +2646,37 @@
       }
     },
     "Couldn't load books" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法载入书籍"
+          }
+        }
+      }
+    },
+    "Couldn't load empty cards" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法载入空卡片"
+          }
+        }
+      }
+    },
+    "Couldn't open note" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法打开笔记"
+          }
+        }
+      }
     },
     "Couldn't open your collection" : {
       "extractionState" : "manual",
@@ -1938,6 +2707,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "无法优化所有预设配置"
+          }
+        }
+      }
+    },
+    "Couldn't read the media database." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法读取媒体数据库。"
           }
         }
       }
@@ -2020,10 +2800,26 @@
       }
     },
     "Couldn't update media" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法更新媒体文件"
+          }
+        }
+      }
     },
     "Couldn't update notetype" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法更新笔记模板"
+          }
+        }
+      }
     },
     "Couldn't update tags" : {
       "extractionState" : "manual",
@@ -2114,10 +2910,26 @@
       }
     },
     "Create backup now" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "立即创建备份"
+          }
+        }
+      }
     },
     "Created %@" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "创建于 %@"
+          }
+        }
+      }
     },
     "Created inside %@." : {
       "extractionState" : "manual",
@@ -2131,7 +2943,26 @@
       }
     },
     "Creating backup…" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在创建备份…"
+          }
+        }
+      }
+    },
+    "Credentials" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "凭据"
+          }
+        }
+      }
     },
     "Custom" : {
       "extractionState" : "manual",
@@ -2145,7 +2976,15 @@
       }
     },
     "Custom Server" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自定义服务器"
+          }
+        }
+      }
     },
     "Custom Study" : {
       "extractionState" : "manual",
@@ -2176,6 +3015,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "自定义学习牌组"
+          }
+        }
+      }
+    },
+    "Cyan" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "青色"
           }
         }
       }
@@ -2213,8 +3063,82 @@
         }
       }
     },
+    "Danger" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "危险"
+          }
+        }
+      }
+    },
+    "Danger Zone" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "危险操作"
+          }
+        }
+      }
+    },
     "Dark" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "深色"
+          }
+        }
+      }
+    },
+    "Database" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "数据库"
+          }
+        }
+      }
+    },
+    "Database check completed:" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "数据库检查完成："
+          }
+        }
+      }
+    },
+    "Database check error: %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "数据库检查出错：%@"
+          }
+        }
+      }
+    },
+    "Database check passed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "数据库检查通过"
+          }
+        }
+      }
     },
     "Date (newest)" : {
       "extractionState" : "manual",
@@ -2267,6 +3191,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "天数：%lld"
+          }
+        }
+      }
+    },
+    "Debug overlay" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "调试叠加层"
           }
         }
       }
@@ -2382,7 +3317,15 @@
       }
     },
     "Deck: %@" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "牌组：%@"
+          }
+        }
+      }
     },
     "Decks" : {
       "extractionState" : "manual",
@@ -2396,7 +3339,15 @@
       }
     },
     "Decrease text size" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "缩小文字"
+          }
+        }
+      }
     },
     "Default" : {
       "extractionState" : "manual",
@@ -2405,6 +3356,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "默认"
+          }
+        }
+      }
+    },
+    "Definition font" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "释义字体"
+          }
+        }
+      }
+    },
+    "Definitions" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "释义"
           }
         }
       }
@@ -2432,7 +3405,15 @@
       }
     },
     "Delete \"%@\"? Cards using this notetype will be removed too." : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "删除「%@」？使用此笔记模板的卡片也会被删除。"
+          }
+        }
+      }
     },
     "Delete \"%@\"? This will remove it from all notes." : {
       "extractionState" : "manual",
@@ -2446,10 +3427,26 @@
       }
     },
     "Delete %@?" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "删除 %@？"
+          }
+        }
+      }
     },
     "Delete %lld empty cards? This cannot be undone." : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "删除 %lld 张空卡片？此操作无法撤销。"
+          }
+        }
+      }
     },
     "Delete %lld note?" : {
       "extractionState" : "manual",
@@ -2474,10 +3471,26 @@
       }
     },
     "Delete All Empty Cards" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "删除所有空卡片"
+          }
+        }
+      }
     },
     "Delete All Empty Cards…" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "删除所有空卡片…"
+          }
+        }
+      }
     },
     "Delete Collection" : {
       "extractionState" : "manual",
@@ -2524,10 +3537,37 @@
       }
     },
     "Delete backup?" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "删除备份？"
+          }
+        }
+      }
     },
     "Delete empty cards?" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "删除空卡片？"
+          }
+        }
+      }
+    },
+    "Delete failed: %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "删除失败：%@"
+          }
+        }
+      }
     },
     "Delete note failed" : {
       "extractionState" : "manual",
@@ -2541,16 +3581,48 @@
       }
     },
     "Delete notetype" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "删除笔记模板"
+          }
+        }
+      }
     },
     "Delete profile and files" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "删除用户及文件"
+          }
+        }
+      }
     },
     "Delete profile only" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "仅删除用户"
+          }
+        }
+      }
     },
     "Delete the backup from %@?" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "删除 %@ 的备份？"
+          }
+        }
+      }
     },
     "Delete this note?" : {
       "extractionState" : "manual",
@@ -2585,6 +3657,17 @@
         }
       }
     },
+    "Deletes this profile's collection and credentials. You will need to sync or re-import after." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "删除此用户的集合和凭据，之后需要重新同步或导入。"
+          }
+        }
+      }
+    },
     "Desired retention" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2597,19 +3680,92 @@
       }
     },
     "Dictionaries" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "词典"
+          }
+        }
+      }
     },
     "Dictionary" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "词典"
+          }
+        }
+      }
+    },
+    "Dictionary header" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "词典标题"
+          }
+        }
+      }
     },
     "Dictionary lookup engine is still a placeholder — full hoshidicts integration is pending." : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "查词引擎目前还是占位实现，完整的 hoshidicts 集成尚未完成。"
+          }
+        }
+      }
+    },
+    "Dictionary not found: %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "找不到词典：%@"
+          }
+        }
+      }
     },
     "Disable" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "停用"
+          }
+        }
+      }
+    },
+    "Disable Sync (Local Only)…" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "停用同步（仅本地）…"
+          }
+        }
+      }
     },
     "Disable Sync?" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "停用同步？"
+          }
+        }
+      }
     },
     "Disable autoplay audio" : {
       "extractionState" : "manual",
@@ -2618,6 +3774,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "不自动播放音频"
+          }
+        }
+      }
+    },
+    "Disabled" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已停用"
           }
         }
       }
@@ -2666,6 +3833,17 @@
         }
       }
     },
+    "Display" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "显示"
+          }
+        }
+      }
+    },
     "Distribution of card recall probability" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2691,6 +3869,28 @@
     "Done today" : {
       "extractionState" : "manual"
     },
+    "Downloading collection" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在下载集合"
+          }
+        }
+      }
+    },
+    "Duck other audio" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "降低其他音频音量"
+          }
+        }
+      }
+    },
     "Due today" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2714,10 +3914,26 @@
       }
     },
     "EPUB" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "EPUB"
+          }
+        }
+      }
     },
     "Each profile keeps its own collection, sync login, and review history. Switching applies immediately." : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "每个用户都有独立的集合、同步登录和复习记录，切换后立即生效。"
+          }
+        }
+      }
     },
     "Ease" : {
       "extractionState" : "manual",
@@ -2791,7 +4007,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "编辑图片遮挡"
+            "value" : "编辑图片遮盖"
           }
         }
       }
@@ -2808,6 +4024,17 @@
       }
     },
     "Edit Template" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "编辑模板"
+          }
+        }
+      }
+    },
+    "Edit template" : {
       "extractionState" : "manual",
       "localizations" : {
         "zh-Hans" : {
@@ -2863,22 +4090,70 @@
       }
     },
     "Empty Cards" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "空卡片"
+          }
+        }
+      }
     },
     "Empty Trash" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "清空回收站"
+          }
+        }
+      }
     },
     "Empty cards deleted" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "空卡片已删除"
+          }
+        }
+      }
     },
     "Empty trash" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "清空回收站"
+          }
+        }
+      }
     },
     "Empty trash?" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "清空回收站？"
+          }
+        }
+      }
     },
     "Empty trash…" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "清空回收站…"
+          }
+        }
+      }
     },
     "Enable FSRS" : {
       "extractionState" : "manual",
@@ -2903,10 +4178,37 @@
       }
     },
     "End of book" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "全书完"
+          }
+        }
+      }
+    },
+    "Engine" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "渲染引擎"
+          }
+        }
+      }
     },
     "Engine not ready" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "引擎尚未就绪"
+          }
+        }
+      }
     },
     "Enter a new name for \"%@\". It will be updated on all notes that use it." : {
       "extractionState" : "manual",
@@ -2931,7 +4233,26 @@
       }
     },
     "Enter the URL of your Anki sync server (e.g. https://sync.example.com)." : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "输入你的 Anki 同步服务器地址（例如 https://sync.example.com）。"
+          }
+        }
+      }
+    },
+    "Enter the URL of your Anki-compatible sync server." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "输入与 Anki 兼容的同步服务器地址。"
+          }
+        }
+      }
     },
     "Error" : {
       "extractionState" : "manual",
@@ -2956,7 +4277,15 @@
       }
     },
     "Everything up to date" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "全部已是最新"
+          }
+        }
+      }
     },
     "Existing tags" : {
       "extractionState" : "manual",
@@ -3020,6 +4349,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "今天在此牌组每日上限之外额外显示的复习卡片数，明天重置。"
+          }
+        }
+      }
+    },
+    "Eye-care" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "护眼"
           }
         }
       }
@@ -3167,6 +4507,17 @@
         }
       }
     },
+    "Failed to delete: %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "删除失败：%@"
+          }
+        }
+      }
+    },
     "Failed to export deck: %@" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3178,6 +4529,28 @@
         }
       }
     },
+    "Failed to import dictionary archive." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "导入词典压缩包失败。"
+          }
+        }
+      }
+    },
+    "Failed to import: %@." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "导入失败：%@。"
+          }
+        }
+      }
+    },
     "Failed to load deck options: %@" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3185,6 +4558,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "载入牌组选项失败：%@"
+          }
+        }
+      }
+    },
+    "Failed to load decks: %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "载入牌组失败：%@"
+          }
+        }
+      }
+    },
+    "Failed to load library: %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "载入书库失败：%@"
           }
         }
       }
@@ -3244,6 +4639,17 @@
         }
       }
     },
+    "Failed to reorder: %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重新排序失败：%@"
+          }
+        }
+      }
+    },
     "Failed to switch preset: %@" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3255,14 +4661,71 @@
         }
       }
     },
+    "Failed to update: %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更新失败：%@"
+          }
+        }
+      }
+    },
+    "Family" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "字体系列"
+          }
+        }
+      }
+    },
+    "Field \"%@\" doesn't exist on this notetype." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此笔记模板中没有字段「%@」。"
+          }
+        }
+      }
+    },
     "Field editor coming soon." : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "字段编辑器即将推出。"
+          }
+        }
+      }
     },
     "Field mapping" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "字段映射"
+          }
+        }
+      }
     },
     "Field names from the notetype that holds your book chapters. Each note becomes a chapter; chapters with the same Book ID collapse into one book." : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "存放书籍章节的笔记模板中的字段名。每条笔记对应一章，书籍 ID 相同的章节会合并成一本书。"
+          }
+        }
+      }
     },
     "Fields" : {
       "extractionState" : "manual",
@@ -3276,7 +4739,26 @@
       }
     },
     "Files include the Anki collection, media, and per-profile sync state. Deleting only the profile leaves the files on disk; you can re-add the profile to recover." : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "文件包括 Anki 集合、媒体文件和该用户的同步状态。仅删除用户会保留磁盘上的文件，重新添加该用户即可恢复。"
+          }
+        }
+      }
+    },
+    "Files moved to trash" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "文件已移到回收站"
+          }
+        }
+      }
     },
     "Filtered" : {
       "extractionState" : "manual",
@@ -3345,10 +4827,37 @@
       }
     },
     "Font" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "字体"
+          }
+        }
+      }
     },
     "Font Size" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "字号"
+          }
+        }
+      }
+    },
+    "Font size" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "字号"
+          }
+        }
+      }
     },
     "Forget Card" : {
       "extractionState" : "manual",
@@ -3373,10 +4882,37 @@
       }
     },
     "Found %lld notes with empty cards" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "找到 %lld 条含空卡片的笔记"
+          }
+        }
+      }
     },
     "Frequency" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "词频"
+          }
+        }
+      }
+    },
+    "Frequency font" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "词频字体"
+          }
+        }
+      }
     },
     "Friday" : {
       "extractionState" : "manual",
@@ -3389,11 +4925,71 @@
         }
       }
     },
+    "Front" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正面"
+          }
+        }
+      }
+    },
+    "Front template" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正面内容模版"
+          }
+        }
+      }
+    },
     "Full Sync Required" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "需要完整同步"
+          }
+        }
+      }
     },
     "Full report" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "完整报告"
+          }
+        }
+      }
+    },
+    "Full-screen popup" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "全屏弹窗"
+          }
+        }
+      }
+    },
+    "Furigana / hint colour" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "注音 / 提示颜色"
+          }
+        }
+      }
     },
     "Future Due" : {
       "extractionState" : "manual",
@@ -3552,6 +5148,17 @@
         }
       }
     },
+    "Hide furigana / ruby" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "隐藏注音"
+          }
+        }
+      }
+    },
     "Hide one, guess one" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3570,6 +5177,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "历史记忆保留率"
+          }
+        }
+      }
+    },
+    "Horizontal padding" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "水平边距"
           }
         }
       }
@@ -3597,7 +5215,15 @@
       }
     },
     "How it works" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "工作原理"
+          }
+        }
+      }
     },
     "If you sync, your cards are safe on the server and will come back after a reset." : {
       "extractionState" : "manual",
@@ -3627,7 +5253,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "图片遮挡"
+            "value" : "图片遮盖"
           }
         }
       }
@@ -3644,7 +5270,15 @@
       }
     },
     "Import %@ archive…" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "导入 %@ 压缩包…"
+          }
+        }
+      }
     },
     "Import Deck…" : {
       "extractionState" : "manual",
@@ -3658,13 +5292,48 @@
       }
     },
     "Import EPUB" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "导入 EPUB"
+          }
+        }
+      }
     },
     "Import EPUB…" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "导入 EPUB…"
+          }
+        }
+      }
+    },
+    "Import Yomitan-format dictionary ZIP archives. Reordering and update-on-version-change land when the lookup engine is fully wired." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "导入 Yomitan 格式的词典 ZIP 压缩包。排序和版本更新功能将在查词引擎完整接入后提供。"
+          }
+        }
+      }
     },
     "Import a book and look up unfamiliar words as you read, without leaving the page." : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "导入一本书，阅读时直接查生词，无需离开页面。"
+          }
+        }
+      }
     },
     "Import a deck and start reviewing. Five minutes a day is all it takes." : {
       "extractionState" : "manual",
@@ -3678,10 +5347,37 @@
       }
     },
     "Import an EPUB or configure a deck of notes to start reading." : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "导入 EPUB，或设置一个笔记牌组，即可开始阅读。"
+          }
+        }
+      }
     },
     "Import failed" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "导入失败"
+          }
+        }
+      }
+    },
+    "Import failed: %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "导入失败：%@"
+          }
+        }
+      }
     },
     "Importing %@…" : {
       "extractionState" : "manual",
@@ -3761,10 +5457,37 @@
       }
     },
     "Increase text size" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "放大文字"
+          }
+        }
+      }
+    },
+    "Insert" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "插入"
+          }
+        }
+      }
     },
     "Insert field" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "插入字段"
+          }
+        }
+      }
     },
     "Insights" : {
       "extractionState" : "manual",
@@ -3784,6 +5507,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "跨日学习卡片的混合方式"
+          }
+        }
+      }
+    },
+    "Interrupt other audio" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "中断其他音频"
           }
         }
       }
@@ -3844,10 +5578,48 @@
       }
     },
     "Justify Text" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "两端对齐"
+          }
+        }
+      }
+    },
+    "Justify text" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "两端对齐"
+          }
+        }
+      }
     },
     "Keeps cards from both sides; conflicts use newest" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保留两边的卡片，冲突时以最新的为准"
+          }
+        }
+      }
+    },
+    "Korean origin" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "名字的来历"
+          }
+        }
+      }
     },
     "LAST 7 DAYS" : {
       "extractionState" : "manual"
@@ -3973,6 +5745,17 @@
         }
       }
     },
+    "Last page of chapter" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "本章最后一页"
+          }
+        }
+      }
+    },
     "Last studied %@" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -4013,6 +5796,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "今天学习过 · 连续 32 天"
+          }
+        }
+      }
+    },
+    "Last synced %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "上次同步：%@"
           }
         }
       }
@@ -4084,7 +5878,26 @@
       }
     },
     "Let's build a habit." : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "一起养成习惯吧。"
+          }
+        }
+      }
+    },
+    "Letter spacing" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "字间距"
+          }
+        }
+      }
     },
     "Level with last month" : {
       "extractionState" : "manual",
@@ -4109,10 +5922,37 @@
       }
     },
     "Light" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "浅色"
+          }
+        }
+      }
     },
     "Line Height" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "行高"
+          }
+        }
+      }
+    },
+    "Line height" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "行高"
+          }
+        }
+      }
     },
     "List view" : {
       "extractionState" : "manual",
@@ -4148,19 +5988,81 @@
       }
     },
     "Local-only changes will be lost" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "仅存在于本地的更改将会丢失"
+          }
+        }
+      }
     },
     "Log Out" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "退出登录"
+          }
+        }
+      }
+    },
+    "Log Out…" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "退出登录…"
+          }
+        }
+      }
     },
     "Log out?" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "退出登录？"
+          }
+        }
+      }
     },
     "Login" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "登录"
+          }
+        }
+      }
+    },
+    "Login failed. Check your username and password." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "登录失败，请检查用户名和密码。"
+          }
+        }
+      }
     },
     "Logout" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "退出登录"
+          }
+        }
+      }
     },
     "Look Up" : {
       "extractionState" : "manual",
@@ -4173,26 +6075,115 @@
         }
       }
     },
+    "Look up" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "查词"
+          }
+        }
+      }
+    },
     "Look up word" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "查词"
+          }
+        }
+      }
     },
     "Lookup" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "查词"
+          }
+        }
+      }
+    },
+    "Lookup Popup" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "查词弹窗"
+          }
+        }
+      }
     },
     "Lookup behavior" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "查词行为"
+          }
+        }
+      }
     },
     "Lookup failed" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "查词失败"
+          }
+        }
+      }
+    },
+    "Loose" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "宽松"
+          }
+        }
+      }
     },
     "Maintenance" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "维护"
+          }
+        }
+      }
     },
     "Make note from selection" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "用所选内容制作笔记"
+          }
+        }
+      }
     },
     "Make note from this entry" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "用此词条制作笔记"
+          }
+        }
+      }
     },
     "Manage Preset" : {
       "extractionState" : "manual",
@@ -4205,8 +6196,38 @@
         }
       }
     },
+    "Manage Tags" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "管理标签"
+          }
+        }
+      }
+    },
+    "Manage Templates" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "管理模板"
+          }
+        }
+      }
+    },
     "Margins" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "边距"
+          }
+        }
+      }
     },
     "Mark Note" : {
       "extractionState" : "manual",
@@ -4237,6 +6258,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "遮罩"
+          }
+        }
+      }
+    },
+    "Match system" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "跟随系统"
+          }
+        }
+      }
+    },
+    "Match toolbar to card background" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "工具栏与卡片背景一致"
           }
         }
       }
@@ -4286,7 +6329,15 @@
       }
     },
     "Max results: %lld" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "最多结果数：%lld"
+          }
+        }
+      }
     },
     "Maximum review interval: %dd" : {
       "extractionState" : "manual",
@@ -4300,13 +6351,37 @@
       }
     },
     "Media Check" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "检查媒体文件"
+          }
+        }
+      }
     },
     "Media Check Unavailable" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法检查媒体文件"
+          }
+        }
+      }
     },
     "Media updated" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "媒体文件已更新"
+          }
+        }
+      }
     },
     "Memorized (end)" : {
       "extractionState" : "manual",
@@ -4320,7 +6395,48 @@
       }
     },
     "Merge (combine both)" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "合并（保留两边）"
+          }
+        }
+      }
+    },
+    "Minimal" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "极简"
+          }
+        }
+      }
+    },
+    "Missing files" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "缺失的文件"
+          }
+        }
+      }
+    },
+    "Mix with other audio" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "与其他音频混合"
+          }
+        }
+      }
     },
     "Mix with reviews" : {
       "extractionState" : "manual",
@@ -4366,6 +6482,17 @@
         }
       }
     },
+    "Mono" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "等宽"
+          }
+        }
+      }
+    },
     "Month" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -4388,6 +6515,28 @@
         }
       }
     },
+    "Muted" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "柔和"
+          }
+        }
+      }
+    },
+    "Name" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "名称"
+          }
+        }
+      }
+    },
     "Name cannot be empty." : {
       "extractionState" : "manual",
       "localizations" : {
@@ -4406,6 +6555,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "原生"
+          }
+        }
+      }
+    },
+    "Never synced" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "从未同步"
           }
         }
       }
@@ -4521,7 +6681,15 @@
       }
     },
     "New profile" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新建用户"
+          }
+        }
+      }
     },
     "New tag" : {
       "extractionState" : "manual",
@@ -4557,7 +6725,15 @@
       }
     },
     "No %@ dictionaries imported yet." : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "还没有导入任何%@词典。"
+          }
+        }
+      }
     },
     "No Decks" : {
       "extractionState" : "manual",
@@ -4581,11 +6757,38 @@
         }
       }
     },
+    "No Flag" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无旗标"
+          }
+        }
+      }
+    },
     "No Overrides" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有覆盖设置"
+          }
+        }
+      }
     },
     "No Server Configured" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未配置服务器"
+          }
+        }
+      }
     },
     "No Tags" : {
       "extractionState" : "manual",
@@ -4599,10 +6802,26 @@
       }
     },
     "No backups yet. Use “Create backup now” above to make one." : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "还没有备份。点击上方的「立即创建备份」来创建一个。"
+          }
+        }
+      }
     },
     "No books yet" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "还没有书籍"
+          }
+        }
+      }
     },
     "No button data" : {
       "extractionState" : "manual",
@@ -4682,7 +6901,15 @@
       }
     },
     "No empty cards found" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有空卡片"
+          }
+        }
+      }
     },
     "No interval data" : {
       "extractionState" : "manual",
@@ -4707,7 +6934,15 @@
       }
     },
     "No notetypes" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有笔记模板"
+          }
+        }
+      }
     },
     "No other fields" : {
       "extractionState" : "manual",
@@ -4786,6 +7021,17 @@
         }
       }
     },
+    "No template selected." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未选择模板。"
+          }
+        }
+      }
+    },
     "No two notes in your collection share a first field." : {
       "extractionState" : "manual",
       "localizations" : {
@@ -4808,6 +7054,17 @@
         }
       }
     },
+    "Not signed in" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未登录"
+          }
+        }
+      }
+    },
     "Note Type" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -4820,7 +7077,26 @@
       }
     },
     "Note id: %lld" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "笔记 ID：%lld"
+          }
+        }
+      }
+    },
+    "Note unavailable" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "笔记不可用"
+          }
+        }
+      }
     },
     "Notes are duplicates when their first fields match once formatting is ignored — the same rule Anki uses when it warns you while adding a note." : {
       "extractionState" : "manual",
@@ -4883,6 +7159,17 @@
         }
       }
     },
+    "Open links externally" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在外部打开链接"
+          }
+        }
+      }
+    },
     "Opens Amgi and starts reviewing a deck." : {
       "extractionState" : "manual"
     },
@@ -4920,7 +7207,26 @@
       }
     },
     "Optional" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "可选"
+          }
+        }
+      }
+    },
+    "Orange" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "橙色"
+          }
+        }
+      }
     },
     "Orange flag" : {
       "extractionState" : "manual",
@@ -4955,6 +7261,28 @@
         }
       }
     },
+    "Overrides" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "覆盖设置"
+          }
+        }
+      }
+    },
+    "Overrides pick an engine for every card of one template and beat the global choice. Stored on this device only." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "覆盖设置会为某个模板的所有卡片指定渲染引擎，并优先于全局设置。仅保存在本设备上。"
+          }
+        }
+      }
+    },
     "Overrides the global choice for every card of this template. Stored on this device only." : {
       "extractionState" : "manual",
       "localizations" : {
@@ -4967,7 +7295,15 @@
       }
     },
     "Password" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "密码"
+          }
+        }
+      }
     },
     "Pause" : {
       "extractionState" : "manual",
@@ -4976,6 +7312,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "暂停"
+          }
+        }
+      }
+    },
+    "Per-template overrides" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "按模板覆盖"
           }
         }
       }
@@ -4992,7 +7339,15 @@
       }
     },
     "Permanently deletes the trashed media files. They can't be restored afterwards." : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "永久删除回收站中的媒体文件，删除后无法恢复。"
+          }
+        }
+      }
     },
     "Pick an image, draw occlusions over the regions you want to test, then save." : {
       "extractionState" : "manual",
@@ -5016,6 +7371,17 @@
         }
       }
     },
+    "Pink" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "粉色"
+          }
+        }
+      }
+    },
     "Pink flag" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -5028,7 +7394,15 @@
       }
     },
     "Pitch" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "音调"
+          }
+        }
+      }
     },
     "Play" : {
       "extractionState" : "manual",
@@ -5041,11 +7415,38 @@
         }
       }
     },
+    "Play audio in silent mode" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "静音模式下也播放音频"
+          }
+        }
+      }
+    },
     "Play pronunciation" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "播放发音"
+          }
+        }
+      }
     },
     "Playback mode" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "播放模式"
+          }
+        }
+      }
     },
     "Points" : {
       "extractionState" : "manual",
@@ -5065,6 +7466,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "多边形"
+          }
+        }
+      }
+    },
+    "Popup height" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "弹窗高度"
           }
         }
       }
@@ -5091,6 +7503,17 @@
         }
       }
     },
+    "Positive" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "积极"
+          }
+        }
+      }
+    },
     "Preparing cards…" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -5098,6 +7521,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "正在准备卡片…"
+          }
+        }
+      }
+    },
+    "Preparing merge…" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在准备合并…"
           }
         }
       }
@@ -5136,10 +7570,37 @@
       }
     },
     "Primary action" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "主要操作"
+          }
+        }
+      }
     },
     "Profile name" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "用户名称"
+          }
+        }
+      }
+    },
+    "Profile name can't be empty." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "用户名称不能为空。"
+          }
+        }
+      }
     },
     "Profile: %@" : {
       "extractionState" : "manual",
@@ -5153,7 +7614,26 @@
       }
     },
     "Profiles" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "用户"
+          }
+        }
+      }
+    },
+    "Progress" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "进度"
+          }
+        }
+      }
     },
     "Prompt" : {
       "extractionState" : "manual",
@@ -5162,6 +7642,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "提示"
+          }
+        }
+      }
+    },
+    "Purple" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "紫色"
           }
         }
       }
@@ -5233,22 +7724,92 @@
       }
     },
     "Read. Tap. Remember." : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "阅读，点击，记住。"
+          }
+        }
+      }
+    },
+    "Reader" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "阅读器"
+          }
+        }
+      }
     },
     "Reader Display" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "阅读器显示"
+          }
+        }
+      }
     },
     "Reader Settings" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "阅读器设置"
+          }
+        }
+      }
     },
     "Reader Setup" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "阅读器设置"
+          }
+        }
+      }
     },
     "Reading Style" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "阅读样式"
+          }
+        }
+      }
+    },
+    "Reading font" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "阅读字体"
+          }
+        }
+      }
     },
     "Reading progress" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "阅读进度"
+          }
+        }
+      }
     },
     "Reading recommendations" : {
       "extractionState" : "manual",
@@ -5283,8 +7844,27 @@
         }
       }
     },
+    "Recently Read" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "最近阅读"
+          }
+        }
+      }
+    },
     "Reconfigure Reader" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重新设置阅读器"
+          }
+        }
+      }
     },
     "Rectangle" : {
       "extractionState" : "manual",
@@ -5364,10 +7944,26 @@
       }
     },
     "Reload library" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重新载入书库"
+          }
+        }
+      }
     },
     "Remember everything you learn — with cards that schedule themselves." : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "用会自动安排复习时间的卡片，记住你学过的一切。"
+          }
+        }
+      }
     },
     "Remove" : {
       "extractionState" : "manual",
@@ -5436,10 +8032,26 @@
       }
     },
     "Removes the server, credentials, and switches the app to local-only mode." : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "移除服务器和凭据，并将应用切换到仅本地模式。"
+          }
+        }
+      }
     },
     "Removes the stored credentials for this server. Your local collection is unaffected; you can sign in again at any time." : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "移除此服务器的已存凭据。本地集合不受影响，你随时可以重新登录。"
+          }
+        }
+      }
     },
     "Rename" : {
       "extractionState" : "manual",
@@ -5496,8 +8108,38 @@
         }
       }
     },
+    "Rename failed: %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重命名失败：%@"
+          }
+        }
+      }
+    },
     "Rename notetype" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重命名笔记模板"
+          }
+        }
+      }
+    },
+    "Rendered preview" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "渲染预览"
+          }
+        }
+      }
     },
     "Rendering: %@" : {
       "extractionState" : "manual",
@@ -5521,11 +8163,49 @@
         }
       }
     },
+    "Replace Local" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "覆盖本地"
+          }
+        }
+      }
+    },
+    "Replace Server" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "覆盖服务器"
+          }
+        }
+      }
+    },
     "Replace local with server" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "用服务器数据覆盖本地"
+          }
+        }
+      }
     },
     "Replace server with local" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "用本地数据覆盖服务器"
+          }
+        }
+      }
     },
     "Replay Audio" : {
       "extractionState" : "manual",
@@ -5539,16 +8219,51 @@
       }
     },
     "Report" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "报告"
+          }
+        }
+      }
     },
     "Reports how many cards are waiting for review." : {
       "extractionState" : "manual"
     },
     "Reset" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重置"
+          }
+        }
+      }
     },
     "Reset Everything?" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "全部重置？"
+          }
+        }
+      }
+    },
+    "Reset Everything…" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "全部重置…"
+          }
+        }
+      }
     },
     "Reset This Profile's Collection" : {
       "extractionState" : "manual",
@@ -5557,6 +8272,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "重置此用户的集合"
+          }
+        }
+      }
+    },
+    "Reset complete. Please restart the app." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重置完成，请重新启动应用。"
+          }
+        }
+      }
+    },
+    "Reset failed: %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重置失败：%@"
           }
         }
       }
@@ -5573,10 +8310,26 @@
       }
     },
     "Restore trash" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "恢复回收站"
+          }
+        }
+      }
     },
     "Resume" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "继续"
+          }
+        }
+      }
     },
     "Retention (30d)" : {
       "extractionState" : "manual",
@@ -5640,6 +8393,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "复习"
+          }
+        }
+      }
+    },
+    "Review Behavior" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "复习行为"
           }
         }
       }
@@ -5790,6 +8554,17 @@
         }
       }
     },
+    "Sans" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无衬线"
+          }
+        }
+      }
+    },
     "Saturday" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -5813,7 +8588,15 @@
       }
     },
     "Save failed" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保存失败"
+          }
+        }
+      }
     },
     "Saved" : {
       "extractionState" : "manual",
@@ -5826,8 +8609,27 @@
         }
       }
     },
+    "Saved %@." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已保存 %@。"
+          }
+        }
+      }
+    },
     "Scan length: %lld" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "扫描长度：%lld"
+          }
+        }
+      }
     },
     "Search" : {
       "extractionState" : "manual",
@@ -5852,7 +8654,15 @@
       }
     },
     "Search books" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "搜索书籍"
+          }
+        }
+      }
     },
     "Search by content, tags, or filter by deck." : {
       "extractionState" : "manual",
@@ -5866,7 +8676,15 @@
       }
     },
     "Search fields" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "搜索字段"
+          }
+        }
+      }
     },
     "Search notes..." : {
       "extractionState" : "manual",
@@ -5880,7 +8698,15 @@
       }
     },
     "Search notetypes" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "搜索笔记模板"
+          }
+        }
+      }
     },
     "Seconds to show answer" : {
       "extractionState" : "manual",
@@ -5954,6 +8780,17 @@
         }
       }
     },
+    "Sepia" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "复古"
+          }
+        }
+      }
+    },
     "Sequential (oldest first)" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -5966,19 +8803,59 @@
       }
     },
     "Serif" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "衬线"
+          }
+        }
+      }
     },
     "Server" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "服务器"
+          }
+        }
+      }
     },
     "Server Setup" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "服务器设置"
+          }
+        }
+      }
     },
     "Server URL" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "服务器地址"
+          }
+        }
+      }
     },
     "Server-only changes will be lost" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "仅存在于服务器的更改将会丢失"
+          }
+        }
+      }
     },
     "Set" : {
       "extractionState" : "manual",
@@ -6003,10 +8880,37 @@
       }
     },
     "Set Up Anki Library" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "设置 Anki 书库"
+          }
+        }
+      }
     },
     "Set Up Server" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "设置服务器"
+          }
+        }
+      }
+    },
+    "Set Up Server…" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "设置服务器…"
+          }
+        }
+      }
     },
     "Set due date failed" : {
       "extractionState" : "manual",
@@ -6020,10 +8924,26 @@
       }
     },
     "Set one from the render-mode sheet while reviewing." : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "可以在复习时从渲染方式面板中设置。"
+          }
+        }
+      }
     },
     "Set up a sync server to keep your collection in sync across devices." : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "设置同步服务器，让你的集合在多台设备间保持同步。"
+          }
+        }
+      }
     },
     "Settings" : {
       "extractionState" : "manual",
@@ -6048,7 +8968,15 @@
       }
     },
     "Share backup from %@" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "共享 %@ 的备份"
+          }
+        }
+      }
     },
     "Show Answer" : {
       "extractionState" : "manual",
@@ -6057,6 +8985,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "显示答案"
+          }
+        }
+      }
+    },
+    "Show Reader tab" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "显示「阅读」标签页"
           }
         }
       }
@@ -6083,8 +9022,60 @@
         }
       }
     },
+    "Show chapter title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "显示章节标题"
+          }
+        }
+      }
+    },
     "Show in Library toolbar" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "显示在牌组工具栏中"
+          }
+        }
+      }
+    },
+    "Show next review time" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "显示下次复习时间"
+          }
+        }
+      }
+    },
+    "Show percentage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "显示百分比"
+          }
+        }
+      }
+    },
+    "Show remaining counts" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "显示剩余数量"
+          }
+        }
+      }
     },
     "Show reminder" : {
       "extractionState" : "manual",
@@ -6098,10 +9089,26 @@
       }
     },
     "Side" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "两侧"
+          }
+        }
+      }
     },
     "Sign In" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "登录"
+          }
+        }
+      }
     },
     "Simulator needs FSRS weights" : {
       "extractionState" : "manual",
@@ -6114,8 +9121,27 @@
         }
       }
     },
+    "Size" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "大小"
+          }
+        }
+      }
+    },
     "Skip" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "跳过"
+          }
+        }
+      }
     },
     "Some changes didn't apply" : {
       "extractionState" : "manual",
@@ -6140,7 +9166,15 @@
       }
     },
     "Source URL template" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "来源 URL 模板"
+          }
+        }
+      }
     },
     "Space- or comma-separated parameters" : {
       "extractionState" : "manual",
@@ -6165,10 +9199,26 @@
       }
     },
     "Spaced repetition,\nbeautifully tuned." : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "间隔重复，\n精心调校。"
+          }
+        }
+      }
     },
     "Spacing" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "间距"
+          }
+        }
+      }
     },
     "Speak" : {
       "extractionState" : "manual",
@@ -6182,10 +9232,26 @@
       }
     },
     "Speak with TTS" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "用 TTS 朗读"
+          }
+        }
+      }
     },
     "Start learning" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "开始学习"
+          }
+        }
+      }
     },
     "Start today's review" : {
       "extractionState" : "manual",
@@ -6220,11 +9286,38 @@
         }
       }
     },
+    "Status" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "状态"
+          }
+        }
+      }
+    },
     "Stay in sync" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保持同步"
+          }
+        }
+      }
     },
     "Step %lld of %lld" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "第 %1$lld 步，共 %2$lld 步"
+          }
+        }
+      }
     },
     "Stop Audio" : {
       "extractionState" : "manual",
@@ -6244,6 +9337,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "显示答案时停止计时"
+          }
+        }
+      }
+    },
+    "Stops syncing. Your local collection is unaffected." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "停止同步，本地集合不受影响。"
+          }
+        }
+      }
+    },
+    "Stored" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已保存"
           }
         }
       }
@@ -6282,7 +9397,15 @@
       }
     },
     "Study Deck" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "学习牌组"
+          }
+        }
+      }
     },
     "Study Now" : {
       "extractionState" : "manual",
@@ -6427,6 +9550,17 @@
         }
       }
     },
+    "Swipe-down handle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "下滑手柄"
+          }
+        }
+      }
+    },
     "Switch Profile" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -6434,6 +9568,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "切换用户"
+          }
+        }
+      }
+    },
+    "Switch to another profile before deleting this one." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "请先切换到其他用户，再删除此用户。"
           }
         }
       }
@@ -6450,31 +9595,106 @@
       }
     },
     "Sync Collection" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "同步集合"
+          }
+        }
+      }
     },
     "Sync Complete" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "同步完成"
+          }
+        }
+      }
     },
     "Sync Failed" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "同步失败"
+          }
+        }
+      }
     },
     "Sync Now" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "立即同步"
+          }
+        }
+      }
     },
     "Sync Server" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "同步服务器"
+          }
+        }
+      }
+    },
+    "Sync Server URL" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "同步服务器地址"
+          }
+        }
+      }
     },
     "Sync failed: %@" : {
       "extractionState" : "manual"
     },
     "Sync provided by AnkiWeb" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "同步服务由 AnkiWeb 提供"
+          }
+        }
+      }
     },
     "Sync running" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在同步"
+          }
+        }
+      }
     },
     "Sync server URL" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "同步服务器地址"
+          }
+        }
+      }
     },
     "Sync with your server, or create a deck to get started." : {
       "extractionState" : "manual",
@@ -6487,17 +9707,66 @@
         }
       }
     },
+    "Synced — %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已同步 — %@"
+          }
+        }
+      }
+    },
     "Synced — ^[%lld change](inflect: true) up, ^[%lld change](inflect: true) down." : {
       "extractionState" : "manual"
     },
     "Syncing is disabled" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "同步已停用"
+          }
+        }
+      }
+    },
+    "Syncing media…" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在同步媒体文件…"
+          }
+        }
+      }
+    },
+    "Syncing…" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在同步…"
+          }
+        }
+      }
     },
     "Syncs your collection with the sync server." : {
       "extractionState" : "manual"
     },
     "System" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "系统"
+          }
+        }
+      }
     },
     "Tag Name" : {
       "extractionState" : "manual",
@@ -6609,11 +9878,49 @@
         }
       }
     },
+    "Tap word to look up" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "点击单词查词"
+          }
+        }
+      }
+    },
     "Template Editor" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "模板编辑器"
+          }
+        }
+      }
     },
     "Template Overrides" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "模板覆盖设置"
+          }
+        }
+      }
+    },
+    "Template issue" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "模板问题"
+          }
+        }
+      }
     },
     "Template · %@" : {
       "extractionState" : "manual",
@@ -6627,7 +9934,15 @@
       }
     },
     "Term" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "词条"
+          }
+        }
+      }
     },
     "Text" : {
       "extractionState" : "manual",
@@ -6651,8 +9966,30 @@
         }
       }
     },
+    "Text colour" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "文字颜色"
+          }
+        }
+      }
+    },
     "That deck is no longer available." : {
       "extractionState" : "manual"
+    },
+    "That note no longer exists." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "该笔记已不存在。"
+          }
+        }
+      }
     },
     "The collection couldn't be searched." : {
       "extractionState" : "manual",
@@ -6661,6 +9998,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "无法搜索集合。"
+          }
+        }
+      }
+    },
+    "The front template must reference at least one field." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正面模板必须至少引用一个字段。"
           }
         }
       }
@@ -6710,7 +10058,59 @@
       }
     },
     "The profile switcher is hidden automatically while you have only one profile. Profiles are always available here." : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "只有一个用户时，用户切换器会自动隐藏。你随时可以在这里管理用户。"
+          }
+        }
+      }
+    },
+    "The server's collection is empty. Merge or “Replace server” keeps your cards; “Replace local” would erase them." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "服务器上的集合是空的。选择「合并」或「覆盖服务器」会保留你的卡片；选择「覆盖本地」会清除它们。"
+          }
+        }
+      }
+    },
+    "The server's collection will be permanently overwritten with your local copy. Any cards or reviews that exist only on the server will be lost." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "服务器上的集合将被本地数据永久覆盖，仅存在于服务器上的卡片和复习记录都会丢失。"
+          }
+        }
+      }
+    },
+    "Theme" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "主题"
+          }
+        }
+      }
+    },
+    "Theme & Appearance" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "主题与外观"
+          }
+        }
+      }
     },
     "These notes don't have any tags." : {
       "extractionState" : "manual",
@@ -6735,7 +10135,26 @@
       }
     },
     "This cannot be undone" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此操作无法撤销"
+          }
+        }
+      }
+    },
+    "This card has no content to preview." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此卡片没有可预览的内容。"
+          }
+        }
+      }
     },
     "This card: %@" : {
       "extractionState" : "manual",
@@ -6749,10 +10168,26 @@
       }
     },
     "This collection has no notetypes yet." : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此集合还没有笔记模板。"
+          }
+        }
+      }
     },
     "This deletes the active profile's collection database, media, and stored credentials. Other profiles are unaffected. The action cannot be undone." : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "这会删除当前用户的集合数据库、媒体文件和已存凭据，其他用户不受影响。此操作无法撤销。"
+          }
+        }
+      }
     },
     "This deletes the note and all its cards. The action cannot be undone." : {
       "extractionState" : "manual",
@@ -6805,6 +10240,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "此模板"
+          }
+        }
+      }
+    },
+    "This template needs a {{cloze:...}} field." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此模板需要一个 {{cloze:...}} 字段。"
           }
         }
       }
@@ -6864,6 +10310,17 @@
         }
       }
     },
+    "Title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "标题"
+          }
+        }
+      }
+    },
     "Title (A→Z)" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -6897,8 +10354,38 @@
         }
       }
     },
+    "Toolbar" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "工具栏"
+          }
+        }
+      }
+    },
     "Top" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "顶部"
+          }
+        }
+      }
+    },
+    "Top progress bar" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "顶部进度条"
+          }
+        }
+      }
     },
     "Total" : {
       "extractionState" : "manual",
@@ -6944,8 +10431,38 @@
         }
       }
     },
+    "Trash emptied" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "回收站已清空"
+          }
+        }
+      }
+    },
+    "Trash restored" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "回收站已恢复"
+          }
+        }
+      }
+    },
     "Trash unused files" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "将未使用的文件移到回收站"
+          }
+        }
+      }
     },
     "True Retention" : {
       "extractionState" : "manual",
@@ -7020,6 +10537,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "输入答案"
+          }
+        }
+      }
+    },
+    "URL" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "URL"
           }
         }
       }
@@ -7112,6 +10640,17 @@
         }
       }
     },
+    "Unused files" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未使用的文件"
+          }
+        }
+      }
+    },
     "Up Next" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -7134,8 +10673,27 @@
         }
       }
     },
+    "Uploading collection" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在上传集合"
+          }
+        }
+      }
+    },
     "Use Locally" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "仅在本地使用"
+          }
+        }
+      }
     },
     "Use the built-in renderer for simple cards, and the card's own template for the rest." : {
       "extractionState" : "manual",
@@ -7160,7 +10718,15 @@
       }
     },
     "Use {term} and {reading} placeholders. Endpoint must return Yomichan-style audioSourceList JSON." : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "可使用 {term} 和 {reading} 占位符。接口必须返回 Yomichan 格式的 audioSourceList JSON。"
+          }
+        }
+      }
     },
     "Used by" : {
       "extractionState" : "manual",
@@ -7174,10 +10740,81 @@
       }
     },
     "Username" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "用户名"
+          }
+        }
+      }
+    },
+    "Verifies the integrity of your local Anki collection." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "检查本地 Anki 集合的完整性。"
+          }
+        }
+      }
+    },
+    "Version" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "版本"
+          }
+        }
+      }
+    },
+    "Vertical padding" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "垂直边距"
+          }
+        }
+      }
+    },
+    "Vertical writing (CJK)" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "竖排（中日韩文字）"
+          }
+        }
+      }
     },
     "View AnkiMobile in App Store" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在 App Store 中查看 AnkiMobile"
+          }
+        }
+      }
+    },
+    "Vivid" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "鲜明"
+          }
+        }
+      }
     },
     "Wait for audio before answering" : {
       "extractionState" : "manual",
@@ -7186,6 +10823,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "等待音频播放完再作答"
+          }
+        }
+      }
+    },
+    "Warning" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "警告"
           }
         }
       }
@@ -7224,7 +10872,15 @@
       }
     },
     "Welcome to" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "欢迎使用"
+          }
+        }
+      }
     },
     "Whole Collection" : {
       "extractionState" : "manual",
@@ -7249,10 +10905,26 @@
       }
     },
     "Will also delete the note (all cards empty)" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "也会删除该笔记（所有卡片都为空）"
+          }
+        }
+      }
     },
     "Word or phrase" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "单词或短语"
+          }
+        }
+      }
     },
     "Working…" : {
       "extractionState" : "manual",
@@ -7310,10 +10982,26 @@
       }
     },
     "You can change this anytime in sync settings" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "你随时可以在同步设置中更改"
+          }
+        }
+      }
     },
     "You can close this — syncing continues." : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "可以关闭此页面，同步会继续进行。"
+          }
+        }
+      }
     },
     "You have unsaved changes to this deck's options. Discard them?" : {
       "extractionState" : "manual",
@@ -7327,10 +11015,37 @@
       }
     },
     "You have unsaved changes. Discard them?" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "你有未保存的更改，要放弃吗？"
+          }
+        }
+      }
+    },
+    "You need at least one profile." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "至少需要保留一个用户。"
+          }
+        }
+      }
     },
     "You're ready" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "准备就绪"
+          }
+        }
+      }
     },
     "You've reviewed %lld cards" : {
       "extractionState" : "manual",
@@ -7377,7 +11092,37 @@
       }
     },
     "Your configured deck doesn't have any books yet. Import an EPUB or reconfigure your reader source." : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "你设置的牌组里还没有书籍。请导入 EPUB，或重新设置阅读器来源。"
+          }
+        }
+      }
+    },
+    "Your local and server collections have diverged. Choose how to reconcile them — Merge is the safest option." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "本地和服务器上的集合已经不一致。请选择处理方式，「合并」是最安全的选项。"
+          }
+        }
+      }
+    },
+    "Your local collection will be permanently overwritten with the server's copy. Any cards or reviews that exist only locally will be lost." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "本地集合将被服务器数据永久覆盖，仅存在于本地的卡片和复习记录都会丢失。"
+          }
+        }
+      }
     },
     "^[%lld card](inflect: true) due in %@." : {
       "extractionState" : "manual"
@@ -7460,10 +11205,26 @@
       }
     },
     "cool, stylish, splendid" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "酷、时髦、出色"
+          }
+        }
+      }
     },
     "e.g. Korean" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "例如 韩语"
+          }
+        }
+      }
     },
     "e.g. anatomy::heart" : {
       "extractionState" : "manual",
@@ -7488,7 +11249,15 @@
       }
     },
     "https://sync.example.com" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "https://sync.example.com"
+          }
+        }
+      }
     },
     "last tap: %@" : {
       "extractionState" : "manual"
@@ -7525,22 +11294,70 @@
       "extractionState" : "manual"
     },
     "…and %lld more" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "…还有 %lld 项"
+          }
+        }
+      }
     },
     "↑ %lld cards sent" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "↑ 已发送 %lld 张卡片"
+          }
+        }
+      }
     },
     "↑ %lld notes sent" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "↑ 已发送 %lld 条笔记"
+          }
+        }
+      }
     },
     "↓ %lld cards received" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "↓ 已接收 %lld 张卡片"
+          }
+        }
+      }
     },
     "↓ %lld notes received" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "↓ 已接收 %lld 条笔记"
+          }
+        }
+      }
     },
     "✓" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "✓"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

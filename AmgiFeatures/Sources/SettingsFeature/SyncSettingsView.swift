@@ -88,7 +88,7 @@ struct SyncSettingsView: View {
         SettingsGroup {
             SettingsValueRow(
                 title: "Username",
-                value: username ?? "Not signed in",
+                value: username ?? String(localized: "Not signed in"),
                 systemImage: "person.crop.circle",
                 tone: .accent,
                 isMuted: username == nil
@@ -96,7 +96,7 @@ struct SyncSettingsView: View {
             SettingsSeparator()
             SettingsValueRow(
                 title: "Credentials",
-                value: isLoggedIn ? "Stored" : "Not signed in",
+                value: isLoggedIn ? String(localized: "Stored") : String(localized: "Not signed in"),
                 systemImage: "key",
                 tone: .neutral
             )
@@ -134,7 +134,7 @@ struct SyncSettingsView: View {
             }
         }
         .padding(.top, AmgiSpacing.lg)
-        SettingsFootnote("Stops syncing. Your local collection is unaffected.")
+        SettingsFootnote(String(localized: "Stops syncing. Your local collection is unaffected."))
     }
 
     // MARK: - Not configured
@@ -144,7 +144,7 @@ struct SyncSettingsView: View {
         SettingsGroup {
             SettingsValueRow(
                 title: "Sync",
-                value: "Disabled",
+                value: String(localized: "Disabled"),
                 systemImage: "iphone",
                 tone: .neutral
             )
@@ -158,7 +158,7 @@ struct SyncSettingsView: View {
             }
         }
         .padding(.top, AmgiSpacing.lg)
-        SettingsFootnote("Amgi works fully offline. Add a server only if you want to sync with AnkiWeb or a self-hosted instance.")
+        SettingsFootnote(String(localized: "Amgi works fully offline. Add a server only if you want to sync with AnkiWeb or a self-hosted instance."))
     }
 }
 
@@ -212,7 +212,7 @@ private struct ServerSetupView: View {
                         .padding(.vertical, AmgiSpacing.md)
                         .frame(minHeight: 44)
                 }
-                SettingsFootnote(endpointError ?? "Enter the URL of your Anki-compatible sync server.")
+                SettingsFootnote(endpointError ?? String(localized: "Enter the URL of your Anki-compatible sync server."))
 
                 SettingsGroup {
                     SettingsButtonRow(

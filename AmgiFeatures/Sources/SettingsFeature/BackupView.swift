@@ -126,7 +126,7 @@ private extension BackupView {
         guard let docs = FileManager.default.urls(
             for: .documentDirectory, in: .userDomainMask
         ).first else { return nil }
-        let folderName = "Backups for \(username)"
+        let folderName = String(localized: "Backups for \(username)")
         let dir = docs.appendingPathComponent(folderName, isDirectory: true)
         try? FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
         return dir
@@ -165,7 +165,7 @@ private extension BackupView {
                 throw NSError(
                     domain: "BackupView",
                     code: -1,
-                    userInfo: [NSLocalizedDescriptionKey: "Cannot access backup directory."]
+                    userInfo: [NSLocalizedDescriptionKey: String(localized: "Cannot access backup directory.")]
                 )
             }
             let formatter = DateFormatter()
@@ -184,7 +184,7 @@ private extension BackupView {
                 try service.exportCollectionPackage(outPath, true)
             }
             loadBackups()
-            destination = .success("Saved \(destURL.lastPathComponent).")
+            destination = .success(String(localized: "Saved \(destURL.lastPathComponent)."))
         } catch {
             destination = .failure(error.localizedDescription)
         }

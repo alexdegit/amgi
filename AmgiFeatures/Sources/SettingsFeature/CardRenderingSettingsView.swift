@@ -55,7 +55,7 @@ struct CardRenderingSettingsView: View {
                     TemplateOverridesView()
                 }
             }
-            SettingsFootnote("Overrides pick an engine for every card of one template and beat the global choice. Stored on this device only.")
+            SettingsFootnote(String(localized: "Overrides pick an engine for every card of one template and beat the global choice. Stored on this device only."))
         }
         .navigationTitle("Card Rendering")
         .navigationBarTitleDisplayMode(.inline)

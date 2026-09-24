@@ -76,7 +76,7 @@ struct SettingsIconTile: View {
 struct SettingsRowLink<Destination: View>: View {
     @Environment(\.palette) private var palette
 
-    let title: String
+    let title: LocalizedStringKey
     let systemImage: String
     let tone: SettingsTone
     var detail: String?
@@ -197,7 +197,7 @@ struct SettingsSeparator: View {
 struct SettingsSectionHeader: View {
     @Environment(\.palette) private var palette
 
-    let title: String
+    let title: LocalizedStringKey
 
     var body: some View {
         Text(title)

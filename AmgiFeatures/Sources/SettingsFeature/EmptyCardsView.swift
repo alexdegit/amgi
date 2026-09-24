@@ -73,7 +73,7 @@ struct EmptyCardsView: View {
             try await model.loadEmptyCards()
         } catch {
             destination = .error(.init(
-                title: "Couldn't load empty cards",
+                title: String(localized: "Couldn't load empty cards"),
                 message: error.localizedDescription
             ))
         }
@@ -85,7 +85,7 @@ struct EmptyCardsView: View {
             destination = .deleted
         } catch {
             destination = .error(.init(
-                title: "Couldn't delete empty cards",
+                title: String(localized: "Couldn't delete empty cards"),
                 message: error.localizedDescription
             ))
         }
@@ -95,8 +95,8 @@ struct EmptyCardsView: View {
         do {
             guard let note = try await model.fetchNote(id) else {
                 destination = .error(.init(
-                    title: "Note unavailable",
-                    message: "That note no longer exists."
+                    title: String(localized: "Note unavailable"),
+                    message: String(localized: "That note no longer exists.")
                 ))
                 return
             }
@@ -105,7 +105,7 @@ struct EmptyCardsView: View {
                 : .editNote(note)
         } catch {
             destination = .error(.init(
-                title: "Couldn't open note",
+                title: String(localized: "Couldn't open note"),
                 message: error.localizedDescription
             ))
         }

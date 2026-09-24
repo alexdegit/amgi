@@ -25,7 +25,7 @@ final class SyncToastController {
 
     func presentSyncing() {
         cancelDismiss()
-        toast = .progress("Syncing\u{2026}")
+        toast = .progress(String(localized: "Syncing…"))
     }
 
     /// Drive the toast from a coordinator state change.
@@ -33,7 +33,7 @@ final class SyncToastController {
         switch state {
         case .syncing(let message):
             cancelDismiss()
-            toast = .progress(message.isEmpty ? "Syncing\u{2026}" : message)
+            toast = .progress(message.isEmpty ? String(localized: "Syncing…") : message)
         case .syncingMedia(let message):
             cancelDismiss()
             toast = .progress(message)

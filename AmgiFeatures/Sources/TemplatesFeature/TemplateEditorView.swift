@@ -70,7 +70,7 @@ package struct TemplateEditorView: View {
 
     private var currentTemplateName: String {
         guard model.notetype.templates.indices.contains(model.selectedTemplateIndex) else {
-            return "No template selected."
+            return String(localized: "No template selected.")
         }
         return model.notetype.templates[model.selectedTemplateIndex].name
     }
@@ -115,7 +115,7 @@ package struct TemplateEditorView: View {
             ProgressView()
         } else if let errorMessage = model.errorMessage {
             AmgiStatusMessageView(
-                title: "Could not load templates",
+                title: String(localized: "Could not load templates"),
                 message: errorMessage,
                 systemImage: "exclamationmark.triangle",
                 tone: .warning
@@ -173,7 +173,7 @@ package struct TemplateEditorView: View {
 
                 if let currentTemplateValidationMessage {
                     AmgiStatusMessageView(
-                        title: "Template issue",
+                        title: String(localized: "Template issue"),
                         message: currentTemplateValidationMessage,
                         systemImage: "exclamationmark.triangle",
                         tone: .warning
@@ -210,8 +210,8 @@ package struct TemplateEditorView: View {
 
     private var previewSheet: some View {
         TemplatePreviewSheet(
-            title: "Rendered preview",
-            emptyMessage: "This card has no content to preview.",
+            title: String(localized: "Rendered preview"),
+            emptyMessage: String(localized: "This card has no content to preview."),
             notetype: model.notetype,
             initialTemplateIndex: model.selectedTemplateIndex,
             loadSampleFields: {

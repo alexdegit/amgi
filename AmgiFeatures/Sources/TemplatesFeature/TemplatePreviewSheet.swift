@@ -50,7 +50,7 @@ struct TemplatePreviewSheet: View {
 
     private var currentTemplateName: String {
         guard notetype.templates.indices.contains(selectedTemplateIndex) else {
-            return "No template selected."
+            return String(localized: "No template selected.")
         }
         return notetype.templates[selectedTemplateIndex].name
     }
@@ -115,7 +115,7 @@ private extension TemplatePreviewSheet {
         guard notetype.templates.indices.contains(selectedTemplateIndex) else {
             isLoading = false
             isEmptyCard = false
-            errorMessage = "No template selected."
+            errorMessage = String(localized: "No template selected.")
             renderedFrontHTML = ""
             renderedBackHTML = ""
             return
@@ -162,7 +162,7 @@ enum CardPreviewSide: CaseIterable {
 
     var label: String {
         switch self {
-        case .front: return "Front"
+        case .front: return String(localized: "Front")
         case .back: return "Back"
         }
     }

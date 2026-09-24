@@ -28,7 +28,7 @@ struct MaintenanceView: View {
                 }
                 .disabled(model.isChecking)
             }
-            SettingsFootnote("Verifies the integrity of your local Anki collection.")
+            SettingsFootnote(String(localized: "Verifies the integrity of your local Anki collection."))
 
             SettingsSectionHeader(title: "Danger Zone")
             SettingsGroup {
@@ -41,7 +41,7 @@ struct MaintenanceView: View {
                     showResetConfirm = true
                 }
             }
-            SettingsFootnote("Deletes this profile's collection and credentials. You will need to sync or re-import after.")
+            SettingsFootnote(String(localized: "Deletes this profile's collection and credentials. You will need to sync or re-import after."))
 
             if !model.statusMessage.isEmpty {
                 SettingsSectionHeader(title: "Status")

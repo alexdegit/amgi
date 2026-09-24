@@ -43,10 +43,10 @@ enum ReaderTypographyPreferences {
 
         var label: String {
             switch self {
-            case .system: return "System"
-            case .serif: return "Serif"
-            case .sansSerif: return "Sans"
-            case .mono: return "Mono"
+            case .system: return String(localized: "System")
+            case .serif: return String(localized: "Serif")
+            case .sansSerif: return String(localized: "Sans")
+            case .mono: return String(localized: "Mono")
             }
         }
     }
@@ -65,9 +65,9 @@ enum ReaderTypographyPreferences {
 
         var label: String {
             switch self {
-            case .compact: return "Compact"
-            case .defaultMargin: return "Default"
-            case .loose: return "Loose"
+            case .compact: return String(localized: "Compact")
+            case .defaultMargin: return String(localized: "Default")
+            case .loose: return String(localized: "Loose")
             }
         }
     }
@@ -78,9 +78,9 @@ enum ReaderTypographyPreferences {
 
         var label: String {
             switch self {
-            case .default: return "Default"
-            case .sepia: return "Sepia"
-            case .dark: return "Dark"
+            case .default: return String(localized: "Default")
+            case .sepia: return String(localized: "Sepia")
+            case .dark: return String(localized: "Dark")
             }
         }
 

@@ -331,17 +331,17 @@ struct SyncSheetContent: View {
 
     private func destructiveButtonLabel(_ choice: SyncDirection) -> String {
         switch choice {
-        case .download: return "Replace Local"
-        case .upload: return "Replace Server"
+        case .download: return String(localized: "Replace Local")
+        case .upload: return String(localized: "Replace Server")
         }
     }
 
     private func destructiveDialogMessage(_ choice: SyncDirection) -> String {
         switch choice {
         case .download:
-            return "Your local collection will be permanently overwritten with the server's copy. Any cards or reviews that exist only locally will be lost."
+            return String(localized: "Your local collection will be permanently overwritten with the server's copy. Any cards or reviews that exist only locally will be lost.")
         case .upload:
-            return "The server's collection will be permanently overwritten with your local copy. Any cards or reviews that exist only on the server will be lost."
+            return String(localized: "The server's collection will be permanently overwritten with your local copy. Any cards or reviews that exist only on the server will be lost.")
         }
     }
 

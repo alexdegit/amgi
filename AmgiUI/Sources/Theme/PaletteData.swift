@@ -204,3 +204,18 @@ extension Color {
         return Color(red: r, green: g, blue: b, opacity: a)
     }
 }
+
+extension PaletteData {
+    /// Name to show in the UI. `displayName` comes from the bundled theme
+    /// JSON, which the string extractor can't see, so the bundled themes are
+    /// named here as literals; unknown (e.g. future) themes fall back to it.
+    public var localizedDisplayName: String {
+        switch id {
+        case "vivid": String(localized: "Vivid")
+        case "muted": String(localized: "Muted")
+        case "sepia": String(localized: "Sepia")
+        case "minimal": String(localized: "Minimal")
+        default: displayName
+        }
+    }
+}

@@ -111,8 +111,8 @@ struct SyncSheet: View {
     }
 
     private var lastSyncedLabel: String {
-        guard let last = coordinator.lastSuccessfulSync else { return "Never synced" }
-        return "Last synced \(last.formatted(.relative(presentation: .numeric)))"
+        guard let last = coordinator.lastSuccessfulSync else { return String(localized: "Never synced") }
+        return String(localized: "Last synced \(last.formatted(.relative(presentation: .numeric)))")
     }
 
     private var footerError: String? {
@@ -148,7 +148,7 @@ private extension SyncSheet {
     }
 
     func mergeFullSync() async {
-        syncState = .syncing("Preparing merge...")
+        syncState = .syncing(String(localized: "Preparing merge…"))
         do {
             try await syncClient.merge { message in
                 Task { @MainActor in

@@ -41,7 +41,7 @@ final class ReaderDictionarySettingsModel {
         do {
             libraryState = try await dictionary.loadState()
         } catch {
-            actionError = "Failed to load library: \(error.localizedDescription)"
+            actionError = String(localized: "Failed to load library: \(error.localizedDescription)")
         }
     }
 
@@ -50,7 +50,7 @@ final class ReaderDictionarySettingsModel {
         case .success(let urls):
             Task { await importArchives(urls) }
         case .failure(let error):
-            actionError = "Could not select files: \(error.localizedDescription)"
+            actionError = String(localized: "Could not select files: \(error.localizedDescription)")
         }
     }
 
@@ -63,7 +63,7 @@ final class ReaderDictionarySettingsModel {
             // mirroring how DreamAfar's importer drives FileManager.
             libraryState = try await dictionary.importArchives(urls, selectedKind)
         } catch {
-            actionError = "Import failed: \(error.localizedDescription)"
+            actionError = String(localized: "Import failed: \(error.localizedDescription)")
         }
     }
 
@@ -73,7 +73,7 @@ final class ReaderDictionarySettingsModel {
         do {
             libraryState = try await dictionary.setEnabled(selectedKind, info.id, !info.isEnabled)
         } catch {
-            actionError = "Failed to update: \(error.localizedDescription)"
+            actionError = String(localized: "Failed to update: \(error.localizedDescription)")
         }
     }
 
@@ -83,7 +83,7 @@ final class ReaderDictionarySettingsModel {
         do {
             libraryState = try await dictionary.delete(selectedKind, info.id)
         } catch {
-            actionError = "Failed to delete: \(error.localizedDescription)"
+            actionError = String(localized: "Failed to delete: \(error.localizedDescription)")
         }
     }
 
@@ -95,7 +95,7 @@ final class ReaderDictionarySettingsModel {
         do {
             libraryState = try await dictionary.reorder(selectedKind, ids)
         } catch {
-            actionError = "Failed to reorder: \(error.localizedDescription)"
+            actionError = String(localized: "Failed to reorder: \(error.localizedDescription)")
         }
     }
 }

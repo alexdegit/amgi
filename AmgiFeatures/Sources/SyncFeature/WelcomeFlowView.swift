@@ -405,8 +405,8 @@ private struct ReaderVisual: View {
                 .foregroundStyle(palette.textPrimary)
 
             HStack(spacing: AmgiSpacing.xs) {
-                chip("Look up", systemImage: "character.book.closed", isProminent: true)
-                chip("Save", systemImage: nil, isProminent: false)
+                chip(String(localized: "Look up"), systemImage: "character.book.closed", isProminent: true)
+                chip(String(localized: "Save"), systemImage: nil, isProminent: false)
             }
             .padding(.top, AmgiSpacing.sm)
         }

@@ -218,7 +218,7 @@ private extension LookupEntryView {
             ) {
                 inner
             } label: {
-                Text(group.dictionary.isEmpty ? "Definitions" : group.dictionary)
+                Text(group.dictionary.isEmpty ? String(localized: "Definitions") : group.dictionary)
                     .font(.system(size: styling.dictionaryNameFontSize))
                     .foregroundStyle(palette.textSecondary)
             }
