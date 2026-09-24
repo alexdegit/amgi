@@ -1,0 +1,83 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "How many cards are due in ${applicationName}" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "${applicationName}里有多少张卡片到期"
+          }
+        }
+      }
+    },
+    "Review cards in ${applicationName}" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在${applicationName}里复习卡片"
+          }
+        }
+      }
+    },
+    "Start a review in ${applicationName}" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在${applicationName}里开始复习"
+          }
+        }
+      }
+    },
+    "Study in ${applicationName}" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "用${applicationName}学习"
+          }
+        }
+      }
+    },
+    "Sync ${applicationName}" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "同步${applicationName}"
+          }
+        }
+      }
+    },
+    "Sync my ${applicationName} collection" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "同步我的${applicationName}集合"
+          }
+        }
+      }
+    },
+    "What's due in ${applicationName}" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "${applicationName}里有什么到期"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

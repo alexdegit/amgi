@@ -142,7 +142,7 @@ private extension RetrievabilityChart {
         )
         .foregroundStyle(bucketColor(for: item.center).gradient)
         .accessibilityLabel(item.label)
-        .accessibilityValue(ChartSpeech.count(item.count, "card"))
+        .accessibilityValue(ChartSpeech.count(item.count, .card))
     }
 
     @ChartContentBuilder

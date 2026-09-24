@@ -56,7 +56,7 @@ public struct EaseChart: View {
                         )
                         .foregroundStyle(palette.accent.gradient)
                         .accessibilityLabel("\(item.ease / 10)% ease")
-                        .accessibilityValue(ChartSpeech.count(item.count, "card"))
+                        .accessibilityValue(ChartSpeech.count(item.count, .card))
                     }
                     .chartXAxis {
                         AxisMarks(values: .automatic(desiredCount: 5)) { value in

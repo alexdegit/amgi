@@ -41,11 +41,11 @@ struct DeckCountsView: View {
 
 private extension DeckCountsView {
     var accessibilityLabel: String {
-        guard counts.total > 0 else { return "No cards due" }
+        guard counts.total > 0 else { return String(localized: "No cards due") }
         var parts: [String] = []
-        if counts.newCount > 0 { parts.append("\(counts.newCount) new") }
-        if counts.learnCount > 0 { parts.append("\(counts.learnCount) learning") }
-        if counts.reviewCount > 0 { parts.append("\(counts.reviewCount) to review") }
+        if counts.newCount > 0 { parts.append(String(localized: "\(counts.newCount) new")) }
+        if counts.learnCount > 0 { parts.append(String(localized: "\(counts.learnCount) learning")) }
+        if counts.reviewCount > 0 { parts.append(String(localized: "\(counts.reviewCount) to review")) }
         return parts.joined(separator: ", ")
     }
 

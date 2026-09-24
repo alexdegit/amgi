@@ -234,8 +234,10 @@ private extension HeatmapChartOptimized {
 
     var heatmapSummary: String {
         let days = visibleData.values.count(where: { $0 > 0 })
-        return "\(ChartSpeech.count(totalReviews, "review")) over \(dateRangeLabel(selectedDateRange)), "
-            + "on \(ChartSpeech.count(days, "day")). Busiest day \(ChartSpeech.count(maxCount, "review"))."
+        let reviews = ChartSpeech.count(totalReviews, .review)
+        let activeDays = ChartSpeech.count(days, .day)
+        let busiest = ChartSpeech.count(maxCount, .review)
+        return String(localized: "\(reviews) over \(dateRangeLabel(selectedDateRange)), on \(activeDays). Busiest day \(busiest).")
     }
 
     func legendView() -> some View {

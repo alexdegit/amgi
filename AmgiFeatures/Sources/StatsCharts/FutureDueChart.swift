@@ -71,10 +71,10 @@ public struct FutureDueChart: View {
                         .foregroundStyle(item.day < 0 ? palette.danger.gradient : palette.accent.gradient)
                         .accessibilityLabel(
                             item.day < 0
-                                ? "\(ChartSpeech.day(item.day)), overdue"
+                                ? String(localized: "\(ChartSpeech.day(item.day)), overdue")
                                 : ChartSpeech.day(item.day)
                         )
-                        .accessibilityValue(ChartSpeech.count(item.count, "card"))
+                        .accessibilityValue(ChartSpeech.count(item.count, .card))
                     }
                     .chartXAxis {
                         AxisMarks(values: .automatic(desiredCount: 5)) { _ in

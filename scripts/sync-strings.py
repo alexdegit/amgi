@@ -31,11 +31,11 @@ TARGET_LANGS = ["zh-Hans"]
 
 
 def extracted_keys():
-    files = [
-        f
-        for f in glob.glob(os.path.join(DERIVED, "**", "*.stringsdata"), recursive=True)
-        if "ExtractedAppShortcuts" not in f
-    ]
+    # ExtractedAppShortcutsMetadata files are included on purpose: App Intents
+    # parameter summaries ("Study ${deck}") land in their Localizable table.
+    # Their AppShortcuts table (Siri phrases) is ignored below — those live in
+    # AppShortcuts.xcstrings.
+    files = glob.glob(os.path.join(DERIVED, "**", "*.stringsdata"), recursive=True)
     if not files:
         sys.exit(
             "No .stringsdata found under build/. Build with "

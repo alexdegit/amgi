@@ -46,7 +46,7 @@ struct WatchDeckDetailView: View {
             await loadCounts()
         }
     }
-    private func countItem(label: String, count: Int, color: Color) -> some View {
+    private func countItem(label: LocalizedStringKey, count: Int, color: Color) -> some View {
         VStack {
             Text("\(count)")
                 .font(.headline)

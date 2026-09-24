@@ -9,6 +9,7 @@ import AnkiClients
 import AnkiKit
 import AnkiSync
 import Dependencies
+import Foundation
 import os
 public import SwiftUI
 
@@ -95,7 +96,7 @@ public struct WatchLoginView: View {
             onLoginSuccess()
         } catch {
             logger.error("Login failed: \(error)")
-            submission = .failed("Login failed. Check your credentials.")
+            submission = .failed(String(localized: "Login failed. Check your credentials."))
         }
     }
 }

@@ -69,7 +69,7 @@ public struct IntervalsChart: View {
                         )
                         .foregroundStyle(palette.accent.gradient)
                         .accessibilityLabel(bucket.label)
-                        .accessibilityValue(ChartSpeech.count(bucket.count, "card"))
+                        .accessibilityValue(ChartSpeech.count(bucket.count, .card))
                     }
                     .chartXAxis {
                         AxisMarks(values: .automatic) { _ in

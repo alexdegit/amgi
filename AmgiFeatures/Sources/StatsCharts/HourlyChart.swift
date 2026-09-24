@@ -67,7 +67,7 @@ public struct HourlyChart: View {
                         )
                         .foregroundStyle(palette.accent.gradient)
                         .accessibilityLabel(formatHour(entry.hour))
-                        .accessibilityValue(ChartSpeech.count(entry.total, "review"))
+                        .accessibilityValue(ChartSpeech.count(entry.total, .review))
                     }
                     .chartXAxis {
                         AxisMarks(values: [0, 4, 8, 12, 16, 20]) { value in

@@ -59,7 +59,7 @@ public struct CardCountsChart: View {
                         )
                         .foregroundStyle(item.color)
                         .accessibilityLabel(item.name)
-                        .accessibilityValue(ChartSpeech.count(item.count, "card"))
+                        .accessibilityValue(ChartSpeech.count(item.count, .card))
                     }
                     .frame(height: 200)
 

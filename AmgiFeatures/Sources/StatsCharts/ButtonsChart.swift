@@ -85,7 +85,7 @@ public struct ButtonsChart: View {
                         )
                         .foregroundStyle(by: .value("Type", entry.cardType))
                         .accessibilityLabel("\(entry.cardType), \(entry.button)")
-                        .accessibilityValue(ChartSpeech.count(entry.count, "press"))
+                        .accessibilityValue(ChartSpeech.count(entry.count, .press))
                     }
                     .chartForegroundStyleScale([
                         String(localized: "Learning"): palette.cardStateNew,

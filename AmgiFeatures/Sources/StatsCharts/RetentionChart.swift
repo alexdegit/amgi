@@ -94,7 +94,7 @@ private extension RetentionChart {
     }
 
     func retentionSpeech(_ rate: Double) -> String {
-        rate > 0 ? ChartSpeech.percent(rate * 100) : "no data"
+        rate > 0 ? ChartSpeech.percent(rate * 100) : String(localized: "no data")
     }
 
     func retentionColor(_ rate: Double) -> Color {

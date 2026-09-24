@@ -93,7 +93,7 @@ public struct StreakCard: View {
 
     private var accessibilityValue: String {
         guard let comparisonLabel else { return streakLabel }
-        return "\(streakLabel), \(comparisonLabel)"
+        return String(localized: "\(streakLabel), \(comparisonLabel)")
     }
 }
 

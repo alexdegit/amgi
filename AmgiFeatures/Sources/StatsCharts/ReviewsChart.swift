@@ -88,7 +88,7 @@ public struct ReviewsChart: View {
                         )
                         .foregroundStyle(by: .value("Type", entry.type))
                         .accessibilityLabel("\(entry.type), \(ChartSpeech.day(entry.day))")
-                        .accessibilityValue(ChartSpeech.count(entry.count, "review"))
+                        .accessibilityValue(ChartSpeech.count(entry.count, .review))
                     }
                     .chartForegroundStyleScale([
                         String(localized: "Learn"): palette.cardStateNew,

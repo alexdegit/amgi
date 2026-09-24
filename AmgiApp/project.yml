@@ -173,6 +173,8 @@ targets:
       # Bundle.main even from inside the AmgiFeatures package, so strings from
       # every feature module live here rather than in per-package catalogs.
       - path: Resources/Localizable.xcstrings
+      # Siri / Shortcuts phrases must live in their own AppShortcuts table.
+      - path: Resources/AppShortcuts.xcstrings
     dependencies:
       - package: AmgiFeatures
         product: RootFeature
@@ -185,11 +187,12 @@ targets:
       base:
         INFOPLIST_FILE: Info.plist
         PRODUCT_BUNDLE_IDENTIFIER: com.alexdegit.AmgiApp
-        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
-        # Keys come from UI text, so near-duplicates like "Auto"/"auto" and
-        # "Add Note"/"Add Note…" are expected; generated symbols would collide
-        # and nothing references them.
+        # The catalog's keys come from UI text, so near-duplicates such as
+        # "Auto"/"auto" and "Add Note"/"Add Note…" are expected; generated
+        # symbols would collide and nothing uses them. Set per target: the
+        # target-level SDK defaults override a project-level value.
         STRING_CATALOG_GENERATE_SYMBOLS: NO
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         CODE_SIGN_ENTITLEMENTS: AmgiApp.entitlements
         # Cxx interop chain. Xcode + SPM under Swift 6 needs an explicit
         # Clang C++ standard alongside SWIFT_CXX_INTEROPERABILITY_MODE —
@@ -231,7 +234,14 @@ targets:
     type: app-extension
     platform: iOS
     sources:
+      # A plain group, not the default synced folder: once the catalog below
+      # gives this target a Resources phase, a synced folder copies
+      # Info.plist into it as well ("Multiple commands produce …/Info.plist").
+      # As a group, XcodeGen leaves INFOPLIST_FILE out of the resources.
       - path: Sources/Widgets
+        type: group
+      # Extensions resolve strings against their own bundle, not the app's.
+      - path: Resources/Localizable.xcstrings
     dependencies:
       # Everything but @main AmgiWidgetBundle lives in WidgetFeature, which
       # brings AppCore + Theme transitively. AnkiKit was vestigial —
@@ -243,6 +253,7 @@ targets:
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.alexdegit.AmgiApp.widget
+        STRING_CATALOG_GENERATE_SYMBOLS: NO
         INFOPLIST_FILE: Sources/Widgets/Info.plist
         CODE_SIGN_ENTITLEMENTS: AmgiWidget.entitlements
 
@@ -258,6 +269,8 @@ targets:
       # 2026-08-15). Do not re-add per-file paths here.
       - path: Sources/Watch
         type: group
+      # The watch app is its own bundle; it needs its own copy of the catalog.
+      - path: Resources/Localizable.xcstrings
     dependencies:
       - package: AnkiBridge
         product: AnkiKit
@@ -290,6 +303,7 @@ targets:
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.alexdegit.AmgiApp.watch
+        STRING_CATALOG_GENERATE_SYMBOLS: NO
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         GENERATE_INFOPLIST_FILE: YES
         INFOPLIST_KEY_WKCompanionAppBundleIdentifier: com.alexdegit.AmgiApp

@@ -128,11 +128,11 @@ public struct DeckGridCardView: View {
     }
 
     private var accessibilityCounts: String {
-        guard data.totalCount > 0 else { return "up to date" }
+        guard data.totalCount > 0 else { return String(localized: "up to date") }
         var parts: [String] = []
-        if data.newCount > 0 { parts.append("\(data.newCount) new") }
-        if data.learnCount > 0 { parts.append("\(data.learnCount) learning") }
-        if data.reviewCount > 0 { parts.append("\(data.reviewCount) to review") }
+        if data.newCount > 0 { parts.append(String(localized: "\(data.newCount) new")) }
+        if data.learnCount > 0 { parts.append(String(localized: "\(data.learnCount) learning")) }
+        if data.reviewCount > 0 { parts.append(String(localized: "\(data.reviewCount) to review")) }
         return parts.joined(separator: ", ")
     }
 }

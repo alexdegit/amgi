@@ -16,7 +16,15 @@
       }
     },
     "%@" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@"
+          }
+        }
+      }
     },
     "%@ correct" : {
       "extractionState" : "manual",
@@ -25,6 +33,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ 正确"
+          }
+        }
+      }
+    },
+    "%@ over %@, on %@. Busiest day %@." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%2$@内共 %1$@，分布在 %3$@。最多的一天 %4$@。"
           }
         }
       }
@@ -73,6 +92,17 @@
         }
       }
     },
+    "%@, overdue" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@，已逾期"
+          }
+        }
+      }
+    },
     "%@: %@" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -107,7 +137,15 @@
       }
     },
     "%lld day streak" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "连续 %lld 天"
+          }
+        }
+      }
     },
     "%lld days" : {
       "extractionState" : "manual",
@@ -116,6 +154,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%lld 天"
+          }
+        }
+      }
+    },
+    "%lld days ago" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld 天前"
           }
         }
       }
@@ -197,6 +246,17 @@
         }
       }
     },
+    "%lld learning" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld 张学习中"
+          }
+        }
+      }
+    },
     "%lld masks" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -215,6 +275,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%lld 个缺失文件"
+          }
+        }
+      }
+    },
+    "%lld new" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld 张新卡片"
           }
         }
       }
@@ -285,6 +356,17 @@
         }
       }
     },
+    "%lld presses" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "按了 %lld 次"
+          }
+        }
+      }
+    },
     "%lld pt" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -325,6 +407,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%lld 个子牌组"
+          }
+        }
+      }
+    },
+    "%lld to review" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld 张待复习"
           }
         }
       }
@@ -461,6 +554,17 @@
         }
       }
     },
+    "1 card" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 张卡片"
+          }
+        }
+      }
+    },
     "1 day" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -512,6 +616,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "1 组"
+          }
+        }
+      }
+    },
+    "1 press" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "按了 1 次"
           }
         }
       }
@@ -1067,7 +1182,15 @@
       }
     },
     "Already up to date." : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已是最新。"
+          }
+        }
+      }
     },
     "Always use the card's own template." : {
       "extractionState" : "manual",
@@ -2148,7 +2271,15 @@
       }
     },
     "Choose Deck" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "选择牌组"
+          }
+        }
+      }
     },
     "Choose a deck before saving." : {
       "extractionState" : "manual",
@@ -2256,6 +2387,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "折叠词典"
+          }
+        }
+      }
+    },
+    "Collapsed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已折叠"
           }
         }
       }
@@ -3867,7 +4009,15 @@
       }
     },
     "Done today" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今日已完成"
+          }
+        }
+      }
     },
     "Downloading collection" : {
       "extractionState" : "manual",
@@ -3887,6 +4037,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "降低其他音频音量"
+          }
+        }
+      }
+    },
+    "Due" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "到期"
           }
         }
       }
@@ -4294,6 +4455,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "已有标签"
+          }
+        }
+      }
+    },
+    "Expanded" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已展开"
           }
         }
       }
@@ -4804,6 +4976,17 @@
         }
       }
     },
+    "Finished!" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "完成！"
+          }
+        }
+      }
+    },
     "Flag" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -5014,7 +5197,26 @@
       }
     },
     "Get Cards Due" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "获取到期卡片"
+          }
+        }
+      }
+    },
+    "Get cards due in ${deck}" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "获取 ${deck} 的到期卡片"
+          }
+        }
+      }
     },
     "Good" : {
       "extractionState" : "manual",
@@ -5390,6 +5592,17 @@
         }
       }
     },
+    "In %lld days" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld 天后"
+          }
+        }
+      }
+    },
     "Include Backlog" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -5622,7 +5835,15 @@
       }
     },
     "LAST 7 DAYS" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "最近 7 天"
+          }
+        }
+      }
     },
     "Language" : {
       "extractionState" : "manual",
@@ -6038,6 +6259,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "登录"
+          }
+        }
+      }
+    },
+    "Login failed. Check your credentials." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "登录失败，请检查账号和密码。"
           }
         }
       }
@@ -7121,7 +7353,15 @@
       }
     },
     "Nothing due in %@." : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 中没有到期的卡片。"
+          }
+        }
+      }
     },
     "Nothing due today" : {
       "extractionState" : "manual",
@@ -7146,7 +7386,15 @@
       }
     },
     "Open Amgi once so it can publish its deck counts, then try again." : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "请先打开一次 Amgi，让它更新牌组数据，然后再试。"
+          }
+        }
+      }
     },
     "Open FSRS Simulator" : {
       "extractionState" : "manual",
@@ -7171,7 +7419,15 @@
       }
     },
     "Opens Amgi and starts reviewing a deck." : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "打开 Amgi 并开始复习一个牌组。"
+          }
+        }
+      }
     },
     "Optimize All Presets" : {
       "extractionState" : "manual",
@@ -8230,7 +8486,15 @@
       }
     },
     "Reports how many cards are waiting for review." : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "告诉你有多少张卡片等待复习。"
+          }
+        }
+      }
     },
     "Reset" : {
       "extractionState" : "manual",
@@ -8497,7 +8761,15 @@
       }
     },
     "Reviews in the last 7 days" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "最近 7 天的复习"
+          }
+        }
+      }
     },
     "Reviews/day: %d" : {
       "extractionState" : "manual",
@@ -8731,7 +9003,15 @@
       }
     },
     "See your cards due today." : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "查看今天到期的卡片。"
+          }
+        }
+      }
     },
     "Select" : {
       "extractionState" : "manual",
@@ -8756,7 +9036,15 @@
       }
     },
     "Select which deck to display." : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "选择要显示的牌组。"
+          }
+        }
+      }
     },
     "Selected Notes" : {
       "extractionState" : "manual",
@@ -9110,6 +9398,17 @@
         }
       }
     },
+    "Sign Out" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "退出登录"
+          }
+        }
+      }
+    },
     "Simulator needs FSRS weights" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -9264,6 +9563,17 @@
         }
       }
     },
+    "Startup Error" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "启动出错"
+          }
+        }
+      }
+    },
     "Statistics" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -9392,6 +9702,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "学习"
+          }
+        }
+      }
+    },
+    "Study ${deck}" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "学习 ${deck}"
           }
         }
       }
@@ -9561,6 +9882,17 @@
         }
       }
     },
+    "Switch Account" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "切换账户"
+          }
+        }
+      }
+    },
     "Switch Profile" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -9661,7 +9993,15 @@
       }
     },
     "Sync failed: %@" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "同步失败：%@"
+          }
+        }
+      }
     },
     "Sync provided by AnkiWeb" : {
       "extractionState" : "manual",
@@ -9696,6 +10036,17 @@
         }
       }
     },
+    "Sync to bring your decks over from iPhone." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "同步一下，把 iPhone 上的牌组带过来。"
+          }
+        }
+      }
+    },
     "Sync with your server, or create a deck to get started." : {
       "extractionState" : "manual",
       "localizations" : {
@@ -9719,7 +10070,26 @@
       }
     },
     "Synced — ^[%lld change](inflect: true) up, ^[%lld change](inflect: true) down." : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已同步 — 上传 %1$lld 项更改，下载 %2$lld 项更改。"
+          }
+        }
+      }
+    },
+    "Syncing" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在同步"
+          }
+        }
+      }
     },
     "Syncing is disabled" : {
       "extractionState" : "manual",
@@ -9755,7 +10125,15 @@
       }
     },
     "Syncs your collection with the sync server." : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "将你的集合与同步服务器同步。"
+          }
+        }
+      }
     },
     "System" : {
       "extractionState" : "manual",
@@ -9878,6 +10256,17 @@
         }
       }
     },
+    "Tap to replay audio." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "轻点以重播音频。"
+          }
+        }
+      }
+    },
     "Tap word to look up" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -9978,7 +10367,15 @@
       }
     },
     "That deck is no longer available." : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "该牌组已不存在。"
+          }
+        }
+      }
     },
     "That note no longer exists." : {
       "extractionState" : "manual",
@@ -9987,6 +10384,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "该笔记已不存在。"
+          }
+        }
+      }
+    },
+    "The collection couldn't be read." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法读取集合。"
           }
         }
       }
@@ -11125,7 +11533,15 @@
       }
     },
     "^[%lld card](inflect: true) due in %@." : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%2$@ 中有 %1$lld 张卡片到期。"
+          }
+        }
+      }
     },
     "across %lld decks" : {
       "extractionState" : "manual",
@@ -11265,6 +11681,17 @@
     "layout: %@ · lang: %@" : {
       "extractionState" : "manual"
     },
+    "no data" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "暂无数据"
+          }
+        }
+      }
+    },
     "preset:\"…\" -is:suspended" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -11290,8 +11717,27 @@
         }
       }
     },
+    "up to date" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已完成"
+          }
+        }
+      }
+    },
     "{{Front}}" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "{{Front}}"
+          }
+        }
+      }
     },
     "…and %lld more" : {
       "extractionState" : "manual",
