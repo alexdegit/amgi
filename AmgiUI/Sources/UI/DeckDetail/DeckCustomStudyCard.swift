@@ -32,7 +32,7 @@ public struct DeckCustomStudyCard: View {
         VStack(spacing: 0) {
             DeckCustomStudyActionRow(
                 icon: "arrow.clockwise",
-                label: "Rebuild",
+                label: String(localized: "Rebuild"),
                 tone: palette.accent,
                 showsDivider: true,
                 isDisabled: isActionInFlight,
@@ -40,7 +40,7 @@ public struct DeckCustomStudyCard: View {
             )
             DeckCustomStudyActionRow(
                 icon: "tray",
-                label: "Empty",
+                label: String(localized: "Empty"),
                 tone: palette.danger,
                 showsDivider: false,
                 isDisabled: isActionInFlight,

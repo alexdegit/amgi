@@ -115,7 +115,7 @@ struct FsrsSimulatorSettingsSection: View {
             Stepper("Additional cards: \(additionalCards)", value: $additionalCards, in: 0...100000, step: 100)
             if mode == .review {
                 LabeledSlider(
-                    label: "Desired retention",
+                    label: String(localized: "Desired retention"),
                     value: $desiredRetentionPercent,
                     in: 70...99,
                     step: 1,

@@ -20,7 +20,7 @@ public struct DeckStudyButton: View {
 
     public init(
         isDisabled: Bool,
-        disabledHint: String = "Deck has no cards due",
+        disabledHint: String = String(localized: "Deck has no cards due"),
         onTap: @escaping () -> Void
     ) {
         self.isDisabled = isDisabled

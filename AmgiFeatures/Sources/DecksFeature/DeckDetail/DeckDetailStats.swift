@@ -54,7 +54,7 @@ enum DeckDetailStats {
 
     static func buildSubtitle(graphs: GraphsSnapshot, isEmpty: Bool) -> String {
         if isEmpty {
-            return "No cards yet · Add some to start studying"
+            return String(localized: "No cards yet · Add some to start studying")
         }
 
         func dayTotal(_ rev: ReviewCountsAndTimes.Reviews) -> Int {
@@ -91,11 +91,11 @@ enum DeckDetailStats {
         }
 
         if streak > 0 {
-            return "Last studied \(lastStudied) · \(streak)-day streak"
+            return String(localized: "Last studied \(lastStudied) · \(streak)-day streak")
         } else if lastOffset != nil {
-            return "Last studied \(lastStudied)"
+            return String(localized: "Last studied \(lastStudied)")
         } else {
-            return "No reviews yet"
+            return String(localized: "No reviews yet")
         }
     }
 }

@@ -29,12 +29,12 @@ enum IOMaskAlignMode: CaseIterable {
 
     var label: String {
         switch self {
-        case .left:             return "Align left"
-        case .horizontalCenter: return "Center horizontally"
-        case .right:            return "Align right"
-        case .top:              return "Align top"
-        case .verticalCenter:   return "Center vertically"
-        case .bottom:           return "Align bottom"
+        case .left:             return String(localized: "Align left")
+        case .horizontalCenter: return String(localized: "Center horizontally")
+        case .right:            return String(localized: "Align right")
+        case .top:              return String(localized: "Align top")
+        case .verticalCenter:   return String(localized: "Center vertically")
+        case .bottom:           return String(localized: "Align bottom")
         }
     }
 }
@@ -45,8 +45,8 @@ enum IOOcclusionMode: CaseIterable {
 
     var label: String {
         switch self {
-        case .hideAllGuessOne: return "Hide all, guess one"
-        case .hideOneGuessOne: return "Hide one, guess one"
+        case .hideAllGuessOne: return String(localized: "Hide all, guess one")
+        case .hideOneGuessOne: return String(localized: "Hide one, guess one")
         }
     }
 

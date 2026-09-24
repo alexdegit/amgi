@@ -40,32 +40,32 @@ public final class CardContextMenuModel {
     // MARK: - Actions (return shouldAdvance on success, nil on failure)
 
     func suspend(_ cardId: CardID) async -> Bool? {
-        await run("Suspend failed") { try await cardClient.suspend(cardId); return true }
+        await run(String(localized: "Suspend failed")) { try await cardClient.suspend(cardId); return true }
     }
 
     func bury(_ cardId: CardID) async -> Bool? {
-        await run("Bury failed") { try await cardClient.bury(cardId); return true }
+        await run(String(localized: "Bury failed")) { try await cardClient.bury(cardId); return true }
     }
 
     func resetToNew(_ cardId: CardID) async -> Bool? {
-        await run("Forget failed") { try await cardClient.resetToNew(cardId); return true }
+        await run(String(localized: "Forget failed")) { try await cardClient.resetToNew(cardId); return true }
     }
 
     func setDueDate(_ cardId: CardID, _ spec: String) async -> Bool? {
         let spec = spec.trimmingCharacters(in: .whitespaces)
         guard !spec.isEmpty else { return nil }
-        return await run("Set due date failed") {
+        return await run(String(localized: "Set due date failed")) {
             try await cardClient.setDueDate(cardId, spec)
             return true
         }
     }
 
     func deleteNote(_ noteId: NoteID) async -> Bool? {
-        await run("Delete note failed") { try await noteClient.delete(noteId); return true }
+        await run(String(localized: "Delete note failed")) { try await noteClient.delete(noteId); return true }
     }
 
     func toggleMarked(_ noteId: NoteID) async -> Bool? {
-        await run("Mark note failed") {
+        await run(String(localized: "Mark note failed")) {
             if isMarkedNote {
                 try await tagClient.removeTagFromNotes(markedTag, [noteId])
             } else {
@@ -77,15 +77,15 @@ public final class CardContextMenuModel {
     }
 
     func suspendNote(_ noteId: NoteID) async -> Bool? {
-        await noteAction(noteId, "Suspend note failed") { try await cardClient.suspend($0) }
+        await noteAction(noteId, String(localized: "Suspend note failed")) { try await cardClient.suspend($0) }
     }
 
     func buryNote(_ noteId: NoteID) async -> Bool? {
-        await noteAction(noteId, "Bury note failed") { try await cardClient.bury($0) }
+        await noteAction(noteId, String(localized: "Bury note failed")) { try await cardClient.bury($0) }
     }
 
     func flag(_ cardId: CardID, _ value: UInt32) async -> Bool? {
-        await run("Flag failed") {
+        await run(String(localized: "Flag failed")) {
             try await cardClient.flag(cardId, value)
             currentFlag = value
             return false
@@ -100,7 +100,7 @@ public final class CardContextMenuModel {
             try await cardClient.undoLast()
             return true
         } catch {
-            setError("Undo failed: \(error.localizedDescription)")
+            setError(String(localized: "Undo failed: \(error.localizedDescription)"))
             await refreshUndoAvailability()
             return nil
         }
@@ -120,7 +120,7 @@ public final class CardContextMenuModel {
         do {
             return try await body()
         } catch {
-            setError("\(prefix): \(error.localizedDescription)")
+            setError(String(localized: "\(prefix): \(error.localizedDescription)"))
             return nil
         }
     }

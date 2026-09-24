@@ -74,7 +74,7 @@ private extension RenameDeckSheet {
             store.apply(changes)
             onDone()
         } catch {
-            errorMessage = "Failed to rename deck: \(error.localizedDescription)"
+            errorMessage = String(localized: "Failed to rename deck: \(error.localizedDescription)")
         }
         isSaving = false
     }

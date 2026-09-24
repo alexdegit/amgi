@@ -161,7 +161,7 @@ public struct StudyLandingContent: View {
     private func upNextSection(decks: [StudyDeckRowData]) -> some View {
         if !decks.isEmpty {
             VStack(alignment: .leading, spacing: 0) {
-                sectionHeader("Up Next")
+                sectionHeader(String(localized: "Up Next"))
                     .padding(.bottom, 4)
                 AmgiCard(
                     background: .surface,
@@ -189,7 +189,7 @@ public struct StudyLandingContent: View {
     @ViewBuilder
     private func readingRecsSection(readingRecs: [StudyReadingRecData]) -> some View {
         VStack(alignment: .leading, spacing: 12) {
-            sectionHeader("Reading recommendations")
+            sectionHeader(String(localized: "Reading recommendations"))
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(alignment: .top, spacing: 16) {
                     ForEach(readingRecs) { rec in

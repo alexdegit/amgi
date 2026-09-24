@@ -40,7 +40,7 @@ struct TextPromptSheet: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar { toolbarContent }
             .alert(
-                "Couldn't \(confirmLabel.lowercased())",
+                String(localized: "Couldn't \(confirmLabel.lowercased())"),
                 isPresented: Binding(get: { errorMessage != nil }, set: { if !$0 { errorMessage = nil } }),
                 presenting: errorMessage
             ) { _ in

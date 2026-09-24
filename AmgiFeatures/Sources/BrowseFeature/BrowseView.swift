@@ -15,6 +15,14 @@ enum BrowseSortOrder: String, CaseIterable, Sendable {
     case dateDesc = "Date (newest)"
     case titleAsc = "Title (A→Z)"
     case templateAsc = "Type (A→Z)"
+
+    var displayName: String {
+        switch self {
+        case .dateDesc: String(localized: "Date (newest)")
+        case .titleAsc: String(localized: "Title (A→Z)")
+        case .templateAsc: String(localized: "Type (A→Z)")
+        }
+    }
 }
 
 /// Browse container: owns navigation, sheets, selection, and the toolbar,
@@ -83,7 +91,9 @@ package struct BrowseView: View {
                 Text("This action cannot be undone.")
             }
             .confirmationDialog(
-                "Delete \(selectionState.count) note\(selectionState.count == 1 ? "" : "s")?",
+                selectionState.count == 1
+                    ? String(localized: "Delete \(selectionState.count) note?")
+                    : String(localized: "Delete \(selectionState.count) notes?"),
                 isPresented: $destination.deleteSelected
             ) {
                 Button("Delete", role: .destructive) {
@@ -173,7 +183,7 @@ package struct BrowseView: View {
                         Section {
                             Picker("Sort By", selection: $model.sortOrder) {
                                 ForEach(BrowseSortOrder.allCases, id: \.self) { order in
-                                    Text(order.rawValue).tag(order)
+                                    Text(order.displayName).tag(order)
                                 }
                             }
                             .pickerStyle(.inline)

@@ -76,9 +76,10 @@ public struct DeckListRowView: View {
 
     private var metaLine: String {
         switch (data.totalCount, data.subdeckCount) {
-        case (0, _):           return "Up to date"
-        case (let n, 0):       return "\(n) due"
-        case (let n, let s):   return "\(n) due · \(s) subdeck\(s == 1 ? "" : "s")"
+        case (0, _):           return String(localized: "Up to date")
+        case (let n, 0):       return String(localized: "\(n) due")
+        case (let n, 1):       return String(localized: "\(n) due · 1 subdeck")
+        case (let n, let s):   return String(localized: "\(n) due · \(s) subdecks")
         }
     }
 

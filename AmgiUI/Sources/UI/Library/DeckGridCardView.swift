@@ -15,7 +15,7 @@ public enum DeckLayout: String, CaseIterable, Identifiable, Sendable {
 
     public var id: String { rawValue }
 
-    var label: String { self == .list ? "List view" : "Grid view" }
+    var label: String { self == .list ? String(localized: "List view") : String(localized: "Grid view") }
     var symbol: String { self == .list ? "list.bullet" : "square.grid.2x2" }
 }
 
@@ -117,12 +117,14 @@ public struct DeckGridCardView: View {
     }
 
     private var metaLine: String {
-        if data.isFiltered { return "Filtered deck" }
-        if data.totalCount == 0 { return "Up to date" }
+        if data.isFiltered { return String(localized: "Filtered deck") }
+        if data.totalCount == 0 { return String(localized: "Up to date") }
         if data.subdeckCount > 0 {
-            return "\(data.subdeckCount) subdeck\(data.subdeckCount == 1 ? "" : "s")"
+            return data.subdeckCount == 1
+                ? String(localized: "1 subdeck")
+                : String(localized: "\(data.subdeckCount) subdecks")
         }
-        return data.totalCount == 1 ? "card due" : "cards due"
+        return data.totalCount == 1 ? String(localized: "card due") : String(localized: "cards due")
     }
 
     private var accessibilityCounts: String {

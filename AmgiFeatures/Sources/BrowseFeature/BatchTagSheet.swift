@@ -67,7 +67,9 @@ struct BatchTagSheet: View {
                     }
                 }
             }
-            .navigationTitle("Add tags to \(noteIDs.count) note\(noteIDs.count == 1 ? "" : "s")")
+            .navigationTitle(noteIDs.count == 1
+                ? String(localized: "Add tags to \(noteIDs.count) note")
+                : String(localized: "Add tags to \(noteIDs.count) notes"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {

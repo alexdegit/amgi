@@ -54,20 +54,21 @@ struct DeckConfigPresentations: ViewModifier {
         switch prompt {
         case .createPreset:
             TextPromptSheet(
-                title: "Add Preset",
-                placeholder: "Preset name",
-                footer: "Cloned from \(currentPresetName.map { "\"\($0)\"" } ?? "the current preset") and selected for this deck.",
-                confirmLabel: "Create",
+                title: String(localized: "Add Preset"),
+                placeholder: String(localized: "Preset name"),
+                footer: currentPresetName.map { String(localized: "Cloned from \"\($0)\" and selected for this deck.") }
+                    ?? String(localized: "Cloned from the current preset and selected for this deck."),
+                confirmLabel: String(localized: "Create"),
                 isValid: { !$0.trimmingCharacters(in: .whitespaces).isEmpty },
                 onConfirm: { _ in await onCreate() },
                 text: $newPresetName
             )
         case .renamePreset:
             TextPromptSheet(
-                title: "Rename Preset",
-                placeholder: "Preset name",
+                title: String(localized: "Rename Preset"),
+                placeholder: String(localized: "Preset name"),
                 footer: nil,
-                confirmLabel: "Save",
+                confirmLabel: String(localized: "Save"),
                 isValid: { !$0.trimmingCharacters(in: .whitespaces).isEmpty },
                 onConfirm: { _ in await onRename() },
                 text: $renamePresetDraft

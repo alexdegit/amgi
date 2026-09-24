@@ -26,14 +26,27 @@ public enum StatsPeriod: String, CaseIterable, Sendable {
         }
     }
 
+    /// User-facing name. `rawValue` stays English because it is the enum's
+    /// identity; display always goes through here.
+    public var displayName: String {
+        switch self {
+        case .day: String(localized: "Today")
+        case .week: String(localized: "7 Days")
+        case .month: String(localized: "1 Month")
+        case .threeMonths: String(localized: "3 Months")
+        case .year: String(localized: "1 Year")
+        case .all: String(localized: "All Time")
+        }
+    }
+
     public var shortLabel: String {
         switch self {
-        case .day: "1D"
-        case .week: "7D"
-        case .month: "1M"
-        case .threeMonths: "3M"
-        case .year: "1Y"
-        case .all: "All"
+        case .day: String(localized: "1D")
+        case .week: String(localized: "7D")
+        case .month: String(localized: "1M")
+        case .threeMonths: String(localized: "3M")
+        case .year: String(localized: "1Y")
+        case .all: String(localized: "All")
         }
     }
 }

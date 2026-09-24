@@ -63,11 +63,11 @@ final class FsrsSimulatorModel {
                 let memorized = result.accumulatedKnowledge.last ?? 0
                 let days = max(result.dailyReviewCount.count, 1)
                 summary = [
-                    ("Total new", "\(totalNew)"),
-                    ("Total reviews", "\(totalReview)"),
-                    ("Avg reviews/day", String(format: "%.1f", Double(totalReview) / Double(days))),
-                    ("Total time (s)", String(format: "%.1f", Double(totalTime))),
-                    ("Memorized (end)", String(format: "%.1f", Double(memorized)))
+                    (String(localized: "Total new"), "\(totalNew)"),
+                    (String(localized: "Total reviews"), "\(totalReview)"),
+                    (String(localized: "Avg reviews/day"), String(format: "%.1f", Double(totalReview) / Double(days))),
+                    (String(localized: "Total time (s)"), String(format: "%.1f", Double(totalTime))),
+                    (String(localized: "Memorized (end)"), String(format: "%.1f", Double(memorized)))
                 ]
                 workloadRows = []
             case .workload:
@@ -79,10 +79,10 @@ final class FsrsSimulatorModel {
                     let count = result.reviewCount[retention] ?? 0
                     return (
                         "\(retention)%",
-                        String(format: "cost %.2f · reviews %d", Double(cost), count)
+                        String(format: NSLocalizedString("cost %.2f · reviews %d", comment: "FSRS workload row"), Double(cost), count)
                     )
                 }
-                summary = [("Points", "\(workloadRows.count)")]
+                summary = [(String(localized: "Points"), "\(workloadRows.count)")]
             }
         } catch {
             guard generation == self.generation else { return }

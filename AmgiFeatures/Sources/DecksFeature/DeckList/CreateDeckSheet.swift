@@ -69,7 +69,7 @@ private extension CreateDeckSheet {
             store.apply(creation.changes)
             onDone()
         } catch {
-            errorMessage = "Failed to create deck: \(error.localizedDescription)"
+            errorMessage = String(localized: "Failed to create deck: \(error.localizedDescription)")
         }
         isSaving = false
     }

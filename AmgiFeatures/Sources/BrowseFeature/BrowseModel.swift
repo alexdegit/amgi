@@ -224,21 +224,21 @@ final class BrowseModel {
     // MARK: - Mutations
 
     func delete(_ id: NoteID) async {
-        await runBatch("delete", over: [id]) { try await self.noteClient.delete($0) }
+        await runBatch(.delete, over: [id]) { try await self.noteClient.delete($0) }
     }
 
     func suspendSelected(_ noteIDs: Set<NoteID>) async {
         let cardIDs = await collectCardIDs(for: noteIDs)
-        await runBatch("suspend", over: cardIDs) { try await self.cardClient.suspend($0) }
+        await runBatch(.suspend, over: cardIDs) { try await self.cardClient.suspend($0) }
     }
 
     func flagSelected(_ noteIDs: Set<NoteID>, value: UInt32) async {
         let cardIDs = await collectCardIDs(for: noteIDs)
-        await runBatch("flag", over: cardIDs) { try await self.cardClient.flag($0, value) }
+        await runBatch(.flag, over: cardIDs) { try await self.cardClient.flag($0, value) }
     }
 
     func deleteSelected(_ noteIDs: Set<NoteID>) async {
-        await runBatch("delete", over: Array(noteIDs)) { try await self.noteClient.delete($0) }
+        await runBatch(.delete, over: Array(noteIDs)) { try await self.noteClient.delete($0) }
     }
 
     /// Applies `work` to every id, counting failures rather than discarding
@@ -246,7 +246,7 @@ final class BrowseModel {
     /// arbitrary subset could fail with zero feedback — the user believed
     /// 100 notes were deleted when some were not.
     private func runBatch<ID>(
-        _ verb: String,
+        _ action: BatchAction,
         over ids: [ID],
         _ work: (ID) async throws -> Void
     ) async {
@@ -258,13 +258,14 @@ final class BrowseModel {
             } catch {
                 failures += 1
                 if firstError == nil { firstError = error.localizedDescription }
-                Log.browse.error("Batch \(verb) failed for one item: \(error)")
+                Log.browse.error("Batch \(action.logName) failed for one item: \(error)")
             }
         }
         if failures > 0 {
+            let reason = firstError ?? String(localized: "unknown error")
             errorMessage = failures == ids.count
-                ? "Couldn't \(verb) \(failures == 1 ? "that item" : "those \(failures) items"): \(firstError ?? "unknown error")"
-                : "\(failures) of \(ids.count) items couldn't be \(verb)d: \(firstError ?? "unknown error")"
+                ? action.allFailedMessage(count: failures, reason: reason)
+                : action.someFailedMessage(failed: failures, total: ids.count, reason: reason)
         }
         await performSearch()
     }
@@ -296,5 +297,39 @@ final class BrowseModel {
             }
         }
         return result
+    }
+}
+
+/// A batch operation in the browser. Messages are whole sentences per action
+/// so they can be translated; splicing a verb into one English template
+/// could not be, and produced "suspendd" / "flagd".
+private enum BatchAction {
+    case delete, suspend, flag
+
+    var logName: String {
+        switch self {
+        case .delete: "delete"
+        case .suspend: "suspend"
+        case .flag: "flag"
+        }
+    }
+
+    func allFailedMessage(count: Int, reason: String) -> String {
+        switch (self, count == 1) {
+        case (.delete, true): String(localized: "Couldn't delete that item: \(reason)")
+        case (.delete, false): String(localized: "Couldn't delete those \(count) items: \(reason)")
+        case (.suspend, true): String(localized: "Couldn't suspend that item: \(reason)")
+        case (.suspend, false): String(localized: "Couldn't suspend those \(count) items: \(reason)")
+        case (.flag, true): String(localized: "Couldn't flag that item: \(reason)")
+        case (.flag, false): String(localized: "Couldn't flag those \(count) items: \(reason)")
+        }
+    }
+
+    func someFailedMessage(failed: Int, total: Int, reason: String) -> String {
+        switch self {
+        case .delete: String(localized: "\(failed) of \(total) items couldn't be deleted: \(reason)")
+        case .suspend: String(localized: "\(failed) of \(total) items couldn't be suspended: \(reason)")
+        case .flag: String(localized: "\(failed) of \(total) items couldn't be flagged: \(reason)")
+        }
     }
 }

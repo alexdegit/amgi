@@ -23,13 +23,13 @@ public struct CardCountsChart: View {
     private var chartData: [(name: String, count: Int, color: Color)] {
         let c = cardCounts.excludingInactive
         return [
-            ("New", Int(c.newCards), palette.cardStateNew),
-            ("Learning", Int(c.learn), palette.cardStateLearning),
-            ("Relearning", Int(c.relearn), palette.cardStateRelearn),
-            ("Young", Int(c.young), palette.cardStateReview),
-            ("Mature", Int(c.mature), palette.cardStateMature),
-            ("Suspended", Int(c.suspended), palette.cardStateSuspended),
-            ("Buried", Int(c.buried), palette.textTertiary),
+            (String(localized: "New"), Int(c.newCards), palette.cardStateNew),
+            (String(localized: "Learning"), Int(c.learn), palette.cardStateLearning),
+            (String(localized: "Relearning"), Int(c.relearn), palette.cardStateRelearn),
+            (String(localized: "Young"), Int(c.young), palette.cardStateReview),
+            (String(localized: "Mature"), Int(c.mature), palette.cardStateMature),
+            (String(localized: "Suspended"), Int(c.suspended), palette.cardStateSuspended),
+            (String(localized: "Buried"), Int(c.buried), palette.textTertiary),
         ].filter { $0.count > 0 }
     }
 

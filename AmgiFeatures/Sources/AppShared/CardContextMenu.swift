@@ -167,7 +167,7 @@ private struct CardActionPresentations: ViewModifier {
             .alert("Action failed", isPresented: $model.showError) {
                 Button("OK") { }
             } message: {
-                Text(model.errorMessage ?? "An unknown error occurred.")
+                Text(model.errorMessage ?? String(localized: "An unknown error occurred."))
             }
             .confirmationDialog(
                 "Delete this note?",

@@ -42,12 +42,12 @@ public struct RetentionChart: View {
             )
         }
         return [
-            row("Today", trueRetention.today),
-            row("Yesterday", trueRetention.yesterday),
-            row("Week", trueRetention.week),
-            row("Month", trueRetention.month),
-            row("Year", trueRetention.year),
-            row("All Time", trueRetention.allTime),
+            row(String(localized: "Today"), trueRetention.today),
+            row(String(localized: "Yesterday"), trueRetention.yesterday),
+            row(String(localized: "Week"), trueRetention.week),
+            row(String(localized: "Month"), trueRetention.month),
+            row(String(localized: "Year"), trueRetention.year),
+            row(String(localized: "All Time"), trueRetention.allTime),
         ]
     }
 

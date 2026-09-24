@@ -99,10 +99,10 @@ private struct HeatmapHeaderRow: View {
 
     private func rangeLabel(_ days: Int) -> String {
         switch days {
-        case 90:  return "Last 90 days"
-        case 180: return "Last 6 months"
-        case 365: return "Last 1 year"
-        default:  return "\(days) days"
+        case 90:  return String(localized: "Last 90 days")
+        case 180: return String(localized: "Last 6 months")
+        case 365: return String(localized: "Last 1 year")
+        default:  return String(localized: "\(days) days")
         }
     }
 }
@@ -160,10 +160,10 @@ private struct HeatmapSummaryRow: View {
 
     var body: some View {
         HStack(spacing: 0) {
-            summaryItem(value: summary.total, label: "Total")
-            summaryItem(value: summary.thisMonth, label: "Month")
-            summaryItem(value: summary.thisWeek, label: "Week")
-            summaryItem(value: summary.today, label: "Today")
+            summaryItem(value: summary.total, label: String(localized: "Total"))
+            summaryItem(value: summary.thisMonth, label: String(localized: "Month"))
+            summaryItem(value: summary.thisWeek, label: String(localized: "Week"))
+            summaryItem(value: summary.today, label: String(localized: "Today"))
         }
     }
 
@@ -347,7 +347,7 @@ private struct HeatmapCell: View {
         VStack(spacing: 4) {
             Text(Self.dateFormatter.string(from: day.date))
                 .amgiFont(.captionBold)
-            Text(day.count == 0 ? "No reviews" : "\(day.count) review\(day.count == 1 ? "" : "s")")
+            Text(day.count == 0 ? "No reviews" : day.count == 1 ? "1 review" : "\(day.count) reviews")
                 .amgiFont(.caption)
         }
         .padding(10)

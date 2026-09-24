@@ -136,7 +136,7 @@ final class AddNoteModel {
             store.apply(CollectionChanges(card: true, note: true, studyQueues: true))
             return true
         } catch {
-            errorMessage = "Failed to add note: \(error.localizedDescription)"
+            errorMessage = String(localized: "Failed to add note: \(error.localizedDescription)")
             return false
         }
     }

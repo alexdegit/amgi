@@ -80,7 +80,7 @@ public struct AddedChart: View {
 }
 
 private extension AddedChart {
-    func footerItem(_ label: String, value: String) -> some View {
+    func footerItem(_ label: LocalizedStringKey, value: String) -> some View {
         VStack(spacing: 2) {
             Text(value).amgiFont(.captionBold).monospacedDigit()
             Text(label).amgiFont(.caption).foregroundStyle(palette.textSecondary)

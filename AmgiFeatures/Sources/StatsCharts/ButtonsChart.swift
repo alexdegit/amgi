@@ -40,15 +40,15 @@ public struct ButtonsChart: View {
         let count: Int
     }
 
-    private let buttonLabels = ["Again", "Hard", "Good", "Easy"]
-    private let cardTypes = ["Learning", "Young", "Mature"]
+    private let buttonLabels = [String(localized: "Again"), String(localized: "Hard"), String(localized: "Good"), String(localized: "Easy")]
+    private let cardTypes = [String(localized: "Learning"), String(localized: "Young"), String(localized: "Mature")]
 
     private var entries: [ButtonEntry] {
         let bc = buttonCounts
         let sources: [(String, [Int])] = [
-            ("Learning", bc.learning),
-            ("Young", bc.young),
-            ("Mature", bc.mature),
+            (String(localized: "Learning"), bc.learning),
+            (String(localized: "Young"), bc.young),
+            (String(localized: "Mature"), bc.mature),
         ]
         var result: [ButtonEntry] = []
         for (typeName, counts) in sources {
@@ -88,9 +88,9 @@ public struct ButtonsChart: View {
                         .accessibilityValue(ChartSpeech.count(entry.count, "press"))
                     }
                     .chartForegroundStyleScale([
-                        "Learning": palette.cardStateNew,
-                        "Young": palette.cardStateLearning,
-                        "Mature": palette.cardStateMature,
+                        String(localized: "Learning"): palette.cardStateNew,
+                        String(localized: "Young"): palette.cardStateLearning,
+                        String(localized: "Mature"): palette.cardStateMature,
                     ])
                     .frame(height: 180)
                 }

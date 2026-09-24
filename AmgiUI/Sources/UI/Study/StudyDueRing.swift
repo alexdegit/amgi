@@ -70,9 +70,9 @@ public struct StudyDueRing: View {
     }
 
     private var sublineLabel: String {
-        guard summary.totalDue > 0 else { return "Nothing due today" }
+        guard summary.totalDue > 0 else { return String(localized: "Nothing due today") }
         let n = summary.deckCount
-        return "across \(n) deck\(n == 1 ? "" : "s")"
+        return n == 1 ? String(localized: "across 1 deck") : String(localized: "across \(n) decks")
     }
 }
 

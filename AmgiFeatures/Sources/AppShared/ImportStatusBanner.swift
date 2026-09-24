@@ -39,7 +39,7 @@ struct ImportStatusBanner: View {
 
     private func label(for status: Status) -> String {
         switch status {
-        case .importing(let fileName): "Importing \(fileName)…"
+        case .importing(let fileName): String(localized: "Importing \(fileName)…")
         case .finished(let summary): summary
         }
     }

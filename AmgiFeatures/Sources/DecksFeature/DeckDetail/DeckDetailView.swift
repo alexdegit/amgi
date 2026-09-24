@@ -47,7 +47,7 @@ struct DeckDetailView: View {
     private var alertTitle: String {
         guard let alert = currentAlert else { return "" }
         switch alert {
-        case .empty: return "Empty \"\(shortTitle)\"?"
+        case .empty: return String(localized: "Empty \"\(shortTitle)\"?")
         case .error(let title, _): return title
         }
     }
@@ -58,8 +58,8 @@ struct DeckDetailView: View {
         let subtitle: String = {
             if let snap = model.statsSnapshot, !snap.subtitle.isEmpty { return snap.subtitle }
             return isEmpty
-                ? "No cards yet · Add some to start studying"
-                : "Tap Study to start a session"
+                ? String(localized: "No cards yet · Add some to start studying")
+                : String(localized: "Tap Study to start a session")
         }()
         let insights = model.statsSnapshot?.insights ?? .empty
         return .loaded(DeckDetailViewData(
@@ -222,10 +222,10 @@ private extension DeckDetailView {
             }
         case .createSubdeck:
             TextPromptSheet(
-                title: "Create Subdeck",
-                placeholder: "Subdeck name",
-                footer: "Created inside \(shortTitle).",
-                confirmLabel: "Create",
+                title: String(localized: "Create Subdeck"),
+                placeholder: String(localized: "Subdeck name"),
+                footer: String(localized: "Created inside \(shortTitle)."),
+                confirmLabel: String(localized: "Create"),
                 capitalization: .words,
                 isValid: { !$0.trimmingCharacters(in: .whitespaces).isEmpty },
                 onConfirm: { name in await model.createSubdeck(rawName: name) },
@@ -233,10 +233,16 @@ private extension DeckDetailView {
             )
         case .extendLimit(let kind):
             TextPromptSheet(
-                title: "Increase Today's \(kind.noun) Limit",
-                placeholder: "Extra cards",
-                footer: "Extra \(kind.noun.lowercased()) cards to show today, on top of this deck's daily limit. Resets tomorrow.",
-                confirmLabel: "Increase",
+                // Whole sentences per kind: splicing an English noun into a
+                // template can't be translated.
+                title: kind == .new
+                    ? String(localized: "Increase Today's New Limit")
+                    : String(localized: "Increase Today's Review Limit"),
+                placeholder: String(localized: "Extra cards"),
+                footer: kind == .new
+                    ? String(localized: "Extra new cards to show today, on top of this deck's daily limit. Resets tomorrow.")
+                    : String(localized: "Extra review cards to show today, on top of this deck's daily limit. Resets tomorrow."),
+                confirmLabel: String(localized: "Increase"),
                 keyboard: .numberPad,
                 isValid: { Self.parseDelta($0) != nil },
                 onConfirm: { text in await runExtendLimit(kind, delta: text) },
@@ -272,13 +278,13 @@ private extension DeckDetailView {
 
     func runRebuild() async {
         if let err = await model.rebuild() {
-            destination = .alert(.error(title: "Couldn't rebuild \"\(shortTitle)\"", message: err))
+            destination = .alert(.error(title: String(localized: "Couldn't rebuild \"\(shortTitle)\""), message: err))
         }
     }
 
     func runEmpty() async {
         if let err = await model.empty() {
-            destination = .alert(.error(title: "Couldn't empty \"\(shortTitle)\"", message: err))
+            destination = .alert(.error(title: String(localized: "Couldn't empty \"\(shortTitle)\""), message: err))
         }
     }
 
@@ -287,7 +293,7 @@ private extension DeckDetailView {
         case .success(let url):
             destination = .sheet(.exportFile(url))
         case .failure(let msg):
-            destination = .alert(.error(title: "Couldn't export \"\(shortTitle)\"", message: msg))
+            destination = .alert(.error(title: String(localized: "Couldn't export \"\(shortTitle)\""), message: msg))
         }
     }
 

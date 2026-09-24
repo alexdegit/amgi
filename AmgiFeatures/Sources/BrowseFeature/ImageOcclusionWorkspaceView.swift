@@ -21,11 +21,11 @@ private enum IOMaskFillOption: CaseIterable {
 
     var label: String {
         switch self {
-        case .default: return "Default"
-        case .yellow:  return "Yellow"
-        case .red:     return "Red"
-        case .blue:    return "Blue"
-        case .green:   return "Green"
+        case .default: return String(localized: "Default")
+        case .yellow:  return String(localized: "Yellow")
+        case .red:     return String(localized: "Red")
+        case .blue:    return String(localized: "Blue")
+        case .green:   return String(localized: "Green")
         }
     }
 
@@ -216,8 +216,8 @@ private struct IOTextEditorSheet: View {
     let onCancel: () -> Void
 
     private var title: String {
-        if case .insert = draft.target { return "Prompt" }
-        return "Edit text"
+        if case .insert = draft.target { return String(localized: "Prompt") }
+        return String(localized: "Edit text")
     }
 
     var body: some View {

@@ -106,7 +106,7 @@ struct EditImageOcclusionContent: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         } else if let err = model.loadError {
             AmgiStatusMessageView(
-                title: "Error",
+                title: String(localized: "Error"),
                 message: err,
                 systemImage: "exclamationmark.triangle",
                 tone: .warning

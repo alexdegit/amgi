@@ -36,11 +36,11 @@ public struct ReviewsChart: View {
     private var entries: [ReviewEntry] {
         let maxDay = period.days
         let types: [(String, KeyPath<ReviewCountsAndTimes.Reviews, Int>, Color)] = [
-            ("Learn", \.learn, palette.cardStateNew),
-            ("Relearn", \.relearn, palette.cardStateRelearn),
-            ("Young", \.young, palette.cardStateLearning),
-            ("Mature", \.mature, palette.cardStateMature),
-            ("Filtered", \.filtered, palette.textTertiary),
+            (String(localized: "Learn"), \.learn, palette.cardStateNew),
+            (String(localized: "Relearn"), \.relearn, palette.cardStateRelearn),
+            (String(localized: "Young"), \.young, palette.cardStateLearning),
+            (String(localized: "Mature"), \.mature, palette.cardStateMature),
+            (String(localized: "Filtered"), \.filtered, palette.textTertiary),
         ]
         var result: [ReviewEntry] = []
         for (day, rev) in reviews.count {
@@ -91,11 +91,11 @@ public struct ReviewsChart: View {
                         .accessibilityValue(ChartSpeech.count(entry.count, "review"))
                     }
                     .chartForegroundStyleScale([
-                        "Learn": palette.cardStateNew,
-                        "Relearn": palette.cardStateRelearn,
-                        "Young": palette.cardStateLearning,
-                        "Mature": palette.cardStateMature,
-                        "Filtered": palette.textTertiary,
+                        String(localized: "Learn"): palette.cardStateNew,
+                        String(localized: "Relearn"): palette.cardStateRelearn,
+                        String(localized: "Young"): palette.cardStateLearning,
+                        String(localized: "Mature"): palette.cardStateMature,
+                        String(localized: "Filtered"): palette.textTertiary,
                     ])
                     .chartXAxis {
                         AxisMarks(values: .automatic(desiredCount: 5)) { _ in
@@ -116,7 +116,7 @@ public struct ReviewsChart: View {
 }
 
 private extension ReviewsChart {
-    func footerItem(_ label: String, value: String) -> some View {
+    func footerItem(_ label: LocalizedStringKey, value: String) -> some View {
         VStack(spacing: 2) {
             Text(value).amgiFont(.captionBold).monospacedDigit()
             Text(label).amgiFont(.caption).foregroundStyle(palette.textSecondary)

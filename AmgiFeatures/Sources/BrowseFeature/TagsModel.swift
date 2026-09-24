@@ -34,7 +34,7 @@ final class TagsModel {
             allTags = try await tagClient.getAllTags().sorted()
             isLoading = false
         } catch {
-            errorMessage = "Failed to load tags: \(error.localizedDescription)"
+            errorMessage = String(localized: "Failed to load tags: \(error.localizedDescription)")
             isLoading = false
         }
     }
@@ -52,7 +52,7 @@ final class TagsModel {
             await loadTags()
             return true
         } catch {
-            errorMessage = "Failed to create tag: \(error.localizedDescription)"
+            errorMessage = String(localized: "Failed to create tag: \(error.localizedDescription)")
             return false
         }
     }
@@ -63,7 +63,7 @@ final class TagsModel {
         do {
             try await tagClient.addTagToNotes(tag, targetNoteIDs)
         } catch {
-            errorMessage = "Failed to apply tag: \(error.localizedDescription)"
+            errorMessage = String(localized: "Failed to apply tag: \(error.localizedDescription)")
         }
     }
 
@@ -73,7 +73,7 @@ final class TagsModel {
         do {
             try await tagClient.removeTagFromNotes(tag, targetNoteIDs)
         } catch {
-            errorMessage = "Failed to remove tag: \(error.localizedDescription)"
+            errorMessage = String(localized: "Failed to remove tag: \(error.localizedDescription)")
         }
     }
 
@@ -84,7 +84,7 @@ final class TagsModel {
             try await tagClient.removeTag(tag)
             await loadTags()
         } catch {
-            errorMessage = "Failed to delete tag: \(error.localizedDescription)"
+            errorMessage = String(localized: "Failed to delete tag: \(error.localizedDescription)")
         }
     }
 
@@ -95,7 +95,7 @@ final class TagsModel {
             lastCleanupCount = try await tagClient.clearUnusedTags()
             await loadTags()
         } catch {
-            errorMessage = "Failed to clear unused tags: \(error.localizedDescription)"
+            errorMessage = String(localized: "Failed to clear unused tags: \(error.localizedDescription)")
         }
     }
 
@@ -108,7 +108,7 @@ final class TagsModel {
             await loadTags()
             return true
         } catch {
-            errorMessage = "Failed to rename tag: \(error.localizedDescription)"
+            errorMessage = String(localized: "Failed to rename tag: \(error.localizedDescription)")
             return false
         }
     }

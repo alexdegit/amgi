@@ -92,15 +92,15 @@ struct StatsDashboardContent: View {
             )
         }
         .accessibilityLabel("Deck filter")
-        .accessibilityValue(selectedDeck?.name ?? "Whole collection")
+        .accessibilityValue(selectedDeck?.name ?? String(localized: "Whole collection"))
     }
 
     private var periodMenu: some View {
         Menu {
             ForEach(StatsPeriod.allCases, id: \.self) { p in
                 Button { onSelectPeriod(p) } label: {
-                    if period == p { Label(p.rawValue, systemImage: "checkmark") }
-                    else { Text(p.rawValue) }
+                    if period == p { Label(p.displayName, systemImage: "checkmark") }
+                    else { Text(p.displayName) }
                 }
             }
         } label: {
@@ -110,7 +110,7 @@ struct StatsDashboardContent: View {
             )
         }
         .accessibilityLabel("Time period")
-        .accessibilityValue(period.rawValue)
+        .accessibilityValue(period.displayName)
     }
 
     private func filterCapsule(icon: String, label: String) -> some View {

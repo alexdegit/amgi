@@ -42,7 +42,7 @@ private extension DeckImportModifier {
         case .success(let url):
             let ext = url.pathExtension.lowercased()
             guard ext == "apkg" || ext == "colpkg" else {
-                failure = "Unsupported file type. Please select an .apkg or .colpkg file."
+                failure = String(localized: "Unsupported file type. Please select an .apkg or .colpkg file.")
                 return
             }
             Task {
@@ -59,7 +59,7 @@ private extension DeckImportModifier {
                 }
             }
         case .failure(let error):
-            failure = "Could not select file: \(error.localizedDescription)"
+            failure = String(localized: "Could not select file: \(error.localizedDescription)")
         }
     }
 }

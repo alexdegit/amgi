@@ -68,7 +68,7 @@ public struct DeckDetailScreen<HeatmapSlot: View>: View {
     private var heroSection: some View {
         switch state {
         case .loading:
-            DeckHero(title: "Deck name", subtitle: "Last studied recently", tone: palette.border, deckName: "📚", isFiltered: false)
+            DeckHero(title: "Deck name", subtitle: String(localized: "Last studied recently"), tone: palette.border, deckName: "📚", isFiltered: false)
                 .redacted(reason: .placeholder)
         case .loaded(let data):
             DeckHero(
@@ -106,7 +106,7 @@ public struct DeckDetailScreen<HeatmapSlot: View>: View {
     private var customStudySection: some View {
         if case .loaded(let data) = state, data.isFiltered {
             VStack(alignment: .leading, spacing: 6) {
-                sectionHeader("Custom study")
+                sectionHeader(String(localized: "Custom study"))
                 DeckCustomStudyCard(
                     isActionInFlight: data.isActionInFlight,
                     onRebuild: { onAction(.rebuild) },
@@ -120,7 +120,7 @@ public struct DeckDetailScreen<HeatmapSlot: View>: View {
     private var subdecksSection: some View {
         if case .loaded(let data) = state, !data.subdecks.isEmpty {
             VStack(alignment: .leading, spacing: 6) {
-                sectionHeader("Subdecks")
+                sectionHeader(String(localized: "Subdecks"))
                 DeckSubdecksCard(rows: data.subdecks) { row in
                     onAction(.subdeckSelected(row))
                 }
@@ -139,7 +139,7 @@ public struct DeckDetailScreen<HeatmapSlot: View>: View {
     private var insightsSection: some View {
         if case .loaded(let data) = state {
             VStack(alignment: .leading, spacing: 6) {
-                sectionHeader("Insights")
+                sectionHeader(String(localized: "Insights"))
                 InsightsCard(data: data.insights)
             }
         }
@@ -169,7 +169,7 @@ private let _krChildren: [DeckSubdeckRowData] = [
 
 private let _krDefault = DeckDetailViewData(
     title: "한국어",
-    subtitle: "Last studied today · 32-day streak",
+    subtitle: String(localized: "Last studied today · 32-day streak"),
     tone: .red,
     deckName: "🇰🇷 한국어",
     tileCounts: DeckDetailTileData(newCount: 20, learnCount: 93, reviewCount: 74),
@@ -182,7 +182,7 @@ private let _krDefault = DeckDetailViewData(
 
 private let _krFiltered = DeckDetailViewData(
     title: "한국어 (Filtered)",
-    subtitle: "Last studied today · 32-day streak",
+    subtitle: String(localized: "Last studied today · 32-day streak"),
     tone: .red,
     deckName: "🇰🇷 한국어",
     tileCounts: DeckDetailTileData(newCount: 20, learnCount: 93, reviewCount: 74),
@@ -195,7 +195,7 @@ private let _krFiltered = DeckDetailViewData(
 
 private let _krEmpty = DeckDetailViewData(
     title: "한국어",
-    subtitle: "No cards yet · Add some to start studying",
+    subtitle: String(localized: "No cards yet · Add some to start studying"),
     tone: .red,
     deckName: "🇰🇷 한국어",
     tileCounts: .zero,

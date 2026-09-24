@@ -39,7 +39,7 @@ public struct LibraryHeroCard: View {
 
     public var body: some View {
         AmgiHeroSummary(
-            eyebrow: "Due today",
+            eyebrow: String(localized: "Due today"),
             bigNumber: "\(data.totalDue)",
             subtitle: subtitleText,
             background: heroGradient,
@@ -69,7 +69,9 @@ public struct LibraryHeroCard: View {
     }
 
     private var subtitleText: String {
-        "cards across \(data.deckCount) deck\(data.deckCount == 1 ? "" : "s")"
+        data.deckCount == 1
+            ? String(localized: "cards across 1 deck")
+            : String(localized: "cards across \(data.deckCount) decks")
     }
 
     private var heroGradient: AmgiCardBackground {

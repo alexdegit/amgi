@@ -61,7 +61,7 @@ package struct DuplicatesView: View {
                     groupRow(group)
                 }
             } header: {
-                Text("\(groups.count) group\(groups.count == 1 ? "" : "s")")
+                Text(groups.count == 1 ? "1 group" : "\(groups.count) groups")
             } footer: {
                 Text("Notes are duplicates when their first fields match once formatting is ignored — the same rule Anki uses when it warns you while adding a note.")
             }
@@ -131,7 +131,7 @@ private struct DuplicateNoteRow: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 2) {
-            Text(remainder.isEmpty ? "No other fields" : remainder)
+            Text(remainder.isEmpty ? String(localized: "No other fields") : remainder)
                 .amgiFont(.body)
                 .foregroundStyle(remainder.isEmpty ? palette.textSecondary : palette.textPrimary)
                 .lineLimit(2)

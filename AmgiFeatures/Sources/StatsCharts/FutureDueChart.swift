@@ -102,7 +102,7 @@ public struct FutureDueChart: View {
 }
 
 private extension FutureDueChart {
-    func footerItem(_ label: String, value: String) -> some View {
+    func footerItem(_ label: LocalizedStringKey, value: String) -> some View {
         VStack(spacing: AmgiSpacing.xxs) {
             Text(value).amgiFont(.captionBold).monospacedDigit()
             Text(label).amgiFont(.micro).foregroundStyle(palette.textSecondary)

@@ -24,12 +24,12 @@ struct RichNoteFieldEditor: UIViewRepresentable {
         Coordinator.normalizedStoredHTML(from: text)
     }
 
-    private let doneButtonTitle = "Done"
-    private let boldTitle = "Bold"
-    private let italicTitle = "Italic"
-    private let underlineTitle = "Underline"
-    private let strikeTitle = "Strikethrough"
-    private let clearFormatTitle = "Clear formatting"
+    private let doneButtonTitle = String(localized: "Done")
+    private let boldTitle = String(localized: "Bold")
+    private let italicTitle = String(localized: "Italic")
+    private let underlineTitle = String(localized: "Underline")
+    private let strikeTitle = String(localized: "Strikethrough")
+    private let clearFormatTitle = String(localized: "Clear formatting")
 
     func makeCoordinator() -> Coordinator {
         Coordinator(htmlText: $htmlText)

@@ -25,12 +25,12 @@ public struct PeriodStatsCard: View {
 
     private var periodTitle: String {
         switch period {
-        case .day: return "Today"
-        case .week: return "Last 7 Days"
-        case .month: return "Last Month"
-        case .threeMonths: return "Last 3 Months"
-        case .year: return "Last Year"
-        case .all: return "All Time"
+        case .day: return String(localized: "Today")
+        case .week: return String(localized: "Last 7 Days")
+        case .month: return String(localized: "Last Month")
+        case .threeMonths: return String(localized: "Last 3 Months")
+        case .year: return String(localized: "Last Year")
+        case .all: return String(localized: "All Time")
         }
     }
 
@@ -128,7 +128,7 @@ public struct PeriodStatsCard: View {
 }
 
 private extension PeriodStatsCard {
-    func statItem(title: String, value: String, color: Color) -> some View {
+    func statItem(title: LocalizedStringKey, value: String, color: Color) -> some View {
         VStack(spacing: AmgiSpacing.xxs) {
             Text(value).amgiFont(.sectionHeading).foregroundStyle(color)
             Text(title).amgiFont(.caption).foregroundStyle(palette.textSecondary)
@@ -139,7 +139,7 @@ private extension PeriodStatsCard {
         .accessibilityValue(value)
     }
 
-    func statBadge(_ title: String, count: Int, color: Color) -> some View {
+    func statBadge(_ title: LocalizedStringKey, count: Int, color: Color) -> some View {
         VStack(spacing: AmgiSpacing.xxs) {
             Text("\(count)").amgiFont(.bodyEmphasis).foregroundStyle(color)
             Text(title).amgiFont(.micro).foregroundStyle(palette.textSecondary)

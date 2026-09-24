@@ -71,23 +71,23 @@ public struct StreakCard: View {
 
     private var streakLabel: String {
         switch streak {
-        case 0: "No streak"
-        case 1: "1 day"
-        default: "\(streak) days"
+        case 0: String(localized: "No streak")
+        case 1: String(localized: "1 day")
+        default: String(localized: "\(streak) days")
         }
     }
 
     private var comparisonLabel: String? {
         guard let comparison else { return nil }
         guard streak > 0 || comparison != 0 else {
-            return "Review today to start one"
+            return String(localized: "Review today to start one")
         }
         return switch comparison {
-        case 1: "1 day ahead of last month"
-        case let n where n > 1: "\(n) days ahead of last month"
-        case -1: "1 day behind last month"
-        case let n where n < -1: "\(-n) days behind last month"
-        default: "Level with last month"
+        case 1: String(localized: "1 day ahead of last month")
+        case let n where n > 1: String(localized: "\(n) days ahead of last month")
+        case -1: String(localized: "1 day behind last month")
+        case let n where n < -1: String(localized: "\(-n) days behind last month")
+        default: String(localized: "Level with last month")
         }
     }
 

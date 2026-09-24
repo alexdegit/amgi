@@ -254,7 +254,7 @@ private extension HeatmapChartOptimized {
 
     // MARK: - Helpers
 
-    func summaryItem(value: String, label: String) -> some View {
+    func summaryItem(value: String, label: LocalizedStringKey) -> some View {
         VStack(spacing: 2) {
             Text(value)
                 .amgiFont(.bodyEmphasis)
@@ -280,12 +280,12 @@ private extension HeatmapChartOptimized {
 
     func dateRangeLabel(_ days: Int) -> String {
         switch days {
-        case 30: return "Last 30 days"
-        case 90: return "Last 90 days"
-        case 180: return "Last 6 months"
-        case 365: return "Last 1 year"
-        case 730: return "Last 2 years"
-        default: return "\(days) days"
+        case 30: return String(localized: "Last 30 days")
+        case 90: return String(localized: "Last 90 days")
+        case 180: return String(localized: "Last 6 months")
+        case 365: return String(localized: "Last 1 year")
+        case 730: return String(localized: "Last 2 years")
+        default: return String(localized: "\(days) days")
         }
     }
 

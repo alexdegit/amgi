@@ -59,7 +59,7 @@ struct PresetSection: View {
             }
 
             LabeledContent("Used by") {
-                Text("\(presetUseCount) deck\(presetUseCount == 1 ? "" : "s")")
+                Text(presetUseCount == 1 ? "1 deck" : "\(presetUseCount) decks")
                     .foregroundStyle(palette.textSecondary)
             }
 
@@ -235,14 +235,14 @@ struct AutoAdvanceSection: View {
     var body: some View {
         Section("Auto-advance") {
             LabeledSlider(
-                label: "Seconds to show question",
+                label: String(localized: "Seconds to show question"),
                 value: $secondsToShowQuestion,
                 in: 0...60,
                 step: 0.5,
                 valueText: String(format: "%.1f s", secondsToShowQuestion)
             )
             LabeledSlider(
-                label: "Seconds to show answer",
+                label: String(localized: "Seconds to show answer"),
                 value: $secondsToShowAnswer,
                 in: 0...60,
                 step: 0.5,
@@ -275,21 +275,21 @@ struct AdvancedSection: View {
         Section("Advanced (SM-2)") {
             Stepper("Maximum review interval: \(maximumReviewIntervalDays)d", value: $maximumReviewIntervalDays, in: 1...36500, step: 30)
             LabeledSlider(
-                label: "Interval multiplier",
+                label: String(localized: "Interval multiplier"),
                 value: $intervalMultiplierPercent,
                 in: 50...200,
                 step: 1,
                 valueText: "\(Int(intervalMultiplierPercent))%"
             )
             LabeledSlider(
-                label: "Hard multiplier",
+                label: String(localized: "Hard multiplier"),
                 value: $hardMultiplierPercent,
                 in: 80...200,
                 step: 1,
                 valueText: "\(Int(hardMultiplierPercent))%"
             )
             LabeledSlider(
-                label: "Easy multiplier",
+                label: String(localized: "Easy multiplier"),
                 value: $easyMultiplierPercent,
                 in: 100...300,
                 step: 1,
@@ -318,14 +318,14 @@ struct FsrsSection: View {
         Section("FSRS") {
             Toggle("Enable FSRS", isOn: $fsrsEnabled)
             LabeledSlider(
-                label: "Desired retention",
+                label: String(localized: "Desired retention"),
                 value: $desiredRetentionPercent,
                 in: 70...97,
                 step: 1,
                 valueText: "\(Int(desiredRetentionPercent))%"
             )
             LabeledSlider(
-                label: "Historical retention",
+                label: String(localized: "Historical retention"),
                 value: $historicalRetentionPercent,
                 in: 70...100,
                 step: 1,
@@ -460,6 +460,10 @@ private extension EasyDaysSection {
     /// short labels rather than `Calendar.shortWeekdaySymbols` so the UI
     /// order matches the underlying storage regardless of locale.
     static func weekdayLabel(_ idx: Int) -> String {
-        ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"][idx]
+        [
+            String(localized: "Monday"), String(localized: "Tuesday"), String(localized: "Wednesday"),
+            String(localized: "Thursday"), String(localized: "Friday"), String(localized: "Saturday"),
+            String(localized: "Sunday"),
+        ][idx]
     }
 }

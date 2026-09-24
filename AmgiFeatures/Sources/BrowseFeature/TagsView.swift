@@ -81,8 +81,10 @@ package struct TagsView: View {
                 Button("OK") { model.lastCleanupCount = nil }
             } message: { count in
                 Text(count == 0
-                    ? "Every tag in your collection is still in use."
-                    : "Removed \(count) tag\(count == 1 ? "" : "s") that no note was using.")
+                    ? String(localized: "Every tag in your collection is still in use.")
+                    : count == 1
+                        ? String(localized: "Removed \(count) tag that no note was using.")
+                        : String(localized: "Removed \(count) tags that no note was using."))
             }
     }
 
@@ -108,9 +110,9 @@ package struct TagsView: View {
 
     private var navigationTitle: String {
         switch noteMode {
-        case .addToNotes: return "Add Tag"
-        case .removeFromNotes: return "Remove Tag"
-        case .manage: return isNoteMode ? "Tags on Notes" : "Tags"
+        case .addToNotes: return String(localized: "Add Tag")
+        case .removeFromNotes: return String(localized: "Remove Tag")
+        case .manage: return isNoteMode ? String(localized: "Tags on Notes") : String(localized: "Tags")
         }
     }
 
@@ -120,7 +122,9 @@ package struct TagsView: View {
         List {
             if isNoteMode {
                 Section {
-                    Label("Tap a tag to act on \(targetNoteIDs.count) selected note\(targetNoteIDs.count == 1 ? "" : "s")", systemImage: "doc.text")
+                    Label(targetNoteIDs.count == 1
+                        ? "Tap a tag to act on 1 selected note"
+                        : "Tap a tag to act on \(targetNoteIDs.count) selected notes", systemImage: "doc.text")
                         .amgiFont(.caption)
                         .foregroundStyle(palette.textSecondary)
                 }
@@ -175,7 +179,7 @@ package struct TagsView: View {
             .alert("Couldn't update tags", isPresented: Binding($model.errorMessage)) {
                 Button("OK") {}
             } message: {
-                Text(model.errorMessage ?? "An unknown error occurred.")
+                Text(model.errorMessage ?? String(localized: "An unknown error occurred."))
             }
             .confirmationDialog(
                 pendingNoteActionTag ?? "",
@@ -183,10 +187,14 @@ package struct TagsView: View {
                 titleVisibility: .visible,
                 presenting: pendingNoteActionTag
             ) { tag in
-                Button("Apply to \(targetNoteIDs.count) note\(targetNoteIDs.count == 1 ? "" : "s")") {
+                Button(targetNoteIDs.count == 1
+                    ? String(localized: "Apply to \(targetNoteIDs.count) note")
+                    : String(localized: "Apply to \(targetNoteIDs.count) notes")) {
                     Task { await applyTag(tag) }
                 }
-                Button("Remove from \(targetNoteIDs.count) note\(targetNoteIDs.count == 1 ? "" : "s")", role: .destructive) {
+                Button(targetNoteIDs.count == 1
+                    ? String(localized: "Remove from \(targetNoteIDs.count) note")
+                    : String(localized: "Remove from \(targetNoteIDs.count) notes"), role: .destructive) {
                     Task { await removeTagFromSelectedNotes(tag) }
                 }
                 Button("Cancel", role: .cancel) {}
@@ -233,7 +241,9 @@ package struct TagsView: View {
             Form {
                 if isNoteMode {
                     Section("Selected Notes") {
-                        Text("The new tag will be applied to \(targetNoteIDs.count) selected note\(targetNoteIDs.count == 1 ? "" : "s").")
+                        Text(targetNoteIDs.count == 1
+                            ? String(localized: "The new tag will be applied to \(targetNoteIDs.count) selected note.")
+                            : String(localized: "The new tag will be applied to \(targetNoteIDs.count) selected notes."))
                             .amgiFont(.caption)
                             .foregroundStyle(palette.textSecondary)
                     }
